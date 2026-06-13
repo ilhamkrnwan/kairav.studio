@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Kairav Studio - Coming Soon"
+  description="Kairav Studio is preparing a premium web experience for brands that care about design, performance, SEO, and scalable digital systems."
+>
+  <main class="min-h-dvh overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]">
+    <section class="relative grid min-h-dvh place-items-center px-6 py-12">
+      <div class="absolute inset-0 hero-background"></div>
+      <div class="absolute inset-0 grid-pattern opacity-70"></div>
+      <div class="absolute inset-0 noise-layer"></div>
+
+      <div class="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center">
+        <div class="brand-lockup" aria-label="Kairav Studio">
+          <img
+            class="brand-mark"
+            src="/logo-mark.png"
+            alt=""
+            width="640"
+            height="640"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <div class="brand-wordmark" aria-hidden="true">
+            <span class="brand-name">KAIRAV</span>
+            <span class="brand-studio">STUDIO</span>
+          </div>
+        </div>
+
+        <p class="mb-6 inline-flex rounded-full border border-[var(--color-border)] bg-[var(--color-surface-glass)] px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-[var(--color-primary)] backdrop-blur">
+          Premium web experience studio
+        </p>
+
+        <h1 class="max-w-4xl font-heading text-5xl font-semibold leading-[0.98] text-balance sm:text-6xl lg:text-7xl">
+          Kairav Studio is coming soon.
+        </h1>
+
+        <p class="mt-7 max-w-2xl text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">
+          We are building a sharper home for modern brand websites, performance-first digital experiences, SEO/GEO-ready content, and scalable custom systems.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <a class="button-primary" href="mailto:hello@kairav.studio">hello@kairav.studio</a>
+          <span class="button-secondary">Beautiful websites. Serious performance.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

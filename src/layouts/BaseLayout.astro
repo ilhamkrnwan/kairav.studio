@@ -1,0 +1,34 @@
+---
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/jetbrains-mono/500.css";
+import "@fontsource/space-grotesk/600.css";
+import "@fontsource/syncopate/400.css";
+import "@fontsource/syncopate/700.css";
+import "../styles/global.css";
+
+const {
+  title = "Kairav Studio",
+  description = "Kairav Studio builds modern brand websites, SEO/GEO-ready content architecture, and scalable digital systems.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kairav.studio" />
+    <link rel="canonical" href="https://kairav.studio" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

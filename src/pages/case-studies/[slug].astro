@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Badge from "../../components/common/Badge.astro";
+import Button from "../../components/common/Button.astro";
+import Container from "../../components/common/Container.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+import { projects } from "../../data/projects";
+import type { Project } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout
+  title={`${project.title} Case Study - Kairav Studio`}
+  description={project.summary}
+  canonicalPath={`/case-studies/${project.slug}`}
+>
+  <main>
+    <section class="border-b border-[var(--color-border)] py-20 sm:py-24">
+      <Container>
+        <div class="max-w-4xl">
+          <div class="mb-5 flex flex-wrap gap-2">
+            <Badge>{project.type}</Badge>
+            <Badge>{project.year}</Badge>
+          </div>
+          <h1 class="font-heading text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl lg:text-6xl">
+            {project.title}
+          </h1>
+          <p class="mt-6 max-w-3xl text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">
+            {project.summary}
+          </p>
+          <div class="mt-8">
+            <Button href="/works" variant="secondary">Back to Works</Button>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing">
+      <Container>
+        <div class="grid gap-6 lg:grid-cols-2">
+          <article class="card-surface p-6">
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Problem</h2>
+            <p class="mt-4 leading-7 text-[var(--color-text-soft)]">{project.problem}</p>
+          </article>
+          <article class="card-surface p-6">
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Solution</h2>
+            <p class="mt-4 leading-7 text-[var(--color-text-soft)]">{project.solution}</p>
+          </article>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing bg-[var(--color-background-soft)]">
+      <Container>
+        <div class="grid gap-8 lg:grid-cols-[1fr_0.8fr]">
+          <div>
+            <h2 class="font-heading text-3xl font-semibold text-[var(--color-text)]">Technical Approach</h2>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              {project.features.map((feature) => (
+                <div class="card-surface p-5">
+                  <p class="font-semibold text-[var(--color-text)]">{feature}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <aside class="card-surface p-6">
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Result</h2>
+            <p class="mt-4 text-sm leading-6 text-[var(--color-text-soft)]">{project.outcome}</p>
+            <div class="mt-7">
+              <p class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">Stack</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {project.stack.map((item) => <span class="tag-muted">{item}</span>)}
+              </div>
+            </div>
+            <div class="mt-7">
+              <p class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">Credits</p>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">{project.contributors.join(", ")}</p>
+            </div>
+          </aside>
+        </div>
+      </Container>
+    </section>
+
+    <CTASection />
+  </main>
+</BaseLayout>

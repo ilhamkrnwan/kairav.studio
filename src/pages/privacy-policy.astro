@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/common/Container.astro";
+import PageHero from "../components/sections/PageHero.astro";
+---
+
+<BaseLayout
+  title="Privacy Policy - Kairav Studio"
+  description="Kairav Studio privacy policy for website visitors and project inquiries."
+>
+  <main>
+    <PageHero
+      eyebrow="Legal"
+      title="Privacy Policy"
+      description="A simple policy for how Kairav Studio handles basic website and inquiry information."
+    />
+
+    <section class="section-spacing">
+      <Container class="max-w-3xl">
+        <div class="grid gap-8 text-base leading-8 text-[var(--color-text-soft)]">
+          <section>
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Information We Collect</h2>
+            <p class="mt-4">
+              We may collect information you send through email, contact forms, or project inquiries, such as your name, email address, company, and project notes.
+            </p>
+          </section>
+          <section>
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">How We Use It</h2>
+            <p class="mt-4">
+              We use submitted information to reply to inquiries, plan project discussions, provide services, and improve our communication process.
+            </p>
+          </section>
+          <section>
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Third Parties</h2>
+            <p class="mt-4">
+              We do not sell personal information. Some basic data may be processed by email, hosting, analytics, or collaboration tools used to operate the website and studio workflow.
+            </p>
+          </section>
+          <section>
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Contact</h2>
+            <p class="mt-4">
+              For privacy questions, contact us at <a class="link-accent" href="mailto:hello@kairav.studio">hello@kairav.studio</a>.
+            </p>
+          </section>
+        </div>
+      </Container>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/common/Button.astro";
+import Container from "../components/common/Container.astro";
+import PageHero from "../components/sections/PageHero.astro";
+---
+
+<BaseLayout
+  title="Contact - Kairav Studio"
+  description="Contact Kairav Studio for website, web app, SEO/GEO, AI automation, and maintenance projects."
+>
+  <main>
+    <PageHero
+      eyebrow="Contact"
+      title="Start with the goal, the problem, or the rough idea."
+      description="Tell us what you are building, what needs to improve, or what kind of digital system your team needs next."
+    />
+
+    <section class="section-spacing">
+      <Container>
+        <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <aside class="card-surface p-6">
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Contact Info</h2>
+            <div class="mt-6 grid gap-4">
+              <a class="link-accent" href="mailto:hello@kairav.studio">hello@kairav.studio</a>
+              <a class="link-accent" href="https://wa.me/6280000000000">WhatsApp</a>
+              <a class="link-accent" href="https://github.com/kairavstudio">GitHub</a>
+              <a class="link-accent" href="https://linkedin.com">LinkedIn</a>
+            </div>
+            <div class="mt-8">
+              <Button href="mailto:hello@kairav.studio">Email Us</Button>
+            </div>
+          </aside>
+
+          <form class="card-surface grid gap-5 p-6" action="mailto:hello@kairav.studio" method="post" enctype="text/plain">
+            <div>
+              <label class="mb-2 block text-sm font-semibold text-[var(--color-text)]" for="name">Name</label>
+              <input id="name" name="name" class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)]" />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-semibold text-[var(--color-text)]" for="email">Email</label>
+              <input id="email" name="email" type="email" class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)]" />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-semibold text-[var(--color-text)]" for="message">Project Notes</label>
+              <textarea id="message" name="message" rows="6" class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)]"></textarea>
+            </div>
+            <div>
+              <Button>Send Message</Button>
+            </div>
+          </form>
+        </div>
+      </Container>
+    </section>
+  </main>
+</BaseLayout>

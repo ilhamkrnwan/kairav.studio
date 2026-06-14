@@ -1,51 +1,282 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/common/Button.astro";
+import Container from "../components/common/Container.astro";
+import SectionHeading from "../components/common/SectionHeading.astro";
+import ServiceCard from "../components/cards/ServiceCard.astro";
+import ProjectCard from "../components/cards/ProjectCard.astro";
+import ContributorCard from "../components/cards/ContributorCard.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import { contributors } from "../data/contributors";
+import { projects } from "../data/projects";
+import { services } from "../data/services";
+
+const servicePreview = services;
+const projectPreview = projects.slice(0, 3);
+const contributorPreview = contributors.slice(0, 3);
+
+const faqs = [
+  {
+    question: "What does Kairav Studio build?",
+    answer:
+      "Kairav Studio builds brand websites, SEO/GEO-ready content structures, custom dashboards, AI integrations, Android applications, IoT dashboards, and API-based systems.",
+  },
+  {
+    question: "Is Kairav Studio only for website projects?",
+    answer:
+      "No. Websites are the main entry point, but the studio can also support scalable digital systems for operations, automation, and product workflows.",
+  },
+  {
+    question: "What makes the website SEO/GEO-ready?",
+    answer:
+      "Clear page intent, structured headings, useful content blocks, internal links, metadata, sitemap support, and service definitions that are easy for search engines and AI assistants to understand.",
+  },
+];
 ---
 
 <BaseLayout
-  title="Kairav Studio - Coming Soon"
-  description="Kairav Studio is preparing a premium web experience for brands that care about design, performance, SEO, and scalable digital systems."
+  title="Kairav Studio - Modern Web Studio"
+  description="Kairav Studio builds modern websites, custom web apps, SEO/GEO-ready content structures, and AI automation with an open-source collaborative spirit."
 >
-  <main class="min-h-dvh overflow-hidden bg-[var(--color-background)] text-[var(--color-text)]">
-    <section class="relative grid min-h-dvh place-items-center px-6 py-12">
-      <div class="absolute inset-0 hero-background"></div>
-      <div class="absolute inset-0 grid-pattern opacity-70"></div>
-      <div class="absolute inset-0 noise-layer"></div>
-
-      <div class="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center">
-        <div class="brand-lockup" aria-label="Kairav Studio">
-          <img
-            class="brand-mark"
-            src="/logo-mark.avif"
-            alt=""
-            width="640"
-            height="640"
-            decoding="async"
-            fetchpriority="high"
-          />
-          <div class="brand-wordmark" aria-hidden="true">
-            <span class="brand-name">KAIRAV</span>
-            <span class="brand-studio">STUDIO</span>
+  <main>
+    <section class="relative overflow-hidden border-b border-[var(--color-border)]">
+      <div class="absolute inset-0 hero-mesh opacity-80"></div>
+      <Container class="relative grid min-h-[calc(100dvh-4.5rem)] items-center gap-12 py-20 lg:grid-cols-[1.05fr_0.95fr]">
+        <div>
+          <p class="mb-5 font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">
+            Digital studio / open-source creative technology
+          </p>
+          <h1 class="max-w-4xl font-heading text-5xl font-semibold leading-[1.02] text-[var(--color-text)] sm:text-6xl lg:text-7xl">
+            Websites that look sharp, load fast, and stay discoverable.
+          </h1>
+          <p class="mt-7 max-w-2xl text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">
+            Kairav Studio builds modern brand websites, SEO/GEO-ready content architecture, and scalable digital systems for businesses that care about design, performance, and clarity.
+          </p>
+          <div class="mt-9 flex flex-wrap gap-3">
+            <Button href="/contact">Start a Project</Button>
+            <Button href="/works" variant="secondary">View Works</Button>
+            <Button href="https://github.com/kairavstudio" variant="ghost">Explore on GitHub</Button>
           </div>
         </div>
 
-        <p class="mb-6 inline-flex rounded-full border border-[var(--color-border)] bg-[var(--color-surface-glass)] px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-[var(--color-primary)] backdrop-blur">
-          Premium web experience studio
-        </p>
-
-        <h1 class="max-w-4xl font-heading text-5xl font-semibold leading-[0.98] text-balance sm:text-6xl lg:text-7xl">
-          Kairav Studio is coming soon.
-        </h1>
-
-        <p class="mt-7 max-w-2xl text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">
-          We are building a sharper home for modern brand websites, performance-first digital experiences, SEO/GEO-ready content, and scalable custom systems.
-        </p>
-
-        <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <a class="button-primary" href="mailto:hello@kairav.studio">hello@kairav.studio</a>
-          <span class="button-secondary">Beautiful websites. Serious performance.</span>
+        <div class="relative mx-auto w-full max-w-md lg:max-w-lg">
+          <div class="aspect-square rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-surface)] p-8 shadow-[0_28px_90px_rgba(0,0,0,0.35)]">
+            <div class="flex h-full flex-col items-center justify-center text-center">
+              <img
+                src="/logo-mark.avif"
+                alt="Kairav Studio logo mark"
+                class="h-40 w-40 object-contain sm:h-52 sm:w-52"
+                width="640"
+                height="640"
+                fetchpriority="high"
+              />
+              <p class="mt-8 font-brand text-lg tracking-[0.28em] text-[var(--color-text)]">KAIRAV</p>
+              <p class="mt-2 font-mono text-xs tracking-[0.48em] text-[var(--color-primary)]">STUDIO</p>
+            </div>
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
+
+    <section class="section-spacing">
+      <Container>
+        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <SectionHeading
+            eyebrow="Value"
+            title="Built for brands that need more than a pretty page."
+            description="We combine interface design, performance, content structure, and maintainable engineering so the website can keep growing after launch."
+          />
+          <div class="grid gap-4 sm:grid-cols-2">
+            {["Clean UI/UX", "Fast Astro builds", "SEO/GEO structure", "Scalable components"].map((item) => (
+              <div class="card-surface p-5">
+                <h3 class="font-heading text-lg font-semibold text-[var(--color-text)]">{item}</h3>
+                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
+                  Practical foundations for a sharper digital presence and easier future iteration.
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing bg-[var(--color-background-soft)]">
+      <Container>
+        <div class="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <SectionHeading
+            eyebrow="Services"
+            title="Focused services for modern digital teams."
+            description="Concise, collaborative work across websites, systems, optimization, and automation."
+          />
+          <Button href="/services" variant="secondary">All Services</Button>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {servicePreview.map((service) => <ServiceCard service={service} />)}
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing">
+      <Container>
+        <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <SectionHeading
+            eyebrow="Performance"
+            title="Performance is part of the user experience."
+            description="A polished website should also be lightweight, responsive, and structured to keep Core Web Vitals healthy."
+          />
+          <div class="grid gap-4 sm:grid-cols-2">
+            {["Static-first pages", "Optimized assets", "Clean component structure", "Reduced JavaScript"].map((item) => (
+              <div class="card-surface p-5">
+                <h3 class="font-heading text-lg font-semibold text-[var(--color-text)]">{item}</h3>
+                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
+                  Practical choices that keep the site fast without sacrificing the brand experience.
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing bg-[var(--color-background-soft)]">
+      <Container>
+        <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div class="grid gap-4 sm:grid-cols-2">
+            {["Technical SEO", "AI-readable structure", "Clear service definitions", "Useful content blocks"].map((item) => (
+              <div class="card-surface p-5">
+                <h3 class="font-heading text-lg font-semibold text-[var(--color-text)]">{item}</h3>
+                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
+                  Content and page structure that help humans, search engines, and AI systems understand the business.
+                </p>
+              </div>
+            ))}
+          </div>
+          <SectionHeading
+            eyebrow="SEO / GEO"
+            title="Built for search engines and AI-powered discovery."
+            description="Kairav Studio treats SEO and GEO as a structure problem first: headings, metadata, internal links, entities, and concise content."
+          />
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing">
+      <Container>
+        <div class="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <SectionHeading
+            eyebrow="Work"
+            title="A mix of internal, client, experimental, and open-source work."
+            description="The portfolio starts small and grows as projects become ready to share."
+          />
+          <Button href="/works" variant="secondary">View Works</Button>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          {projectPreview.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing bg-[var(--color-background-soft)]">
+      <Container>
+        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <SectionHeading
+            eyebrow="System Capability"
+            title="From high-performance websites to custom digital systems."
+            description="The studio can extend beyond landing pages into dashboards, API platforms, Android apps, IoT dashboards, payment integrations, and automation."
+          />
+          <div class="grid gap-4 sm:grid-cols-2">
+            {["Admin dashboard", "Order and inventory system", "AI-powered workflow", "Android, IoT, and API integration"].map((item) => (
+              <div class="card-surface p-5">
+                <h3 class="font-heading text-lg font-semibold text-[var(--color-text)]">{item}</h3>
+                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
+                  Built around real business needs, with interfaces that stay simple to use.
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing">
+      <Container>
+        <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <SectionHeading
+            eyebrow="Collaboration"
+            title="Open-source spirit, studio-level execution."
+            description="Kairav Studio is shaped with contributors, partners, and project notes that make the work easier to understand, review, and improve."
+          />
+          <div class="grid gap-4">
+            {["Transparent structure", "Reviewable task notes", "Contributor-friendly data", "Reusable project patterns"].map((item) => (
+              <div class="flex gap-4 border-b border-[var(--color-border)] pb-4">
+                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+                <div>
+                  <h3 class="font-heading text-lg font-semibold text-[var(--color-text)]">{item}</h3>
+                  <p class="mt-2 text-sm leading-6 text-[var(--color-text-soft)]">
+                    Clear enough for the team to extend, practical enough for real client and product work.
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing bg-[var(--color-background-soft)]">
+      <Container>
+        <SectionHeading
+          eyebrow="Core Contributors"
+          title="The people behind Kairav Studio."
+          description="The contributor structure is prepared for a future dedicated page, while v1 keeps the team story inside Home and About."
+        />
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          {contributorPreview.map((contributor) => <ContributorCard contributor={contributor} />)}
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing">
+      <Container>
+        <SectionHeading
+          eyebrow="Process"
+          title="A simple workflow that keeps projects moving."
+          description="Every project starts with clarity, then moves through design, build, review, and launch."
+          align="center"
+        />
+        <div class="mt-10 grid gap-5 md:grid-cols-4">
+          {["Discover", "Design", "Build", "Launch"].map((step, index) => (
+            <div class="card-surface p-5">
+              <p class="font-mono text-xs font-semibold text-[var(--color-primary)]">0{index + 1}</p>
+              <h3 class="mt-5 font-heading text-xl font-semibold text-[var(--color-text)]">{step}</h3>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
+                A clear step with focused output, review notes, and next actions.
+              </p>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing bg-[var(--color-background-soft)]">
+      <Container>
+        <SectionHeading
+          eyebrow="FAQ"
+          title="Clear answers before the first call."
+          description="Simple context for brands and teams considering a website or digital system project."
+          align="center"
+        />
+        <div class="mx-auto mt-10 grid max-w-4xl gap-4">
+          {faqs.map((faq) => (
+            <article class="card-surface p-6">
+              <h3 class="font-heading text-xl font-semibold text-[var(--color-text)]">{faq.question}</h3>
+              <p class="mt-3 text-sm leading-7 text-[var(--color-text-soft)]">{faq.answer}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <CTASection />
   </main>
 </BaseLayout>

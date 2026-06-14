@@ -1,0 +1,24 @@
+---
+import Badge from "../common/Badge.astro";
+import type { Project } from "../../data/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<a href={`/case-studies/${project.slug}`} class="card-surface group block h-full p-6">
+  <div class="mb-8 flex flex-wrap items-center gap-2">
+    <Badge>{project.type}</Badge>
+    <span class="font-mono text-xs text-[var(--color-text-subtle)]">{project.year}</span>
+  </div>
+  <h3 class="font-heading text-2xl font-semibold text-[var(--color-text)] group-hover:text-[var(--color-primary)]">
+    {project.title}
+  </h3>
+  <p class="mt-4 text-sm leading-6 text-[var(--color-text-soft)]">{project.summary}</p>
+  <div class="mt-6 flex flex-wrap gap-2">
+    {project.stack.slice(0, 3).map((item) => <span class="tag-muted">{item}</span>)}
+  </div>
+</a>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/common/Container.astro";
+import ProjectCard from "../../components/cards/ProjectCard.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+import PageHero from "../../components/sections/PageHero.astro";
+import { projects } from "../../data/projects";
+---
+
+<BaseLayout
+  title="Works - Kairav Studio"
+  description="Browse Kairav Studio works, selected projects, internal experiments, and case studies."
+>
+  <main>
+    <PageHero
+      eyebrow="Works"
+      title="Selected work across websites, systems, and experiments."
+      description="A growing collection of client work, internal tools, open-source starters, and creative technology experiments."
+    />
+
+    <section class="section-spacing">
+      <Container>
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </Container>
+    </section>
+
+    <CTASection
+      eyebrow="Work With Us"
+      title="Have a project that should be clearer, faster, or easier to maintain?"
+      description="Bring the problem, the goal, or the rough idea. We will help shape the right path."
+    />
+  </main>
+</BaseLayout>

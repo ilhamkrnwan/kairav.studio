@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Badge from "../../components/common/Badge.astro";
+import Button from "../../components/common/Button.astro";
+import Container from "../../components/common/Container.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+import { blogPosts } from "../../data/blog";
+import type { BlogPost } from "../../data/blog";
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+---
+
+<BaseLayout title={`${post.title} - Kairav Studio`} description={post.description} canonicalPath={`/insights/${post.slug}`}>
+  <main>
+    <article>
+      <section class="border-b border-[var(--color-border)] py-20 sm:py-24">
+        <Container>
+          <div class="max-w-3xl">
+            <Badge>{post.category}</Badge>
+            <h1 class="mt-6 font-heading text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl">
+              {post.title}
+            </h1>
+            <p class="mt-6 text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">{post.description}</p>
+            <p class="mt-6 font-mono text-xs text-[var(--color-text-subtle)]">
+              {post.date} / {post.readingTime}
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      <section class="section-spacing">
+        <Container class="max-w-3xl">
+          <div class="grid gap-10">
+            {post.sections.map((section) => (
+              <section>
+                <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">{section.heading}</h2>
+                <p class="mt-4 text-base leading-8 text-[var(--color-text-soft)]">{section.body}</p>
+              </section>
+            ))}
+          </div>
+          <div class="mt-12">
+            <Button href="/insights" variant="secondary">Back to Insights</Button>
+          </div>
+        </Container>
+      </section>
+    </article>
+
+    <CTASection />
+  </main>
+</BaseLayout>

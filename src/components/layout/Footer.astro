@@ -1,0 +1,48 @@
+---
+const year = new Date().getFullYear();
+const links = [
+  { href: "/services", label: "Services" },
+  { href: "/works", label: "Works" },
+  { href: "/about", label: "About" },
+  { href: "/insights", label: "Insights" },
+  { href: "/privacy-policy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+];
+---
+
+<footer class="border-t border-[var(--color-border)] bg-[var(--color-background-soft)]">
+  <div class="mx-auto grid w-full max-w-6xl gap-10 px-5 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+    <div>
+      <a href="/" class="inline-flex items-center gap-3" aria-label="Kairav Studio home">
+        <img src="/logo-mark.avif" alt="" class="h-11 w-11" width="80" height="80" />
+        <span>
+          <span class="block font-brand text-sm tracking-[0.28em] text-[var(--color-text)]">KAIRAV</span>
+          <span class="mt-1 block font-mono text-[0.58rem] tracking-[0.48em] text-[var(--color-primary)]">STUDIO</span>
+        </span>
+      </a>
+      <p class="mt-5 max-w-xl text-sm leading-7 text-[var(--color-text-soft)]">
+        A digital studio and open-source creative technology project for modern websites, web apps, AI integration, and maintainable digital systems.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      <div>
+        <h2 class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">Explore</h2>
+        <div class="mt-4 grid gap-3">
+          {links.map((link) => <a class="link-muted" href={link.href}>{link.label}</a>)}
+        </div>
+      </div>
+      <div>
+        <h2 class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">Contact</h2>
+        <div class="mt-4 grid gap-3">
+          <a class="link-muted" href="mailto:hello@kairav.studio">hello@kairav.studio</a>
+          <a class="link-muted" href="https://github.com/kairavstudio">GitHub</a>
+          <a class="link-muted" href="/contact">Start a Project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-[var(--color-border)] px-5 py-5 text-center text-xs text-[var(--color-text-subtle)]">
+    © {year} Kairav Studio. Built with Astro.
+  </div>
+</footer>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/common/Container.astro";
+import SectionHeading from "../components/common/SectionHeading.astro";
+import ContributorCard from "../components/cards/ContributorCard.astro";
+import CTASection from "../components/sections/CTASection.astro";
+import PageHero from "../components/sections/PageHero.astro";
+import { contributors } from "../data/contributors";
+---
+
+<BaseLayout
+  title="About - Kairav Studio"
+  description="Learn about Kairav Studio, a collaborative digital studio and open-source creative technology project."
+>
+  <main>
+    <PageHero
+      eyebrow="About"
+      title="A studio for modern web experiences and collaborative digital systems."
+      description="Kairav Studio exists to help brands and projects build websites that feel considered, load quickly, and stay maintainable as the team grows."
+    />
+
+    <section class="section-spacing">
+      <Container>
+        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <SectionHeading
+            eyebrow="Positioning"
+            title="Premium, practical, and open to collaboration."
+            description="We care about visual identity, interface clarity, performance, SEO/GEO structure, and the small engineering decisions that make a site easier to evolve."
+          />
+          <div class="grid gap-4">
+            {["Modern web craft", "Open-source mindset", "Clear delivery process"].map((item) => (
+              <div class="card-surface p-5">
+                <h2 class="font-heading text-xl font-semibold text-[var(--color-text)]">{item}</h2>
+                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
+                  We keep the work transparent, component-based, and structured enough for contributors and clients to understand.
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing bg-[var(--color-background-soft)]">
+      <Container>
+        <SectionHeading
+          eyebrow="Values"
+          title="What guides the work."
+          description="The studio should feel polished, but the process should stay simple and honest."
+        />
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          {["Clarity before complexity", "Performance as default", "Systems that invite contribution"].map((value) => (
+            <article class="card-surface p-6">
+              <h2 class="font-heading text-xl font-semibold text-[var(--color-text)]">{value}</h2>
+              <p class="mt-4 text-sm leading-6 text-[var(--color-text-soft)]">
+                Practical decisions, clean structure, and useful notes help the work stay readable after launch.
+              </p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-spacing">
+      <Container>
+        <SectionHeading
+          eyebrow="Core Contributors"
+          title="The people behind Kairav Studio."
+          description="For v1, contributor profiles live here and on Home. The data is ready to become a dedicated page later."
+        />
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          {contributors.map((contributor) => <ContributorCard contributor={contributor} />)}
+        </div>
+      </Container>
+    </section>
+
+    <CTASection />
+  </main>
+</BaseLayout>

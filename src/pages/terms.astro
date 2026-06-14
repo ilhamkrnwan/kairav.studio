@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/common/Container.astro";
+import PageHero from "../components/sections/PageHero.astro";
+---
+
+<BaseLayout
+  title="Terms of Service - Kairav Studio"
+  description="Kairav Studio terms of service for website visitors and project discussions."
+>
+  <main>
+    <PageHero
+      eyebrow="Legal"
+      title="Terms of Service"
+      description="A simple terms template for using the Kairav Studio website and starting project conversations."
+    />
+
+    <section class="section-spacing">
+      <Container class="max-w-3xl">
+        <div class="grid gap-8 text-base leading-8 text-[var(--color-text-soft)]">
+          <section>
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Website Use</h2>
+            <p class="mt-4">
+              This website is provided for information, project inquiries, and studio updates. Do not misuse the site or attempt to disrupt its operation.
+            </p>
+          </section>
+          <section>
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Project Discussions</h2>
+            <p class="mt-4">
+              Sending an inquiry does not create a formal agreement. Project scope, timeline, deliverables, and payment terms must be confirmed separately.
+            </p>
+          </section>
+          <section>
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Content</h2>
+            <p class="mt-4">
+              Website content may change over time. Portfolio, service, and blog content is provided as general information unless stated otherwise.
+            </p>
+          </section>
+          <section>
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Contact</h2>
+            <p class="mt-4">
+              For terms questions, contact us at <a class="link-accent" href="mailto:hello@kairav.studio">hello@kairav.studio</a>.
+            </p>
+          </section>
+        </div>
+      </Container>
+    </section>
+  </main>
+</BaseLayout>

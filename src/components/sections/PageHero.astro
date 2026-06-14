@@ -1,0 +1,29 @@
+---
+import Container from "../common/Container.astro";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+}
+
+const { eyebrow, title, description } = Astro.props;
+---
+
+<section class="border-b border-[var(--color-border)] py-20 sm:py-24">
+  <Container>
+    <div class="max-w-4xl">
+      {eyebrow && <p class="mb-4 font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">{eyebrow}</p>}
+      <h1 class="font-heading text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl lg:text-6xl">
+        {title}
+      </h1>
+      {
+        description && (
+          <p class="mt-6 max-w-3xl text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">
+            {description}
+          </p>
+        )
+      }
+    </div>
+  </Container>
+</section>

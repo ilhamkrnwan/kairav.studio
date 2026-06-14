@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Badge from "../../components/common/Badge.astro";
+import Container from "../../components/common/Container.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+import PageHero from "../../components/sections/PageHero.astro";
+import { blogPosts } from "../../data/blog";
+---
+
+<BaseLayout
+  title="Insights - Kairav Studio"
+  description="Read Kairav Studio insights about website performance, SEO, GEO, UI/UX, Astro, AI integration, and custom systems."
+>
+  <main>
+    <PageHero
+      eyebrow="Insights"
+      title="Useful notes on websites, SEO/GEO, AI, and custom systems."
+      description="Short writing for brands and teams that want stronger digital presence and clearer technology decisions."
+    />
+
+    <section class="section-spacing">
+      <Container>
+        <div class="grid gap-5 md:grid-cols-3">
+          {blogPosts.map((post) => (
+            <a href={`/insights/${post.slug}`} class="card-surface group block p-6">
+              <Badge>{post.category}</Badge>
+              <h2 class="mt-6 font-heading text-2xl font-semibold text-[var(--color-text)] group-hover:text-[var(--color-primary)]">
+                {post.title}
+              </h2>
+              <p class="mt-4 text-sm leading-6 text-[var(--color-text-soft)]">{post.description}</p>
+              <p class="mt-6 font-mono text-xs text-[var(--color-text-subtle)]">
+                {post.date} / {post.readingTime}
+              </p>
+            </a>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <CTASection />
+  </main>
+</BaseLayout>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/common/Button.astro";
+import Container from "../components/common/Container.astro";
+---
+
+<BaseLayout
+  title="Page Not Found - Kairav Studio"
+  description="The page you are looking for could not be found."
+>
+  <main>
+    <section class="grid min-h-[70dvh] place-items-center border-b border-[var(--color-border)] py-20">
+      <Container>
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">404</p>
+          <h1 class="mt-4 font-heading text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-6xl">
+            This page is not part of the studio map.
+          </h1>
+          <p class="mt-6 text-base leading-8 text-[var(--color-text-soft)]">
+            The link may have moved, or the project note has not been published yet.
+          </p>
+          <div class="mt-9 flex flex-wrap justify-center gap-3">
+            <Button href="/">Go Home</Button>
+            <Button href="/works" variant="secondary">View Works</Button>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </main>
+</BaseLayout>

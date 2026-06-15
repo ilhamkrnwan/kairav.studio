@@ -1,0 +1,23 @@
+---
+/**
+ * Subtle technical grid background.
+ * Use `variant="light"` over the light base, `variant="dark"` inside a
+ * dark accent section. Purely decorative — sits behind content.
+ */
+interface Props {
+  variant?: "light" | "dark";
+  class?: string;
+}
+
+const { variant = "light", class: className = "" } = Astro.props;
+---
+
+<div
+  aria-hidden="true"
+  class:list={[
+    "pointer-events-none absolute inset-0",
+    variant === "dark" ? "dark-mesh" : "hero-mesh",
+    className,
+  ]}
+>
+</div>

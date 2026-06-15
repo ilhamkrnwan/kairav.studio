@@ -1,0 +1,132 @@
+---
+import Container from "../common/Container.astro";
+import SectionHeading from "../common/SectionHeading.astro";
+import FeatureCard from "../cards/FeatureCard.astro";
+
+/**
+ * "Everything you need" dark bento feature section.
+ * Uses a varied bento grid with icons, external images, and
+ * accent colors for a premium, modern feel.
+ */
+
+/* ── SVG icon library (inline for perf, no extra deps) ── */
+const icons = {
+  palette: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>`,
+  bolt: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+  search: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8a3 3 0 0 0-3 3"/></svg>`,
+  server: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>`,
+  code: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  sparkles: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>`,
+};
+
+interface Feature {
+  title: string;
+  description: string;
+  icon?: string;
+  image?: string;
+  accent?: string;
+  span?: 1 | 2;
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  features?: Feature[];
+}
+
+const {
+  eyebrow = "Fully Featured",
+  title = "Everything you need to ship a modern website.",
+  description = "Kairav Studio brings design, performance, content structure, and maintainable engineering together. Need more? We extend with the right tools.",
+  features = [
+    {
+      title: "Design-led interfaces",
+      description:
+        "Sharp, considered UI/UX with reusable components that stay consistent as the site grows.",
+      icon: icons.palette,
+      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=720&h=400&fit=crop&q=80",
+      accent: "rgba(139, 92, 246, 0.6)",
+      span: 2,
+    },
+    {
+      title: "Fast by default",
+      description:
+        "Static-first Astro builds, optimized assets, and minimal JavaScript for healthy Core Web Vitals.",
+      icon: icons.bolt,
+      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=720&h=400&fit=crop&q=80",
+      accent: "rgba(56, 189, 248, 0.6)",
+    },
+    {
+      title: "SEO & GEO structure",
+      description:
+        "Clear headings, metadata, internal links, and entity-based content for search engines and AI discovery.",
+      icon: icons.search,
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=720&h=400&fit=crop&q=80",
+      accent: "rgba(56, 189, 248, 0.6)",
+    },
+    {
+      title: "Scalable systems",
+      description:
+        "From landing pages to dashboards, APIs, AI workflows, and Android/IoT integrations.",
+      icon: icons.server,
+      image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=720&h=400&fit=crop&q=80",
+      accent: "rgba(182, 255, 92, 0.5)",
+      span: 2,
+    },
+    {
+      title: "Open-source spirit",
+      description:
+        "Transparent structure, reviewable notes, and contributor-friendly patterns from day one.",
+      icon: icons.code,
+      accent: "rgba(182, 255, 92, 0.5)",
+    },
+    {
+      title: "Maintainable foundations",
+      description:
+        "Typed data, clean components, and documented choices that keep the work easy to evolve.",
+      icon: icons.sparkles,
+      accent: "rgba(251, 191, 36, 0.5)",
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="dark-fx relative overflow-hidden section-spacing">
+  <Container>
+    <SectionHeading eyebrow={eyebrow} title={title} description={description} />
+    <div class="feature-bento mt-12">
+      {
+        features.map((feature) => (
+          <FeatureCard
+            title={feature.title}
+            description={feature.description}
+            icon={feature.icon}
+            image={feature.image}
+            accent={feature.accent}
+            class={feature.span === 2 ? "bento-wide" : ""}
+          />
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<script>
+  // Track the pointer over each feature card and expose it as --mx/--my
+  // so the glow + border highlight follow the cursor (astro.build style).
+  const initGlowCards = () => {
+    const cards = document.querySelectorAll<HTMLElement>("[data-feature-card]");
+    for (const card of cards) {
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty("--mx", `${x}%`);
+        card.style.setProperty("--my", `${y}%`);
+      });
+    }
+  };
+
+  document.addEventListener("astro:page-load", initGlowCards);
+</script>

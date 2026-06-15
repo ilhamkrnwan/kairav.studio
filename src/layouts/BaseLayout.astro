@@ -8,6 +8,7 @@ import "@fontsource/syncopate/400.css";
 import "@fontsource/syncopate/700.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
 const {
@@ -35,8 +36,9 @@ const canonicalUrl = new URL(canonicalPath, "https://kairav.studio").toString();
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#020303" />
+    <meta name="theme-color" content="#080808" />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body class="min-h-dvh bg-[var(--color-background)] text-[var(--color-text)]">
     <Header />

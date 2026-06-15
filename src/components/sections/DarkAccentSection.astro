@@ -1,0 +1,29 @@
+---
+import Container from "../common/Container.astro";
+
+/**
+ * Full-width dark technical accent section.
+ * Flips theme tokens to the dark palette (see `.dark-section` in global.css)
+ * so nested components (cards, badges, headings) adapt automatically, and
+ * layers the dark atmosphere effect (`.dark-fx`): spotlight radial fade,
+ * glowing grid lines, and soft noise grain.
+ * Use sparingly and always as a full section — open-source, "built together",
+ * or a punchy CTA — to keep the dark accent feeling intentional.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<section
+  class:list={[
+    "dark-section dark-fx relative overflow-hidden section-spacing",
+    className,
+  ]}
+>
+  <Container>
+    <slot />
+  </Container>
+</section>

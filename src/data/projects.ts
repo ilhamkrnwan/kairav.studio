@@ -10,6 +10,8 @@ export type Project = {
   stack: string[];
   outcome: string;
   contributors: string[];
+  image?: string;
+  accent?: string;
 };
 
 export const projects: Project[] = [
@@ -27,6 +29,8 @@ export const projects: Project[] = [
     stack: ["Astro", "Tailwind CSS", "TypeScript"],
     outcome: "A practical starting point for Kairav Studio's own site and future collaborative builds.",
     contributors: ["Kairav Core", "Open Contributors"],
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop&q=80",
+    accent: "#7c5cfc",
   },
   {
     slug: "brand-web-starter",
@@ -42,6 +46,8 @@ export const projects: Project[] = [
     stack: ["Astro", "Tailwind CSS"],
     outcome: "A clearer pattern for contributors to extend pages and content safely.",
     contributors: ["Kairav Core"],
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=500&fit=crop&q=80",
+    accent: "#2563eb",
   },
   {
     slug: "ai-workflow-lab",
@@ -57,5 +63,7 @@ export const projects: Project[] = [
     stack: ["Astro", "AI APIs", "Automation"],
     outcome: "A lightweight lab for ideas that can become useful product features later.",
     contributors: ["Open Contributors", "Project Partners"],
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop&q=80",
+    accent: "#f97316",
   },
 ];

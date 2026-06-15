@@ -1,10 +1,16 @@
 ---
+import { getLangFromUrl, localizePath, useTranslations, type Lang } from "../../i18n/ui";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const nextLang: Lang = lang === "id" ? "en" : "id";
+
 const navItems = [
-  { href: "/works", label: "Work" },
-  { href: "/services", label: "Services" },
-  { href: "/insights", label: "Insights" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/works", label: t("nav.work") },
+  { href: "/services", label: t("nav.services") },
+  { href: "/insights", label: t("nav.insights") },
+  { href: "/about", label: t("nav.about") },
+  { href: "/contact", label: t("nav.contact") },
 ];
 
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -15,52 +21,126 @@ const isActive = (href: string) => {
 };
 ---
 
-<header class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[rgba(8,8,8,0.78)] backdrop-blur-xl">
-  <div class="mx-auto flex min-h-18 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-6 lg:px-8">
-    <a href="/" class="flex items-center gap-3" aria-label="Kairav Studio home">
-      <img src="/logo-mark.avif" alt="" class="h-10 w-10" width="80" height="80" />
-      <span class="flex flex-col leading-none">
-        <span class="font-brand text-sm tracking-[0.28em] text-[var(--color-text)]">KAIRAV</span>
-        <span class="mt-1 font-mono text-[0.58rem] tracking-[0.48em] text-[var(--color-primary)]">STUDIO</span>
+<header class="site-header" data-site-header>
+  <div class="site-topbar">
+    <a href="/" class="site-logo" aria-label="Kairav Studio home">
+      <img src="/logo-mark.avif" alt="" class="site-logo__mark" width="80" height="80" />
+      <span class="site-logo__text">
+        <span class="site-logo__name">KAIRAV</span>
+        <span class="site-logo__studio">STUDIO</span>
       </span>
     </a>
 
-    <nav class="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
-      {
-        navItems.map((item) => (
-          <a
-            href={item.href}
-            class:list={[
-              "rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-text-soft)] transition hover:bg-[var(--color-surface-glass)] hover:text-[var(--color-text)]",
-              isActive(item.href) && "bg-[var(--color-primary-soft)] text-[var(--color-primary)]",
-            ]}
-          >
-            {item.label}
-          </a>
-        ))
-      }
-    </nav>
-
-    <a
-      href="/contact"
-      class="inline-flex min-h-10 items-center rounded-full border border-[var(--color-border-strong)] px-4 text-sm font-bold text-[var(--color-text)] transition hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
-    >
-      Start
-    </a>
+    <div class="site-actions" aria-label="Site actions">
+      <button class="site-menu-toggle" type="button" aria-controls="site-menu" aria-expanded="false" data-menu-toggle>
+        <span class="sr-only">{t("nav.menu")}</span>
+        <span class="site-menu-toggle__line"></span>
+        <span class="site-menu-toggle__line"></span>
+        <span class="site-menu-toggle__line"></span>
+      </button>
+      <a class="site-icon-link" href="/contact" aria-label={t("nav.start")}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 7h12v14H6z"></path>
+          <path d="M9 7a3 3 0 0 1 6 0"></path>
+        </svg>
+      </a>
+      <a class="site-icon-link" href="mailto:hello@kairav.studio" aria-label={t("nav.email")}>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 21a8 8 0 0 1 16 0"></path>
+        </svg>
+      </a>
+      <a class="site-lang site-lang--rail" href={localizePath(Astro.url.pathname, nextLang)}>{t("nav.switch")}</a>
+    </div>
   </div>
-  <nav class="flex gap-1 overflow-x-auto border-t border-[var(--color-border)] px-4 py-3 md:hidden" aria-label="Mobile navigation">
-    {
-      navItems.map((item) => (
-        <a
-          href={item.href}
-          class:list={[
-            "shrink-0 rounded-full px-4 py-2 text-sm font-semibold text-[var(--color-text-soft)]",
-            isActive(item.href) && "bg-[var(--color-primary-soft)] text-[var(--color-primary)]",
-          ]}
-        >
-          {item.label}
-        </a>
-      ))
-    }
+
+  <a class="site-announcement" href="/contact">
+    <span>{t("announcement")}</span>
+    <span>{t("announcement")}</span>
+    <span>{t("announcement")}</span>
+  </a>
+
+  <div class="site-menu-backdrop" data-menu-backdrop></div>
+
+  <nav id="site-menu" class="site-menu" aria-label="Primary navigation" aria-hidden="true" data-menu-panel>
+    <div class="site-menu__main">
+      <div class="site-menu__head">
+        <p class="site-menu__eyebrow">{t("nav.navigate")}</p>
+        <a class="site-lang" href={localizePath(Astro.url.pathname, nextLang)}>{t("nav.switch")}</a>
+      </div>
+
+      <div class="site-menu__primary">
+        {
+          navItems.map((item) => (
+            <a href={item.href} class:list={[isActive(item.href) && "is-active"]}>
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="site-menu__secondary">
+      <a href="/contact">{t("nav.start")}</a>
+      <a href="mailto:hello@kairav.studio">hello@kairav.studio</a>
+      <a href="https://github.com/kairavstudio">{t("nav.github")}</a>
+    </div>
   </nav>
 </header>
+
+<script>
+  let scrollListener: (() => void) | null = null;
+  let keydownListener: ((event: KeyboardEvent) => void) | null = null;
+
+  const initHeader = () => {
+    const siteHeader = document.querySelector("[data-site-header]");
+    const toggle = document.querySelector("[data-menu-toggle]");
+    const panel = document.querySelector("[data-menu-panel]");
+    const backdrop = document.querySelector("[data-menu-backdrop]");
+
+    const setMenu = (open: boolean) => {
+      siteHeader?.classList.toggle("is-menu-open", open);
+      document.documentElement.classList.toggle("site-menu-open", open);
+      toggle?.setAttribute("aria-expanded", String(open));
+      panel?.setAttribute("aria-hidden", String(!open));
+    };
+
+    // Scroll listener cleanup and registration
+    if (scrollListener) {
+      window.removeEventListener("scroll", scrollListener);
+    }
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20;
+      siteHeader?.classList.toggle("is-scrolled", isScrolled);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    scrollListener = handleScroll;
+    handleScroll();
+
+    // Toggle click
+    toggle?.addEventListener("click", () => {
+      setMenu(!siteHeader?.classList.contains("is-menu-open"));
+    });
+
+    // Backdrop click
+    backdrop?.addEventListener("click", () => setMenu(false));
+
+    // Panel links click
+    panel?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setMenu(false));
+    });
+
+    // Keydown listener cleanup and registration
+    if (keydownListener) {
+      document.removeEventListener("keydown", keydownListener);
+    }
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenu(false);
+    };
+    document.addEventListener("keydown", handleKeydown);
+    keydownListener = handleKeydown;
+  };
+
+  // Run on load and page swaps
+  document.addEventListener("astro:page-load", initHeader);
+</script>

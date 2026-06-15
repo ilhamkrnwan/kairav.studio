@@ -2,23 +2,71 @@
 import Badge from "../common/Badge.astro";
 import type { Project } from "../../data/projects";
 
+/**
+ * Project card with cover image (grayscale → full color on hover),
+ * gradient overlay, and smooth scale animation.
+ */
 interface Props {
   project: Project;
 }
 
 const { project } = Astro.props;
+
+const initials = project.title
+  .split(" ")
+  .map((word) => word[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase();
 ---
 
-<a href={`/case-studies/${project.slug}`} class="card-surface group block h-full p-6">
-  <div class="mb-8 flex flex-wrap items-center gap-2">
-    <Badge>{project.type}</Badge>
-    <span class="font-mono text-xs text-[var(--color-text-subtle)]">{project.year}</span>
+<a
+  href={`/case-studies/${project.slug}`}
+  class="project-card card-surface group block h-full overflow-hidden"
+  style={`--proj-accent: ${project.accent || "var(--color-primary)"};`}
+>
+  <div class="project-card__img-wrap">
+    {
+      project.image ? (
+        <img
+          src={project.image}
+          alt={project.title}
+          class="project-card__img"
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="500"
+        />
+      ) : (
+        <>
+          <div class="hero-mesh absolute inset-0 opacity-60" />
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="font-brand text-4xl tracking-[0.2em] text-[var(--color-text)] opacity-90 transition-transform duration-300 group-hover:scale-105">
+              {initials}
+            </span>
+          </div>
+        </>
+      )
+    }
+    <div class="project-card__img-overlay"></div>
+    <div class="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full opacity-[0.12] blur-2xl transition-opacity duration-300 group-hover:opacity-[0.25]" style={`background: ${project.accent || "var(--color-primary)"};`}></div>
+    <div class="absolute left-4 top-4 flex items-center gap-1.5">
+      <span class="h-2 w-2 rounded-full bg-[var(--color-border-strong)]"></span>
+      <span class="h-2 w-2 rounded-full bg-[var(--color-border-strong)]"></span>
+      <span class="h-2 w-2 rounded-full bg-[var(--color-border-strong)]"></span>
+    </div>
   </div>
-  <h3 class="font-heading text-2xl font-semibold text-[var(--color-text)] group-hover:text-[var(--color-primary)]">
-    {project.title}
-  </h3>
-  <p class="mt-4 text-sm leading-6 text-[var(--color-text-soft)]">{project.summary}</p>
-  <div class="mt-6 flex flex-wrap gap-2">
-    {project.stack.slice(0, 3).map((item) => <span class="tag-muted">{item}</span>)}
+  <div class="p-6">
+    <div class="mb-5 flex flex-wrap items-center gap-2">
+      <Badge>{project.type}</Badge>
+      <span class="font-mono text-xs text-[var(--color-text-subtle)]">{project.year}</span>
+    </div>
+    <h3 class="font-heading text-2xl font-semibold text-[var(--color-text)] group-hover:text-[var(--color-primary)]">
+      {project.title}
+    </h3>
+    <p class="mt-4 text-sm leading-6 text-[var(--color-text-soft)]">{project.summary}</p>
+    <div class="mt-6 flex flex-wrap gap-2">
+      {project.stack.slice(0, 3).map((item) => <span class="tag-muted">{item}</span>)}
+    </div>
   </div>
 </a>

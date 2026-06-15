@@ -4,7 +4,9 @@ import Container from "../components/common/Container.astro";
 import SectionHeading from "../components/common/SectionHeading.astro";
 import ContributorCard from "../components/cards/ContributorCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
+import DarkAccentSection from "../components/sections/DarkAccentSection.astro";
 import PageHero from "../components/sections/PageHero.astro";
+import Badge from "../components/common/Badge.astro";
 import { contributors } from "../data/contributors";
 ---
 
@@ -41,25 +43,27 @@ import { contributors } from "../data/contributors";
       </Container>
     </section>
 
-    <section class="section-spacing bg-[var(--color-background-soft)]">
-      <Container>
-        <SectionHeading
-          eyebrow="Values"
-          title="What guides the work."
-          description="The studio should feel polished, but the process should stay simple and honest."
-        />
-        <div class="mt-10 grid gap-5 md:grid-cols-3">
-          {["Clarity before complexity", "Performance as default", "Systems that invite contribution"].map((value) => (
-            <article class="card-surface p-6">
-              <h2 class="font-heading text-xl font-semibold text-[var(--color-text)]">{value}</h2>
-              <p class="mt-4 text-sm leading-6 text-[var(--color-text-soft)]">
-                Practical decisions, clean structure, and useful notes help the work stay readable after launch.
-              </p>
-            </article>
-          ))}
-        </div>
-      </Container>
-    </section>
+    <DarkAccentSection>
+      <div class="max-w-2xl">
+        <Badge class="border-[var(--color-lime-soft)] bg-[var(--color-lime-soft)] text-[var(--color-lime-bright)]">Open Source Spirit</Badge>
+        <h2 class="mt-5 font-heading text-3xl font-semibold leading-tight text-white sm:text-4xl">
+          Built together, in the open.
+        </h2>
+        <p class="mt-4 text-base leading-7 text-[var(--color-dark-text-soft)]">
+          The studio should feel polished, but the process stays simple and honest. Work is shaped with contributors, transparent notes, and reusable patterns that anyone on the team can pick up.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-5 md:grid-cols-3">
+        {["Clarity before complexity", "Performance as default", "Systems that invite contribution"].map((value) => (
+          <article class="card-surface p-6">
+            <h3 class="font-heading text-xl font-semibold text-white">{value}</h3>
+            <p class="mt-4 text-sm leading-6 text-[var(--color-dark-text-soft)]">
+              Practical decisions, clean structure, and useful notes help the work stay readable after launch.
+            </p>
+          </article>
+        ))}
+      </div>
+    </DarkAccentSection>
 
     <section class="section-spacing">
       <Container>

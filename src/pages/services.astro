@@ -37,9 +37,17 @@ import { services } from "../data/services";
             description="Every engagement starts by understanding the business goal, current constraints, and what should be easier after launch."
           />
           <div class="grid gap-4">
-            {["Audit what exists", "Design the right structure", "Build reusable parts", "Measure and improve"].map((item) => (
-              <div class="card-surface p-5">
-                <h2 class="font-heading text-lg font-semibold text-[var(--color-text)]">{item}</h2>
+            {[
+              { label: "Audit what exists", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`, accent: "#2563eb" },
+              { label: "Design the right structure", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`, accent: "#7c5cfc" },
+              { label: "Build reusable parts", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`, accent: "#10b981" },
+              { label: "Measure and improve", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>`, accent: "#f97316" },
+            ].map((item) => (
+              <div class="icon-card card-surface p-5" style={`--icon-accent: ${item.accent};`}>
+                <div class="icon-card__badge" aria-hidden="true">
+                  <Fragment set:html={item.icon} />
+                </div>
+                <h2 class="mt-4 font-heading text-lg font-semibold text-[var(--color-text)]">{item.label}</h2>
                 <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
                   Small, reviewable steps keep the project understandable for clients and contributors.
                 </p>

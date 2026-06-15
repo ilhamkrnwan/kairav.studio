@@ -2,6 +2,10 @@
 import Badge from "../common/Badge.astro";
 import type { Service } from "../../data/services";
 
+/**
+ * Service card with cover image (grayscale → color on hover),
+ * glowing icon badge, and accent-tinted visual identity.
+ */
 interface Props {
   service: Service;
 }
@@ -9,19 +13,48 @@ interface Props {
 const { service } = Astro.props;
 ---
 
-<article class="card-surface flex h-full flex-col p-6">
-  <div class="mb-6 flex flex-wrap gap-2">
-    {service.tags.map((tag) => <Badge>{tag}</Badge>)}
+<article
+  class="service-card card-surface group flex h-full flex-col overflow-hidden"
+  style={`--svc-accent: ${service.accent};`}
+>
+  {/* ── Cover image with grayscale → color hover ── */}
+  <div class="service-card__img-wrap">
+    <img
+      src={service.image}
+      alt={service.title}
+      class="service-card__img"
+      loading="lazy"
+      decoding="async"
+      width="640"
+      height="360"
+    />
+    <div class="service-card__img-overlay"></div>
+    {/* Icon floats on image bottom-right */}
+    <div class="service-card__icon-float" aria-hidden="true">
+      <Fragment set:html={service.icon} />
+    </div>
   </div>
-  <h3 class="font-heading text-xl font-semibold text-[var(--color-text)]">{service.title}</h3>
-  <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">{service.summary}</p>
-  <p class="mt-4 text-sm leading-6 text-[var(--color-text-muted)]">{service.detail}</p>
-  <ul class="mt-5 grid gap-2">
-    {service.deliverables.map((item) => (
-      <li class="flex gap-3 text-sm leading-6 text-[var(--color-text-soft)]">
-        <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-primary)]"></span>
-        <span>{item}</span>
-      </li>
-    ))}
-  </ul>
+
+  {/* ── Text content ── */}
+  <div class="flex flex-1 flex-col p-6">
+    <div class="mb-4 flex flex-wrap gap-2">
+      {service.tags.map((tag) => <Badge>{tag}</Badge>)}
+    </div>
+    <h3 class="font-heading text-xl font-semibold text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)]">
+      {service.title}
+    </h3>
+    <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">{service.summary}</p>
+    <p class="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">{service.detail}</p>
+    <ul class="mt-5 grid gap-2">
+      {service.deliverables.map((item) => (
+        <li class="flex gap-3 text-sm leading-6 text-[var(--color-text-soft)]">
+          <span
+            class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+            style={`background: ${service.accent};`}
+          ></span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
 </article>

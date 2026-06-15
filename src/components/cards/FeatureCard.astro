@@ -1,0 +1,71 @@
+---
+/**
+ * Dark bento feature card — astro.build "Fully Featured" style.
+ * Now supports:
+ *  - `icon`   : inline SVG string rendered in a glowing badge
+ *  - `image`  : external URL shown grayscale → color on hover
+ *  - `accent` : CSS color for the icon glow + image tint
+ *  - `visual` slot for custom illustrations (fallback)
+ *
+ * Cursor-following color glow + border highlight driven by `--mx/--my`
+ * set in JS (see FeatureGridSection).
+ */
+interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+  image?: string;
+  accent?: string;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  icon,
+  image,
+  accent = "rgba(56,189,248,0.6)",
+  class: className = "",
+} = Astro.props;
+---
+
+<article
+  data-feature-card
+  class:list={["feature-card flex h-full flex-col overflow-hidden", className]}
+  style={`--card-accent: ${accent};`}
+>
+  {/* ── Visual area: image or slot ── */}
+  {
+    image ? (
+      <div class="feature-card__img-wrap">
+        <img
+          src={image}
+          alt={title}
+          class="feature-card__img"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="feature-card__img-overlay" />
+      </div>
+    ) : (
+      Astro.slots.has("visual") && (
+        <div class="mb-4 flex min-h-36 flex-1 items-center justify-center px-6 pt-6">
+          <slot name="visual" />
+        </div>
+      )
+    )
+  }
+
+  {/* ── Text content ── */}
+  <div class="mt-auto flex flex-col gap-3 p-6 sm:p-7">
+    {
+      icon && (
+        <div class="feature-card__icon" aria-hidden="true">
+          <Fragment set:html={icon} />
+        </div>
+      )
+    }
+    <h3 class="font-heading text-lg font-semibold text-white">{title}</h3>
+    <p class="text-sm leading-6 text-[var(--color-dark-text-soft)]">{description}</p>
+  </div>
+</article>

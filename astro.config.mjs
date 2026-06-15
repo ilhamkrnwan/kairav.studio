@@ -1,10 +1,18 @@
 import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://kairav.studio",
-  integrations: [sitemap()],
+  integrations: [mdx(), sitemap()],
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "id"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   redirects: {
     "/work": "/works",
     "/work/[slug]": "/case-studies/[slug]",

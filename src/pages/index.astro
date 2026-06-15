@@ -7,6 +7,7 @@ import ServiceCard from "../components/cards/ServiceCard.astro";
 import ProjectCard from "../components/cards/ProjectCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import FeatureGridSection from "../components/sections/FeatureGridSection.astro";
+import Hero from "../components/sections/Hero.astro";
 import { projects } from "../data/projects";
 import { services } from "../data/services";
 
@@ -48,69 +49,7 @@ const faqs = [
 >
   <main>
     {/* ── 1. Hero ─────────────────────────────────────────────────────── */}
-    <section class="home-hero">
-      <img
-        class="home-hero__image"
-        src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=2200&h=1400&fit=crop&q=82"
-        alt=""
-        width="2200"
-        height="1400"
-        fetchpriority="high"
-      />
-      <div class="home-hero__overlay"></div>
-      <div class="home-hero__grain"></div>
-
-      <div class="home-hero__content">
-        <p class="home-hero__eyebrow">Design-led technology studio</p>
-        <h1 class="home-hero__title" aria-label="Build against the template.">
-          <span>BUILD</span>
-          <span>AGAINST</span>
-          <span>THE</span>
-          <span>TEMPLATE</span>
-        </h1>
-      </div>
-
-      <p class="home-hero__copy">
-        Websites that look sharp, load fast, stay discoverable, and scale into real digital systems.
-      </p>
-
-      <a class="home-hero__cta" href="/contact">Start a Project</a>
-      <a class="home-hero__secondary" href="/works">View Works</a>
-      <div class="home-hero__ticket" aria-hidden="true">SEO/GEO READY</div>
-    </section>
-
-    <script>
-      import { gsap } from "gsap";
-
-      const runHeroAnimation = () => {
-        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-        if (!reduceMotion) {
-          // Reset GSAP animation states before running
-          gsap.killTweensOf(".home-hero__title span, .home-hero__eyebrow, .home-hero__copy, .home-hero__cta, .home-hero__secondary");
-          gsap.set(".home-hero__title span, .home-hero__eyebrow, .home-hero__copy, .home-hero__cta, .home-hero__secondary", { clearProps: "all" });
-
-          gsap.from(".home-hero__title span", {
-            yPercent: 108,
-            opacity: 0,
-            duration: 1.05,
-            ease: "power3.out",
-            stagger: 0.08,
-          });
-
-          gsap.from(".home-hero__eyebrow, .home-hero__copy, .home-hero__cta, .home-hero__secondary", {
-            y: 22,
-            opacity: 0,
-            duration: 0.75,
-            ease: "power2.out",
-            stagger: 0.08,
-            delay: 0.24,
-          });
-        }
-      };
-
-      document.addEventListener("astro:page-load", runHeroAnimation);
-    </script>
+    <Hero />
 
     {/* ── 2. Value Statement (FeatureGridSection) ─────────────────────── */}
     <FeatureGridSection />

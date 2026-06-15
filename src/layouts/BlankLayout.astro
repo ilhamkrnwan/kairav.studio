@@ -1,0 +1,44 @@
+---
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/jetbrains-mono/500.css";
+import "@fontsource/space-grotesk/600.css";
+import "@fontsource/syncopate/400.css";
+import "@fontsource/syncopate/700.css";
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+
+const {
+  title = "Kairav Studio",
+  description = "Kairav Studio builds modern brand websites, SEO/GEO-ready content architecture, and scalable digital systems.",
+  canonicalPath = Astro.url.pathname,
+} = Astro.props;
+
+const canonicalUrl = new URL(canonicalPath, "https://kairav.studio").toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#080808" />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body class="min-h-dvh bg-[var(--color-background)] text-[var(--color-text)] relative overflow-hidden flex flex-col justify-between">
+    <slot />
+  </body>
+</html>

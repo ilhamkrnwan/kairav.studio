@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/common/Container.astro";
+import PageHero from "../components/sections/PageHero.astro";
+import CTASection from "../components/sections/CTASection.astro";
+---
+
+<BaseLayout
+  title="Teams - Kairav Studio"
+  description="Meet the team behind Kairav Studio's digital systems and engineering."
+>
+  <main>
+    <PageHero
+      eyebrow="Team"
+      title="The people behind the systems."
+      description="Kairav Studio is a design-led technology studio. We shape visual platforms, develop resilient frontends, and implement technical SEO/GEO structures."
+    />
+
+    <section class="section-spacing pt-0">
+      <Container>
+        <div class="max-w-3xl mx-auto">
+          {/* ── Core Team Card ── */}
+          <div class="card-surface p-8 rounded-lg border border-white/5 bg-gradient-to-b from-white/30 to-white/10 flex flex-col md:flex-row gap-6 items-start md:items-center">
+            <img
+              src="/logo-mark.avif"
+              alt="Kairav Studio Logo"
+              class="h-20 w-20 rounded-full border border-white/10 bg-[#0d0d0f] p-2 shrink-0 object-cover"
+              loading="lazy"
+            />
+            <div class="flex-1">
+              <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Kairav Studio Core Team</h2>
+              <p class="mt-1.5 font-mono text-[0.68rem] font-semibold uppercase tracking-wider text-[var(--color-primary)]">
+                Design, frontend engineering, performance, SEO/GEO strategy
+              </p>
+              <p class="mt-4 text-sm leading-6 text-[var(--color-text-soft)]">
+                We are a collection of product designers and systems engineers who care about clarity, performance, and clean code. We treat every web project as a structured interface rather than just a collection of templates.
+              </p>
+            </div>
+          </div>
+
+          {/* ── Editorial Note ── */}
+          <div class="mt-12 p-6 border-l-2 border-[var(--color-primary)] bg-white/[0.01] rounded-r-md">
+            <p class="font-mono text-[0.68rem] tracking-wider text-[var(--color-text-muted)] uppercase mb-2">Note</p>
+            <p class="text-sm leading-6 text-[var(--color-text-soft)] italic">
+              More collaborators and specialist profiles will be added as the studio grows. We collaborate with developers, copywriters, and search specialists to deliver custom systems for projects of all sizes.
+            </p>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <CTASection />
+  </main>
+</BaseLayout>

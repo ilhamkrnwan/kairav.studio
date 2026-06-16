@@ -14,13 +14,23 @@ import { projects } from "../../data/projects";
   <main>
     <PageHero
       eyebrow="Works"
-      title="Selected work across websites, systems, and experiments."
-      description="A growing collection of client work, internal tools, open-source starters, and creative technology experiments."
+      title="Selected Works"
+      description="Digital systems, mobile products, research prototypes, and web experiences built with clarity and performance in mind."
     />
 
-    <section class="section-spacing">
+    <section class="section-spacing pt-0">
       <Container>
-        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {/* ── Filter Tags Row ── */}
+        <div class="mb-12 flex flex-wrap items-center justify-center gap-3">
+          <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="web-design">Web Design</button>
+          <button class="filter-btn" data-filter="mobile">Mobile</button>
+          <button class="filter-btn" data-filter="research">Research</button>
+          <button class="filter-btn" data-filter="systems">Systems</button>
+        </div>
+
+        {/* ── Cards Grid ── */}
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-works-grid>
           {projects.map((project) => <ProjectCard project={project} />)}
         </div>
       </Container>
@@ -33,3 +43,103 @@ import { projects } from "../../data/projects";
     />
   </main>
 </BaseLayout>
+
+<style>
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.25rem;
+    padding: 0 1.25rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--color-text-soft);
+    cursor: pointer;
+    transition: all 250ms ease;
+  }
+
+  .filter-btn:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .filter-btn--active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #080808;
+    font-weight: 700;
+  }
+  
+  .filter-btn--active:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #080808;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const initWorksFilter = () => {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll<HTMLElement>("[data-category]");
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Toggle active class
+        filterButtons.forEach((b) => b.classList.remove("filter-btn--active"));
+        btn.classList.add("filter-btn--active");
+
+        const filterValue = btn.getAttribute("data-filter");
+
+        // Filter cards using GSAP transition
+        if (filterValue === "all") {
+          gsap.killTweensOf(cards);
+          gsap.to(cards, {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.45,
+            stagger: 0.06,
+            ease: "power2.out",
+            display: "flex",
+          });
+        } else {
+          cards.forEach((card) => {
+            const cardCat = card.getAttribute("data-category");
+            gsap.killTweensOf(card);
+            
+            if (cardCat === filterValue) {
+              gsap.to(card, {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 0.45,
+                ease: "power2.out",
+                display: "flex",
+              });
+            } else {
+              gsap.to(card, {
+                opacity: 0,
+                scale: 0.95,
+                y: 12,
+                duration: 0.3,
+                ease: "power2.in",
+                display: "none",
+              });
+            }
+          });
+        }
+      });
+    });
+  };
+
+  document.addEventListener("astro:page-load", initWorksFilter);
+</script>

@@ -790,7 +790,7 @@ const t = useTranslations(lang);
      RESPONSIVE — Desktop
      ═══════════════════════════════════════════════════════════════════ */
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .hero-container {
       grid-template-columns: 1.2fr 0.8fr;
       gap: 4rem;
@@ -840,7 +840,7 @@ const t = useTranslations(lang);
      RESPONSIVE — Mobile refinements
      ═══════════════════════════════════════════════════════════════════ */
 
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     .hero-coord--tr {
       display: none;
     }
@@ -854,7 +854,7 @@ const t = useTranslations(lang);
     }
 
     .hero-board {
-      max-width: 100%;
+      max-width: 28rem;
     }
 
     .hero-trust {
@@ -1018,7 +1018,7 @@ const t = useTranslations(lang);
       const floatingElements = section.querySelectorAll<HTMLElement>(".hero-float");
       floatingElements.forEach((el) => {
         const speed = parseFloat(el.getAttribute("data-speed") || "1");
-        const isMobile = window.innerWidth < 768;
+        const isMobile = window.innerWidth < 1024;
         const targetOffset = -22 * speed * (isMobile ? 0.3 : 1);
 
         gsap.to(el, {

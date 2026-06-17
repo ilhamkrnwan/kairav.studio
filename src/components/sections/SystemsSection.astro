@@ -1,0 +1,284 @@
+---
+import Container from "../common/Container.astro";
+---
+
+<section class="systems-section" data-systems-section>
+  <Container>
+    <div class="systems-header">
+      <span class="systems-eyebrow">
+        <span class="systems-eyebrow__line" aria-hidden="true"></span>
+        What We Build
+      </span>
+      <h2 class="systems-title">What we turn into systems.</h2>
+      <p class="systems-description">
+        Every project starts with a brand need and becomes a structured, performant, discoverable digital system.
+      </p>
+    </div>
+
+    <div class="systems-grid">
+      <article class="systems-card" data-systems-card>
+        <div class="systems-card__index">01</div>
+        <h3 class="systems-card__title">Brand Websites</h3>
+        <p class="systems-card__desc">
+          Sharp visual identity, clear messaging, and fast delivery.
+        </p>
+        <div class="systems-card__tags">
+          <span>Identity</span>
+          <span>Speed</span>
+          <span>Clarity</span>
+        </div>
+      </article>
+
+      <article class="systems-card" data-systems-card>
+        <div class="systems-card__index">02</div>
+        <h3 class="systems-card__title">Performance Frontends</h3>
+        <p class="systems-card__desc">
+          Lightweight interfaces built for speed, structure, and maintainability.
+        </p>
+        <div class="systems-card__tags">
+          <span>Astro</span>
+          <span>Core Web Vitals</span>
+          <span>Static-first</span>
+        </div>
+      </article>
+
+      <article class="systems-card" data-systems-card>
+        <div class="systems-card__index">03</div>
+        <h3 class="systems-card__title">SEO/GEO Foundations</h3>
+        <p class="systems-card__desc">
+          Search-ready architecture for discoverability across modern engines.
+        </p>
+        <div class="systems-card__tags">
+          <span>Structure</span>
+          <span>Metadata</span>
+          <span>Discovery</span>
+        </div>
+      </article>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .systems-section {
+    position: relative;
+    padding-block: clamp(5rem, 10vw, 8rem);
+    background: #080808;
+    border-bottom: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  /* Subtle top gradient to blend with hero */
+  .systems-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(13, 13, 15, 0.5), transparent);
+    pointer-events: none;
+  }
+
+  .systems-header {
+    max-width: 36rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    position: relative;
+  }
+
+  .systems-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 1.25rem;
+  }
+
+  .systems-eyebrow__line {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1px;
+    background: var(--color-primary);
+    opacity: 0.6;
+  }
+
+  .systems-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .systems-description {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    line-height: 1.65;
+    color: var(--color-text-soft);
+    max-width: 32rem;
+  }
+
+  /* ── Card Grid ───────────────────────────────────────────────────── */
+
+  .systems-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .systems-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ── Card ─────────────────────────────────────────────────────────── */
+
+  .systems-card {
+    background: var(--color-surface);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    transition:
+      background 300ms ease;
+  }
+
+  .systems-card:hover {
+    background: var(--color-surface-soft);
+  }
+
+  .systems-card__index {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--color-primary);
+    margin-bottom: 1.25rem;
+    opacity: 0.7;
+  }
+
+  .systems-card__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-text);
+    margin-bottom: 0.65rem;
+  }
+
+  .systems-card__desc {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--color-text-soft);
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+
+  .systems-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .systems-card__tags span {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    padding: 0.28rem 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color 200ms ease, color 200ms ease;
+  }
+
+  .systems-card:hover .systems-card__tags span {
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.4);
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const initSystemsAnimations = () => {
+    const section = document.querySelector("[data-systems-section]");
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    gsap.context(() => {
+      // Header entrance
+      gsap.from(".systems-eyebrow", {
+        y: 15,
+        opacity: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%",
+          once: true,
+        },
+      });
+
+      gsap.from(".systems-title", {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      gsap.from(".systems-description", {
+        y: 15,
+        opacity: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      // Cards stagger
+      gsap.from("[data-systems-card]", {
+        y: 30,
+        opacity: 0,
+        stagger: 0.12,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".systems-grid",
+          start: "top 85%",
+          once: true,
+        },
+      });
+    }, section);
+  };
+
+  document.addEventListener("astro:page-load", initSystemsAnimations);
+</script>

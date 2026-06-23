@@ -7,6 +7,7 @@ import "@fontsource/space-grotesk/600.css";
 import "@fontsource/syncopate/400.css";
 import "@fontsource/syncopate/700.css";
 import { ClientRouter } from "astro:transitions";
+import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 
 const {
@@ -51,5 +52,6 @@ const canonicalUrl = new URL(canonicalPath, "https://kairav.studio").toString();
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <slot />
+    <Analytics />
   </body>
 </html>

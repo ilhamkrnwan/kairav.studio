@@ -9,6 +9,7 @@ import "@fontsource/syncopate/700.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 import { ClientRouter } from "astro:transitions";
+import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 
 const {
@@ -55,5 +56,6 @@ const canonicalUrl = new URL(canonicalPath, "https://kairav.studio").toString();
     <Header />
     <slot />
     <Footer />
+    <Analytics />
   </body>
 </html>

@@ -1,3 +1,6 @@
+import en from "./lang/en.json";
+import id from "./lang/id.json";
+
 export const languages = {
   en: "EN",
   id: "ID",
@@ -8,38 +11,8 @@ export type Lang = keyof typeof languages;
 export const defaultLang: Lang = "en";
 
 export const ui = {
-  en: {
-    "nav.work": "Work",
-    "nav.services": "Services",
-    "nav.tools": "Tools",
-    "nav.insights": "Insights",
-    "nav.about": "About",
-    "nav.teams": "Teams",
-    "nav.contact": "Contact",
-    "nav.start": "Start a Project",
-    "nav.email": "Email Kairav Studio",
-    "nav.github": "GitHub",
-    "nav.menu": "Menu",
-    "nav.navigate": "Navigate",
-    "nav.switch": "ID",
-    announcement: "Premium websites, fast builds, SEO/GEO-ready systems.",
-  },
-  id: {
-    "nav.work": "Karya",
-    "nav.services": "Layanan",
-    "nav.tools": "Alat",
-    "nav.insights": "Insight",
-    "nav.about": "Tentang",
-    "nav.teams": "Tim",
-    "nav.contact": "Kontak",
-    "nav.start": "Mulai Proyek",
-    "nav.email": "Email Kairav Studio",
-    "nav.github": "GitHub",
-    "nav.menu": "Menu",
-    "nav.navigate": "Navigasi",
-    "nav.switch": "EN",
-    announcement: "Website premium, build cepat, sistem siap SEO/GEO.",
-  },
+  en,
+  id,
 } as const;
 
 export function getLangFromUrl(url: URL): Lang {

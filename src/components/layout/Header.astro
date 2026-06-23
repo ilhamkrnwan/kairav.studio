@@ -6,13 +6,13 @@ const t = useTranslations(lang);
 const nextLang: Lang = lang === "id" ? "en" : "id";
 
 const navItems = [
-  { href: "/works", label: t("nav.work") },
-  { href: "/services", label: t("nav.services") },
-  { href: "/tools", label: t("nav.tools") },
-  { href: "/teams", label: t("nav.teams") },
-  { href: "/insights", label: t("nav.insights") },
-  { href: "/about", label: t("nav.about") },
-  { href: "/contact", label: t("nav.contact") },
+  { href: "/works", label: t("Work") },
+  { href: "/services", label: t("Services") },
+  { href: "/tools", label: t("Tools") },
+  { href: "/teams", label: t("Teams") },
+  { href: "/insights", label: t("Insights") },
+  { href: "/about", label: t("About") },
+  { href: "/contact", label: t("Contact") },
 ];
 
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -35,31 +35,31 @@ const isActive = (href: string) => {
 
     <div class="site-actions" aria-label="Site actions">
       <button class="site-menu-toggle" type="button" aria-controls="site-menu" aria-expanded="false" data-menu-toggle>
-        <span class="sr-only">{t("nav.menu")}</span>
+        <span class="sr-only">{t("Menu")}</span>
         <span class="site-menu-toggle__line"></span>
         <span class="site-menu-toggle__line"></span>
         <span class="site-menu-toggle__line"></span>
       </button>
-      <a class="site-icon-link" href="/contact" aria-label={t("nav.start")}>
+      <a class="site-icon-link" href="/contact" aria-label={t("Start a Project")}>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M6 7h12v14H6z"></path>
           <path d="M9 7a3 3 0 0 1 6 0"></path>
         </svg>
       </a>
-      <a class="site-icon-link" href="mailto:hello@kairav.studio" aria-label={t("nav.email")}>
+      <a class="site-icon-link" href="mailto:hello@kairav.studio" aria-label={t("Email Kairav Studio")}>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="8" r="4"></circle>
           <path d="M4 21a8 8 0 0 1 16 0"></path>
         </svg>
       </a>
-      <a class="site-lang site-lang--rail" href={localizePath(Astro.url.pathname, nextLang)}>{t("nav.switch")}</a>
+      <a class="site-lang site-lang--rail" href={localizePath(Astro.url.pathname, nextLang)}>{t("LanguageSwitch")}</a>
     </div>
   </div>
 
   <a class="site-announcement" href="/contact">
-    <span>{t("announcement")}</span>
-    <span>{t("announcement")}</span>
-    <span>{t("announcement")}</span>
+    <span>{t("Premium websites, fast builds, SEO/GEO-ready systems.")}</span>
+    <span>{t("Premium websites, fast builds, SEO/GEO-ready systems.")}</span>
+    <span>{t("Premium websites, fast builds, SEO/GEO-ready systems.")}</span>
   </a>
 
   <div class="site-menu-backdrop" data-menu-backdrop></div>
@@ -67,8 +67,8 @@ const isActive = (href: string) => {
   <nav id="site-menu" class="site-menu" aria-label="Primary navigation" aria-hidden="true" data-menu-panel>
     <div class="site-menu__main">
       <div class="site-menu__head">
-        <p class="site-menu__eyebrow">{t("nav.navigate")}</p>
-        <a class="site-lang" href={localizePath(Astro.url.pathname, nextLang)}>{t("nav.switch")}</a>
+        <p class="site-menu__eyebrow">{t("Navigate")}</p>
+        <a class="site-lang" href={localizePath(Astro.url.pathname, nextLang)}>{t("LanguageSwitch")}</a>
       </div>
 
       <div class="site-menu__primary">
@@ -83,9 +83,9 @@ const isActive = (href: string) => {
     </div>
 
     <div class="site-menu__secondary">
-      <a href="/contact">{t("nav.start")}</a>
+      <a href="/contact">{t("Start a Project")}</a>
       <a href="mailto:hello@kairav.studio">hello@kairav.studio</a>
-      <a href="https://github.com/kairavstudio">{t("nav.github")}</a>
+      <a href="https://github.com/kairavstudio">{t("GitHub")}</a>
     </div>
   </nav>
 </header>

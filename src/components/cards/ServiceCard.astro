@@ -44,7 +44,10 @@ const { service } = Astro.props;
       {service.title}
     </h3>
     <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">{service.summary}</p>
-    <p class="mt-3 text-sm leading-6 text-[var(--color-text-muted)]">{service.detail}</p>
+    <div class="mt-4">
+      <span class="font-mono text-[0.62rem] tracking-wider text-[var(--color-text-muted)] uppercase block mb-0.5">Who it's for:</span>
+      <p class="text-sm leading-6 text-[var(--color-text-soft)]">{service.detail}</p>
+    </div>
     <ul class="mt-5 grid gap-2">
       {service.deliverables.map((item) => (
         <li class="flex gap-3 text-sm leading-6 text-[var(--color-text-soft)]">

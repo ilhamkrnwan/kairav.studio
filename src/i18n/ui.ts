@@ -11,6 +11,7 @@ export const ui = {
   en: {
     "nav.work": "Work",
     "nav.services": "Services",
+    "nav.tools": "Tools",
     "nav.insights": "Insights",
     "nav.about": "About",
     "nav.teams": "Teams",
@@ -26,6 +27,7 @@ export const ui = {
   id: {
     "nav.work": "Karya",
     "nav.services": "Layanan",
+    "nav.tools": "Alat",
     "nav.insights": "Insight",
     "nav.about": "Tentang",
     "nav.teams": "Tim",

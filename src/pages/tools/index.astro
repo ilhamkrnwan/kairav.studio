@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/common/Container.astro";
+import ServiceCard from "../../components/cards/ServiceCard.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+import PageHero from "../../components/sections/PageHero.astro";
+import { services, serviceCategories } from "../../data/services";
+
+const categories = serviceCategories.map((category) => ({
+  name: category,
+  items: services.filter((service) => service.category === category),
+}));
+---
+
+<BaseLayout
+  title="Tools & Capabilities - Kairav Studio"
+  description="The full toolkit behind every Kairav Studio build — brand websites, SEO/GEO, performance, custom systems, AI integration, and Android/IoT — each explained in depth."
+  canonicalPath="/tools"
+>
+  <main>
+    <PageHero
+      eyebrow="Tools & Capabilities"
+      title="The full toolkit behind every Kairav build."
+      description="Each capability documented in depth: what it is, who it's for, what is included, the tech direction, and the outcome you can expect. Pick one to read the full breakdown."
+    />
+
+    {
+      categories.map((category, index) => (
+        <section class={`section-spacing ${index % 2 === 1 ? "bg-[var(--color-background-soft)]" : ""}`}>
+          <Container>
+            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p class="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)]">
+                  {String(index + 1).padStart(2, "0")} — Capability band
+                </p>
+                <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)] sm:text-3xl">
+                  {category.name}
+                </h2>
+              </div>
+              <span class="font-mono text-[0.68rem] text-[var(--color-text-subtle)]">
+                {category.items.length} {category.items.length === 1 ? "service" : "services"}
+              </span>
+            </div>
+            <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {category.items.map((service) => <ServiceCard service={service} />)}
+            </div>
+          </Container>
+        </section>
+      ))
+    }
+
+    <CTASection
+      eyebrow="Not sure which one?"
+      title="Tell us the goal — we'll point you to the right capability."
+      description="Bring the problem or the rough idea. We will help shape the right path across these tools."
+    />
+  </main>
+</BaseLayout>

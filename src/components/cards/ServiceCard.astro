@@ -14,7 +14,7 @@ const { service } = Astro.props;
 ---
 
 <article
-  class="service-card card-surface group flex h-full flex-col overflow-hidden"
+  class="service-card card-surface group relative flex h-full flex-col overflow-hidden"
   style={`--svc-accent: ${service.accent};`}
 >
   {/* ── Cover image with grayscale → color hover ── */}
@@ -41,7 +41,7 @@ const { service } = Astro.props;
       {service.tags.map((tag) => <Badge>{tag}</Badge>)}
     </div>
     <h3 class="font-heading text-xl font-semibold text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)]">
-      {service.title}
+      <a href={`/tools/${service.id}`} class="service-card__title-link">{service.title}</a>
     </h3>
     <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">{service.summary}</p>
     <div class="mt-4">
@@ -59,5 +59,35 @@ const { service } = Astro.props;
         </li>
       ))}
     </ul>
+    <a
+      href={`/tools/${service.id}`}
+      class="service-card__cta mt-6 inline-flex items-center gap-1.5 font-brand text-[0.65rem] tracking-wider text-[var(--color-text)] transition-colors hover:text-[var(--color-primary)]"
+      aria-label={`Explore ${service.title}`}
+    >
+      <span>EXPLORE SERVICE</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
   </div>
 </article>
+
+<style>
+  /* Stretch the title link over the whole card so it is fully clickable,
+     while the explicit Explore CTA keeps an accessible label. */
+  .service-card__title-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .service-card__cta {
+    position: relative;
+    z-index: 2;
+    width: fit-content;
+  }
+  .service-card__cta svg {
+    transition: transform 200ms ease;
+  }
+  .service-card__cta:hover svg {
+    transform: translateX(2px);
+  }
+</style>

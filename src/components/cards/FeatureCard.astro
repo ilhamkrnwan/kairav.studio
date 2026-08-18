@@ -1,14 +1,13 @@
 ---
 /**
- * Dark bento feature card — astro.build "Fully Featured" style.
- * Now supports:
- *  - `icon`   : inline SVG string rendered in a glowing badge
- *  - `image`  : external URL shown grayscale → color on hover
- *  - `accent` : CSS color for the icon glow + image tint
- *  - `visual` slot for custom illustrations (fallback)
- *
- * Cursor-following color glow + border highlight driven by `--mx/--my`
- * set in JS (see FeatureGridSection).
+ * Dark bento feature card — Magic UI styling with custom hover animations.
+ * Supports:
+ *  - `icon`        : inline SVG string
+ *  - `image`       : external URL shown as a background layer
+ *  - `accent`      : custom highlight color for glow and borders
+ *  - `href`        : URL link for the card action
+ *  - `cta`         : CTA button text (defaults to "Learn more")
+ *  - `visual` slot : custom illustrations
  */
 interface Props {
   title: string;
@@ -16,6 +15,8 @@ interface Props {
   icon?: string;
   image?: string;
   accent?: string;
+  href?: string;
+  cta?: string;
   class?: string;
 }
 
@@ -25,47 +26,82 @@ const {
   icon,
   image,
   accent = "rgba(56,189,248,0.6)",
+  href,
+  cta = "Learn more",
   class: className = "",
 } = Astro.props;
 ---
 
 <article
   data-feature-card
-  class:list={["feature-card flex h-full flex-col overflow-hidden", className]}
+  class:list={[
+    "feature-card group relative flex min-h-[22rem] h-[22rem] flex-col justify-between overflow-hidden rounded-xl border border-white/10 transition-all duration-300",
+    className
+  ]}
   style={`--card-accent: ${accent};`}
 >
-  {/* ── Visual area: image or slot ── */}
+  {/* ── Visual Area: Image background or slots ── */}
   {
     image ? (
-      <div class="feature-card__img-wrap">
+      <div class="absolute inset-0 z-0 h-full w-full overflow-hidden">
         <img
           src={image}
           alt={title}
-          class="feature-card__img"
+          class="h-full w-full object-cover filter grayscale opacity-25 transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-35"
           loading="lazy"
           decoding="async"
         />
-        <div class="feature-card__img-overlay" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/75 to-transparent" />
       </div>
     ) : (
       Astro.slots.has("visual") && (
-        <div class="mb-4 flex min-h-36 flex-1 items-center justify-center px-6 pt-6">
+        <div class="absolute inset-0 z-0 h-full w-full overflow-hidden opacity-20 transition-opacity duration-300 group-hover:opacity-30">
           <slot name="visual" />
         </div>
       )
     )
   }
 
-  {/* ── Text content ── */}
-  <div class="mt-auto flex flex-col gap-3 p-6 sm:p-7">
-    {
-      icon && (
-        <div class="feature-card__icon" aria-hidden="true">
-          <Fragment set:html={icon} />
-        </div>
-      )
-    }
-    <h3 class="font-heading text-lg font-semibold text-white">{title}</h3>
-    <p class="text-sm leading-6 text-[var(--color-dark-text-soft)]">{description}</p>
+  {/* ── Card Content Container ── */}
+  <div class="relative z-10 flex h-full flex-col justify-between p-6 sm:p-7">
+    {/* Upper Content: Icon, Title, Description */}
+    <div class="pointer-events-none flex transform-gpu flex-col gap-2 transition-all duration-300 lg:group-hover:-translate-y-6">
+      {
+        icon && (
+          <div 
+            class="feature-card__icon origin-left transform-gpu transition-all duration-300 ease-in-out group-hover:scale-75 mb-1" 
+            aria-hidden="true"
+            style={`background: ${accent};`}
+          >
+            <Fragment set:html={icon} />
+          </div>
+        )
+      }
+      <h3 class="font-heading text-xl font-semibold text-white tracking-tight">{title}</h3>
+      <p class="max-w-lg text-sm leading-6 text-[var(--color-text-soft)]">{description}</p>
+    </div>
+
+    {/* CTA Row - Visible on Mobile directly, absolute on Desktop */}
+    <div class="pointer-events-none flex w-full translate-y-0 transform-gpu flex-row items-center transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 lg:hidden mt-4">
+      <span class="inline-flex items-center text-xs font-mono font-semibold tracking-wider uppercase text-[var(--color-primary)]">
+        {cta}
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ms-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </span>
+    </div>
+
+    <div class="pointer-events-none absolute bottom-0 left-0 hidden w-full translate-y-10 transform-gpu flex-row items-center p-6 sm:p-7 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 lg:flex">
+      <span class="inline-flex items-center text-xs font-mono font-semibold tracking-wider uppercase text-[var(--color-primary)]">
+        {cta}
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ms-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </span>
+    </div>
   </div>
+
+  {/* Accessible clickable overlay link */}
+  {href && (
+    <a href={href} class="absolute inset-0 z-20" aria-label={`Read more about ${title}`} />
+  )}
+
+  {/* Pointer Glow Background Hover */}
+  <div class="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-white/[0.02]" />
 </article>

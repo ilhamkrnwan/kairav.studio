@@ -1,50 +1,878 @@
 ---
+import { getLangFromUrl, localizePath, useTranslations } from "../../i18n/ui";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const year = new Date().getFullYear();
-const links = [
-  { href: "/services", label: "Services" },
-  { href: "/tools", label: "Tools" },
-  { href: "/works", label: "Works" },
-  { href: "/teams", label: "Teams" },
-  { href: "/about", label: "About" },
-  { href: "/insights", label: "Insights" },
-  { href: "/privacy-policy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
+
+const serviceLinks = [
+  { href: localizePath("/tools/brand-website", lang), label: "Brand Websites" },
+  { href: localizePath("/tools/custom-system", lang), label: "Custom Systems" },
+  {
+    href: localizePath("/tools/ai-integration", lang),
+    label: "AI Integration",
+  },
+  { href: localizePath("/tools/seo-geo", lang), label: "SEO & GEO Ready" },
+  {
+    href: localizePath("/tools/performance-optimization", lang),
+    label: "Performance Tuning",
+  },
+  { href: localizePath("/tools/android-iot", lang), label: "Android & IoT" },
+];
+
+const exploreLinks = [
+  { href: localizePath("/works", lang), label: t("Work") },
+  { href: localizePath("/services", lang), label: t("Services") },
+  { href: localizePath("/tools", lang), label: t("Tools") },
+  { href: localizePath("/about", lang), label: t("About") },
+  { href: localizePath("/insights", lang), label: t("Insights") },
 ];
 ---
 
-<footer class="dark-section dark-fx overflow-hidden border-t border-[var(--color-border)]">
-  <div class="mx-auto grid w-full max-w-6xl gap-10 px-5 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
-    <div>
-      <a href="/" class="inline-flex items-center gap-3" aria-label="Kairav Studio home">
-        <img src="/logo-mark.avif" alt="" class="h-11 w-11" width="80" height="80" />
-        <span>
-          <span class="block font-brand text-sm tracking-[0.28em] text-[var(--color-text)]">KAIRAV</span>
-          <span class="mt-1 block font-mono text-[0.58rem] tracking-[0.48em] text-[var(--color-primary)]">STUDIO</span>
-        </span>
-      </a>
-      <p class="mt-5 max-w-xl text-sm leading-7 text-[var(--color-text-soft)]">
-        A digital studio and open-source creative technology project for modern websites, web apps, AI integration, and maintainable digital systems.
-      </p>
+<footer class="site-footer" id="site-footer" role="contentinfo">
+  {/* ── Top Boundary Glowing Line ── */}
+  <div class="site-footer__rule" aria-hidden="true"></div>
+
+  {/* ── Background Atmosphere & Low Opacity Footer Image ── */}
+  <div class="site-footer__bg" aria-hidden="true">
+    <div class="site-footer__bg-glow"></div>
+    <div class="site-footer__bg-grid"></div>
+    <img
+      src="/footer.png"
+      alt=""
+      loading="lazy"
+      class="site-footer__bg-img"
+    />
+  </div>
+
+  {/* ── Main Navigation & Information Grid ── */}
+  <div class="site-footer__inner">
+    <div class="site-footer__grid">
+      {/* ── Column 1: BRAND & MISSION ── */}
+      <div class="site-footer__col site-footer__col--brand">
+        <a
+          href={localizePath("/", lang)}
+          class="site-footer__logo"
+          aria-label="Kairav Studio Home"
+        >
+          <img
+            src="/logo-mark.avif"
+            alt=""
+            class="site-footer__logo-mark"
+            width="80"
+            height="80"
+          />
+          <div class="site-footer__logo-text">
+            <span class="site-footer__logo-name">KAIRAV</span>
+            <span class="site-footer__logo-sub">STUDIO</span>
+          </div>
+        </a>
+
+        <p class="site-footer__tagline">
+          Design-led creative technology studio shaping considered brand
+          websites, robust operational systems, and AI workflows.
+        </p>
+
+        {/* Live Studio Status Indicator */}
+        <div class="site-footer__status">
+          <span class="site-footer__status-beacon" aria-hidden="true">
+            <span class="site-footer__status-ping"></span>
+            <span class="site-footer__status-dot"></span>
+          </span>
+          <span class="site-footer__status-text"
+            >Available for select client projects</span
+          >
+        </div>
+      </div>
+
+      {/* ── Column 2: SERVICES ── */}
+      <div class="site-footer__col site-footer__col--services">
+        <nav class="site-footer__nav" aria-label="Services">
+          <p class="site-footer__heading">// SERVICES</p>
+          <ul class="site-footer__links">
+            {
+              serviceLinks.map((item) => (
+                <li>
+                  <a href={item.href} class="site-footer__link">
+                    <span class="site-footer__link-prefix" aria-hidden="true">
+                      ›
+                    </span>
+                    <span>{item.label}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+
+      {/* ── Column 3: EXPLORE ── */}
+      <div class="site-footer__col site-footer__col--explore">
+        <nav class="site-footer__nav" aria-label="Explore">
+          <p class="site-footer__heading">// EXPLORE</p>
+          <ul class="site-footer__links">
+            {
+              exploreLinks.map((item) => (
+                <li>
+                  <a href={item.href} class="site-footer__link">
+                    <span class="site-footer__link-prefix" aria-hidden="true">
+                      ›
+                    </span>
+                    <span>{item.label}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+
+      {/* ── Column 4: CONNECT ── */}
+      <div class="site-footer__col site-footer__col--connect">
+        <div class="site-footer__connect">
+          <p class="site-footer__heading">// CONNECT</p>
+
+          {/* Interactive Project Inquiries Card */}
+          <a
+            href="mailto:hello@kairav.studio"
+            class="site-footer__inquiry"
+            aria-label="Send project inquiry via email to hello@kairav.studio"
+          >
+            <div class="site-footer__inquiry-header">
+              <span class="site-footer__inquiry-label">PROJECT INQUIRIES</span>
+              <span class="site-footer__inquiry-tag">DIRECT</span>
+            </div>
+            <div class="site-footer__inquiry-body">
+              <span class="site-footer__inquiry-email">hello@kairav.studio</span
+              >
+              <span class="site-footer__inquiry-arrow" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          {/* Direct Action Buttons */}
+          <div class="site-footer__actions">
+            <a
+              href="https://github.com/ilhamkrnwan"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="site-footer__btn site-footer__btn--ghost"
+              aria-label="Kairav Studio on GitHub"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+                ></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+              </svg>
+              <span>GitHub</span>
+            </a>
+
+            <a
+              href={localizePath("/contact", lang)}
+              class="site-footer__btn site-footer__btn--primary"
+            >
+              <span>{t("Start a Project")}</span>
+              <span class="site-footer__btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          {/* Studio Technical Coordinates */}
+          <div class="site-footer__coordinates">
+            <span class="site-footer__coords-code">[ 07°47'S 110°22'E ]</span>
+            <span class="site-footer__coords-text"
+              >Yogyakarta, ID · UTC+7 · Remote Worldwide</span
+            >
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="grid gap-6 sm:grid-cols-2">
-      <div>
-        <h2 class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">Explore</h2>
-        <div class="mt-4 grid gap-3">
-          {links.map((link) => <a class="link-muted" href={link.href}>{link.label}</a>)}
-        </div>
+    {/* ── Sub-Footer / Copyright ── */}
+    <div class="site-footer__bottom">
+      <div class="site-footer__copy">
+        © {year} <span class="site-footer__copy-brand">KAIRAV STUDIO</span>. Built with Astro & Tailwind.
       </div>
-      <div>
-        <h2 class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">Contact</h2>
-        <div class="mt-4 grid gap-3">
-          <a class="link-muted" href="mailto:hello@kairav.studio">hello@kairav.studio</a>
-          <a class="link-muted" href="https://github.com/kairavstudio">GitHub</a>
-          <a class="link-muted" href="/contact">Start a Project</a>
-        </div>
+
+      <div class="site-footer__meta-tag">Design-Led Creative Technology</div>
+
+      <div class="site-footer__legal">
+        <a href={localizePath("/privacy-policy", lang)}>Privacy Policy</a>
+        <span class="site-footer__dot" aria-hidden="true">/</span>
+        <a href={localizePath("/terms", lang)}>Terms of Service</a>
       </div>
     </div>
   </div>
-  <div class="border-t border-[var(--color-border)] px-5 py-5 text-center text-xs text-[var(--color-text-subtle)]">
-    © {year} Kairav Studio. Built with Astro.
-  </div>
 </footer>
+
+<style>
+  /* ── Root Container ───────────────────────────────────────────────── */
+  .site-footer {
+    position: relative;
+    background-color: #060608;
+    color: #f8f5ec;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ── Top Boundary Line ────────────────────────────────────────────── */
+  .site-footer__rule {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 20%,
+      rgba(182, 255, 92, 0.4) 50%,
+      rgba(255, 255, 255, 0.08) 80%,
+      transparent 100%
+    );
+  }
+
+  /* ── Footer Background Atmosphere ─────────────────────────────────── */
+  .site-footer__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Lime Spotlight Glow at bottom center */
+  .site-footer__bg-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 85% 65% at 50% 100%,
+      rgba(182, 255, 92, 0.12) 0%,
+      rgba(182, 255, 92, 0.03) 50%,
+      transparent 80%
+    );
+  }
+
+  /* Technical Grid Lines */
+  .site-footer__bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(
+      ellipse 90% 90% at 50% 100%,
+      black 30%,
+      rgba(0, 0, 0, 0.3) 70%,
+      transparent 90%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 90% 90% at 50% 100%,
+      black 30%,
+      rgba(0, 0, 0, 0.3) 70%,
+      transparent 90%
+    );
+  }
+
+  /* Low Opacity Background Image showing upper team silhouettes */
+  .site-footer__bg-img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 125%;
+    max-width: 115rem;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0.18;
+    pointer-events: none;
+    user-select: none;
+    mask-image: radial-gradient(
+      ellipse 90% 85% at 50% 30%,
+      black 35%,
+      rgba(0, 0, 0, 0.3) 70%,
+      transparent 95%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 90% 85% at 50% 30%,
+      black 35%,
+      rgba(0, 0, 0, 0.3) 70%,
+      transparent 95%
+    );
+  }
+
+  /* ── Section Divider ──────────────────────────────────────────────── */
+  .site-footer__divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.06) 20%,
+      rgba(182, 255, 92, 0.25) 50%,
+      rgba(255, 255, 255, 0.06) 80%,
+      transparent 100%
+    );
+  }
+
+  /* ── Inner Content Container (Generous Spacing) ────────────────────── */
+  .site-footer__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 6rem 1.25rem 4rem;
+  }
+
+  @media (min-width: 640px) {
+    .site-footer__inner {
+      padding: 7rem 2rem 4.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .site-footer__inner {
+      padding: 8rem 2.5rem 5rem;
+    }
+  }
+
+  /* ── Main Grid ────────────────────────────────────────────────────── */
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem 1.5rem;
+  }
+
+  /* Mobile: Services and Explore side-by-side */
+  @media (max-width: 639px) {
+    .site-footer__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 1.25rem;
+    }
+    .site-footer__col--brand,
+    .site-footer__col--connect {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Tablet (640px - 1023px): Perfect 2x2 Grid with NO EMPTY SPACES */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .site-footer__grid {
+      grid-template-columns: 1.15fr 1fr;
+      gap: 3rem 2.5rem;
+    }
+    .site-footer__col--brand {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .site-footer__col--connect {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .site-footer__col--services {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .site-footer__col--explore {
+      grid-column: 2;
+      grid-row: 2;
+    }
+  }
+
+  /* Desktop (>= 1024px): 4-Column Grid side-by-side */
+  @media (min-width: 1024px) {
+    .site-footer__grid {
+      grid-template-columns: 1.45fr 0.95fr 0.85fr 1.35fr;
+      gap: 2.5rem 2rem;
+      align-items: start;
+    }
+    .site-footer__col--brand {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .site-footer__col--services {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .site-footer__col--explore {
+      grid-column: 3;
+      grid-row: 1;
+    }
+    .site-footer__col--connect {
+      grid-column: 4;
+      grid-row: 1;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .site-footer__grid {
+      grid-template-columns: 1.55fr 1fr 0.9fr 1.45fr;
+      gap: 3.5rem 2.5rem;
+    }
+  }
+
+  .site-footer__col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── 1. Brand Column ──────────────────────────────────────────────── */
+  .site-footer__col--brand {
+    align-items: flex-start;
+  }
+
+  .site-footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.875rem;
+    text-decoration: none;
+    transition: opacity 200ms ease;
+  }
+
+  .site-footer__logo:hover {
+    opacity: 0.9;
+  }
+
+  .site-footer__logo-mark {
+    width: 2.75rem;
+    height: 2.75rem;
+    filter: brightness(0) invert(1);
+    transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .site-footer__logo:hover .site-footer__logo-mark {
+    transform: scale(1.06);
+  }
+
+  .site-footer__logo-name {
+    display: block;
+    font-family: var(--font-brand);
+    font-size: 0.9rem;
+    letter-spacing: 0.28em;
+    color: #f8f5ec;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+
+  .site-footer__logo-sub {
+    display: block;
+    margin-top: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.48em;
+    color: var(--color-primary, #b6ff5c);
+    line-height: 1;
+    font-weight: 600;
+  }
+
+  .site-footer__tagline {
+    margin-top: 1.25rem;
+    max-width: 23rem;
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    line-height: 1.65;
+    color: #a1a1aa;
+  }
+
+  /* Status beacon */
+  .site-footer__status {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.4rem 0.875rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition:
+      border-color 200ms ease,
+      background-color 200ms ease;
+  }
+
+  .site-footer__status:hover {
+    border-color: rgba(182, 255, 92, 0.3);
+    background-color: rgba(182, 255, 92, 0.03);
+  }
+
+  .site-footer__status-beacon {
+    position: relative;
+    display: flex;
+    height: 0.5rem;
+    width: 0.5rem;
+  }
+
+  .site-footer__status-ping {
+    position: absolute;
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 9999px;
+    background-color: var(--color-primary, #b6ff5c);
+    opacity: 0.75;
+    animation: footerPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes footerPing {
+    75%,
+    100% {
+      transform: scale(2.3);
+      opacity: 0;
+    }
+  }
+
+  .site-footer__status-dot {
+    position: relative;
+    display: inline-flex;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--color-primary, #b6ff5c);
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.7);
+  }
+
+  .site-footer__status-text {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: #e4e4e7;
+  }
+
+  /* ── 2 & 3. Navigation Columns (Services & Explore) ───────────────── */
+  .site-footer__nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .site-footer__heading {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-primary, #b6ff5c);
+    margin: 0 0 1.25rem 0;
+  }
+
+  .site-footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .site-footer__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: #a1a1aa;
+    text-decoration: none;
+    transition:
+      color 200ms ease,
+      transform 200ms ease;
+  }
+
+  .site-footer__link-prefix {
+    opacity: 0;
+    color: var(--color-primary, #b6ff5c);
+    font-weight: 700;
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease;
+    transform: translateX(-4px);
+  }
+
+  .site-footer__link:hover,
+  .site-footer__link:focus-visible {
+    color: #f8f5ec;
+    transform: translateX(4px);
+  }
+
+  .site-footer__link:hover .site-footer__link-prefix,
+  .site-footer__link:focus-visible .site-footer__link-prefix {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ── 4. Connect Column ────────────────────────────────────────────── */
+  .site-footer__connect {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Interactive Inquiry Card */
+  .site-footer__inquiry {
+    display: block;
+    padding: 0.875rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.625rem;
+    background: rgba(255, 255, 255, 0.02);
+    text-decoration: none;
+    transition:
+      border-color 220ms ease,
+      background-color 220ms ease,
+      transform 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .site-footer__inquiry:hover,
+  .site-footer__inquiry:focus-visible {
+    border-color: rgba(182, 255, 92, 0.4);
+    background-color: rgba(182, 255, 92, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  .site-footer__inquiry-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.375rem;
+  }
+
+  .site-footer__inquiry-label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #71717a;
+  }
+
+  .site-footer__inquiry-tag {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    background: rgba(255, 255, 255, 0.06);
+    color: #a1a1aa;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .site-footer__inquiry-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .site-footer__inquiry-email {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #f8f5ec;
+    transition: color 200ms ease;
+  }
+
+  .site-footer__inquiry:hover .site-footer__inquiry-email,
+  .site-footer__inquiry:focus-visible .site-footer__inquiry-email {
+    color: var(--color-primary, #b6ff5c);
+  }
+
+  .site-footer__inquiry-arrow {
+    display: flex;
+    align-items: center;
+    color: #71717a;
+    transition:
+      color 200ms ease,
+      transform 200ms ease;
+  }
+
+  .site-footer__inquiry:hover .site-footer__inquiry-arrow,
+  .site-footer__inquiry:focus-visible .site-footer__inquiry-arrow {
+    color: var(--color-primary, #b6ff5c);
+    transform: translateX(4px);
+  }
+
+  /* Action Buttons */
+  .site-footer__actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .site-footer__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-height: 2.25rem;
+    padding: 0 0.875rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0.375rem;
+    transition:
+      border-color 200ms ease,
+      background-color 200ms ease,
+      color 200ms ease,
+      transform 200ms ease;
+  }
+
+  .site-footer__btn--ghost {
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: transparent;
+    color: #a1a1aa;
+  }
+
+  .site-footer__btn--ghost:hover,
+  .site-footer__btn--ghost:focus-visible {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #f8f5ec;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .site-footer__btn--primary {
+    flex: 1.25;
+    border: 1px solid rgba(182, 255, 92, 0.35);
+    background: rgba(182, 255, 92, 0.08);
+    color: var(--color-primary, #b6ff5c);
+  }
+
+  .site-footer__btn-arrow {
+    display: inline-block;
+    transition: transform 200ms ease;
+  }
+
+  .site-footer__btn--primary:hover,
+  .site-footer__btn--primary:focus-visible {
+    background: rgba(182, 255, 92, 0.18);
+    border-color: rgba(182, 255, 92, 0.55);
+    transform: translateY(-1px);
+  }
+
+  .site-footer__btn--primary:hover .site-footer__btn-arrow,
+  .site-footer__btn--primary:focus-visible .site-footer__btn-arrow {
+    transform: translateX(3px);
+  }
+
+  /* Coordinates */
+  .site-footer__coordinates {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    line-height: 1.4;
+  }
+
+  .site-footer__coords-code {
+    color: #71717a;
+    letter-spacing: 0.06em;
+  }
+
+  .site-footer__coords-text {
+    color: #52525b;
+  }
+
+  /* ── Bottom Sub-footer ────────────────────────────────────────────── */
+  .site-footer__bottom {
+    margin-top: 5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: #71717a;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .site-footer__bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  .site-footer__copy {
+    color: #71717a;
+  }
+
+  .site-footer__copy-brand {
+    color: #f8f5ec;
+    font-weight: 600;
+  }
+
+  .site-footer__meta-tag {
+    color: #52525b;
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+  }
+
+  .site-footer__legal {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .site-footer__legal a {
+    color: #71717a;
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+
+  .site-footer__legal a:hover,
+  .site-footer__legal a:focus-visible {
+    color: var(--color-primary, #b6ff5c);
+  }
+
+  .site-footer__dot {
+    color: rgba(255, 255, 255, 0.12);
+  }
+
+  /* ── Accessibility & Reduced Motion ───────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer__status-ping {
+      animation: none;
+    }
+    .site-footer__logo-mark,
+    .site-footer__inquiry,
+    .site-footer__inquiry-email,
+    .site-footer__inquiry-arrow,
+    .site-footer__btn,
+    .site-footer__btn-arrow,
+    .site-footer__link,
+    .site-footer__link-prefix,
+    .site-footer__legal a {
+      transition: none !important;
+    }
+  }
+</style>

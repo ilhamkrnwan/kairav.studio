@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/common/Container.astro";
 import SectionHeading from "../components/common/SectionHeading.astro";
-import ContributorCard from "../components/cards/ContributorCard.astro";
+import TeamMemberCard from "../components/cards/TeamMemberCard.astro";
 import CTASection from "../components/sections/CTASection.astro";
 import DarkAccentSection from "../components/sections/DarkAccentSection.astro";
 import PageHero from "../components/sections/PageHero.astro";
@@ -12,13 +12,15 @@ import { contributors } from "../data/contributors";
 
 <BaseLayout
   title="About - Kairav Studio"
-  description="Learn about Kairav Studio, a collaborative digital studio and open-source creative technology project."
+  description="Learn about Kairav Studio, our team, philosophy, and approach to modern web experiences and collaborative digital systems."
 >
   <main>
     <PageHero
       eyebrow="About"
       title="A studio for modern web experiences and collaborative digital systems."
       description="Kairav Studio exists to help brands and projects build websites that feel considered, load quickly, and stay maintainable as the team grows."
+      image="/hero-works.png"
+      imageAlt="About Kairav Studio"
     />
 
     <section class="section-spacing">
@@ -65,15 +67,31 @@ import { contributors } from "../data/contributors";
       </div>
     </DarkAccentSection>
 
+    {/* ── Team Section ── */}
     <section class="section-spacing">
       <Container>
-        <SectionHeading
-          eyebrow="Core Contributors"
-          title="The people behind Kairav Studio."
-          description="For v1, contributor profiles live here and on Home. The data is ready to become a dedicated page later."
-        />
-        <div class="mt-10 grid gap-5 md:grid-cols-3">
-          {contributors.map((contributor) => <ContributorCard contributor={contributor} />)}
+        <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)]">Core Team</p>
+            <h2 class="font-heading text-3xl font-semibold leading-tight text-[var(--color-text)] sm:text-4xl">
+              The people behind the systems.
+            </h2>
+          </div>
+          <span class="font-mono text-[0.68rem] text-[var(--color-text-subtle)]">
+            {contributors.length} core members
+          </span>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {contributors.map((member) => <TeamMemberCard member={member} />)}
+        </div>
+
+        {/* ── Editorial note ── */}
+        <div class="mt-12 border-l-2 border-[var(--color-primary)] bg-white/[0.01] p-6 rounded-r-md">
+          <p class="mb-2 font-mono text-[0.68rem] uppercase tracking-wider text-[var(--color-text-muted)]">Collaboration</p>
+          <p class="text-sm italic leading-6 text-[var(--color-text-soft)]">
+            We collaborate with designers, copywriters, and specialists per project. More profiles will be added as the studio grows.
+          </p>
         </div>
       </Container>
     </section>

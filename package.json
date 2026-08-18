@@ -11,7 +11,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
+    "@astrojs/check": "0.9.10",
     "@iconify-json/lucide": "^1.2.112",
     "@types/bun": "latest",
     "astro-icon": "^1.1.5",
@@ -21,8 +21,8 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@astrojs/mdx": "^6.0.3",
-    "@astrojs/rss": "^4.0.18",
+    "@astrojs/mdx": "7.0.5",
+    "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
@@ -30,7 +30,7 @@
     "@fontsource/syncopate": "^5.2.8",
     "@tailwindcss/vite": "^4.3.1",
     "@vercel/analytics": "^2.0.1",
-    "astro": "^6.4.6",
+    "astro": "7.1.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gsap": "^3.15.0",
@@ -38,8 +38,5 @@
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.1",
     "zod": "^4.4.3"
-  },
-  "overrides": {
-    "vite": "^7"
   }
 }

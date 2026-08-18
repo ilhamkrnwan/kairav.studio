@@ -1,0 +1,6 @@
+---
+import Page, { getStaticPaths as originalGetStaticPaths } from "../../insights/[slug].astro";
+export const getStaticPaths = originalGetStaticPaths;
+const { ...props } = Astro.props;
+---
+<Page {...props} />

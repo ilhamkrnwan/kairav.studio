@@ -26,6 +26,8 @@ interface Feature {
   image?: string;
   accent?: string;
   span?: 1 | 2;
+  href?: string;
+  cta?: string;
 }
 
 interface Props {
@@ -48,6 +50,8 @@ const {
       image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=720&h=400&fit=crop&q=80",
       accent: "rgba(139, 92, 246, 0.6)",
       span: 2,
+      href: "/services",
+      cta: "Explore Design",
     },
     {
       title: "Fast by default",
@@ -56,6 +60,8 @@ const {
       icon: icons.bolt,
       image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=720&h=400&fit=crop&q=80",
       accent: "rgba(56, 189, 248, 0.6)",
+      href: "/tools/performance-optimization",
+      cta: "View Performance",
     },
     {
       title: "SEO & GEO structure",
@@ -64,6 +70,8 @@ const {
       icon: icons.search,
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=720&h=400&fit=crop&q=80",
       accent: "rgba(56, 189, 248, 0.6)",
+      href: "/tools/seo-geo",
+      cta: "Check SEO/GEO",
     },
     {
       title: "Scalable systems",
@@ -73,6 +81,8 @@ const {
       image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=720&h=400&fit=crop&q=80",
       accent: "rgba(182, 255, 92, 0.5)",
       span: 2,
+      href: "/tools/custom-system",
+      cta: "Explore Systems",
     },
     {
       title: "Open-source spirit",
@@ -80,6 +90,8 @@ const {
         "Transparent structure, reviewable notes, and contributor-friendly patterns from day one.",
       icon: icons.code,
       accent: "rgba(182, 255, 92, 0.5)",
+      href: "https://github.com/ilhamkrnwan/kairav.studio",
+      cta: "View Repository",
     },
     {
       title: "Maintainable foundations",
@@ -87,6 +99,8 @@ const {
         "Typed data, clean components, and documented choices that keep the work easy to evolve.",
       icon: icons.sparkles,
       accent: "rgba(251, 191, 36, 0.5)",
+      href: "/about",
+      cta: "Read About Us",
     },
   ],
 } = Astro.props;
@@ -104,6 +118,8 @@ const {
             icon={feature.icon}
             image={feature.image}
             accent={feature.accent}
+            href={feature.href}
+            cta={feature.cta}
             class={feature.span === 2 ? "bento-wide" : ""}
           />
         ))

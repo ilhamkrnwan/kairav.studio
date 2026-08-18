@@ -1,15 +1,13 @@
 ---
-import { getLangFromUrl, localizePath, useTranslations, type Lang } from "../../i18n/ui";
+import { getLangFromUrl, localizePath, useTranslations, languages, type Lang } from "../../i18n/ui";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const nextLang: Lang = lang === "id" ? "en" : "id";
 
 const navItems = [
   { href: "/works", label: t("Work") },
   { href: "/services", label: t("Services") },
   { href: "/tools", label: t("Tools") },
-  { href: "/teams", label: t("Teams") },
   { href: "/insights", label: t("Insights") },
   { href: "/about", label: t("About") },
   { href: "/contact", label: t("Contact") },
@@ -39,20 +37,40 @@ const isActive = (href: string) => {
         <span class="site-menu-toggle__line"></span>
         <span class="site-menu-toggle__line"></span>
         <span class="site-menu-toggle__line"></span>
+        <span class="site-rail-tooltip">{t("Menu")}</span>
       </button>
-      <a class="site-icon-link" href="/contact" aria-label={t("Start a Project")}>
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M6 7h12v14H6z"></path>
-          <path d="M9 7a3 3 0 0 1 6 0"></path>
+      <a class="site-icon-link" href={localizePath("/services", lang)} aria-label={t("Services")}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
+        <span class="site-rail-tooltip">{t("Services")}</span>
       </a>
       <a class="site-icon-link" href="mailto:hello@kairav.studio" aria-label={t("Email Kairav Studio")}>
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="8" r="4"></circle>
-          <path d="M4 21a8 8 0 0 1 16 0"></path>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
         </svg>
+        <span class="site-rail-tooltip">Email</span>
       </a>
-      <a class="site-lang site-lang--rail" href={localizePath(Astro.url.pathname, nextLang)}>{t("LanguageSwitch")}</a>
+      <div class="site-lang-dropdown site-lang-dropdown--rail" data-lang-dropdown>
+        <button class="site-lang-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" data-lang-trigger>
+          {lang.toUpperCase()}
+          <span class="site-rail-tooltip">{t("Language")}</span>
+        </button>
+        <div class="site-lang-menu">
+          {
+            Object.entries(languages).map(([code, label]) => (
+              <a 
+                href={localizePath(Astro.url.pathname, code as Lang)} 
+                class:list={["site-lang-option", code === lang && "is-active"]}
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </div>
 
@@ -68,7 +86,23 @@ const isActive = (href: string) => {
     <div class="site-menu__main">
       <div class="site-menu__head">
         <p class="site-menu__eyebrow">{t("Navigate")}</p>
-        <a class="site-lang" href={localizePath(Astro.url.pathname, nextLang)}>{t("LanguageSwitch")}</a>
+        <div class="site-lang-dropdown site-lang-dropdown--drawer" data-lang-dropdown>
+          <button class="site-lang-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" data-lang-trigger>
+            {lang.toUpperCase()}
+          </button>
+          <div class="site-lang-menu">
+            {
+              Object.entries(languages).map(([code, label]) => (
+                <a 
+                  href={localizePath(Astro.url.pathname, code as Lang)} 
+                  class:list={["site-lang-option", code === lang && "is-active"]}
+                >
+                  {label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
       </div>
 
       <div class="site-menu__primary">
@@ -141,6 +175,33 @@ const isActive = (href: string) => {
     };
     document.addEventListener("keydown", handleKeydown);
     keydownListener = handleKeydown;
+
+    // Language dropdowns trigger and click outside handler
+    const dropdowns = document.querySelectorAll("[data-lang-dropdown]");
+    dropdowns.forEach((dropdown) => {
+      const trigger = dropdown.querySelector("[data-lang-trigger]");
+      trigger?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = dropdown.classList.contains("is-open");
+        
+        dropdowns.forEach((d) => {
+          d.classList.remove("is-open");
+          d.querySelector("[data-lang-trigger]")?.setAttribute("aria-expanded", "false");
+        });
+        
+        if (!isOpen) {
+          dropdown.classList.add("is-open");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+
+    document.addEventListener("click", () => {
+      dropdowns.forEach((d) => {
+        d.classList.remove("is-open");
+        d.querySelector("[data-lang-trigger]")?.setAttribute("aria-expanded", "false");
+      });
+    });
   };
 
   // Run on load and page swaps

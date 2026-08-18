@@ -1,9 +1,11 @@
 import en from "./lang/en.json";
 import id from "./lang/id.json";
+import jv from "./lang/jv.json";
 
 export const languages = {
   en: "EN",
   id: "ID",
+  jv: "JV",
 } as const;
 
 export type Lang = keyof typeof languages;
@@ -13,6 +15,7 @@ export const defaultLang: Lang = "en";
 export const ui = {
   en,
   id,
+  jv,
 } as const;
 
 export function getLangFromUrl(url: URL): Lang {
@@ -32,9 +35,10 @@ export function useTranslations(lang: Lang) {
 }
 
 export function localizePath(pathname: string, lang: Lang): string {
-  const cleanPath = pathname.replace(/^\/(en|id)(?=\/|$)/, "") || "/";
-  if (lang === defaultLang) return cleanPath;
-
-  const separator = cleanPath.includes("?") ? "&" : "?";
-  return `${cleanPath}${separator}lang=${lang}`;
+  const cleanPath = pathname.replace(/^\/(en|id|jv)(?=\/|$)/, "") || "/";
+  const formattedPath = cleanPath.startsWith("/") ? cleanPath : `/${cleanPath}`;
+  const base = formattedPath === "/" ? "" : formattedPath.replace(/\/$/, "");
+  
+  if (lang === defaultLang) return base || "/";
+  return `/${lang}${base}`;
 }

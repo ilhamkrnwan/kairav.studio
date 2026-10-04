@@ -1,43 +1,78 @@
 ---
 import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
+import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
+import "@fontsource/jetbrains-mono/600.css";
+import "@fontsource/space-grotesk/500.css";
 import "@fontsource/space-grotesk/600.css";
+import "@fontsource/space-grotesk/700.css";
 import "@fontsource/syncopate/400.css";
 import "@fontsource/syncopate/700.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+import SEO, { type ArticleMeta, type BreadcrumbItem } from "../components/common/SEO.astro";
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
+import { getDict, getLangFromUrl } from "../i18n/ui";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Override when the page's canonical differs from its own URL (e.g. fallback content). */
+  canonicalPath?: string;
+  image?: string;
+  type?: "website" | "article";
+  article?: ArticleMeta;
+  breadcrumbs?: BreadcrumbItem[];
+  schemaOverrides?: Record<string, any>[];
+  robots?: string;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const dict = getDict(lang);
 
 const {
-  title = "Kairav Studio",
-  description = "Kairav Studio builds modern brand websites, SEO/GEO-ready content architecture, and scalable digital systems.",
+  title = dict.meta.defaultTitle,
+  description = dict.meta.defaultDescription,
   canonicalPath = Astro.url.pathname,
+  image = "/og.png",
+  type = "website",
+  article,
+  breadcrumbs,
+  schemaOverrides,
+  robots,
 } = Astro.props;
-
-const canonicalUrl = new URL(canonicalPath, "https://kairav.studio").toString();
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={dict.meta.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <link rel="canonical" href={canonicalUrl} />
+    <title>{title}</title>
+
+    <SEO
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      image={image}
+      type={type}
+      article={article}
+      breadcrumbs={breadcrumbs}
+      schemaOverrides={schemaOverrides}
+      robots={robots}
+    />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#080808" />
-    <title>{title}</title>
     <ClientRouter />
   </head>
   <body class="min-h-dvh bg-[var(--color-background)] text-[var(--color-text)]">

@@ -1,0 +1,435 @@
+---
+interface Props {
+  board: {
+    label: string;
+    status: string;
+    scoreTitle: string;
+    scoreSub: string;
+    capabilities: { label: string; status: string }[];
+    timeline: string[];
+    footerOne: string;
+    footerTwo: string;
+  };
+  badges: string[];
+}
+
+const { board, badges } = Astro.props;
+---
+
+<div class="hero-visual-wrapper">
+  <div class="hero-board" data-feature-card>
+    <!-- Board Header -->
+    <div class="board-header">
+      <div class="board-header__left">
+        <span class="board-status-dot"></span>
+        <span class="board-header__label">{board.label}</span>
+      </div>
+      <span class="board-header__status">{board.status}</span>
+    </div>
+
+    <!-- Performance Score — circular element -->
+    <div class="board-score-section">
+      <div class="board-score">
+        <svg class="board-score__ring" viewBox="0 0 80 80" aria-hidden="true">
+          <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3"></circle>
+          <circle
+            cx="40"
+            cy="40"
+            r="34"
+            fill="none"
+            stroke="var(--color-primary)"
+            stroke-width="3"
+            stroke-dasharray="213.6"
+            stroke-dashoffset="0"
+            stroke-linecap="round"
+            transform="rotate(-90 40 40)"
+            class="board-score__progress"
+          ></circle>
+        </svg>
+        <div class="board-score__value">
+          <span class="board-score__number">100</span>
+        </div>
+      </div>
+      <div class="board-score__meta">
+        <span class="board-score__title">{board.scoreTitle}</span>
+        <span class="board-score__sub">{board.scoreSub}</span>
+      </div>
+    </div>
+
+    <!-- Capability list -->
+    <div class="board-capabilities">
+      {
+        board.capabilities.map((cap) => (
+          <div class="board-cap">
+            <span class="board-cap__indicator" />
+            <span class="board-cap__text">{cap.label}</span>
+            <span class="board-cap__status">{cap.status}</span>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Build Timeline — vertical rail -->
+    <div class="board-timeline">
+      <div class="board-timeline__rail" aria-hidden="true"></div>
+      {
+        board.timeline.map((label, index) => (
+          <div class:list={["board-timeline__step", index === 2 && "board-timeline__step--active"]}>
+            <span class="board-timeline__num">{String(index + 1).padStart(2, "0")}</span>
+            <span class="board-timeline__label">{label}</span>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Board Footer -->
+    <div class="board-footer">
+      <div class="board-footer__row">
+        <span>{board.footerOne}</span>
+      </div>
+      <div class="board-footer__row">
+        <span>{board.footerTwo}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Badges -->
+  <div class="hero-float float-badge-1" data-speed="1.3">
+    <span class="dot-pulse"></span>
+    {badges[0]}
+  </div>
+
+  <div class="hero-float float-badge-2" data-speed="-0.7">
+    {badges[1]}
+  </div>
+
+  <div class="hero-float float-badge-3" data-speed="1.6">
+    {badges[2]}
+  </div>
+</div>
+
+<style>
+  .hero-visual-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-visual-wrapper {
+      margin: 0;
+      justify-self: end;
+    }
+  }
+
+  .hero-board {
+    position: relative;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)),
+      var(--color-surface);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow:
+      0 32px 64px -16px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hero-board:hover {
+    border-color: var(--color-border-strong);
+    box-shadow:
+      0 40px 80px -16px rgba(0, 0, 0, 0.7),
+      0 0 80px -20px var(--color-primary-soft),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .board-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .board-header__left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .board-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.4);
+    animation: boardPulse 3s ease-in-out infinite;
+  }
+
+  .board-header__label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+  }
+
+  .board-header__status {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid rgba(182, 255, 92, 0.15);
+    border-radius: var(--radius-full);
+    background: rgba(182, 255, 92, 0.06);
+  }
+
+  .board-score-section {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.35rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .board-score {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+  }
+
+  .board-score__ring {
+    width: 100%;
+    height: 100%;
+  }
+
+  .board-score__progress {
+    transition: stroke-dashoffset 1.5s ease;
+  }
+
+  .board-score__value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .board-score__number {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  .board-score__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .board-score__title {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .board-score__sub {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.04em;
+  }
+
+  .board-capabilities {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .board-cap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0;
+  }
+
+  .board-cap + .board-cap {
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  .board-cap__indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .board-cap__text {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--color-text-soft);
+    flex: 1;
+  }
+
+  .board-cap__status {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.28);
+    text-transform: uppercase;
+  }
+
+  .board-timeline {
+    position: relative;
+    padding: 1rem 1.25rem;
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .board-timeline__rail {
+    position: absolute;
+    top: 50%;
+    left: 1.25rem;
+    right: 1.25rem;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    z-index: 0;
+  }
+
+  .board-timeline__step {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    text-align: center;
+  }
+
+  .board-timeline__num {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.25);
+    padding: 0.15rem 0.35rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+  }
+
+  .board-timeline__step--active .board-timeline__num {
+    color: var(--color-primary);
+    background: rgba(182, 255, 92, 0.1);
+    box-shadow: 0 0 6px rgba(182, 255, 92, 0.2);
+  }
+
+  .board-timeline__label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+  }
+
+  .board-timeline__step--active .board-timeline__label {
+    color: var(--color-text);
+  }
+
+  .board-footer {
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .board-footer__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.06em;
+  }
+
+  .hero-float {
+    position: absolute;
+    z-index: 2;
+    padding: 0.5rem 0.85rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: rgba(17, 17, 19, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--color-text-soft);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .float-badge-1 {
+    top: -1rem;
+    right: -1rem;
+  }
+
+  .float-badge-2 {
+    bottom: 3.5rem;
+    left: -1.75rem;
+  }
+
+  .float-badge-3 {
+    bottom: -1rem;
+    right: 1.5rem;
+  }
+
+  .dot-pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    animation: dotPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes boardPulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  @keyframes dotPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; box-shadow: 0 0 8px rgba(182, 255, 92, 0.6); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .board-status-dot,
+    .dot-pulse {
+      animation: none !important;
+    }
+  }
+</style>

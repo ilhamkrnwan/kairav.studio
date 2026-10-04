@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Sitemaps & AI Context
+Sitemap: https://kairav.studio/sitemap-index.xml
+# LLMs and Generative Search Indexing
+# See https://kairav.studio/llms.txt and https://kairav.studio/llms-full.txt

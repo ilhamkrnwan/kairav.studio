@@ -1,0 +1,214 @@
+---
+import { defaultLang, getAlternates, getDict, getLangFromUrl } from "../../i18n/ui";
+
+export interface ArticleMeta {
+  headline: string;
+  description: string;
+  datePublished: Date | string;
+  dateModified?: Date | string;
+  authorName?: string;
+  image?: string;
+  keywords?: string[];
+}
+
+export interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  image?: string;
+  type?: "website" | "article";
+  article?: ArticleMeta;
+  breadcrumbs?: BreadcrumbItem[];
+  schemaOverrides?: Record<string, any>[];
+  robots?: string;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const dict = getDict(lang);
+
+const {
+  title = dict.meta.defaultTitle,
+  description = dict.meta.defaultDescription,
+  canonicalPath = Astro.url.pathname,
+  image = "/og.png",
+  type = "website",
+  article,
+  breadcrumbs,
+  schemaOverrides = [],
+  robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+} = Astro.props;
+
+const site = Astro.site ?? new URL("https://kairav.studio");
+const toUrl = (path: string) => new URL(path, site).toString();
+const canonicalUrl = toUrl(canonicalPath);
+const ogImageUrl = image.startsWith("http") ? image : toUrl(image);
+
+// Alternates for hreflang
+const alternates =
+  canonicalPath === Astro.url.pathname
+    ? getAlternates(Astro.url.pathname).map(({ lang: altLang, path }) => ({
+        hreflang: altLang,
+        href: toUrl(path),
+        ogLocale: getDict(altLang).meta.ogLocale,
+      }))
+    : [];
+const xDefault = alternates.find((alt) => alt.hreflang === defaultLang);
+
+// Structured Data (JSON-LD)
+const schemaGraph: Record<string, any>[] = [
+  {
+    "@type": "Organization",
+    "@id": "https://kairav.studio/#organization",
+    name: "Kairav Studio",
+    alternateName: ["Kairav", "Kairav Tech Studio"],
+    url: "https://kairav.studio",
+    logo: {
+      "@type": "ImageObject",
+      "@id": "https://kairav.studio/#logo",
+      url: toUrl("/logo.avif"),
+      contentUrl: toUrl("/logo.avif"),
+      caption: "Kairav Studio Logo",
+    },
+    image: toUrl("/og.png"),
+    sameAs: [
+      "https://github.com/ilhamkrnwan",
+      "https://instagram.com/kairav.studio",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "contact@kairav.studio",
+      contactType: "customer service",
+      availableLanguage: ["English", "Indonesian"],
+    },
+    knowsAbout: [
+      "Design Systems",
+      "High-Performance Web Applications",
+      "Mobile Applications",
+      "Systems Architecture",
+      "Generative Engine Optimization (GEO)",
+      "Astro Framework",
+      "Tailwind CSS",
+      "TypeScript",
+    ],
+  },
+  {
+    "@type": "WebSite",
+    "@id": "https://kairav.studio/#website",
+    url: "https://kairav.studio",
+    name: "Kairav Studio",
+    publisher: {
+      "@id": "https://kairav.studio/#organization",
+    },
+    inLanguage: ["en", "id"],
+  },
+  {
+    "@type": "WebPage",
+    "@id": `${canonicalUrl}#webpage`,
+    url: canonicalUrl,
+    name: title,
+    description: description,
+    isPartOf: {
+      "@id": "https://kairav.studio/#website",
+    },
+    inLanguage: dict.meta.htmlLang,
+  },
+];
+
+if (article && type === "article") {
+  const published =
+    article.datePublished instanceof Date
+      ? article.datePublished.toISOString()
+      : new Date(article.datePublished).toISOString();
+  const modified = article.dateModified
+    ? article.dateModified instanceof Date
+      ? article.dateModified.toISOString()
+      : new Date(article.dateModified).toISOString()
+    : published;
+
+  schemaGraph.push({
+    "@type": "Article",
+    "@id": `${canonicalUrl}#article`,
+    isPartOf: { "@id": "https://kairav.studio/#website" },
+    headline: article.headline,
+    description: article.description,
+    datePublished: published,
+    dateModified: modified,
+    mainEntityOfPage: canonicalUrl,
+    inLanguage: dict.meta.htmlLang,
+    author: {
+      "@type": "Person",
+      name: article.authorName ?? "Kairav Studio",
+      url: toUrl("/about"),
+    },
+    publisher: {
+      "@id": "https://kairav.studio/#organization",
+    },
+    image: article.image ? (article.image.startsWith("http") ? article.image : toUrl(article.image)) : ogImageUrl,
+    keywords: article.keywords,
+  });
+}
+
+if (breadcrumbs && breadcrumbs.length > 0) {
+  schemaGraph.push({
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((crumb, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: crumb.name,
+      item: toUrl(crumb.url),
+    })),
+  });
+}
+
+for (const override of schemaOverrides) {
+  schemaGraph.push(override);
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": schemaGraph,
+};
+---
+
+<!-- Canonical & Robots -->
+<link rel="canonical" href={canonicalUrl} />
+<meta name="robots" content={robots} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:site_name" content="Kairav Studio" />
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
+<meta property="og:locale" content={dict.meta.ogLocale} />
+{
+  alternates
+    .filter((alt) => alt.hreflang !== lang)
+    .map((alt) => <meta property="og:locale:alternate" content={alt.ogLocale} />)
+}
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@kairavstudio" />
+<meta name="twitter:creator" content="@kairavstudio" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:image:alt" content={title} />
+
+<!-- Alternates / Hreflang -->
+{alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+{xDefault && <link rel="alternate" hreflang="x-default" href={xDefault.href} />}
+
+<!-- JSON-LD Structured Data -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

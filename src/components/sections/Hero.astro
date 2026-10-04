@@ -1,8 +1,11 @@
 ---
-import { getLangFromUrl, useTranslations } from "../../i18n/ui";
+import { getDict, getLangFromUrl, localizePath } from "../../i18n/ui";
+import OperatingBoard from "./OperatingBoard.astro";
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const dict = getDict(lang);
+const t = dict.hero;
+const accentLine = 1; // 2nd title line is highlighted
 ---
 
 <section class="hero-section" data-hero-section>
@@ -15,43 +18,39 @@ const t = useTranslations(lang);
     <!-- Coordinate labels — editorial detail -->
     <span class="hero-coord hero-coord--tl">LAT 7.82° S</span>
     <span class="hero-coord hero-coord--tr">LON 110.37° E</span>
-    <span class="hero-coord hero-coord--bl">DESIGN SYSTEMS / PERFORMANCE / SCALE</span>
+    <span class="hero-coord hero-coord--bl">{t.coordBottom}</span>
   </div>
 
   <div class="hero-container">
     <!-- Left Column: Content -->
     <div class="hero-content">
-      <span class="hero-label">Design-Led Technology Studio</span>
+      <span class="hero-label">{t.label}</span>
 
       <h1 class="hero-title">
-        <span class="hero-line">
-          <span class="hero-word">WE</span>
-          <span class="hero-word">CRAFT</span>
-        </span>
-        <span class="hero-line">
-          <span class="hero-word hero-word--accent">DIGITAL</span>
-          <span class="hero-word hero-word--accent">SYSTEMS</span>
-        </span>
-        <span class="hero-line">
-          <span class="hero-word">THAT</span>
-          <span class="hero-word">FEEL</span>
-          <span class="hero-word">ALIVE.</span>
-        </span>
+        {
+          t.titleLines.map((words, lineIndex) => (
+            <span class="hero-line">
+              {words.map((word) => (
+                <span class:list={["hero-word", lineIndex === accentLine && "hero-word--accent"]}>{word}</span>
+              ))}
+            </span>
+          ))
+        }
       </h1>
 
       <p class="hero-subtitle">
-        Websites, interfaces, and performance systems for brands that need clarity, speed, and long-term digital growth.
+        {t.subtitle}
       </p>
 
       <div class="hero-actions">
-        <a href="/contact" class="btn-cta">
-          <span>{t("nav.start")}</span>
+        <a href={localizePath("/contact", lang)} class="btn-cta">
+          <span>{dict.nav.start}</span>
           <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-        <a href="/works" class="btn-secondary">
-          <span>View Systems</span>
+        <a href={localizePath("/services", lang)} class="btn-secondary">
+          <span>{t.secondary}</span>
           <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -60,115 +59,19 @@ const t = useTranslations(lang);
 
       <!-- Trust Strip -->
       <div class="hero-trust">
-        <span class="hero-trust__item">ASTRO + GSAP</span>
-        <span class="hero-trust__dot" aria-hidden="true"></span>
-        <span class="hero-trust__item">SEO/GEO READY</span>
-        <span class="hero-trust__dot" aria-hidden="true"></span>
-        <span class="hero-trust__item">PERFORMANCE-FIRST</span>
-        <span class="hero-trust__dot" aria-hidden="true"></span>
-        <span class="hero-trust__item">DESIGN SYSTEMS</span>
+        {
+          t.trust.map((item, index) => (
+            <Fragment>
+              {index > 0 && <span class="hero-trust__dot" aria-hidden="true" />}
+              <span class="hero-trust__item">{item}</span>
+            </Fragment>
+          ))
+        }
       </div>
     </div>
 
     <!-- Right Column: Studio Operating Board -->
-    <div class="hero-visual-wrapper">
-      <div class="hero-board" data-feature-card>
-        <!-- Board Header -->
-        <div class="board-header">
-          <div class="board-header__left">
-            <span class="board-status-dot"></span>
-            <span class="board-header__label">STUDIO OPERATING BOARD</span>
-          </div>
-          <span class="board-header__status">LIVE SYSTEM</span>
-        </div>
-
-        <!-- Performance Score — circular element -->
-        <div class="board-score-section">
-          <div class="board-score">
-            <svg class="board-score__ring" viewBox="0 0 80 80" aria-hidden="true">
-              <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3"/>
-              <circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-dasharray="213.6" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 40 40)" class="board-score__progress"/>
-            </svg>
-            <div class="board-score__value">
-              <span class="board-score__number">100</span>
-            </div>
-          </div>
-          <div class="board-score__meta">
-            <span class="board-score__title">Performance</span>
-            <span class="board-score__sub">Core Web Vitals — Healthy</span>
-          </div>
-        </div>
-
-        <!-- Capability list -->
-        <div class="board-capabilities">
-          <div class="board-cap">
-            <span class="board-cap__indicator"></span>
-            <span class="board-cap__text">Design system</span>
-            <span class="board-cap__status">ACTIVE</span>
-          </div>
-          <div class="board-cap">
-            <span class="board-cap__indicator"></span>
-            <span class="board-cap__text">Fast build</span>
-            <span class="board-cap__status">READY</span>
-          </div>
-          <div class="board-cap">
-            <span class="board-cap__indicator"></span>
-            <span class="board-cap__text">SEO/GEO structure</span>
-            <span class="board-cap__status">ACTIVE</span>
-          </div>
-          <div class="board-cap">
-            <span class="board-cap__indicator"></span>
-            <span class="board-cap__text">Scalable frontend</span>
-            <span class="board-cap__status">READY</span>
-          </div>
-        </div>
-
-        <!-- Build Timeline — vertical rail -->
-        <div class="board-timeline">
-          <div class="board-timeline__rail" aria-hidden="true"></div>
-          <div class="board-timeline__step">
-            <span class="board-timeline__num">01</span>
-            <span class="board-timeline__label">Discover</span>
-          </div>
-          <div class="board-timeline__step">
-            <span class="board-timeline__num">02</span>
-            <span class="board-timeline__label">Design</span>
-          </div>
-          <div class="board-timeline__step board-timeline__step--active">
-            <span class="board-timeline__num">03</span>
-            <span class="board-timeline__label">Build</span>
-          </div>
-          <div class="board-timeline__step">
-            <span class="board-timeline__num">04</span>
-            <span class="board-timeline__label">Optimize</span>
-          </div>
-        </div>
-
-        <!-- Board Footer -->
-        <div class="board-footer">
-          <div class="board-footer__row">
-            <span>KAIRAV SYSTEMS // ACTIVE</span>
-          </div>
-          <div class="board-footer__row">
-            <span>ASTRO + GSAP // PERFORMANCE-FIRST</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Floating Badges -->
-      <div class="hero-float float-badge-1" data-speed="1.3">
-        <span class="dot-pulse"></span>
-        SEO/GEO READY
-      </div>
-
-      <div class="hero-float float-badge-2" data-speed="-0.7">
-        BUILD READY
-      </div>
-
-      <div class="hero-float float-badge-3" data-speed="1.6">
-        PERF: 100
-      </div>
-    </div>
+    <OperatingBoard board={t.board} badges={t.badges} />
   </div>
 </section>
 
@@ -469,324 +372,6 @@ const t = useTranslations(lang);
   }
 
   /* ═══════════════════════════════════════════════════════════════════
-     STUDIO OPERATING BOARD (Right Visual)
-     ═══════════════════════════════════════════════════════════════════ */
-
-  .hero-visual-wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .hero-board {
-    width: 100%;
-    max-width: 26rem;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: var(--radius-md);
-    padding: 0;
-    overflow: hidden;
-    box-shadow:
-      0 24px 80px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    will-change: transform, opacity;
-    transition: border-color 280ms ease;
-  }
-
-  .hero-board:hover {
-    border-color: rgba(255, 255, 255, 0.12);
-  }
-
-  /* Board Header */
-  .board-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.85rem 1.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .board-header__left {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .board-status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    box-shadow: 0 0 8px rgba(182, 255, 92, 0.4);
-    animation: boardPulse 3s ease-in-out infinite;
-  }
-
-  .board-header__label {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    color: rgba(255, 255, 255, 0.45);
-    text-transform: uppercase;
-  }
-
-  .board-header__status {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--color-primary);
-    text-transform: uppercase;
-    padding: 0.2rem 0.5rem;
-    border: 1px solid rgba(182, 255, 92, 0.15);
-    border-radius: var(--radius-full);
-    background: rgba(182, 255, 92, 0.06);
-  }
-
-  /* Board Score Section */
-  .board-score-section {
-    display: flex;
-    align-items: center;
-    gap: 1.1rem;
-    padding: 1.35rem 1.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .board-score {
-    position: relative;
-    width: 68px;
-    height: 68px;
-    flex-shrink: 0;
-  }
-
-  .board-score__ring {
-    width: 100%;
-    height: 100%;
-  }
-
-  .board-score__progress {
-    transition: stroke-dashoffset 1.5s ease;
-  }
-
-  .board-score__value {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .board-score__number {
-    font-family: var(--font-heading);
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: -0.02em;
-  }
-
-  .board-score__meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .board-score__title {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-text);
-  }
-
-  .board-score__sub {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    color: rgba(255, 255, 255, 0.35);
-    letter-spacing: 0.04em;
-  }
-
-  /* Board Capabilities */
-  .board-capabilities {
-    padding: 0.75rem 1.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .board-cap {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.5rem 0;
-  }
-
-  .board-cap + .board-cap {
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
-  }
-
-  .board-cap__indicator {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    flex-shrink: 0;
-    opacity: 0.7;
-  }
-
-  .board-cap__text {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    color: var(--color-text-soft);
-    flex: 1;
-  }
-
-  .board-cap__status {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.28);
-    text-transform: uppercase;
-  }
-
-  /* Board Timeline */
-  .board-timeline {
-    position: relative;
-    padding: 1rem 1.25rem;
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .board-timeline__rail {
-    position: absolute;
-    top: 50%;
-    left: 1.25rem;
-    right: 1.25rem;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-50%);
-  }
-
-  .board-timeline__step {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .board-timeline__num {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.22);
-    letter-spacing: 0.08em;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: all 300ms ease;
-  }
-
-  .board-timeline__step--active .board-timeline__num {
-    color: #080808;
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    box-shadow: 0 0 12px rgba(182, 255, 92, 0.25);
-  }
-
-  .board-timeline__label {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    color: rgba(255, 255, 255, 0.28);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .board-timeline__step--active .board-timeline__label {
-    color: var(--color-primary);
-  }
-
-  /* Board Footer */
-  .board-footer {
-    padding: 0.7rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .board-footer__row {
-    font-family: var(--font-mono);
-    font-size: 0.52rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.18);
-    text-transform: uppercase;
-  }
-
-  /* ── Floating Badges ─────────────────────────────────────────────── */
-
-  .hero-float {
-    position: absolute;
-    padding: 0.55rem 0.85rem;
-    background: rgba(13, 13, 15, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-full);
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.55);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(8px);
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    white-space: nowrap;
-    will-change: transform, opacity;
-    letter-spacing: 0.06em;
-  }
-
-  .dot-pulse {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    box-shadow: 0 0 6px rgba(182, 255, 92, 0.35);
-    animation: boardPulse 3s ease-in-out infinite;
-  }
-
-  .float-badge-1 {
-    top: 8%;
-    left: -6%;
-  }
-
-  .float-badge-2 {
-    bottom: 14%;
-    left: -4%;
-  }
-
-  .float-badge-3 {
-    bottom: 6%;
-    right: -3%;
-  }
-
-  @keyframes boardPulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════
      RESPONSIVE — Desktop
      ═══════════════════════════════════════════════════════════════════ */
 
@@ -814,9 +399,6 @@ const t = useTranslations(lang);
       width: auto;
     }
 
-    .hero-board {
-      max-width: 24rem;
-    }
   }
 
   @media (min-width: 1200px) {
@@ -831,9 +413,6 @@ const t = useTranslations(lang);
       font-size: clamp(4rem, 5.2vw, 5.25rem);
     }
 
-    .hero-board {
-      max-width: 26rem;
-    }
   }
 
   /* ═══════════════════════════════════════════════════════════════════
@@ -849,13 +428,6 @@ const t = useTranslations(lang);
       font-size: 0.5rem;
     }
 
-    .hero-float {
-      display: none;
-    }
-
-    .hero-board {
-      max-width: 28rem;
-    }
 
     .hero-trust {
       gap: 0.4rem;
@@ -866,180 +438,6 @@ const t = useTranslations(lang);
     }
   }
 
-  /* ── Reduced motion ──────────────────────────────────────────────── */
-
-  @media (prefers-reduced-motion: reduce) {
-    .board-status-dot,
-    .dot-pulse {
-      animation: none !important;
-    }
-  }
 </style>
 
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  let cleanupFn: (() => void) | null = null;
-
-  const initHeroAnimations = () => {
-    // 1. Clean up any existing instances
-    if (cleanupFn) {
-      cleanupFn();
-      cleanupFn = null;
-    }
-
-    const section = document.querySelector("[data-hero-section]");
-    if (!section) return;
-
-    // Check accessibility setting
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return;
-
-    // Use gsap.context for scoped tracking and leak-free cleanups
-    const ctx = gsap.context(() => {
-      // --- A. Entrance Timeline ---
-      const tl = gsap.timeline();
-
-      // Background atmosphere fade
-      tl.from(".hero-bg-atmosphere", {
-        opacity: 0,
-        duration: 2,
-        ease: "power2.out",
-      }, 0);
-
-      tl.from(".hero-bg-dotgrid", {
-        opacity: 0,
-        scale: 1.05,
-        duration: 2.2,
-        ease: "power2.out",
-      }, 0.2);
-
-      // Coordinate labels
-      tl.from(".hero-coord", {
-        opacity: 0,
-        y: 8,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: "power2.out",
-      }, 0.8);
-
-      // Eyebrow label
-      tl.from(".hero-label", {
-        y: 15,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power2.out",
-      }, 0.3);
-
-      // Title word stagger — cinematic reveal
-      tl.from(".hero-word", {
-        y: "110%",
-        rotate: 2.5,
-        skewY: 3,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.04,
-        ease: "power4.out",
-      }, 0.25);
-
-      // Subtitle
-      tl.from(".hero-subtitle", {
-        y: 18,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power2.out",
-      }, 0.6);
-
-      // CTA
-      tl.from(".hero-actions", {
-        y: 18,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power2.out",
-      }, 0.7);
-
-      // Trust strip items
-      tl.from(".hero-trust__item, .hero-trust__dot", {
-        opacity: 0,
-        y: 8,
-        stagger: 0.04,
-        duration: 0.5,
-        ease: "power2.out",
-      }, 0.85);
-
-      // Board panel — editorial slide in
-      tl.from(".hero-board", {
-        y: 40,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-      }, 0.5);
-
-      // Floating badges
-      tl.from(".hero-float", {
-        y: 20,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.7,
-        ease: "power2.out",
-      }, 0.9);
-
-      // --- B. ScrollTrigger Parallax ---
-
-      // Content fade and lift on scroll
-      gsap.to(".hero-content", {
-        yPercent: -12,
-        opacity: 0.15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      // Board panel parallax
-      gsap.to(".hero-visual-wrapper", {
-        yPercent: -6,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      // Floating elements parallax
-      const floatingElements = section.querySelectorAll<HTMLElement>(".hero-float");
-      floatingElements.forEach((el) => {
-        const speed = parseFloat(el.getAttribute("data-speed") || "1");
-        const isMobile = window.innerWidth < 1024;
-        const targetOffset = -22 * speed * (isMobile ? 0.3 : 1);
-
-        gsap.to(el, {
-          yPercent: targetOffset,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      });
-
-    }, section);
-
-    cleanupFn = () => {
-      ctx.revert();
-    };
-  };
-
-  // Run on initial load and View Transition swaps
-  document.addEventListener("astro:page-load", initHeroAnimations);
-</script>
+<script src="../../scripts/hero-animations.ts"></script>

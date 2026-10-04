@@ -2,6 +2,7 @@
 import Container from "../common/Container.astro";
 import SectionHeading from "../common/SectionHeading.astro";
 import FeatureCard from "../cards/FeatureCard.astro";
+import { getDict, getLangFromUrl } from "../../i18n/ui";
 
 /**
  * "Everything you need" dark bento feature section.
@@ -35,60 +36,42 @@ interface Props {
   features?: Feature[];
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = getDict(lang).featureGrid;
+
+/* Language-independent visuals, matched to the dictionary items by index. */
+const visuals: Omit<Feature, "title" | "description">[] = [
+  {
+    icon: icons.palette,
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=720&h=400&fit=crop&q=80",
+    accent: "rgba(139, 92, 246, 0.6)",
+    span: 2,
+  },
+  {
+    icon: icons.bolt,
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=720&h=400&fit=crop&q=80",
+    accent: "rgba(56, 189, 248, 0.6)",
+  },
+  {
+    icon: icons.search,
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=720&h=400&fit=crop&q=80",
+    accent: "rgba(56, 189, 248, 0.6)",
+  },
+  {
+    icon: icons.server,
+    image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=720&h=400&fit=crop&q=80",
+    accent: "rgba(182, 255, 92, 0.5)",
+    span: 2,
+  },
+  { icon: icons.code, accent: "rgba(182, 255, 92, 0.5)" },
+  { icon: icons.sparkles, accent: "rgba(251, 191, 36, 0.5)" },
+];
+
 const {
-  eyebrow = "Fully Featured",
-  title = "Everything you need to ship a modern website.",
-  description = "Kairav Studio brings design, performance, content structure, and maintainable engineering together. Need more? We extend with the right tools.",
-  features = [
-    {
-      title: "Design-led interfaces",
-      description:
-        "Sharp, considered UI/UX with reusable components that stay consistent as the site grows.",
-      icon: icons.palette,
-      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=720&h=400&fit=crop&q=80",
-      accent: "rgba(139, 92, 246, 0.6)",
-      span: 2,
-    },
-    {
-      title: "Fast by default",
-      description:
-        "Static-first Astro builds, optimized assets, and minimal JavaScript for healthy Core Web Vitals.",
-      icon: icons.bolt,
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=720&h=400&fit=crop&q=80",
-      accent: "rgba(56, 189, 248, 0.6)",
-    },
-    {
-      title: "SEO & GEO structure",
-      description:
-        "Clear headings, metadata, internal links, and entity-based content for search engines and AI discovery.",
-      icon: icons.search,
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=720&h=400&fit=crop&q=80",
-      accent: "rgba(56, 189, 248, 0.6)",
-    },
-    {
-      title: "Scalable systems",
-      description:
-        "From landing pages to dashboards, APIs, AI workflows, and Android/IoT integrations.",
-      icon: icons.server,
-      image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=720&h=400&fit=crop&q=80",
-      accent: "rgba(182, 255, 92, 0.5)",
-      span: 2,
-    },
-    {
-      title: "Open-source spirit",
-      description:
-        "Transparent structure, reviewable notes, and contributor-friendly patterns from day one.",
-      icon: icons.code,
-      accent: "rgba(182, 255, 92, 0.5)",
-    },
-    {
-      title: "Maintainable foundations",
-      description:
-        "Typed data, clean components, and documented choices that keep the work easy to evolve.",
-      icon: icons.sparkles,
-      accent: "rgba(251, 191, 36, 0.5)",
-    },
-  ],
+  eyebrow = t.eyebrow,
+  title = t.title,
+  description = t.description,
+  features = t.items.map((item, index) => ({ ...item, ...visuals[index] })),
 } = Astro.props;
 ---
 

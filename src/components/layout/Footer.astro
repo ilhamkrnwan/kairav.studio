@@ -1,20 +1,25 @@
 ---
+import { getDict, getLangFromUrl, localizePath } from "../../i18n/ui";
+
+const lang = getLangFromUrl(Astro.url);
+const t = getDict(lang).footer;
+const localize = (href: string) => localizePath(href, lang);
+
 const year = new Date().getFullYear();
 const links = [
-  { href: "/services", label: "Services" },
-  { href: "/works", label: "Works" },
-  { href: "/teams", label: "Teams" },
-  { href: "/about", label: "About" },
-  { href: "/insights", label: "Insights" },
-  { href: "/privacy-policy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
+  { href: "/services", label: t.links.services },
+  { href: "/teams", label: t.links.teams },
+  { href: "/about", label: t.links.about },
+  { href: "/insights", label: t.links.insights },
+  { href: "/privacy-policy", label: t.links.privacy },
+  { href: "/terms", label: t.links.terms },
 ];
 ---
 
 <footer class="dark-section dark-fx overflow-hidden border-t border-[var(--color-border)]">
   <div class="mx-auto grid w-full max-w-6xl gap-10 px-5 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
     <div>
-      <a href="/" class="inline-flex items-center gap-3" aria-label="Kairav Studio home">
+      <a href={localize("/")} class="inline-flex items-center gap-3" aria-label={getDict(lang).nav.home}>
         <img src="/logo-mark.avif" alt="" class="h-11 w-11" width="80" height="80" />
         <span>
           <span class="block font-brand text-sm tracking-[0.28em] text-[var(--color-text)]">KAIRAV</span>
@@ -22,28 +27,28 @@ const links = [
         </span>
       </a>
       <p class="mt-5 max-w-xl text-sm leading-7 text-[var(--color-text-soft)]">
-        A digital studio and open-source creative technology project for modern websites, web apps, AI integration, and maintainable digital systems.
+        {t.description}
       </p>
     </div>
 
     <div class="grid gap-6 sm:grid-cols-2">
       <div>
-        <h2 class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">Explore</h2>
+        <h2 class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">{t.explore}</h2>
         <div class="mt-4 grid gap-3">
-          {links.map((link) => <a class="link-muted" href={link.href}>{link.label}</a>)}
+          {links.map((link) => <a class="link-muted" href={localize(link.href)}>{link.label}</a>)}
         </div>
       </div>
       <div>
-        <h2 class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">Contact</h2>
+        <h2 class="font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">{t.contact}</h2>
         <div class="mt-4 grid gap-3">
           <a class="link-muted" href="mailto:hello@kairav.studio">hello@kairav.studio</a>
           <a class="link-muted" href="https://github.com/kairavstudio">GitHub</a>
-          <a class="link-muted" href="/contact">Start a Project</a>
+          <a class="link-muted" href={localize("/contact")}>{t.startProject}</a>
         </div>
       </div>
     </div>
   </div>
   <div class="border-t border-[var(--color-border)] px-5 py-5 text-center text-xs text-[var(--color-text-subtle)]">
-    © {year} Kairav Studio. Built with Astro.
+    © {year} Kairav Studio. {t.rights}
   </div>
 </footer>

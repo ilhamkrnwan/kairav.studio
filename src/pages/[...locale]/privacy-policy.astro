@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/common/Container.astro";
+import PageHero from "../../components/sections/PageHero.astro";
+import { getDict, getLangFromUrl, getLocalePaths } from "../../i18n/ui";
+
+export function getStaticPaths() {
+  return getLocalePaths();
+}
+
+const dict = getDict(getLangFromUrl(Astro.url)).legal;
+const t = dict.privacy;
+---
+
+<BaseLayout title={t.meta.title} description={t.meta.description}>
+  <main>
+    <PageHero eyebrow={dict.eyebrow} title={t.title} description={t.description} />
+
+    <section class="section-spacing">
+      <Container class="max-w-3xl">
+        <div class="grid gap-8 text-base leading-8 text-[var(--color-text-soft)]">
+          {
+            t.sections.map((section) => (
+              <section>
+                <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">{section.heading}</h2>
+                <p class="mt-4">{section.body}</p>
+              </section>
+            ))
+          }
+          <section>
+            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">{t.contact.heading}</h2>
+            <p class="mt-4">
+              {t.contact.before}<a class="link-accent" href="mailto:hello@kairav.studio">hello@kairav.studio</a>{t.contact.after}
+            </p>
+          </section>
+        </div>
+      </Container>
+    </section>
+  </main>
+</BaseLayout>

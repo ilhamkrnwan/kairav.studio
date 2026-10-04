@@ -13,15 +13,15 @@ const { href, variant = "primary", class: className = "" } = Astro.props;
    Ghost: transparent, muted text */
 const styles = {
   primary:
-    "bg-[var(--color-primary)] text-[#080808] shadow-[var(--shadow-glow-primary)] hover:opacity-90",
+    "btn-primary bg-[var(--color-primary)] !text-[#080808] font-bold shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)] hover:opacity-95",
   secondary:
-    "border border-[var(--color-border-strong)] bg-[var(--color-surface-glass)] text-[var(--color-text)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]",
+    "btn-secondary border border-white/20 bg-white/[0.06] !text-[#f5f1e8] font-semibold backdrop-blur-sm hover:border-[var(--color-primary)] hover:!text-[var(--color-primary)] hover:bg-[var(--color-primary-soft)]",
   ghost:
-    "border border-transparent bg-transparent text-[var(--color-text-muted)] hover:text-[var(--color-primary)]",
+    "btn-ghost border border-transparent bg-transparent !text-[var(--color-text-muted)] font-medium hover:!text-[var(--color-primary)]",
 };
 
 const classes = [
-  "inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-bold transition duration-200",
+  "inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm transition duration-200 cursor-pointer select-none",
   styles[variant],
   className,
 ];
@@ -38,3 +38,15 @@ const classes = [
     </button>
   )
 }
+
+<style>
+  .btn-primary {
+    color: #080808 !important;
+  }
+  .btn-secondary {
+    color: #f5f1e8 !important;
+  }
+  .btn-secondary:hover {
+    color: var(--color-primary) !important;
+  }
+</style>

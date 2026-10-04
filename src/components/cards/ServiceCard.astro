@@ -1,6 +1,7 @@
 ---
 import Badge from "../common/Badge.astro";
 import type { Service } from "../../data/services";
+import { getDict, getLangFromUrl } from "../../i18n/ui";
 
 /**
  * Service card with cover image (grayscale → color on hover),
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const { service } = Astro.props;
+const t = getDict(getLangFromUrl(Astro.url)).servicesPage.card;
 ---
 
 <article
@@ -45,7 +47,7 @@ const { service } = Astro.props;
     </h3>
     <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">{service.summary}</p>
     <div class="mt-4">
-      <span class="font-mono text-[0.62rem] tracking-wider text-[var(--color-text-muted)] uppercase block mb-0.5">Who it's for:</span>
+      <span class="font-mono text-[0.62rem] tracking-wider text-[var(--color-text-muted)] uppercase block mb-0.5">{t.whoFor}</span>
       <p class="text-sm leading-6 text-[var(--color-text-soft)]">{service.detail}</p>
     </div>
     <ul class="mt-5 grid gap-2">

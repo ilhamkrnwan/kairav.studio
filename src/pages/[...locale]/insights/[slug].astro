@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Badge from "../../../components/common/Badge.astro";
+import Button from "../../../components/common/Button.astro";
+import Container from "../../../components/common/Container.astro";
+import CTASection from "../../../components/sections/CTASection.astro";
+import { getInsights, type Insight } from "../../../lib/content";
+import { formatDate, getDict, localeParam, locales, localizePath, type Lang } from "../../../i18n/ui";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const lang of locales) {
+    const list = await getInsights(lang);
+    for (const post of list) {
+      paths.push({
+        params: {
+          locale: localeParam(lang),
+          slug: post.slug,
+        },
+        props: { post, lang },
+      });
+    }
+  }
+  return paths;
+}
+
+interface Props {
+  post: Insight;
+  lang: Lang;
+}
+
+const { post, lang } = Astro.props;
+const t = getDict(lang).insightsPage;
+const common = getDict(lang).common;
+const canonicalPath = localizePath(`/insights/${post.slug}`, lang);
+
+const { Content } = await render(post.entry);
+---
+
+<BaseLayout
+  title={`${post.title} - ${t.titleSuffix}`}
+  description={post.description}
+  canonicalPath={canonicalPath}
+  type="article"
+  article={{
+    headline: post.title,
+    description: post.description,
+    datePublished: post.pubDate,
+    image: "/og.png",
+  }}
+  breadcrumbs={[
+    { name: "Home", url: localizePath("/", lang) },
+    { name: t.hero.title, url: localizePath("/insights", lang) },
+    { name: post.title, url: canonicalPath },
+  ]}
+>
+  <main>
+    <article>
+      <section class="border-b border-[var(--color-border)] py-20 sm:py-24">
+        <Container>
+          <div class="max-w-3xl">
+            <Badge>{post.category}</Badge>
+            <h1 class="mt-6 font-heading text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl">
+              {post.title}
+            </h1>
+            <p class="mt-6 text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">{post.description}</p>
+            <p class="mt-6 font-mono text-xs text-[var(--color-text-subtle)]">
+              {formatDate(post.pubDate, lang)} / {post.readingTime}
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      <section class="section-spacing">
+        <Container class="max-w-3xl">
+          {post.isFallback && (
+            <div class="mb-8 rounded-lg border border-[var(--color-primary)]/20 bg-[var(--color-primary-soft)]/20 p-4 text-xs font-mono text-[var(--color-primary)]">
+              {t.fallbackNotice}
+            </div>
+          )}
+
+          <div class="prose prose-invert max-w-none text-base leading-8 text-[var(--color-text-soft)] space-y-6">
+            <Content />
+          </div>
+
+          <div class="mt-12">
+            <Button href={localizePath("/insights", lang)} variant="secondary">{common.backToInsights}</Button>
+          </div>
+        </Container>
+      </section>
+    </article>
+
+    <CTASection />
+  </main>
+</BaseLayout>

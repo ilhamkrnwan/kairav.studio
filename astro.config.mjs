@@ -9,15 +9,12 @@ export default defineConfig({
   i18n: {
     defaultLocale: "en",
     locales: ["en", "id"],
-    routing: {
-      prefixDefaultLocale: false,
-    },
+    routing: "manual",
   },
   redirects: {
-    "/work": "/works",
-    "/work/[slug]": "/case-studies/[slug]",
+    "/work": "/services",
+    "/works": "/services",
     "/blog": "/insights",
-    "/blog/[slug]": "/insights/[slug]",
   },
   vite: {
     plugins: [tailwindcss()],

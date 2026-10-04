@@ -1,0 +1,23 @@
+# Kairav Studio
+
+> Design-Led Technology Studio engineering world-class web applications, mobile platforms, design systems, and generative engine optimization (GEO).
+
+Kairav Studio (https://kairav.studio) is a boutique engineering and design studio based in Indonesia, serving global clients. We merge high-conviction editorial aesthetics with high-performance systems architecture. Built with Astro v6, TypeScript, Tailwind CSS v4, and GSAP.
+
+## Primary Pages
+- [Home](https://kairav.studio/): Overview of studio capabilities, operating board, and core systems.
+- [Services](https://kairav.studio/services): Deep dive into our core practices: Design Systems, Web Applications, Mobile Engineering, Cloud Architecture, and GEO.
+- [About Studio](https://kairav.studio/about): Philosophy, ethos, tech stack, and studio origin.
+- [Teams & Collaborators](https://kairav.studio/teams): Studio network, core engineering, design contributors, and partners.
+- [Insights & Technical Writing](https://kairav.studio/insights): Articles on software architecture, open source, performance engineering, and generative engine optimization.
+- [Contact & Inquiries](https://kairav.studio/contact): Project inquiries, scope estimates, and direct studio communication.
+
+## Core Capabilities
+- **Design Systems & Editorial Interfaces**: Tokenized design systems, Figma-to-code pipelines, typography hierarchy, micro-motion.
+- **High-Performance Web Applications**: Astro, Next.js, Vite, React, SSR/SSG architectures, sub-second load times.
+- **Cross-Platform Mobile Apps**: Flutter and React Native architectures with offline-first synchronization.
+- **Systems & Cloud Infrastructure**: Scalable backend APIs (Go, Node.js), PostgreSQL, Docker, Linux, CI/CD automation.
+- **Generative Engine Optimization (GEO)**: AI search engine discoverability, structured data (JSON-LD), llms.txt integration, semantic indexing.
+
+## Full Context Document
+- [Comprehensive LLM Reference](https://kairav.studio/llms-full.txt): Complete in-depth studio documentation, engineering philosophy, and capabilities.

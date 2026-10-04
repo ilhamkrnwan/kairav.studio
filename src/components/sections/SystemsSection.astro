@@ -1,5 +1,8 @@
 ---
 import Container from "../common/Container.astro";
+import { getDict, getLangFromUrl } from "../../i18n/ui";
+
+const t = getDict(getLangFromUrl(Astro.url)).systems;
 ---
 
 <section class="systems-section" data-systems-section>
@@ -7,53 +10,27 @@ import Container from "../common/Container.astro";
     <div class="systems-header">
       <span class="systems-eyebrow">
         <span class="systems-eyebrow__line" aria-hidden="true"></span>
-        What We Build
+        {t.eyebrow}
       </span>
-      <h2 class="systems-title">What we turn into systems.</h2>
+      <h2 class="systems-title">{t.title}</h2>
       <p class="systems-description">
-        Every project starts with a brand need and becomes a structured, performant, discoverable digital system.
+        {t.description}
       </p>
     </div>
 
     <div class="systems-grid">
-      <article class="systems-card" data-systems-card>
-        <div class="systems-card__index">01</div>
-        <h3 class="systems-card__title">Brand Websites</h3>
-        <p class="systems-card__desc">
-          Sharp visual identity, clear messaging, and fast delivery.
-        </p>
-        <div class="systems-card__tags">
-          <span>Identity</span>
-          <span>Speed</span>
-          <span>Clarity</span>
-        </div>
-      </article>
-
-      <article class="systems-card" data-systems-card>
-        <div class="systems-card__index">02</div>
-        <h3 class="systems-card__title">Performance Frontends</h3>
-        <p class="systems-card__desc">
-          Lightweight interfaces built for speed, structure, and maintainability.
-        </p>
-        <div class="systems-card__tags">
-          <span>Astro</span>
-          <span>Core Web Vitals</span>
-          <span>Static-first</span>
-        </div>
-      </article>
-
-      <article class="systems-card" data-systems-card>
-        <div class="systems-card__index">03</div>
-        <h3 class="systems-card__title">SEO/GEO Foundations</h3>
-        <p class="systems-card__desc">
-          Search-ready architecture for discoverability across modern engines.
-        </p>
-        <div class="systems-card__tags">
-          <span>Structure</span>
-          <span>Metadata</span>
-          <span>Discovery</span>
-        </div>
-      </article>
+      {
+        t.cards.map((card, index) => (
+          <article class="systems-card" data-systems-card>
+            <div class="systems-card__index">{String(index + 1).padStart(2, "0")}</div>
+            <h3 class="systems-card__title">{card.title}</h3>
+            <p class="systems-card__desc">{card.description}</p>
+            <div class="systems-card__tags">
+              {card.tags.map((tag) => <span>{tag}</span>)}
+            </div>
+          </article>
+        ))
+      }
     </div>
   </Container>
 </section>

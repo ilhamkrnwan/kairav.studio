@@ -1,0 +1,437 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Badge from "../../components/common/Badge.astro";
+import Container from "../../components/common/Container.astro";
+import PageHero from "../../components/sections/PageHero.astro";
+import { getDict, getLangFromUrl, getLocalePaths, localizePath } from "../../i18n/ui";
+
+export function getStaticPaths() {
+  return getLocalePaths();
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = getDict(lang).contact;
+const canonicalPath = localizePath("/contact", lang);
+---
+
+<BaseLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  canonicalPath={canonicalPath}
+  breadcrumbs={[
+    { name: "Home", url: localizePath("/", lang) },
+    { name: t.hero.eyebrow, url: canonicalPath },
+  ]}
+>
+  <main>
+    <PageHero eyebrow={t.hero.eyebrow} title={t.hero.title} description={t.hero.description} />
+
+    <section class="section-spacing">
+      <Container>
+        <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <!-- Left Column: Studio Channels & SLA -->
+          <aside class="space-y-6">
+            <div class="card-surface p-6 sm:p-8">
+              <div class="flex items-center justify-between">
+                <Badge variant="primary">{t.info.slaBadge}</Badge>
+                <span class="inline-flex items-center gap-2 text-xs font-mono text-[var(--color-primary)]">
+                  <span class="h-2 w-2 rounded-full bg-[var(--color-primary)] animate-ping"></span>
+                  Active
+                </span>
+              </div>
+
+              <h2 class="mt-6 font-heading text-2xl font-semibold text-[var(--color-text)]">
+                {t.info.title}
+              </h2>
+              <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-soft)]">
+                {t.info.directChatDesc}
+              </p>
+
+              <div class="mt-6 space-y-4 border-t border-[var(--color-border)] pt-6 text-sm font-mono">
+                <div>
+                  <span class="block text-xs text-[var(--color-text-subtle)] uppercase tracking-wider">Email</span>
+                  <a class="link-accent mt-1 inline-block text-[var(--color-text)] font-semibold hover:text-[var(--color-primary)]" href={`mailto:${t.info.directEmail}`}>
+                    {t.info.directEmail}
+                  </a>
+                </div>
+
+                <div>
+                  <span class="block text-xs text-[var(--color-text-subtle)] uppercase tracking-wider">Direct Chat</span>
+                  <div class="mt-1 flex flex-wrap gap-4">
+                    <a
+                      class="inline-flex items-center gap-1.5 text-[var(--color-text-soft)] hover:text-[var(--color-primary)] transition-colors"
+                      href="https://wa.me/6281234567890?text=Hi%20Kairav%20Studio%2C%20I%20would%20like%20to%20discuss%20a%20project."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                      {t.info.whatsapp}
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <span class="block text-xs text-[var(--color-text-subtle)] uppercase tracking-wider">Public Profiles</span>
+                  <div class="mt-1 flex flex-wrap gap-4">
+                    <a class="text-[var(--color-text-soft)] hover:text-[var(--color-primary)] transition-colors" href="https://github.com/ilhamkrnwan" target="_blank" rel="noopener noreferrer">
+                      {t.info.github}
+                    </a>
+                    <a class="text-[var(--color-text-soft)] hover:text-[var(--color-primary)] transition-colors" href="https://instagram.com/kairav.studio" target="_blank" rel="noopener noreferrer">
+                      Instagram
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 border-t border-[var(--color-border)] pt-6">
+                <a
+                  class="btn-cta inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold !text-[#080808] transition hover:bg-[var(--color-primary-hover)]"
+                  href={`mailto:${t.info.directEmail}?subject=Project%20Inquiry%20-%20Kairav%20Studio`}
+                >
+                  <span>{t.info.emailUs}</span>
+                  <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 8h10M9 4l4 4-4 4"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Studio Location / Studio Ethos snippet -->
+            <div class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-6 text-xs text-[var(--color-text-subtle)] font-mono">
+              <p class="text-[var(--color-text-soft)] font-medium">KAIRAV STUDIO HQ</p>
+              <p class="mt-1">Yogyakarta, Indonesia (GMT+7) — Serving teams worldwide.</p>
+              <p class="mt-2 text-[var(--color-text-subtle)]">Open Source Spirit • Performance First • 100% Client Code Ownership</p>
+            </div>
+          </aside>
+
+          <!-- Right Column: Interactive Lead Capture Form -->
+          <div class="card-surface p-6 sm:p-8">
+            <form id="project-inquiry-form" class="space-y-6">
+              <!-- Service Chips -->
+              <div>
+                <label class="block text-xs font-mono font-medium text-[var(--color-text-muted)] uppercase tracking-wider">
+                  01 / {t.form.servicesTitle}
+                </label>
+                <div class="mt-3 flex flex-wrap gap-2.5" id="services-chip-group">
+                  {
+                    t.form.services.map((serviceName) => (
+                      <button
+                        type="button"
+                        class="service-chip rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-3.5 py-2 text-xs font-mono text-[var(--color-text-soft)] transition-all hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] cursor-pointer"
+                        data-service={serviceName}
+                      >
+                        + {serviceName}
+                      </button>
+                    ))
+                  }
+                </div>
+                <input type="hidden" name="selected_services" id="selected_services" value="" />
+              </div>
+
+              <!-- Budget Range Chips -->
+              <div>
+                <label class="block text-xs font-mono font-medium text-[var(--color-text-muted)] uppercase tracking-wider">
+                  02 / {t.form.budgetTitle}
+                </label>
+                <div class="mt-3 flex flex-wrap gap-2.5" id="budget-chip-group">
+                  {
+                    t.form.budgets.map((budgetValue, idx) => (
+                      <button
+                        type="button"
+                        class:list={[
+                          "budget-chip rounded-lg border px-3.5 py-2 text-xs font-mono transition-all cursor-pointer",
+                          idx === 1
+                            ? "border-[var(--color-primary)] bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-semibold"
+                            : "border-[var(--color-border)] bg-[var(--color-surface-soft)] text-[var(--color-text-soft)] hover:border-[var(--color-primary)]",
+                        ]}
+                        data-budget={budgetValue}
+                      >
+                        {budgetValue}
+                      </button>
+                    ))
+                  }
+                </div>
+                <input type="hidden" name="selected_budget" id="selected_budget" value={t.form.budgets[1]} />
+              </div>
+
+              <!-- Timeline Range Chips -->
+              <div>
+                <label class="block text-xs font-mono font-medium text-[var(--color-text-muted)] uppercase tracking-wider">
+                  03 / {t.form.timelineTitle}
+                </label>
+                <div class="mt-3 flex flex-wrap gap-2.5" id="timeline-chip-group">
+                  {
+                    t.form.timelines.map((timelineValue, idx) => (
+                      <button
+                        type="button"
+                        class:list={[
+                          "timeline-chip rounded-lg border px-3.5 py-2 text-xs font-mono transition-all cursor-pointer",
+                          idx === 1
+                            ? "border-[var(--color-primary)] bg-[var(--color-primary-soft)] text-[var(--color-primary)] font-semibold"
+                            : "border-[var(--color-border)] bg-[var(--color-surface-soft)] text-[var(--color-text-soft)] hover:border-[var(--color-primary)]",
+                        ]}
+                        data-timeline={timelineValue}
+                      >
+                        {timelineValue}
+                      </button>
+                    ))
+                  }
+                </div>
+                <input type="hidden" name="selected_timeline" id="selected_timeline" value={t.form.timelines[1]} />
+              </div>
+
+              <!-- Contact Information Fields -->
+              <div class="grid gap-5 sm:grid-cols-2 pt-2 border-t border-[var(--color-border)]">
+                <div>
+                  <label class="mb-2 block text-xs font-mono text-[var(--color-text-muted)] uppercase tracking-wider" for="contact-name">
+                    {t.form.name} *
+                  </label>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    required
+                    placeholder={t.form.namePlaceholder}
+                    class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-sm text-[var(--color-text)] outline-none transition focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] placeholder-[var(--color-text-subtle)]"
+                  />
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-xs font-mono text-[var(--color-text-muted)] uppercase tracking-wider" for="contact-email">
+                    {t.form.email} *
+                  </label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder={t.form.emailPlaceholder}
+                    class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-sm text-[var(--color-text)] outline-none transition focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] placeholder-[var(--color-text-subtle)]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="mb-2 block text-xs font-mono text-[var(--color-text-muted)] uppercase tracking-wider" for="contact-company">
+                  {t.form.company}
+                </label>
+                <input
+                  id="contact-company"
+                  name="company"
+                  placeholder={t.form.companyPlaceholder}
+                  class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-sm text-[var(--color-text)] outline-none transition focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] placeholder-[var(--color-text-subtle)]"
+                />
+              </div>
+
+              <div>
+                <label class="mb-2 block text-xs font-mono text-[var(--color-text-muted)] uppercase tracking-wider" for="contact-notes">
+                  {t.form.notes} *
+                </label>
+                <textarea
+                  id="contact-notes"
+                  name="message"
+                  rows="4"
+                  required
+                  placeholder={t.form.notesPlaceholder}
+                  class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-sm text-[var(--color-text)] outline-none transition focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] placeholder-[var(--color-text-subtle)]"
+                ></textarea>
+              </div>
+
+              <div class="pt-2">
+                <button
+                  type="submit"
+                  id="submit-inquiry-btn"
+                  class="group inline-flex w-full items-center justify-center gap-3 rounded-lg bg-[var(--color-primary)] px-6 py-3.5 text-sm font-semibold !text-[#080808] transition hover:bg-[var(--color-primary-hover)] cursor-pointer disabled:opacity-50"
+                >
+                  <span id="btn-text">{t.form.send}</span>
+                  <svg id="btn-icon" class="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 8h10M9 4l4 4-4 4"></path>
+                  </svg>
+                </button>
+              </div>
+            </form>
+
+            <!-- Success State Overlay -->
+            <div id="inquiry-success-view" class="hidden py-8 text-center space-y-6">
+              <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-primary-soft)] text-[var(--color-primary)] ring-8 ring-[var(--color-primary-soft)]/30">
+                <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6L9 17l-5-5"></path>
+                </svg>
+              </div>
+
+              <div class="max-w-md mx-auto">
+                <h3 class="font-heading text-2xl font-semibold text-[var(--color-text)]">{t.form.successTitle}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-[var(--color-text-soft)]">{t.form.successMessage}</p>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+                <a
+                  id="whatsapp-forward-btn"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-[var(--color-primary)] bg-[var(--color-primary-soft)] px-5 py-2.5 text-xs font-mono font-medium text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:!text-[#080808] transition"
+                >
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                  {t.form.chatWhatsapp}
+                </a>
+                <button
+                  type="button"
+                  id="reset-form-btn"
+                  class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-5 py-2.5 text-xs font-mono text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition cursor-pointer"
+                >
+                  {t.form.resetForm}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </main>
+</BaseLayout>
+
+<script is:inline>
+  function setupContactForm() {
+    const form = document.getElementById("project-inquiry-form");
+    if (!form) return;
+
+    const servicesInput = document.getElementById("selected_services");
+    const budgetInput = document.getElementById("selected_budget");
+    const timelineInput = document.getElementById("selected_timeline");
+    const successView = document.getElementById("inquiry-success-view");
+    const resetBtn = document.getElementById("reset-form-btn");
+    const submitBtn = document.getElementById("submit-inquiry-btn");
+    const btnText = document.getElementById("btn-text");
+    const waForwardBtn = document.getElementById("whatsapp-forward-btn");
+
+    // Service chips multi-select
+    const serviceChips = document.querySelectorAll(".service-chip");
+    const selectedServices = new Set();
+
+    serviceChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const val = chip.getAttribute("data-service");
+        if (!val) return;
+
+        if (selectedServices.has(val)) {
+          selectedServices.delete(val);
+          chip.classList.remove("border-[var(--color-primary)]", "bg-[var(--color-primary-soft)]", "text-[var(--color-primary)]");
+          chip.classList.add("border-[var(--color-border)]", "text-[var(--color-text-soft)]");
+          chip.textContent = "+ " + val;
+        } else {
+          selectedServices.add(val);
+          chip.classList.add("border-[var(--color-primary)]", "bg-[var(--color-primary-soft)]", "text-[var(--color-primary)]");
+          chip.classList.remove("border-[var(--color-border)]", "text-[var(--color-text-soft)]");
+          chip.textContent = "✓ " + val;
+        }
+
+        if (servicesInput) {
+          servicesInput.value = Array.from(selectedServices).join(", ");
+        }
+      });
+    });
+
+    // Budget chips single-select
+    const budgetChips = document.querySelectorAll(".budget-chip");
+    budgetChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const val = chip.getAttribute("data-budget");
+        if (!val || !budgetInput) return;
+
+        budgetInput.value = val;
+        budgetChips.forEach((c) => {
+          c.classList.remove("border-[var(--color-primary)]", "bg-[var(--color-primary-soft)]", "text-[var(--color-primary)]", "font-semibold");
+          c.classList.add("border-[var(--color-border)]", "text-[var(--color-text-soft)]");
+        });
+        chip.classList.add("border-[var(--color-primary)]", "bg-[var(--color-primary-soft)]", "text-[var(--color-primary)]", "font-semibold");
+        chip.classList.remove("border-[var(--color-border)]", "text-[var(--color-text-soft)]");
+      });
+    });
+
+    // Timeline chips single-select
+    const timelineChips = document.querySelectorAll(".timeline-chip");
+    timelineChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const val = chip.getAttribute("data-timeline");
+        if (!val || !timelineInput) return;
+
+        timelineInput.value = val;
+        timelineChips.forEach((c) => {
+          c.classList.remove("border-[var(--color-primary)]", "bg-[var(--color-primary-soft)]", "text-[var(--color-primary)]", "font-semibold");
+          c.classList.add("border-[var(--color-border)]", "text-[var(--color-text-soft)]");
+        });
+        chip.classList.add("border-[var(--color-primary)]", "bg-[var(--color-primary-soft)]", "text-[var(--color-primary)]", "font-semibold");
+        chip.classList.remove("border-[var(--color-border)]", "text-[var(--color-text-soft)]");
+      });
+    });
+
+    // Handle form submit
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("contact-name")?.value || "";
+      const email = document.getElementById("contact-email")?.value || "";
+      const company = document.getElementById("contact-company")?.value || "-";
+      const notes = document.getElementById("contact-notes")?.value || "";
+      const services = servicesInput?.value || "General Project";
+      const budget = budgetInput?.value || "Flexible";
+      const timeline = timelineInput?.value || "Flexible";
+
+      if (submitBtn && btnText) {
+        submitBtn.disabled = true;
+        btnText.textContent = "Transmitting Brief...";
+      }
+
+      // Prepare WhatsApp link with prefilled details
+      const waText = encodeURIComponent(
+        `*New Project Inquiry — Kairav Studio*\n\n` +
+        `• Name: ${name}\n` +
+        `• Email: ${email}\n` +
+        `• Company: ${company}\n` +
+        `• Services: ${services}\n` +
+        `• Budget: ${budget}\n` +
+        `• Timeline: ${timeline}\n\n` +
+        `*Project Brief:*\n${notes}`
+      );
+
+      if (waForwardBtn) {
+        waForwardBtn.href = `https://wa.me/6281234567890?text=${waText}`;
+      }
+
+      // Simulate robust asynchronous transmission
+      setTimeout(() => {
+        form.classList.add("hidden");
+        if (successView) {
+          successView.classList.remove("hidden");
+        }
+      }, 600);
+    });
+
+    // Reset button
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        form.reset();
+        selectedServices.clear();
+        serviceChips.forEach((chip) => {
+          const val = chip.getAttribute("data-service") || "";
+          chip.classList.remove("border-[var(--color-primary)]", "bg-[var(--color-primary-soft)]", "text-[var(--color-primary)]");
+          chip.classList.add("border-[var(--color-border)]", "text-[var(--color-text-soft)]");
+          chip.textContent = "+ " + val;
+        });
+        if (submitBtn && btnText) {
+          submitBtn.disabled = false;
+          btnText.textContent = "Send Project Inquiry";
+        }
+        if (successView) {
+          successView.classList.add("hidden");
+        }
+        form.classList.remove("hidden");
+      });
+    }
+  }
+
+  document.addEventListener("astro:page-load", setupContactForm);
+  if (document.readyState !== "loading") {
+    setupContactForm();
+  }
+</script>

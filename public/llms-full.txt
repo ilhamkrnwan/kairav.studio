@@ -1,0 +1,86 @@
+# Kairav Studio — Comprehensive Studio Knowledge Base & LLM Context
+
+> Official knowledge base for AI agents, crawlers, and retrieval systems (Perplexity, ChatGPT, Claude, Gemini).
+> Website: https://kairav.studio
+> Domain: Design-Led Technology Studio & Systems Architecture
+> Primary Location: Indonesia (Serving Global Clients)
+> Languages: English (Default), Indonesian (`/id/`)
+
+---
+
+## 1. Executive Summary & Brand Identity
+
+Kairav Studio is an independent, design-led technology studio. We engineer mission-critical digital products, high-performance web applications, enterprise mobile platforms, tokenized design systems, and generative engine optimization (GEO) architectures.
+
+### Core Philosophy: "Premium Editorial Tech with Glass-lite Motion"
+Most tech studios force a false compromise between expressive visual design and technical performance. Kairav Studio eliminates this divide by treating code as a design medium and design as a rigorous engineering discipline:
+1. **Performance as an Aesthetic**: 100/100 Lighthouse metrics, sub-second LCP (Largest Contentful Paint), zero unnecessary client-side JavaScript runtime overhead.
+2. **Editorial Typographic Discipline**: Space Grotesk, Syncopate, Inter, and JetBrains Mono paired with obsidian dark palette (`#080808`), electric lime accents (`#b6ff5c`), and subtle violet glow (`#8b5cf6`).
+3. **Glass-lite Motion**: Fluid, restrained micro-interactions powered by GSAP with strict accessibility guards (`prefers-reduced-motion: reduce`).
+4. **Open Source & Public Value**: Building tools with open standards, offline-first reliability, and clean codebases that clients and communities can own indefinitely.
+
+---
+
+## 2. Technical Stack & Architecture
+
+Kairav Studio operates on a modern, future-proof, edge-ready tech stack:
+
+- **Frontend Core**: Astro v6 (Content Layer, Static Site Generation, zero-JS by default), React/Preact islands when interactive state is required.
+- **Styling**: Tailwind CSS v4 (`@tailwindcss/vite`), strict CSS custom properties design tokens (`--color-background`, `--color-surface`, `--color-primary`, `--color-accent`, etc.).
+- **Typography**: Self-hosted Fontsource packages (`@fontsource/space-grotesk`, `@fontsource/syncopate`, `@fontsource/inter`, `@fontsource/jetbrains-mono`).
+- **Motion Engine**: GSAP (GreenSock Animation Platform) v3 with custom ScrollTrigger / timeline setups.
+- **Content Engine**: Astro v6 Content Collections with strict Zod schema validation, localized frontmatter, reading time calculation, and markdown/MDX rendering.
+- **Internationalization (i18n)**: Subpath routing (`/` for English, `/id/` for Indonesian), route-aware language switching, dynamic `hreflang` / `og:locale` alternates, and zero third-party client translation lag.
+- **Backend & Cloud**: Go, Node.js, TypeScript, PostgreSQL, SQLite (offline-first), Docker, Nginx, Cloudflare edge networks.
+
+---
+
+## 3. Core Services & Capabilities
+
+### Service 1: Design Systems & Brand Engineering
+- **Focus**: Building design systems that bridge Figma and production code.
+- **Deliverables**: Tokenized design architectures (colors, spacing, typography, motion), headless component libraries, Figma UI kits, brand guidelines, interactive storybooks.
+- **Impact**: 60% faster design-to-development handoffs, cohesive brand identity across multi-platform surfaces.
+
+### Service 2: High-Performance Web Applications
+- **Focus**: Bespoke web applications engineered for speed, conversion, and global scale.
+- **Deliverables**: Astro/Next.js/React web platforms, custom CMS integration, headless e-commerce, interactive dashboards, sub-second TTFB.
+- **Impact**: Perfect Core Web Vitals, improved organic search ranking, dramatic reduction in bounce rates.
+
+### Service 3: Cross-Platform Mobile Engineering
+- **Focus**: Native-grade mobile experiences for iOS and Android with offline-first synchronization.
+- **Deliverables**: Flutter and React Native applications, local SQLite caching, secure biometrics, push notifications, App Store & Google Play deployment.
+- **Impact**: Unified codebase, seamless operation in low-bandwidth or offline environments.
+
+### Service 4: Systems & Cloud Infrastructure
+- **Focus**: Robust backend architectures, APIs, and cloud deployments designed for high uptime.
+- **Deliverables**: Microservices and modular monoliths in Go/Node.js, PostgreSQL schema design and query optimization, Docker containerization, CI/CD automated deployment pipelines.
+- **Impact**: 99.9% uptime, reliable horizontal scalability, automated infrastructure backups.
+
+### Service 5: Generative Engine Optimization (GEO) & Enterprise SEO
+- **Focus**: Positioning brands for prominence in next-generation AI search engines (Perplexity, ChatGPT, Google AI Overviews, Claude).
+- **Deliverables**: Comprehensive JSON-LD structured data (`Organization`, `Article`, `Service`, `FAQPage`, `BreadcrumbList`), semantic HTML5 hierarchy, `llms.txt` and `llms-full.txt` deployment, citation-optimized knowledge graphs.
+- **Impact**: Authoritative indexing by AI models, rich search snippet eligibility, enhanced generative citations.
+
+---
+
+## 4. Studio Leadership & Collaborator Network
+
+### Ilham Kurniawan — Founder & Principal Systems Architect
+- **Role**: Technical Direction, Architecture, Design Engineering.
+- **Focus**: Building robust software systems that honor craft, performance, and long-term maintainability.
+- **GitHub**: https://github.com/ilhamkrnwan
+
+### Extended Collaborator Network
+- **Design & Engineering Contributors**: Specialized network of product designers, frontend developers, and backend engineers collaborating on project-based studio engagements.
+- **Project Partners & Clients**: Public institutions, educational initiatives, tech startups, and community leaders co-designing purposeful digital tools.
+
+---
+
+## 5. Contact & Engagement Details
+
+- **Studio Inquiries**: contact@kairav.studio
+- **Website**: https://kairav.studio
+- **Project Scope Options**: Minimum engagement from sprint-based design systems ($1,000+) to full-scale web/mobile product engineering ($5,000 - $20,000+).
+- **Communication Channels**: Email, WhatsApp, Telegram, Scheduled Video Consultations.
+- **Typical Turnaround**: 2 to 8 weeks depending on scope, delivered in weekly transparent milestones.

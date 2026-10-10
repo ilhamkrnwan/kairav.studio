@@ -1,26 +1,14 @@
 ---
 import { getLangFromUrl, useTranslations, localizePath } from "../../i18n/ui";
+import SectionAtmosphere from "../common/SectionAtmosphere.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
 <section class="hero-blueprint" data-hero-section>
-  <!-- Background Atmosphere: ambient glows & architectural hairline column rails -->
-  <div class="hero-bg" aria-hidden="true">
-    <div class="hero-bg-atmosphere"></div>
-    <div class="hero-bg-lines"></div>
-  </div>
-
-  <!-- Giant Ambient Watermark (Rotating Geometric Asterisk on Left) -->
-  <div class="hero-watermark" aria-hidden="true">
-    <svg viewBox="0 0 200 200" fill="currentColor">
-      <path d="M100 15 C102 45, 115 58, 145 60 C115 62, 102 75, 100 105 C98 75, 85 62, 55 60 C85 58, 98 45, 100 15 Z" transform="rotate(0 100 100)" opacity="0.85" />
-      <path d="M100 15 C102 45, 115 58, 145 60 C115 62, 102 75, 100 105 C98 75, 85 62, 55 60 C85 58, 98 45, 100 15 Z" transform="rotate(45 100 100)" opacity="0.85" />
-      <path d="M100 15 C102 45, 115 58, 145 60 C115 62, 102 75, 100 105 C98 75, 85 62, 55 60 C85 58, 98 45, 100 15 Z" transform="rotate(90 100 100)" opacity="0.85" />
-      <path d="M100 15 C102 45, 115 58, 145 60 C115 62, 102 75, 100 105 C98 75, 85 62, 55 60 C85 58, 98 45, 100 15 Z" transform="rotate(135 100 100)" opacity="0.85" />
-    </svg>
-  </div>
+  <!-- Background Atmosphere: Grainient WebGL canvas + ambient glows + scrim -->
+  <SectionAtmosphere variant="obsidian" showTopAccent={false} />
 
   <div class="hero-wrapper">
     <!-- Top System Eyebrow / Coordinate Rail -->
@@ -185,6 +173,8 @@ const t = useTranslations(lang);
 
       <!-- ── LOWER ROW: MONUMENTAL HERO SHOWCASE VIDEO / MEDIA CARD ── -->
       <div class="hero-media-deck">
+        <!-- Scroll Expand wrapper — GSAP scrubs this from narrowed → full -->
+        <div class="scroll-expand-wrapper">
         <div class="hero-video-frame">
           <!-- Glowing Lime Border Around the Video Frame -->
           <div class="video-frame-border" aria-hidden="true"></div>
@@ -217,6 +207,7 @@ const t = useTranslations(lang);
             </span>
           </button>
         </div>
+        </div><!-- /scroll-expand-wrapper -->
       </div>
 
     </div>
@@ -266,23 +257,7 @@ const t = useTranslations(lang);
     -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 30%, transparent 90%);
   }
 
-  /* Rotating Geometric Watermark on Far Left (Clonix Style) */
-  .hero-watermark {
-    position: absolute;
-    top: 5rem;
-    left: -8rem;
-    width: 32rem;
-    height: 32rem;
-    color: rgba(255, 255, 255, 0.035);
-    pointer-events: none;
-    z-index: 1;
-    animation: rotateWatermark 80s linear infinite;
-  }
 
-  @keyframes rotateWatermark {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
 
   /* Wrapper */
   .hero-wrapper {
@@ -330,7 +305,9 @@ const t = useTranslations(lang);
   /* Grid Box */
   .blueprint-grid-box {
     position: relative;
-    background: #090a0e;
+    background: rgba(9, 10, 14, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.55);
     border-radius: 4px;
@@ -393,7 +370,7 @@ const t = useTranslations(lang);
 
   /* Column 1: Left Rail */
   .hero-col--rail {
-    background: #07080b;
+    background: rgba(7, 8, 11, 0.65);
   }
 
   .rail-tag {
@@ -427,7 +404,7 @@ const t = useTranslations(lang);
 
   /* Column 2: Main Hero Content */
   .hero-col--main {
-    background: #0a0b10;
+    background: rgba(10, 11, 16, 0.65);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -588,7 +565,7 @@ const t = useTranslations(lang);
 
   /* Column 3: Right Showcase */
   .hero-col--showcase {
-    background: #090a0e;
+    background: rgba(9, 10, 14, 0.65);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -794,7 +771,17 @@ const t = useTranslations(lang);
   /* ── LOWER ROW: MONUMENTAL SHOWCASE VIDEO CARD ────────────────────── */
   .hero-media-deck {
     padding: clamp(1.5rem, 3.5vw, 3.25rem);
-    background: #08090d;
+    background: rgba(8, 9, 13, 0.65);
+  }
+
+  /* ── Scroll Expand wrapper ──────────────────────────────────────────── */
+  .scroll-expand-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* GSAP will animate padding-inline from initial value to 0 */
+    padding-inline: clamp(1rem, 8vw, 6rem);
+    will-change: padding-inline;
   }
 
   .hero-video-frame {
@@ -802,13 +789,15 @@ const t = useTranslations(lang);
     width: 100%;
     aspect-ratio: 16 / 9;
     max-height: 38rem;
-    border-radius: 4px;
+    /* Initial state: rounded; GSAP scrubs to 4px as user scrolls */
+    border-radius: 20px;
     overflow: hidden;
     /* Signature Clonix Glowing Lime Border */
     border: 2px solid #b6ff5c;
     box-shadow:
       0 0 30px rgba(182, 255, 92, 0.25),
       0 20px 60px rgba(0, 0, 0, 0.7);
+    will-change: border-radius;
   }
 
   .video-thumbnail-img {
@@ -878,9 +867,7 @@ const t = useTranslations(lang);
 
   /* ── Reduced Motion ───────────────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
-    .hero-watermark {
-      animation: none !important;
-    }
+
     .blueprint-status-dot {
       animation: none !important;
     }
@@ -910,3 +897,4 @@ const t = useTranslations(lang);
   document.addEventListener("DOMContentLoaded", setupHeroVideo);
   document.addEventListener("astro:page-load", setupHeroVideo);
 </script>
+

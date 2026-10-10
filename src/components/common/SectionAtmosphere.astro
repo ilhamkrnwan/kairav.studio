@@ -1,0 +1,207 @@
+---
+/**
+ * SectionAtmosphere.astro
+ * Reusable atmospheric background layer for dark sections on the index page.
+ * Strictly mirrors the Footer's clean atmospheric texture:
+ * - Top neon/lime hairline accent line
+ * - Grainient WebGL fluid ambient canvas (vue-bits style)
+ * - Ambient radial glow blobs
+ * - Vignette scrim overlay (radial + linear gradients for text contrast)
+ */
+import Grainient from "./Grainient.astro";
+
+interface Props {
+  variant?: "obsidian" | "teal";
+  showTopAccent?: boolean;
+}
+
+const {
+  variant = "obsidian",
+  showTopAccent = true,
+} = Astro.props;
+
+const configs = {
+  obsidian: {
+    color1: "#7ecc2c",
+    color2: "#050806",
+    color3: "#1a320f",
+    timeSpeed: 0.18,
+    warpStrength: 1.15,
+    warpFrequency: 4.2,
+    warpSpeed: 1.4,
+    warpAmplitude: 46.0,
+    blendAngle: 18.0,
+    blendSoftness: 0.09,
+    rotationAmount: 380.0,
+    noiseScale: 2.0,
+    grainAmount: 0.09,
+    grainScale: 2.4,
+    contrast: 1.4,
+    gamma: 1.0,
+    saturation: 1.05,
+    zoom: 0.95,
+    bg: "#07080b",
+  },
+  teal: {
+    color1: "#3dff9c",
+    color2: "#050806",
+    color3: "#0d2e22",
+    timeSpeed: 0.14,
+    warpStrength: 1.0,
+    warpFrequency: 3.8,
+    warpSpeed: 1.2,
+    warpAmplitude: 50.0,
+    blendAngle: 22.0,
+    blendSoftness: 0.1,
+    rotationAmount: 340.0,
+    noiseScale: 2.0,
+    grainAmount: 0.08,
+    grainScale: 2.5,
+    contrast: 1.35,
+    gamma: 1.0,
+    saturation: 1.1,
+    zoom: 0.92,
+    bg: "#071415",
+  },
+};
+
+const cfg = configs[variant];
+---
+
+<div class={`section-atmosphere section-atmosphere--${variant}`} aria-hidden="true">
+  {/* Top Neon/Lime Hairline Accent (Identical to Footer .footer-accent-rule) */}
+  {showTopAccent && <div class="sa-accent-rule"></div>}
+
+  {/* Ambient Texture & Grainient Canvas (vue-bits style) */}
+  <Grainient
+    color1={cfg.color1}
+    color2={cfg.color2}
+    color3={cfg.color3}
+    timeSpeed={cfg.timeSpeed}
+    warpStrength={cfg.warpStrength}
+    warpFrequency={cfg.warpFrequency}
+    warpSpeed={cfg.warpSpeed}
+    warpAmplitude={cfg.warpAmplitude}
+    blendAngle={cfg.blendAngle}
+    blendSoftness={cfg.blendSoftness}
+    rotationAmount={cfg.rotationAmount}
+    noiseScale={cfg.noiseScale}
+    grainAmount={cfg.grainAmount}
+    grainScale={cfg.grainScale}
+    contrast={cfg.contrast}
+    gamma={cfg.gamma}
+    saturation={cfg.saturation}
+    zoom={cfg.zoom}
+    class="sa-grainient"
+  />
+
+  {/* Ambient Lime / Emerald Radial Glow Blobs */}
+  <div class="sa-glow"></div>
+
+  {/* Vignette Scrim (Radial + Linear Gradients for optimal text readability) */}
+  <div class="sa-scrim" style={`--sa-bg: ${cfg.bg};`}></div>
+</div>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════
+     ATMOSPHERIC ROOT WRAPPER
+     Mirrors the site footer atmosphere with isolated stacking context
+     ═══════════════════════════════════════════════════════════════════ */
+  .section-atmosphere {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ── 1. Top Neon/Lime Hairline Accent (Signature Clonix Line) ─────── */
+  .sa-accent-rule {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 15%,
+      rgba(182, 255, 92, 0.5) 50%,
+      rgba(255, 255, 255, 0.08) 85%,
+      transparent 100%
+    );
+    z-index: 2;
+  }
+
+  .section-atmosphere--teal .sa-accent-rule {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.08) 15%,
+      rgba(61, 255, 156, 0.45) 50%,
+      rgba(255, 255, 255, 0.08) 85%,
+      transparent 100%
+    );
+  }
+
+  /* ── 2. Grainient WebGL Canvas ────────────────────────────────────── */
+  :global(.sa-grainient) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.38;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  /* ── 3. Radial Glow Blobs ─────────────────────────────────────────── */
+  .sa-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .section-atmosphere--obsidian .sa-glow {
+    background:
+      radial-gradient(ellipse 65% 50% at 20% 90%, rgba(79, 125, 24, 0.09), transparent 60%),
+      radial-gradient(ellipse 50% 60% at 80% 30%, rgba(182, 255, 92, 0.06), transparent 70%);
+  }
+
+  .section-atmosphere--teal .sa-glow {
+    background:
+      radial-gradient(ellipse 70% 55% at 18% 85%, rgba(30, 140, 80, 0.09), transparent 60%),
+      radial-gradient(ellipse 55% 65% at 84% 25%, rgba(61, 255, 156, 0.05), transparent 70%);
+  }
+
+  /* ── 4. Scrim Vignette Overlay ────────────────────────────────────── */
+  .sa-scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(7, 8, 11, 0.55) 90%),
+      linear-gradient(
+        180deg,
+        rgba(7, 8, 11, 0.65) 0%,
+        rgba(7, 8, 11, 0.15) 35%,
+        rgba(7, 8, 11, 0.35) 70%,
+        rgba(7, 8, 11, 0.85) 100%
+      );
+  }
+
+  .section-atmosphere--teal .sa-scrim {
+    background:
+      radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(7, 20, 21, 0.55) 90%),
+      linear-gradient(
+        180deg,
+        rgba(7, 20, 21, 0.65) 0%,
+        rgba(7, 20, 21, 0.15) 35%,
+        rgba(7, 20, 21, 0.35) 70%,
+        rgba(7, 20, 21, 0.85) 100%
+      );
+  }
+</style>

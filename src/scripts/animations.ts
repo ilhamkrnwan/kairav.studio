@@ -45,6 +45,7 @@ export function initSiteAnimations(): void {
     initMediaParallaxAnimations();
     initPhoneMockup3DInteractions();
     initMagneticInteractions();
+    initScrollExpandAnimation();
   });
 }
 
@@ -592,4 +593,54 @@ function initMagneticInteractions(): void {
     btn.addEventListener("mousemove", handleMouseMove);
     btn.addEventListener("mouseleave", handleMouseLeave);
   });
+}
+
+/**
+ * 10. Scroll Expand — Hero Video Frame
+ *
+ * Mirrors vue-bits ScrollExpand: the .hero-video-frame starts inset
+ * (padding on the wrapper) and rounded, then scrubs to full-width with
+ * sharp corners as the user scrolls it into view.
+ */
+function initScrollExpandAnimation(): void {
+  const wrapper = document.querySelector<HTMLElement>(".scroll-expand-wrapper");
+  const frame   = document.querySelector<HTMLElement>(".hero-video-frame");
+  if (!wrapper || !frame) return;
+
+  const isMobile = window.matchMedia("(max-width: 640px)").matches;
+  const initPadding = isMobile ? "12px" : "clamp(16px, 8vw, 96px)";
+  const endPadding  = isMobile ? "8px"  : "0px";
+
+  // Animate the wrapper's horizontal padding (narrows → full bleed)
+  gsap.fromTo(
+    wrapper,
+    { paddingLeft: initPadding, paddingRight: initPadding },
+    {
+      paddingLeft:  endPadding,
+      paddingRight: endPadding,
+      ease: "none",
+      scrollTrigger: {
+        trigger: wrapper,
+        start: "top 92%",
+        end:   "top 18%",
+        scrub: 1.8,
+      },
+    }
+  );
+
+  // Simultaneously collapse border-radius from pill → sharp
+  gsap.fromTo(
+    frame,
+    { borderRadius: "20px" },
+    {
+      borderRadius: "4px",
+      ease: "none",
+      scrollTrigger: {
+        trigger: wrapper,
+        start: "top 92%",
+        end:   "top 18%",
+        scrub: 1.8,
+      },
+    }
+  );
 }

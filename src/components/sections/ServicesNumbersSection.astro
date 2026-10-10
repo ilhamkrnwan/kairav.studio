@@ -4,29 +4,25 @@
  * Dark obsidian architectural canvas with rotating geometric watermark,
  * 5-row interactive services accordion, and 4-column metric showcase.
  */
+import SectionAtmosphere from "../common/SectionAtmosphere.astro";
 ---
 
 <section class="services-numbers-section" id="services" data-services-numbers>
+  <!-- Atmospheric Background Layer (mirrors footer treatment) -->
+  <SectionAtmosphere variant="obsidian" showTopAccent={true} />
+
   <div class="section-container">
     {/* Corner Crosshairs */}
     <span class="grid-cross cross--tl" aria-hidden="true">+</span>
     <span class="grid-cross cross--tr" aria-hidden="true">+</span>
 
+
     {/* ═══════════════════════════════════════════════════════════════════════ */}
     {/* PART 1: SERVICES ACCORDION                                            */}
     {/* ═══════════════════════════════════════════════════════════════════════ */}
     <div class="services-block">
-      {/* ── Left Rail: Watermark, Tag & Reviews ── */}
+      {/* ── Left Rail: Tag & Reviews ── */}
       <aside class="services-rail">
-        {/* Subtle Rotating Watermark in Left Rail */}
-        <div class="rotor-watermark-rail" aria-hidden="true">
-          <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
-            <path
-              d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.6142 50 100C50 72.6142 72.6142 50 100 50C72.6142 50 50 27.6142 50 0Z"
-              fill="currentColor"
-            ></path>
-          </svg>
-        </div>
 
         <div class="services-rail-inner">
           <div class="rail-tag">
@@ -386,6 +382,7 @@
     color: #f8f5ec;
     padding: 0 1rem;
     overflow: hidden;
+    isolation: isolate;
   }
 
   @media (min-width: 640px) {
@@ -402,7 +399,9 @@
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background-color: #07080b;
+    background-color: rgba(7, 8, 11, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
   /* ── Crosshairs ───────────────────────────────────────────────────────────── */
@@ -474,27 +473,7 @@
     }
   }
 
-  .rotor-watermark-rail {
-    position: absolute;
-    top: 5rem;
-    left: -4rem;
-    width: 220px;
-    height: 220px;
-    pointer-events: none;
-    opacity: 0.07;
-    color: #b6ff5c;
-    animation: slowSpin 36s linear infinite;
-  }
 
-  @keyframes slowSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .rotor-svg {
-    width: 100%;
-    height: 100%;
-  }
 
   .services-rail-inner {
     position: sticky;

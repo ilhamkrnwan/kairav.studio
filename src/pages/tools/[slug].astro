@@ -1,24 +1,33 @@
 ---
+/**
+ * src/pages/tools/[slug].astro
+ * Architectural Blueprint Specification Detail Page for Kairav Studio.
+ * Follows the signature Clonix / Blueprint Design System:
+ * 1. Dark Blueprint Hero with telemetry bar, tool dossier left rail, and action buttons.
+ * 2. Light Canvas Mandate & Problem Matrix (What it is, Who it's for, Bottleneck eliminated).
+ * 3. Dark Obsidian Scope & Arsenal Band (Deliverables, Tech direction, Expected outcome).
+ * 4. Light Canvas 4-Stage Execution Protocol (Milestone-driven delivery steps).
+ * 5. Interactive Tool-Specific FAQ Accordion.
+ * 6. Dark Obsidian Adjacent Tools Catalog.
+ * 7. Monumental Bottom CTA Banner leading to /contact.
+ */
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Badge from "../../components/common/Badge.astro";
-import Button from "../../components/common/Button.astro";
-import Container from "../../components/common/Container.astro";
-import CTASection from "../../components/sections/CTASection.astro";
 import { services } from "../../data/services";
 import type { Service } from "../../data/services";
 
 export function getStaticPaths() {
-  return services.map((service) => ({
+  return services.map((service, index) => ({
     params: { slug: service.id },
-    props: { service },
+    props: { service, index },
   }));
 }
 
 interface Props {
   service: Service;
+  index: number;
 }
 
-const { service } = Astro.props;
+const { service, index = 0 } = Astro.props;
 
 const related = services.filter((item) => item.id !== service.id);
 const canonicalPath = `/tools/${service.id}`;
@@ -53,306 +62,1802 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title={`${service.title} - Kairav Studio`}
+  title={`${service.title} — Engineering Specification · Kairav Studio`}
   description={service.summary}
   canonicalPath={canonicalPath}
 >
   <script type="application/ld+json" is:inline set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
 
-  <main class="service-detail" style={`--accent: ${service.accent};`}>
-    {/* ── Hero ── */}
-    <section class="relative overflow-hidden border-b border-[var(--color-border)] py-20 sm:py-24">
-      <div
-        class="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full opacity-[0.16] blur-3xl"
-        style={`background: ${service.accent};`}
-        aria-hidden="true"
-      >
+  <main class="tool-spec-main" style={`--svc-accent: ${service.accent};`}>
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 1. HERO BAND (Dark Blueprint Canvas #07080b)                           */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="tool-hero-section" aria-label="Tool Engineering Specification" data-hero-section>
+      {/* Background Rotating Watermark */}
+      <div class="hero-watermark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
+          <path
+            d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.6142 50 100C50 72.6142 72.6142 50 100 50C72.6142 50 50 27.6142 50 0Z"
+            fill="currentColor"
+          ></path>
+        </svg>
       </div>
-      <Container>
-        <p class="mb-5 font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
-          <a href="/tools" class="link-accent">Tools</a> / {service.category}
-        </p>
-        <div class="grid gap-8 lg:grid-cols-[auto_1fr] lg:items-start">
-          <div class="service-detail__icon" aria-hidden="true">
-            <Fragment set:html={service.icon} />
+
+      <div class="tool-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        {/* Blueprint Telemetry Bar */}
+        <div class="blueprint-meta-bar" aria-label="Tool Specification Telemetry">
+          <div class="blueprint-meta-left">
+            <span class="blueprint-status-dot" aria-hidden="true"></span>
+            <span class="blueprint-mono">STATUS: ACTIVE SPECIFICATION · TOOL ID: {service.id.toUpperCase()} · 2026 ARCHIVE</span>
           </div>
-          <div class="max-w-3xl">
-            <div class="mb-5 flex flex-wrap gap-2">
-              {service.tags.map((tag) => <Badge>{tag}</Badge>)}
+          <div class="blueprint-meta-right">
+            <span class="blueprint-mono">STANDARDS: ZERO RUNTIME WASTE · TYPE SAFE · YOGYAKARTA (UTC+7)</span>
+          </div>
+        </div>
+
+        <div class="band-row hero-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Spec Dossier
             </div>
-            <h1 class="font-heading text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl lg:text-6xl">
-              {service.title}
-            </h1>
-            <p class="mt-6 text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">
-              {service.summary}
-            </p>
-            <div class="mt-8 flex flex-wrap gap-3">
-              <Button href="/contact">Start a project</Button>
-              <Button href="/tools" variant="secondary">All tools</Button>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Verified Discipline
+            </div>
+
+            {/* Rating Pill */}
+            <div class="rating-badge">
+              <div class="rating-star-box">
+                <span class="star-icon">★</span>
+                <span class="rating-val">4.9</span>
+              </div>
+              <span class="rating-sub">50+ Shipped Systems</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">DISCIPLINE CATEGORY</span>
+              <span class="spec-value">{service.category}</span>
+              <span class="spec-detail">Architectural classification in studio production pipeline.</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">CORE TECHNOLOGY</span>
+              <span class="spec-value">{service.techDirection[0] || "TypeScript"}</span>
+              <span class="spec-detail">Selected for low latency, zero waste, and maintainability.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Stage */}
+          <div class="band-main hero-main">
+            <div class="hero-header-wrap">
+              <div class="hero-breadcrumbs">
+                <a href="/tools" class="breadcrumb-link">Capabilities</a>
+                <span class="breadcrumb-sep">/</span>
+                <span class="breadcrumb-current">{service.category}</span>
+                <span class="breadcrumb-tag">0{index + 1}</span>
+              </div>
+
+              <div class="hero-title-group">
+                <div class="tool-icon-frame" aria-hidden="true">
+                  <Fragment set:html={service.icon} />
+                </div>
+                <h1 class="hero-title">
+                  {service.title}
+                </h1>
+              </div>
+
+              <p class="hero-desc">
+                {service.summary}
+              </p>
+            </div>
+
+            {/* Tags Strip */}
+            <div class="hero-tags-strip" aria-label="Discipline tags">
+              {service.tags.map((tag) => (
+                <span class="hero-tag-chip">
+                  <span class="tag-hash">#</span>
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* CTA Buttons Row */}
+            <div class="hero-actions-row">
+              <a href="/contact" class="clonix-cta-button">
+                <span class="clonix-cta-button__text">Inquire This Capability</span>
+                <span class="clonix-cta-button__box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                  </svg>
+                </span>
+              </a>
+
+              <a href="/tools" class="hero-back-btn">
+                <span>← Back to All Tools</span>
+              </a>
             </div>
           </div>
         </div>
-      </Container>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
     </section>
 
-    {/* ── What it is / Who it's for ── */}
-    <section class="section-spacing">
-      <Container>
-        <div class="grid gap-6 lg:grid-cols-2">
-          <article class="card-surface p-7">
-            <p class="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)]">What it is</p>
-            <p class="mt-4 leading-7 text-[var(--color-text-soft)]">{service.whatItIs}</p>
-          </article>
-          <article class="card-surface p-7">
-            <p class="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)]">Who it's for</p>
-            <p class="mt-4 leading-7 text-[var(--color-text-soft)]">{service.whoItsFor}</p>
-          </article>
-        </div>
-      </Container>
-    </section>
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-dark" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
 
-    {/* ── Problem it solves ── */}
-    <section class="section-spacing pt-0">
-      <Container>
-        <div class="problem-panel p-7 sm:p-10">
-          <p class="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">The problem</p>
-          <p class="mt-4 max-w-3xl font-heading text-2xl font-medium leading-snug text-[var(--color-text)] sm:text-3xl">
-            {service.problem}
-          </p>
-        </div>
-      </Container>
-    </section>
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 2. MANDATE & PROBLEM MATRIX (Light Canvas #f8f5ec)                     */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="mandate-section" aria-label="Mandate and Target Problems">
+      <div class="tool-container container-light">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
 
-    {/* ── What's included ── */}
-    <section class="section-spacing bg-[var(--color-background-soft)]">
-      <Container>
-        <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div class="max-w-sm">
-            <p class="mb-3 font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">What's included</p>
-            <h2 class="font-heading text-3xl font-semibold leading-tight text-[var(--color-text)] sm:text-4xl">
-              Deliverables you can expect.
-            </h2>
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Context
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Strategic Purpose
+            </div>
+          </aside>
+
+          {/* Right Main Stage */}
+          <div class="band-main main-light">
+            <div class="section-header-wrap">
+              <span class="section-eyebrow">01 · CORE MANDATE & TARGET PROBLEM</span>
+              <h2 class="section-title">Why This Architecture Matters.</h2>
+              <p class="section-desc">
+                Every tool in our arsenal was designed to eliminate common engineering debt and deliver tangible business outcomes.
+              </p>
+            </div>
+
+            {/* Split Mandate Grid */}
+            <div class="mandate-grid">
+              <div class="mandate-card">
+                <div class="card-head-pill">
+                  <span class="card-pill-dot"></span>
+                  WHAT IT IS
+                </div>
+                <h3 class="mandate-card__title">Architectural Definition</h3>
+                <p class="mandate-card__body">{service.whatItIs}</p>
+
+                <div class="mandate-sub-box">
+                  <span class="sub-box-label">WHO IT'S FOR:</span>
+                  <p class="sub-box-text">{service.whoItsFor}</p>
+                </div>
+              </div>
+
+              <div class="mandate-card mandate-card--problem">
+                <div class="card-head-pill pill-alert">
+                  <span class="card-pill-dot dot-alert"></span>
+                  THE BOTTLENECK
+                </div>
+                <h3 class="mandate-card__title">The Problem We Eliminate</h3>
+                <p class="mandate-card__body">{service.problem}</p>
+
+                <div class="mandate-sub-box sub-box--alert">
+                  <span class="sub-box-label label-alert">CORE PRINCIPLE:</span>
+                  <p class="sub-box-text">We build the foundation right on day one — eliminating costly post-launch rewrites and performance triage.</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <ul class="grid gap-3 sm:grid-cols-2">
-            {service.deliverables.map((item) => (
-              <li class="card-surface flex items-start gap-3 p-5">
-                <span class="deliverable-dot" aria-hidden="true"></span>
-                <span class="text-sm leading-6 text-[var(--color-text-soft)]">{item}</span>
-              </li>
-            ))}
-          </ul>
         </div>
-      </Container>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
     </section>
 
-    {/* ── Tech direction ── */}
-    <section class="section-spacing">
-      <Container>
-        <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
-          <p class="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)]">Tech direction</p>
-          <div class="flex flex-wrap gap-2">
-            {service.techDirection.map((tech) => <span class="tag-muted">{tech}</span>)}
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-light" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 3. SCOPE & ARSENAL BAND (Dark Obsidian Canvas #07080b)                 */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="arsenal-section" aria-label="Deliverables and Technical Stack">
+      <div class="tool-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Scope & Stack
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Deliverables Dossier
+            </div>
+          </aside>
+
+          {/* Right Main Stage */}
+          <div class="band-main">
+            <div class="section-header-wrap">
+              <span class="section-eyebrow">02 · SPECIFICATION & PRODUCTION ASSETS</span>
+              <h2 class="section-title text-light">Deliverables & Technical Direction.</h2>
+              <p class="section-desc text-muted">
+                Everything included with this capability is production-grade, strictly typed, and completely owned by your organization.
+              </p>
+            </div>
+
+            {/* Deliverables Cards Grid */}
+            <div class="deliverables-grid">
+              {service.deliverables.map((item, dIdx) => (
+                <div class="deliverable-card">
+                  <div class="deliverable-head">
+                    <span class="deliverable-num">0{dIdx + 1}</span>
+                    <span class="deliverable-check" aria-hidden="true">✓</span>
+                  </div>
+                  <p class="deliverable-text">{item}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Tech Stack Arsenal Strip */}
+            <div class="tech-arsenal-box">
+              <div class="arsenal-head-row">
+                <span class="arsenal-label">RECOMMENDED PRODUCTION STACK:</span>
+                <span class="arsenal-sub">Zero bloat · Tailored per deployment</span>
+              </div>
+              <div class="arsenal-chips-row">
+                {service.techDirection.map((tech) => (
+                  <div class="tech-chip-item">
+                    <span class="tech-chip-dot"></span>
+                    <span class="tech-chip-name">{tech}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Expected Business Outcome Callout */}
+            <div class="outcome-callout-card">
+              <div class="outcome-badge">
+                <span class="outcome-dot"></span>
+                VERIFIED OUTCOME
+              </div>
+              <h3 class="outcome-title">What Success Looks Like</h3>
+              <p class="outcome-desc">{service.outcome}</p>
+            </div>
           </div>
         </div>
-        <p class="mt-5 max-w-2xl text-sm leading-6 text-[var(--color-text-muted)]">
-          Stacks are chosen per project. These are the typical tools we reach for first when delivering this capability.
-        </p>
-      </Container>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
     </section>
 
-    {/* ── How it works ── */}
-    <section class="section-spacing pt-0">
-      <Container>
-        <p class="mb-3 font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">How it works</p>
-        <h2 class="font-heading text-3xl font-semibold leading-tight text-[var(--color-text)] sm:text-4xl">
-          A clear, reviewable process.
-        </h2>
-        <ol class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {service.process.map((step, index) => (
-            <li class="card-surface flex h-full flex-col p-6">
-              <span class="step-number">{String(index + 1).padStart(2, "0")}</span>
-              <h3 class="mt-4 font-heading text-lg font-semibold text-[var(--color-text)]">{step.title}</h3>
-              <p class="mt-2 text-sm leading-6 text-[var(--color-text-soft)]">{step.detail}</p>
-            </li>
-          ))}
-        </ol>
-      </Container>
-    </section>
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-dark" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
 
-    {/* ── Expected outcome ── */}
-    <section class="section-spacing pt-0">
-      <Container>
-        <div class="outcome-panel p-7 sm:p-10">
-          <p class="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)]">Expected outcome</p>
-          <p class="mt-4 max-w-3xl text-lg leading-8 text-[var(--color-text)] sm:text-xl">
-            {service.outcome}
-          </p>
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 4. EXECUTION PROTOCOL (Light Canvas #f8f5ec)                           */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="protocol-section" aria-label="Step-by-step Execution Protocol">
+      <div class="tool-container container-light">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Protocol
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Execution Stages
+            </div>
+          </aside>
+
+          {/* Right Main Stage */}
+          <div class="band-main main-light">
+            <div class="section-header-wrap">
+              <span class="section-eyebrow">03 · STEP-BY-STEP CADENCE</span>
+              <h2 class="section-title">A Clear, Reviewable Process.</h2>
+              <p class="section-desc">
+                From discovery and constraint mapping to final performance certification, every step is transparent.
+              </p>
+            </div>
+
+            {/* 4 Process Cards */}
+            <div class="process-cards-grid">
+              {service.process.map((step, pIdx) => (
+                <div class="process-card">
+                  <div class="process-card__head">
+                    <span class="process-step-num">0{pIdx + 1}</span>
+                    <span class="process-step-tag">PHASE 0{pIdx + 1}</span>
+                  </div>
+                  <h3 class="process-card__title">{step.title}</h3>
+                  <p class="process-card__detail">{step.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </Container>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
     </section>
 
-    {/* ── FAQ ── */}
-    <section class="section-spacing bg-[var(--color-background-soft)] pt-0">
-      <Container>
-        <p class="mb-3 font-mono text-xs font-semibold uppercase text-[var(--color-primary)]">FAQ</p>
-        <h2 class="font-heading text-3xl font-semibold leading-tight text-[var(--color-text)] sm:text-4xl">
-          Common questions.
-        </h2>
-        <div class="mt-8 grid max-w-3xl gap-3">
-          {service.faq.map((item) => (
-            <details class="faq-item card-surface">
-              <summary class="faq-summary">
-                <span>{item.q}</span>
-                <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-              </summary>
-              <p class="faq-answer">{item.a}</p>
-            </details>
-          ))}
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-light" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 5. TOOL-SPECIFIC FAQ ACCORDION (Light Canvas #f8f5ec)                  */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="tool-faq-section" aria-label="Tool Specific FAQ">
+      <div class="tool-container container-light">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Tool FAQ
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Capability Clarity
+            </div>
+          </aside>
+
+          {/* Right Main Stage */}
+          <div class="band-main main-light">
+            <div class="section-header-wrap">
+              <span class="section-eyebrow">04 · CLARITY & EDGE CASES</span>
+              <h2 class="section-title">Common Questions About {service.title}</h2>
+              <p class="section-desc">
+                Straight answers about requirements, technical compatibility, and implementation timelines.
+              </p>
+            </div>
+
+            {/* Interactive Accordion */}
+            <div class="tool-faq-accordion" data-faq-group>
+              {service.faq.map((item, fIdx) => (
+                <div class={`faq-item-row ${fIdx === 0 ? "is-expanded" : ""}`} data-faq-item={fIdx}>
+                  <button
+                    type="button"
+                    class="faq-item-trigger"
+                    data-faq-trigger
+                    aria-expanded={fIdx === 0 ? "true" : "false"}
+                  >
+                    <div class="trigger-left">
+                      <span class="faq-index-number">0{fIdx + 1}</span>
+                      <h3 class="faq-question-text">{item.q}</h3>
+                    </div>
+                    <span class="faq-toggle-icon" aria-hidden="true">{fIdx === 0 ? "×" : "+"}</span>
+                  </button>
+
+                  <div class="faq-item-body">
+                    <p class="faq-answer-text">{item.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </Container>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
     </section>
 
-    {/* ── Related capabilities ── */}
-    <section class="section-spacing">
-      <Container>
-        <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)] sm:text-3xl">
-            Other capabilities
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-light" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 6. ADJACENT CAPABILITIES (Dark Obsidian Canvas #07080b)                */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="related-tools-section" aria-label="Adjacent Capabilities">
+      <div class="tool-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Arsenal
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Adjacent Tools
+            </div>
+          </aside>
+
+          {/* Right Main Stage */}
+          <div class="band-main">
+            <div class="section-header-wrap">
+              <div class="header-split-row">
+                <div>
+                  <span class="section-eyebrow">05 · EXPAND YOUR STACK</span>
+                  <h2 class="section-title text-light">Adjacent Engineering Capabilities.</h2>
+                </div>
+                <a href="/tools" class="catalog-link">
+                  <span>View All 6 Tools</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Related Cards Grid */}
+            <div class="related-cards-grid">
+              {related.map((item) => (
+                <a href={`/tools/${item.id}`} class="related-tool-card" style={`--item-accent: ${item.accent};`}>
+                  <div class="related-card-top">
+                    <span class="related-card-category">{item.category}</span>
+                    <span class="related-arrow" aria-hidden="true">→</span>
+                  </div>
+                  <div class="related-card-content">
+                    <div class="related-card-icon" aria-hidden="true">
+                      <Fragment set:html={item.icon} />
+                    </div>
+                    <h3 class="related-card-title">{item.title}</h3>
+                    <p class="related-card-summary">{item.summary}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 7. MONUMENTAL CTA BANNER                                               */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="tool-cta-banner" aria-label="Start Project with this tool">
+      <div class="cta-banner-container">
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="cta-banner-content">
+          <span class="cta-eyebrow">READY TO DEPLOY THIS ARCHITECTURE?</span>
+          <h2 class="cta-title">
+            Let's Engineer Your <span class="highlight-text">{service.title}</span>.
           </h2>
-          <a href="/tools" class="link-accent font-brand text-[0.65rem] tracking-wider">VIEW ALL TOOLS →</a>
-        </div>
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {related.map((item) => (
-            <a href={`/tools/${item.id}`} class="related-card card-surface group flex items-center gap-4 p-5" style={`--accent: ${item.accent};`}>
-              <span class="related-card__icon" aria-hidden="true" set:html={item.icon} />
-              <span class="min-w-0">
-                <span class="block font-heading text-base font-semibold text-[var(--color-text)] transition-colors group-hover:text-[var(--color-primary)]">{item.title}</span>
-                <span class="mt-1 block font-mono text-[0.62rem] uppercase tracking-wider text-[var(--color-text-muted)]">{item.category}</span>
+          <p class="cta-desc">
+            Bring the raw idea, the messy legacy codebase, or the ambitious product goal. We'll shape it into a high-velocity, strictly typed prototype in weeks.
+          </p>
+
+          <div class="cta-buttons-row">
+            <a href="/contact" class="clonix-cta-button cta-primary">
+              <span class="clonix-cta-button__text">Initiate Project Intake</span>
+              <span class="clonix-cta-button__box" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
               </span>
             </a>
-          ))}
-        </div>
-      </Container>
-    </section>
 
-    <CTASection
-      eyebrow="Start a project"
-      title={`Ready to start with ${service.title.toLowerCase()}?`}
-      description="Bring the goal or the rough idea. We will shape it into a clear, fast, and maintainable build."
-    />
+            <a
+              href="https://wa.me/6287810777038"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cta-secondary-btn"
+            >
+              <span>Direct WhatsApp</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
   </main>
 </BaseLayout>
 
 <style>
-  .service-detail__icon {
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BASE CANVAS & ARCHITECTURAL BLUEPRINT GRID
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .tool-spec-main {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ── 1. Hero Section (Dark Canvas #07080b) ────────────────────────────────── */
+  .tool-hero-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: clamp(5.5rem, 8vw, 7.5rem) 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .tool-hero-section {
+      padding: clamp(6rem, 8vw, 8rem) 1.5rem 0 1.5rem;
+    }
+  }
+
+  .hero-watermark {
+    position: absolute;
+    top: -120px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    opacity: 0.04;
+    color: #f8f5ec;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .rotor-svg {
+    width: 100%;
+    height: 100%;
+    animation: slowSpin 140s linear infinite;
+  }
+
+  @keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .tool-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(7, 8, 11, 0.95);
+    z-index: 1;
+  }
+
+  .container-light {
+    border-color: rgba(7, 20, 21, 0.1);
+    background: #faf9f5;
+    color: #071415;
+  }
+
+  /* ── Crosshairs (+) ───────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.15rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+    user-select: none;
+    z-index: 10;
+  }
+
+  .container-light .grid-cross {
+    color: rgba(7, 20, 21, 0.35);
+  }
+
+  .cross--tl { top: -0.6rem; left: -0.45rem; }
+  .cross--tr { top: -0.6rem; right: -0.45rem; }
+  .cross--bl { bottom: -0.6rem; left: -0.45rem; }
+  .cross--br { bottom: -0.6rem; right: -0.45rem; }
+
+  /* ── Blueprint Telemetry Bar ─────────────────────────────────────────────── */
+  .blueprint-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .blueprint-meta-left,
+  .blueprint-meta-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .blueprint-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 10px rgba(182, 255, 92, 0.7);
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes statusPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  .blueprint-mono {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+  }
+
+  /* ── Band Row: Split Rail & Main Stage ───────────────────────────────────── */
+  .band-row {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .band-row {
+      flex-direction: row;
+    }
+  }
+
+  /* ── Left Rail Layout ─────────────────────────────────────────────────────── */
+  .band-rail {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: #07080b;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-rail {
+      width: 24%;
+      min-width: 260px;
+      border-bottom: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3rem 1.75rem;
+    }
+  }
+
+  .rail-light {
+    background: #f4efe4;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  @media (min-width: 900px) {
+    .rail-light {
+      border-right: 1px solid rgba(7, 20, 21, 0.08);
+    }
+  }
+
+  .rail-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #f8f5ec;
+    text-transform: uppercase;
+  }
+
+  .rail-tag--dark { color: #111113; }
+  .rail-slash { color: #b6ff5c; margin-right: 0.35rem; }
+  .rail-tag--dark .rail-slash { color: #4f7d18; }
+
+  .rail-live-badge {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--accent) 16%, transparent);
-    color: var(--accent);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
-  }
-  .service-detail__icon :global(svg) {
-    width: 30px;
-    height: 30px;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
   }
 
-  /* Problem panel — quiet, bordered emphasis */
-  .problem-panel {
-    border: 1px solid var(--color-border);
-    border-left: 2px solid var(--accent);
-    border-radius: var(--radius-md);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)), var(--color-surface);
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.6);
   }
 
-  .deliverable-dot {
-    margin-top: 0.4rem;
-    width: 0.45rem;
-    height: 0.45rem;
-    flex-shrink: 0;
-    border-radius: 999px;
-    background: var(--accent);
-    box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent);
+  .rail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
   }
 
-  .step-number {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
+  .rail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .rail-spec-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .spec-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .spec-value {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .spec-detail {
+    font-size: 0.76rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .tool-meta-note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  .meta-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .meta-val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .meta-desc {
+    font-size: 0.76rem;
+    color: #475569;
+    line-height: 1.4;
+  }
+
+  /* ── Rating Badge ─────────────────────────────────────────────────────────── */
+  .rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: fit-content;
+  }
+
+  .rating-star-box {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: #b6ff5c;
     font-weight: 700;
-    color: var(--accent);
+    font-size: 0.85rem;
   }
 
-  /* Outcome — accent-tinted highlight */
-  .outcome-panel {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background:
-      radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
-      var(--color-surface);
-    box-shadow: var(--shadow-card);
+  .rating-sub {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
   }
 
-  /* FAQ accordion */
-  .faq-item {
-    overflow: hidden;
-    padding: 0;
+  /* ── Main Column Layout ───────────────────────────────────────────────────── */
+  .band-main {
+    padding: 2rem 1.5rem;
+    flex: 1;
   }
-  .faq-summary {
+
+  @media (min-width: 900px) {
+    .band-main {
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  .main-light { background-color: #faf9f5; }
+
+  /* ── Hero Content ─────────────────────────────────────────────────────────── */
+  .hero-header-wrap { max-width: 58rem; }
+
+  .hero-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.74rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .breadcrumb-link {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .breadcrumb-link:hover { color: #b6ff5c; }
+  .breadcrumb-sep { color: #475569; }
+  .breadcrumb-current { color: #f8f5ec; font-weight: 600; }
+  .breadcrumb-tag {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #b6ff5c;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.65rem;
+  }
+
+  .hero-title-group {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tool-icon-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #b6ff5c;
+    flex-shrink: 0;
+  }
+
+  .tool-icon-frame :global(svg) {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    color: #f8f5ec;
+    margin: 0;
+  }
+
+  .hero-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: clamp(1rem, 1.4vw, 1.18rem);
+    line-height: 1.65;
+    color: #94a3b8;
+    margin: 0 0 2rem 0;
+    max-width: 48rem;
+  }
+
+  .hero-tags-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .hero-tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+  }
+
+  .tag-hash { color: #b6ff5c; font-weight: 700; }
+
+  .hero-actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .hero-back-btn {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .hero-back-btn:hover { color: #f8f5ec; }
+
+  /* ── Hairline Dividers ────────────────────────────────────────────────────── */
+  .hairline-divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    z-index: 2;
+  }
+
+  .divider-dark { background-color: rgba(255, 255, 255, 0.08); }
+  .divider-light { background-color: rgba(7, 20, 21, 0.08); }
+
+  .divider-cross {
+    position: absolute;
+    top: -7px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .divider-dark .divider-cross { color: rgba(255, 255, 255, 0.25); }
+  .divider-light .divider-cross { color: rgba(7, 20, 21, 0.35); }
+
+  .cross-left { left: -5px; }
+  .cross-mid {
+    left: 24%;
+    transform: translateX(-50%);
+    display: none;
+  }
+  .cross-right { right: -5px; }
+
+  @media (min-width: 900px) {
+    .cross-mid { display: block; }
+  }
+
+  /* ── Section Headers ──────────────────────────────────────────────────────── */
+  .section-header-wrap { margin-bottom: 2.5rem; }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4f7d18;
+    margin-bottom: 0.75rem;
+  }
+
+  .arsenal-section .section-eyebrow,
+  .related-tools-section .section-eyebrow {
+    color: #b6ff5c;
+  }
+
+  .section-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: #111113;
+    margin: 0 0 1rem 0;
+  }
+
+  .text-light { color: #f8f5ec; }
+  .text-muted { color: #94a3b8; }
+
+  .section-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+    max-width: 52rem;
+  }
+
+  /* ── 2. Mandate Section (Light Canvas) ────────────────────────────────────── */
+  .mandate-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .mandate-section { padding: 0 1.5rem; }
+  }
+
+  .mandate-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mandate-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .mandate-card {
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mandate-card--problem {
+    background: #fbfbf9;
+    border-color: rgba(7, 20, 21, 0.12);
+  }
+
+  .card-head-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #4f7d18;
+    background: rgba(79, 125, 24, 0.08);
+    border: 1px solid rgba(79, 125, 24, 0.2);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .card-pill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .pill-alert {
+    color: #dc2626;
+    background: rgba(220, 38, 38, 0.08);
+    border-color: rgba(220, 38, 38, 0.2);
+  }
+
+  .dot-alert { background-color: #dc2626; }
+
+  .mandate-card__title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #111113;
+    margin: 0;
+  }
+
+  .mandate-card__body {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.96rem;
+    line-height: 1.65;
+    color: #334155;
+    margin: 0;
+  }
+
+  .mandate-sub-box {
+    margin-top: auto;
+    padding: 1rem;
+    border-radius: 6px;
+    background: #faf9f5;
+    border: 1px solid rgba(7, 20, 21, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .sub-box--alert {
+    background: #fffafa;
+    border-color: rgba(220, 38, 38, 0.12);
+  }
+
+  .sub-box-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #64748b;
+  }
+
+  .label-alert { color: #dc2626; }
+
+  .sub-box-text {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #1e293b;
+    margin: 0;
+  }
+
+  /* ── 3. Scope & Arsenal Section (Dark Obsidian) ─────────────────────────── */
+  .arsenal-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .arsenal-section { padding: 0 1.5rem; }
+  }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .deliverables-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .deliverable-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .deliverable-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .deliverable-num {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+  }
+
+  .deliverable-check {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    color: #b6ff5c;
+    font-weight: 700;
+  }
+
+  .deliverable-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: #e2e8f0;
+    margin: 0;
+  }
+
+  .tech-arsenal-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .arsenal-head-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .arsenal-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #b6ff5c;
+    letter-spacing: 0.08em;
+  }
+
+  .arsenal-sub {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #64748b;
+  }
+
+  .arsenal-chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .tech-chip-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    color: #f8f5ec;
+  }
+
+  .tech-chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+  }
+
+  .outcome-callout-card {
+    background: rgba(182, 255, 92, 0.04);
+    border: 1px solid rgba(182, 255, 92, 0.2);
+    border-radius: 8px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .outcome-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #b6ff5c;
+    letter-spacing: 0.08em;
+  }
+
+  .outcome-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.6);
+  }
+
+  .outcome-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f8f5ec;
+    margin: 0;
+  }
+
+  .outcome-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: #cbd5e1;
+    margin: 0;
+  }
+
+  /* ── 4. Protocol Section (Light Canvas) ──────────────────────────────────── */
+  .protocol-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .protocol-section { padding: 0 1.5rem; }
+  }
+
+  .process-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .process-cards-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .process-card {
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    border-radius: 8px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .process-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .process-step-num {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #4f7d18;
+  }
+
+  .process-step-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    background: rgba(7, 20, 21, 0.04);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .process-card__title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: #111113;
+    margin: 0;
+  }
+
+  .process-card__detail {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+
+  /* ── 5. Tool FAQ Section (Light Canvas) ──────────────────────────────────── */
+  .tool-faq-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .tool-faq-section { padding: 0 1.5rem; }
+  }
+
+  .tool-faq-accordion {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+  }
+
+  .faq-item-row {
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background 0.2s ease;
+  }
+
+  .faq-item-trigger {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1.1rem 1.25rem;
+    padding: 1.5rem 0;
+    background: transparent;
+    border: none;
+    text-align: left;
     cursor: pointer;
-    list-style: none;
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text);
-  }
-  .faq-summary::-webkit-details-marker {
-    display: none;
-  }
-  .faq-chevron {
-    flex-shrink: 0;
-    color: var(--color-text-muted);
-    transition: transform 240ms ease, color 240ms ease;
-  }
-  .faq-item[open] .faq-chevron {
-    transform: rotate(180deg);
-    color: var(--color-primary);
-  }
-  .faq-answer {
-    padding: 0 1.25rem 1.2rem;
-    font-size: 0.9rem;
-    line-height: 1.65;
-    color: var(--color-text-soft);
   }
 
-  /* Related capability cards */
-  .related-card__icon {
+  .trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .faq-index-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4f7d18;
+  }
+
+  .faq-question-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .faq-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: #64748b;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-toggle-icon {
+    color: #111113;
+  }
+
+  .faq-item-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-item-body {
+    max-height: 300px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #475569;
+    padding-left: 2.75rem;
+    max-width: 48rem;
+  }
+
+  /* ── 6. Related Tools Section (Dark Obsidian) ────────────────────────────── */
+  .related-tools-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .related-tools-section { padding: 0 1.5rem; }
+  }
+
+  .header-split-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .catalog-link {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    background: color-mix(in srgb, var(--accent) 14%, transparent);
-    color: var(--accent);
-  }
-  .related-card__icon :global(svg) {
-    width: 20px;
-    height: 20px;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #b6ff5c;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .faq-chevron {
-      transition: none;
+  .catalog-link:hover { opacity: 0.8; }
+
+  .related-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .related-cards-grid {
+      grid-template-columns: 1fr 1fr;
     }
   }
+
+  @media (min-width: 1024px) {
+    .related-cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .related-tool-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: all 0.25s ease;
+  }
+
+  .related-tool-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+  }
+
+  .related-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .related-card-category {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+
+  .related-arrow {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.9rem;
+    color: #b6ff5c;
+    transition: transform 0.2s ease;
+  }
+
+  .related-tool-card:hover .related-arrow {
+    transform: translateX(4px);
+  }
+
+  .related-card-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    color: #b6ff5c;
+    margin-bottom: 0.75rem;
+  }
+
+  .related-card-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .related-card-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #f8f5ec;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .related-card-summary {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #94a3b8;
+    margin: 0;
+  }
+
+  /* ── 7. Monumental CTA Banner ────────────────────────────────────────────── */
+  .tool-cta-banner {
+    position: relative;
+    background-color: #07080b;
+    padding: 3rem 1rem 6rem 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .tool-cta-banner {
+      padding: 4rem 1.5rem 7rem 1.5rem;
+    }
+  }
+
+  .cta-banner-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: radial-gradient(circle at 50% 0%, rgba(182, 255, 92, 0.06) 0%, rgba(7, 8, 11, 0.98) 70%);
+    padding: 4rem 1.5rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .cta-banner-container {
+      padding: 5rem 3rem;
+    }
+  }
+
+  .cta-banner-content {
+    max-width: 52rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .cta-eyebrow {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #b6ff5c;
+    text-transform: uppercase;
+  }
+
+  .cta-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: #f8f5ec;
+    margin: 0;
+  }
+
+  .highlight-text {
+    color: #b6ff5c;
+  }
+
+  .cta-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: #94a3b8;
+    margin: 0 0 1rem 0;
+  }
+
+  .cta-buttons-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .cta-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #f8f5ec;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .cta-secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  /* ── Clonix CTA Button ───────────────────────────────────────────────────── */
+  .clonix-cta-button {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    background-color: #b6ff5c;
+    color: #07080b;
+    border-radius: 4px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+    overflow: hidden;
+  }
+
+  .clonix-cta-button:hover {
+    background-color: #a3f542;
+    transform: translateY(-2px);
+  }
+
+  .clonix-cta-button__text {
+    padding: 0.75rem 1.25rem;
+  }
+
+  .clonix-cta-button__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    background-color: rgba(7, 8, 11, 0.12);
+    border-left: 1px solid rgba(7, 8, 11, 0.12);
+    transition: background-color 0.2s ease;
+  }
+
+  .clonix-cta-button:hover .clonix-cta-button__box {
+    background-color: rgba(7, 8, 11, 0.2);
+  }
 </style>
+
+<script>
+  function setupToolDetailPage() {
+    const group = document.querySelector("[data-faq-group]");
+    if (!group || group.hasAttribute("data-faq-initialized")) return;
+    group.setAttribute("data-faq-initialized", "true");
+
+    const items = group.querySelectorAll("[data-faq-item]");
+    items.forEach((item) => {
+      const trigger = item.querySelector("[data-faq-trigger]");
+      const icon = item.querySelector(".faq-toggle-icon");
+
+      trigger?.addEventListener("click", () => {
+        const isExpanded = item.classList.contains("is-expanded");
+
+        items.forEach((other) => {
+          other.classList.remove("is-expanded");
+          const otherTrigger = other.querySelector("[data-faq-trigger]");
+          const otherIcon = other.querySelector(".faq-toggle-icon");
+          if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
+          if (otherIcon) otherIcon.textContent = "+";
+        });
+
+        if (!isExpanded) {
+          item.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", setupToolDetailPage);
+  document.addEventListener("astro:page-load", setupToolDetailPage);
+  setupToolDetailPage();
+</script>

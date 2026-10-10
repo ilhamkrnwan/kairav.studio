@@ -772,6 +772,7 @@ const t = useTranslations(lang);
   .hero-media-deck {
     padding: clamp(1.5rem, 3.5vw, 3.25rem);
     background: rgba(8, 9, 13, 0.65);
+    overflow: hidden;
   }
 
   /* ── Scroll Expand wrapper ──────────────────────────────────────────── */
@@ -779,9 +780,8 @@ const t = useTranslations(lang);
     width: 100%;
     display: flex;
     justify-content: center;
-    /* GSAP will animate padding-inline from initial value to 0 */
-    padding-inline: clamp(1rem, 8vw, 6rem);
-    will-change: padding-inline;
+    align-items: center;
+    position: relative;
   }
 
   .hero-video-frame {
@@ -789,15 +789,15 @@ const t = useTranslations(lang);
     width: 100%;
     aspect-ratio: 16 / 9;
     max-height: 38rem;
-    /* Initial state: rounded; GSAP scrubs to 4px as user scrolls */
-    border-radius: 20px;
+    border-radius: 32px;
     overflow: hidden;
     /* Signature Clonix Glowing Lime Border */
     border: 2px solid #b6ff5c;
     box-shadow:
-      0 0 30px rgba(182, 255, 92, 0.25),
+      0 0 35px rgba(182, 255, 92, 0.28),
       0 20px 60px rgba(0, 0, 0, 0.7);
-    will-change: border-radius;
+    transform-origin: center center;
+    will-change: transform, border-radius;
   }
 
   .video-thumbnail-img {
@@ -805,6 +805,8 @@ const t = useTranslations(lang);
     height: 100%;
     object-fit: cover;
     display: block;
+    transform-origin: center center;
+    will-change: transform;
     transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 

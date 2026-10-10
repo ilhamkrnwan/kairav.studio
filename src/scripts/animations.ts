@@ -223,8 +223,8 @@ function initHeroAnimations(): void {
     }, 0.45);
   }
 
-  // Lower Video / Monumental Media Deck Reveal
-  const videoFrame = heroSection.querySelector(".hero-video-frame, .about-hero-media-frame, .teams-hero-media-frame, .tool-spec-media-frame, .dispatch-hero-media, .hero-preview, .hero-media-frame");
+  // Lower Video / Monumental Media Deck Reveal (subpages only; hero-video-frame handled by scroll-expand)
+  const videoFrame = heroSection.querySelector(".about-hero-media-frame, .teams-hero-media-frame, .tool-spec-media-frame, .dispatch-hero-media, .hero-preview, .hero-media-frame");
   if (videoFrame) {
     tl.from(videoFrame, {
       opacity: 0,
@@ -501,12 +501,12 @@ function initGridBatchAnimations(): void {
  */
 function initMediaParallaxAnimations(): void {
   const mediaImgs = document.querySelectorAll<HTMLImageElement>(
-    ".video-thumbnail-img, .featured-hero-img, .stat-video-thumb, .about-hero-img, .teams-hero-img, .tool-spec-media-frame img, .dispatch-hero-media img, .system-screen-img"
+    ".featured-hero-img, .stat-video-thumb, .about-hero-img, .teams-hero-img, .tool-spec-media-frame img, .dispatch-hero-media img, .system-screen-img"
   );
 
   mediaImgs.forEach((img) => {
     const parent = img.closest<HTMLElement>(
-      ".hero-video-frame, .featured-media-frame, .stat-video-card, .about-hero-media-frame, .teams-hero-media-frame, .tool-spec-media-frame, .dispatch-hero-media, .system-screen-card"
+      ".featured-media-frame, .stat-video-card, .about-hero-media-frame, .teams-hero-media-frame, .tool-spec-media-frame, .dispatch-hero-media, .system-screen-card"
     );
     if (!parent) return;
 
@@ -596,51 +596,83 @@ function initMagneticInteractions(): void {
 }
 
 /**
- * 10. Scroll Expand — Hero Video Frame
+ * 10. Scroll Expand — Hero Video Frame (vue-bits style: https://vue-bits.dev/animations/scroll-expand)
  *
- * Mirrors vue-bits ScrollExpand: the .hero-video-frame starts inset
- * (padding on the wrapper) and rounded, then scrubs to full-width with
- * sharp corners as the user scrolls it into view.
+ * Starts as a compact floating preview card (scale: 0.68, border-radius: 32px)
+ * with the inner media zoomed in (scale: 1.35).
+ * As the user scrolls into the media deck, the card smoothly expands to 100% full-width
+ * (scale: 1.0, border-radius: 4px), while the inner media counter-zooms to 1.0.
  */
 function initScrollExpandAnimation(): void {
-  const wrapper = document.querySelector<HTMLElement>(".scroll-expand-wrapper");
+  const deck    = document.querySelector<HTMLElement>(".hero-media-deck");
   const frame   = document.querySelector<HTMLElement>(".hero-video-frame");
-  if (!wrapper || !frame) return;
+  const img     = frame?.querySelector<HTMLElement>(".video-thumbnail-img");
+  const playBtn = frame?.querySelector<HTMLElement>(".hero-play-button");
+  if (!deck || !frame) return;
 
   const isMobile = window.matchMedia("(max-width: 640px)").matches;
-  const initPadding = isMobile ? "12px" : "clamp(16px, 8vw, 96px)";
-  const endPadding  = isMobile ? "8px"  : "0px";
+  const startScale = isMobile ? 0.82 : 0.68;
+  const startRadius = isMobile ? "20px" : "32px";
+  const endRadius = "4px";
+  const startZoom = 1.35; // Mirrors Vue Bits mediaZoom: 1.35
 
-  // Animate the wrapper's horizontal padding (narrows → full bleed)
-  gsap.fromTo(
-    wrapper,
-    { paddingLeft: initPadding, paddingRight: initPadding },
-    {
-      paddingLeft:  endPadding,
-      paddingRight: endPadding,
-      ease: "none",
-      scrollTrigger: {
-        trigger: wrapper,
-        start: "top 92%",
-        end:   "top 18%",
-        scrub: 1.8,
-      },
-    }
-  );
+  // Initial state setup (hardware accelerated transforms only)
+  gsap.set(frame, {
+    scale: startScale,
+    borderRadius: startRadius,
+    transformOrigin: "center center",
+    force3D: true,
+  });
 
-  // Simultaneously collapse border-radius from pill → sharp
-  gsap.fromTo(
+  if (img) {
+    gsap.set(img, {
+      scale: startZoom,
+      transformOrigin: "center center",
+      force3D: true,
+    });
+  }
+
+  // Master Scroll Expand Timeline scrubbed across the scroll distance
+  const expandTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: deck,
+      start: "top 88%",
+      end: "center 48%",
+      scrub: 1.2,
+      invalidateOnRefresh: true,
+    },
+  });
+
+  // 1. Expand the video frame container to 100% full width and sharp architectural corners
+  expandTl.to(
     frame,
-    { borderRadius: "20px" },
     {
-      borderRadius: "4px",
-      ease: "none",
-      scrollTrigger: {
-        trigger: wrapper,
-        start: "top 92%",
-        end:   "top 18%",
-        scrub: 1.8,
-      },
-    }
+      scale: 1,
+      borderRadius: endRadius,
+      ease: "power2.out",
+    },
+    0
   );
+
+  // 2. Counter-zoom the media inside from 1.35 to 1.0 (Vue Bits camera parallax)
+  if (img) {
+    expandTl.to(
+      img,
+      {
+        scale: 1,
+        ease: "power2.out",
+      },
+      0
+    );
+  }
+
+  // 3. Elevation transition on the interactive play button
+  if (playBtn) {
+    expandTl.fromTo(
+      playBtn,
+      { scale: 0.9 },
+      { scale: 1, ease: "power2.out" },
+      0
+    );
+  }
 }

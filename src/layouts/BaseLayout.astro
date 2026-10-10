@@ -64,17 +64,18 @@ const canonicalUrl = new URL(canonicalPath, "https://kairav.studio").toString();
     <script>
       import { initSiteAnimations, destroySiteAnimations } from "../scripts/animations";
 
-      document.addEventListener("DOMContentLoaded", () => {
+      const init = () => {
         initSiteAnimations();
-      });
+      };
 
-      document.addEventListener("astro:page-load", () => {
-        initSiteAnimations();
-      });
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
 
-      document.addEventListener("astro:before-swap", () => {
-        destroySiteAnimations();
-      });
+      document.addEventListener("astro:page-load", init);
+      document.addEventListener("astro:before-swap", destroySiteAnimations);
     </script>
   </body>
 </html>

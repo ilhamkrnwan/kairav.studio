@@ -761,7 +761,13 @@ html.site-menu-open {
     gap: 1rem;
     color: var(--color-text);
     text-shadow: none;
-    transition: color 250ms ease;
+    transition: color 250ms ease, opacity 250ms ease, transform 250ms ease;
+  }
+
+  .site-header.is-scrolled .site-logo {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
   }
 
   .site-logo__mark {
@@ -1574,6 +1580,65 @@ html.site-menu-open {
 .testimonials-marquee-track,
 .video-thumb-img {
   will-change: transform;
+}
+
+/* ── Universal Signature Clonix Boxy Button ────────────────────────────── */
+.clonix-cta-button,
+.case-study-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #b6ff5c;
+  color: #07080b !important;
+  text-decoration: none;
+  border-radius: 4px !important;
+  padding: 3px 3px 3px 18px !important;
+  height: auto !important;
+  min-height: 44px;
+  white-space: nowrap !important;
+  font-family: var(--font-heading, "Space Grotesk", sans-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 18px rgba(182, 255, 92, 0.25);
+  transition: transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
+  border: none;
+  cursor: pointer;
+}
+
+.clonix-cta-button:hover,
+.case-study-cta-btn:hover {
+  background-color: #c9ff7a !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(182, 255, 92, 0.4);
+}
+
+.clonix-cta-button__text,
+.case-study-cta-btn__text {
+  padding: 0 !important;
+  padding-right: 14px !important;
+  margin: 0 !important;
+  color: #07080b !important;
+}
+
+.clonix-cta-button__box,
+.case-study-cta-btn__box {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important;
+  height: 38px !important;
+  background-color: #07080b !important;
+  color: #ffffff !important;
+  border-radius: 3px !important;
+  border: none !important;
+  border-left: none !important;
+  transition: transform 200ms ease;
+  flex-shrink: 0;
+}
+
+.clonix-cta-button:hover .clonix-cta-button__box,
+.case-study-cta-btn:hover .case-study-cta-btn__box {
+  transform: translateX(2px);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -335,8 +335,12 @@ const worksFaqs = [
                     "Complete transformation into an editorial, design-first digital atelier with pre-rendered pages, sub-second route changes, and dynamic operating boards."
                   </p>
                   <a href={`/case-studies/${featuredProject.slug}`} class="case-study-cta-btn">
-                    <span>View Case Study</span>
-                    <span class="btn-arrow" aria-hidden="true">→</span>
+                    <span class="case-study-cta-btn__text">View Case Study</span>
+                    <span class="case-study-cta-btn__box" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 8h10M9 4l4 4-4 4"></path>
+                      </svg>
+                    </span>
                   </a>
                 </div>
               </div>
@@ -1311,27 +1315,48 @@ const worksFaqs = [
   .case-study-cta-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
+    border-radius: 4px;
     background-color: #b6ff5c;
     color: #07080b;
+    border: none;
+    padding: 3px 3px 3px 18px;
     font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: 0.88rem;
-    font-weight: 700;
-    padding: 0.65rem 1.25rem;
-    border-radius: 4px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    cursor: pointer;
     text-decoration: none;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
+    box-shadow: 0 4px 18px rgba(182, 255, 92, 0.25);
+    transition: transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
     align-self: flex-start;
   }
 
   .case-study-cta-btn:hover {
-    background-color: #ffffff;
-    transform: translateX(2px);
+    background-color: #c9ff7a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(182, 255, 92, 0.4);
   }
 
-  .btn-arrow {
-    font-weight: 700;
+  .case-study-cta-btn__text {
+    padding-right: 14px;
+    color: #07080b;
+  }
+
+  .case-study-cta-btn__box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background-color: #07080b;
+    color: #ffffff;
+    border-radius: 3px;
+    transition: transform 200ms ease;
+  }
+
+  .case-study-cta-btn:hover .case-study-cta-btn__box {
+    transform: translateX(2px);
   }
 
   /* ── 3. Archive Table ─────────────────────────────────────────────────────── */

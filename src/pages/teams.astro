@@ -1967,38 +1967,42 @@ const teamFaqs = [
   .clonix-cta-button {
     display: inline-flex;
     align-items: center;
-    text-decoration: none;
+    border-radius: 4px;
     background-color: #b6ff5c;
     color: #07080b;
-    border-radius: 4px;
+    border: none;
+    padding: 3px 3px 3px 18px;
     font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.01em;
-    padding: 0.35rem 0.35rem 0.35rem 1.35rem;
-    box-shadow: 0 4px 20px rgba(182, 255, 92, 0.25);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(182, 255, 92, 0.25);
+    transition: transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
   }
 
   .clonix-cta-button:hover {
+    background-color: #c9ff7a;
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(182, 255, 92, 0.4);
+    box-shadow: 0 6px 24px rgba(182, 255, 92, 0.4);
   }
 
   .clonix-cta-button__text {
-    margin-right: 1rem;
+    padding-right: 14px;
+    color: #07080b;
   }
 
   .clonix-cta-button__box {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 38px;
+    height: 38px;
     background-color: #07080b;
-    color: #b6ff5c;
+    color: #ffffff;
     border-radius: 3px;
-    transition: transform 0.2s ease;
+    transition: transform 200ms ease;
   }
 
   .clonix-cta-button:hover .clonix-cta-button__box {

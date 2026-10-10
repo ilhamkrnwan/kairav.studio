@@ -401,18 +401,28 @@ const t = useTranslations(lang);
     align-items: center;
     gap: 0.4rem;
     font-family: var(--font-mono, monospace);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-  }
-
-  .rail-slashes {
-    color: #b6ff5c;
+    font-size: 0.7rem;
     font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    user-select: none;
   }
 
   .rail-label {
-    color: #f8f5ec;
+    color: rgba(248, 245, 236, 0.45);
+  }
+
+  @media (min-width: 900px) {
+    .hero-col--rail {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rail-tag {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+    }
   }
 
   /* Column 2: Main Hero Content */

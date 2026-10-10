@@ -333,24 +333,28 @@
       padding: 2.75rem 2rem;
       border-right: 1px solid rgba(7, 20, 21, 0.1);
       border-bottom: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
   .rail-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
     font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #617072;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #071415;
+    user-select: none;
   }
 
-  .rail-slash {
-    color: #4f7d18;
-    font-weight: 700;
+  @media (min-width: 900px) {
+    .rail-tag {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+      white-space: nowrap;
+    }
   }
 
   /* ── Main Column Content ──────────────────────────────────────────────────── */

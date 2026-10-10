@@ -28,9 +28,6 @@
           <div class="rail-tag">
             Our Projects
           </div>
-          <div class="rail-tag rail-tag--secondary">
-            Featured Project
-          </div>
         </div>
       </aside>
 
@@ -299,9 +296,11 @@
 
   @media (min-width: 900px) {
     .projects-rail {
-      padding: 3rem 2rem;
+      padding: 3rem 0;
       border-right: 1px solid rgba(255, 255, 255, 0.08);
       border-bottom: none;
+      display: flex;
+      justify-content: center;
     }
   }
 
@@ -328,28 +327,39 @@
   }
 
   .rail-sticky {
-    position: sticky;
-    top: 6rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  .rail-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #f8f5ec;
+  @media (min-width: 900px) {
+    .rail-sticky {
+      position: sticky;
+      top: 50vh;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: fit-content;
+    }
   }
 
-  .rail-slash {
-    color: #b6ff5c;
+  .rail-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
     font-weight: 700;
+    letter-spacing: 0.14em;
+    color: rgba(248, 245, 236, 0.45);
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  @media (min-width: 900px) {
+    .rail-tag {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+      white-space: nowrap;
+    }
   }
 
   /* Right Main Column */

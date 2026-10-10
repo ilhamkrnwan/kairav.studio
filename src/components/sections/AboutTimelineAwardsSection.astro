@@ -19,9 +19,6 @@
           <div class="rail-tag">
             About Us
           </div>
-          <div class="rail-tag rail-tag--secondary">
-            Founder's Words
-          </div>
         </div>
       </aside>
 
@@ -360,18 +357,28 @@
 
   @media (min-width: 900px) {
     .about-rail {
-      padding: 3rem 2rem;
+      padding: 3rem 0;
       border-right: 1px solid rgba(7, 20, 21, 0.1);
       border-bottom: none;
+      display: flex;
+      justify-content: center;
     }
-  }
 
-  .rail-sticky {
-    position: sticky;
-    top: 6rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    .rail-sticky {
+      position: sticky;
+      top: 50vh;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: fit-content;
+    }
+
+    .rail-tag {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+      white-space: nowrap;
+    }
   }
 
   .rail-tag {
@@ -379,11 +386,12 @@
     align-items: center;
     gap: 0.35rem;
     font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 0.7rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #071415;
+    letter-spacing: 0.14em;
+    color: #617072;
+    user-select: none;
   }
 
   .rail-slash {

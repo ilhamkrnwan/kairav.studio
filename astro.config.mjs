@@ -23,4 +23,4 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 });
-// refreshed dev server v5
+// refreshed dev server v6

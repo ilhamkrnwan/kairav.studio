@@ -2,8 +2,80 @@
 /**
  * TestimonialsCompaniesSection.astro (Section 6 - Clonix Testimonials & Trusted Companies)
  * Light architectural contrast section with hairline blueprint borders,
- * left rail tags, featured review card, card carousel, and trusted companies 8-tile grid.
+ * left rail tags, featured review card, auto-scrolling testimonial marquee, and trusted companies 8-tile grid.
  */
+
+interface VideoReview {
+  type: "video";
+  name: string;
+  company: string;
+  image: string;
+}
+
+interface QuoteReview {
+  type: "quote";
+  name: string;
+  company: string;
+  avatar: string;
+  quote: string;
+}
+
+type TestimonialItem = VideoReview | QuoteReview;
+
+const testimonials: TestimonialItem[] = [
+  {
+    type: "video",
+    name: "Noah Carter",
+    company: "Elevate Creative",
+    image: "https://framerusercontent.com/images/5MChKuwrMnhjGbtXsrwrcWp8h8.png?width=2400&height=2400",
+  },
+  {
+    type: "quote",
+    name: "Tyler Brooks",
+    company: "Launchify",
+    avatar: "https://framerusercontent.com/images/ycjy9zLBKK9pduWZeYakSre6Ig4.png?width=2400&height=2400",
+    quote: "Fast turnarounds, zero hand-holding, and creative output that consistently exceeded our expectations. Highly recommend.",
+  },
+  {
+    type: "video",
+    name: "Logan Davis",
+    company: "Horizon Labs",
+    image: "https://framerusercontent.com/images/2aREOjBLZVwIVp8mjIq88WEeFG0.png?width=2400&height=2400",
+  },
+  {
+    type: "quote",
+    name: "Alex Johnson",
+    company: "PixelCore Studio",
+    avatar: "https://framerusercontent.com/images/ma3SkKwbnJSYT5zrIsvpOL0R2g.png?width=2400&height=2400",
+    quote: "From day one, Kairav nailed our brand voice. The design quality and strategic thinking were on another level entirely.",
+  },
+  {
+    type: "video",
+    name: "Elena Vance",
+    company: "FinEdge Systems",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&h=1500&fit=crop&crop=faces&q=80",
+  },
+  {
+    type: "quote",
+    name: "Marcus Chen",
+    company: "Nexus Protocol",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=faces&q=80",
+    quote: "Their architectural discipline set a new benchmark for our team. The web app performs with sub-second speeds and immaculate aesthetics.",
+  },
+  {
+    type: "video",
+    name: "Sofia Alvarez",
+    company: "Luminary AI",
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&h=1500&fit=crop&crop=faces&q=80",
+  },
+  {
+    type: "quote",
+    name: "David Kim",
+    company: "HyperFlow Systems",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&fit=crop&crop=faces&q=80",
+    quote: "A rare blend of deep technical engineering and uncompromising design taste. Kairav delivered far above what we imagined possible.",
+  },
+];
 ---
 
 <section class="testimonials-companies-section" id="testimonials" data-testimonials-section>
@@ -124,96 +196,58 @@
       <span class="divider-cross cross-right">+</span>
     </div>
 
-    {/* ── ROW 3: Testimonials Cards Grid Band ───────────────────────────── */}
+    {/* ── ROW 3: Testimonials Cards Infinite Marquee Band ───────────────── */}
     <div class="band-row band-cards">
       <div class="band-rail rail-empty" aria-hidden="true">
         {/* Architectural hairline grid placeholder */}
       </div>
 
       <div class="band-main cards-main-wrap">
-        <div class="testimonials-carousel-grid">
-          {/* Card 1: Video Review - Noah Carter */}
-          <div class="testimonial-card card-video">
-            <div class="video-thumb-frame">
-              <img
-                src="https://framerusercontent.com/images/5MChKuwrMnhjGbtXsrwrcWp8h8.png?width=2400&height=2400"
-                alt="Noah Carter, Elevate Creative"
-                class="video-thumb-img"
-                loading="lazy"
-              />
-              <div class="play-badge" aria-label="Play video review">
-                <span class="play-triangle" aria-hidden="true">▶</span>
-              </div>
-              <div class="card-caption-overlay">
-                <span class="card-author-title">Noah Carter</span>
-                <span class="card-author-sub">Elevate Creative</span>
-              </div>
-            </div>
-          </div>
+        <div class="testimonials-marquee-viewport" data-marquee-viewport>
+          <div class="testimonials-marquee-track" aria-label="Client testimonials ticker">
+            {[...testimonials, ...testimonials].map((card, i) => (
+              card.type === "video" ? (
+                <div class="testimonial-card card-video" aria-hidden={i >= testimonials.length ? "true" : undefined}>
+                  <div class="video-thumb-frame">
+                    <img
+                      src={card.image}
+                      alt={`${card.name}, ${card.company}`}
+                      class="video-thumb-img"
+                      loading="lazy"
+                    />
+                    <div class="play-badge" aria-label="Play video review">
+                      <span class="play-triangle" aria-hidden="true">▶</span>
+                    </div>
+                    <div class="card-caption-overlay">
+                      <span class="card-author-title">{card.name}</span>
+                      <span class="card-author-sub">{card.company}</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div class="testimonial-card card-quote" aria-hidden={i >= testimonials.length ? "true" : undefined}>
+                  <div class="quote-card-header">
+                    <img
+                      src={card.avatar}
+                      alt={card.name}
+                      class="card-avatar"
+                      width="36"
+                      height="36"
+                      loading="lazy"
+                    />
+                    <div class="card-meta">
+                      <span class="card-author-title">{card.name}</span>
+                      <span class="card-author-sub">{card.company}</span>
+                    </div>
+                  </div>
 
-          {/* Card 2: Quote Review - Tyler Brooks */}
-          <div class="testimonial-card card-quote">
-            <div class="quote-card-header">
-              <img
-                src="https://framerusercontent.com/images/ycjy9zLBKK9pduWZeYakSre6Ig4.png?width=2400&height=2400"
-                alt="Tyler Brooks"
-                class="card-avatar"
-                width="36"
-                height="36"
-                loading="lazy"
-              />
-              <div class="card-meta">
-                <span class="card-author-title">Tyler Brooks</span>
-                <span class="card-author-sub">Launchify</span>
-              </div>
-            </div>
-
-            <div class="card-stars">★★★★★</div>
-            <p class="card-quote-text">
-              "Fast turnarounds, zero hand-holding, and creative output that consistently exceeded our expectations. Highly recommend."
-            </p>
-          </div>
-
-          {/* Card 3: Video Review - Logan Davis */}
-          <div class="testimonial-card card-video">
-            <div class="video-thumb-frame">
-              <img
-                src="https://framerusercontent.com/images/2aREOjBLZVwIVp8mjIq88WEeFG0.png?width=2400&height=2400"
-                alt="Logan Davis, Horizon Labs"
-                class="video-thumb-img"
-                loading="lazy"
-              />
-              <div class="play-badge" aria-label="Play video review">
-                <span class="play-triangle" aria-hidden="true">▶</span>
-              </div>
-              <div class="card-caption-overlay">
-                <span class="card-author-title">Logan Davis</span>
-                <span class="card-author-sub">Horizon Labs</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 4: Quote Review - Alex Johnson */}
-          <div class="testimonial-card card-quote">
-            <div class="quote-card-header">
-              <img
-                src="https://framerusercontent.com/images/ma3SkKwbnJSYT5zrIsvpOL0R2g.png?width=2400&height=2400"
-                alt="Alex Johnson"
-                class="card-avatar"
-                width="36"
-                height="36"
-                loading="lazy"
-              />
-              <div class="card-meta">
-                <span class="card-author-title">Alex Johnson</span>
-                <span class="card-author-sub">PixelCore Studio</span>
-              </div>
-            </div>
-
-            <div class="card-stars">★★★★★</div>
-            <p class="card-quote-text">
-              "From day one, Kairav nailed our brand voice. The design quality and strategic thinking were on another level entirely."
-            </p>
+                  <div class="card-stars">★★★★★</div>
+                  <p class="card-quote-text">
+                    "{card.quote}"
+                  </p>
+                </div>
+              )
+            ))}
           </div>
         </div>
       </div>
@@ -655,45 +689,95 @@
     color: #617072;
   }
 
-  /* ── 4-Cards Grid / Carousel Band ─────────────────────────────────────────── */
-  .testimonials-carousel-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+  /* ── Auto-Scrolling Testimonials Marquee Band (Slow Scroll Right) ───────────── */
+  .cards-main-wrap {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    min-width: 0;
   }
 
-  @media (min-width: 640px) {
-    .testimonials-carousel-grid {
-      grid-template-columns: repeat(2, 1fr);
+  .testimonials-marquee-viewport {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 28px,
+      black calc(100% - 28px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 28px,
+      black calc(100% - 28px),
+      transparent 100%
+    );
+  }
+
+  .testimonials-marquee-track {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    will-change: transform;
+    animation: testimonialScrollRight 48s linear infinite;
+  }
+
+  .testimonials-marquee-viewport:hover .testimonials-marquee-track,
+  .testimonials-marquee-viewport:focus-within .testimonials-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes testimonialScrollRight {
+    0% {
+      transform: translate3d(-50%, 0, 0);
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
     }
   }
 
-  @media (min-width: 1024px) {
-    .testimonials-carousel-grid {
-      grid-template-columns: repeat(4, 1fr);
+  @media (prefers-reduced-motion: reduce) {
+    .testimonials-marquee-track {
+      animation: none;
+    }
+    .testimonials-marquee-viewport {
+      overflow-x: auto;
+      mask-image: none;
+      -webkit-mask-image: none;
     }
   }
 
   .testimonial-card {
-    padding: 2rem 1.5rem;
-    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    width: 295px;
+    min-width: 295px;
+    max-width: 295px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 1.75rem 1.35rem;
+    border-right: 1px solid rgba(7, 20, 21, 0.1);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
   }
 
   @media (min-width: 640px) {
-    .testimonial-card:nth-child(odd) {
-      border-right: 1px solid rgba(7, 20, 21, 0.1);
+    .testimonial-card {
+      width: 315px;
+      min-width: 315px;
+      max-width: 315px;
+      padding: 2rem 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .testimonial-card {
-      border-right: 1px solid rgba(7, 20, 21, 0.1);
-      border-bottom: none;
-    }
-
-    .testimonial-card:last-child {
-      border-right: none;
+      width: 325px;
+      min-width: 325px;
+      max-width: 325px;
+      padding: 2.25rem 1.65rem;
     }
   }
 

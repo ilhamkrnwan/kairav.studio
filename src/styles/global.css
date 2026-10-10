@@ -1570,7 +1570,9 @@ html.site-menu-open {
 .why-choose-btn,
 .dark-pill-btn,
 .hero-outline-btn,
-.hero-play-button {
+.hero-play-button,
+.testimonials-marquee-track,
+.video-thumb-img {
   will-change: transform;
 }
 

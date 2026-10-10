@@ -1,68 +1,1821 @@
 ---
+/**
+ * src/pages/services.astro
+ * Architectural Blueprint Services Page for Kairav Studio.
+ * Designed to seamlessly match the Clonix aesthetic of index.astro and works/index.astro:
+ * 1. Dark Blueprint Hero with telemetry bar, filter chips, and studio guarantees.
+ * 2. Light Canvas 6-Service Architectural Showcase Matrix with deep cards.
+ * 3. 4-Pillar Engineering Methodology ("How We Build").
+ * 4. Dark Obsidian Technology & Protocols Matrix.
+ * 5. Prospective Client Services FAQ Accordion.
+ * 6. Monumental Bottom CTA Banner leading to /contact.
+ */
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Button from "../components/common/Button.astro";
-import Container from "../components/common/Container.astro";
-import SectionHeading from "../components/common/SectionHeading.astro";
-import ServiceCard from "../components/cards/ServiceCard.astro";
-import CTASection from "../components/sections/CTASection.astro";
-import PageHero from "../components/sections/PageHero.astro";
 import { services } from "../data/services";
+
+// Categorized filter groups for interactive filter bar
+const filterCategories = [
+  { id: "all", label: "All Disciplines", count: services.length },
+  { id: "Web Experiences", label: "Web Experiences", count: services.filter(s => s.category === "Web Experiences").length },
+  { id: "Search & Visibility", label: "Search & Visibility", count: services.filter(s => s.category === "Search & Visibility").length },
+  { id: "Performance & Systems", label: "Performance & Systems", count: services.filter(s => s.category === "Performance & Systems" || s.category === "Systems & Intelligence" || s.category === "Connected Systems").length },
+];
+
+// 4-Pillar Engineering Methodology
+const methodologySteps = [
+  {
+    num: "01",
+    tag: "Phase 1: Discovery",
+    title: "Audit & Constraint Mapping",
+    desc: "Before writing any code, we analyze your current bottlenecks, business constraints, user friction points, and competitive search landscape.",
+  },
+  {
+    num: "02",
+    tag: "Phase 2: Architecture",
+    title: "Component-First Design System",
+    desc: "We shape clean, accessible visual identities and reusable UI design tokens in code — establishing a consistent design language that scales.",
+  },
+  {
+    num: "03",
+    tag: "Phase 3: Engineering",
+    title: "Static-First High Velocity",
+    desc: "We leverage Astro, strictly-typed TypeScript, and edge runtime architectures to produce lightning-fast pages that hit perfect Core Web Vitals.",
+  },
+  {
+    num: "04",
+    tag: "Phase 4: Scaling",
+    title: "Measurable Business Outcomes",
+    desc: "We configure conversion analytics, JSON-LD schemas for search engines & AI discovery, and provide clean documentation for effortless team handoff.",
+  },
+];
+
+// Technology & Standards Matrix
+const techStacks = [
+  {
+    category: "Web & Static Architecture",
+    tags: ["Astro 5", "TypeScript", "Tailwind CSS", "GSAP", "Next.js / React"],
+    desc: "Zero-JS by default frontend architectures delivering sub-100ms load times and seamless layout animations.",
+  },
+  {
+    category: "Systems, APIs & Data",
+    tags: ["Node.js", "Python", "Supabase", "PostgreSQL", "SQLite / Prisma"],
+    desc: "Reliable database designs, serverless API endpoints, and clean micro-architectures with strict type safety.",
+  },
+  {
+    category: "Machine Intelligence & AI",
+    tags: ["Claude API", "Prompt Caching", "Vector Embeddings", "Gemini", "OpenAI"],
+    desc: "Practical, cost-aware AI features, assistant integrations, and automated semantic knowledge bases.",
+  },
+  {
+    category: "Mobile & Connected Systems",
+    tags: ["React Native / Expo", "Android Native", "MQTT", "BLE Protocols"],
+    desc: "Cross-platform mobile apps with local SQLite caching, offline workflows, and real-time device telemetry.",
+  },
+];
+
+// Services FAQ
+const servicesFaqs = [
+  {
+    q: "Can we hire Kairav Studio for a single service or only full-package builds?",
+    a: "You can hire us for any individual capability — whether you only need a Core Web Vitals speed audit, an AI workflow prototype, or a comprehensive end-to-end brand website. Every engagement is scoped clearly with fixed milestones.",
+  },
+  {
+    q: "How do you price your service engagements?",
+    a: "We offer transparent fixed-cost scopes for well-defined deliverables (such as websites, audits, or MVPs), and monthly engineering retainers for evolving products needing continuous architecture and feature development.",
+  },
+  {
+    q: "What is your typical turnaround timeline for a brand website vs custom web app?",
+    a: "A focused brand website typically launches in 2 to 4 weeks. Custom web applications, SaaS dashboards, or AI systems typically range from 4 to 8 weeks depending on database complexity and API integrations.",
+  },
+  {
+    q: "How does communication and reporting work during development?",
+    a: "We are async-first. We provide weekly interactive video walkthroughs (Loom), private staging preview links on every commit, and shared task boards via GitHub / Linear. Direct access to senior engineers without account-manager layers.",
+  },
+  {
+    q: "Do you provide post-launch maintenance, hosting support, and SEO monitoring?",
+    a: "Yes. Every build includes a 30-day post-launch warranty period. We also offer monthly care retainers covering security updates, performance monitoring, SEO/GEO content expansions, and ongoing improvements.",
+  },
+];
 ---
 
 <BaseLayout
-  title="Services - Kairav Studio"
-  description="Explore Kairav Studio services for modern websites, custom web apps, SEO/GEO optimization, AI automation, and maintenance."
+  title="Services & Capabilities — Kairav Studio"
+  description="Explore Kairav Studio services: modern brand websites, custom web apps, SEO/GEO architecture, performance engineering, AI automation, and connected systems."
 >
-  <main>
-    <PageHero
-      eyebrow="Services"
-      title="From brand websites to custom systems, AI, and IoT."
-      description="Six core services that take you from a fast, search-ready website to dashboards, AI features, and connected apps — built with design taste and serious engineering. Open any service for the full breakdown."
-      image="/hero-works.png"
-      imageAlt="Kairav Studio Services"
-    />
+  <main class="services-page-main">
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 1. HERO BAND (Dark Blueprint Architecture)                             */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="services-hero-section" data-hero-section aria-label="Services Overview">
+      {/* Background Rotating Watermark */}
+      <div class="hero-watermark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
+          <path
+            d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.6142 50 100C50 72.6142 72.6142 50 100 50C72.6142 50 50 27.6142 50 0Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </div>
 
-    <section class="section-spacing">
-      <Container>
-        <div class="grid gap-5 md:grid-cols-2">
-          {services.map((service) => <ServiceCard service={service} />)}
-        </div>
-      </Container>
-    </section>
+      <div class="services-container">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
 
-    <section class="section-spacing bg-[var(--color-background-soft)]">
-      <Container>
-        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeading
-            eyebrow="Approach"
-            title="Not overly salesy. Just useful, clear, and built to last."
-            description="Every engagement starts by understanding the business goal, current constraints, and what should be easier after launch."
-          />
-          <div class="grid gap-4">
-            {[
-              { label: "Audit what exists", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`, accent: "#2563eb" },
-              { label: "Design the right structure", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`, accent: "#7c5cfc" },
-              { label: "Build reusable parts", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`, accent: "#10b981" },
-              { label: "Measure and improve", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>`, accent: "#f97316" },
-            ].map((item) => (
-              <div class="icon-card card-surface p-5" style={`--icon-accent: ${item.accent};`}>
-                <div class="icon-card__badge" aria-hidden="true">
-                  <Fragment set:html={item.icon} />
-                </div>
-                <h2 class="mt-4 font-heading text-lg font-semibold text-[var(--color-text)]">{item.label}</h2>
-                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
-                  Small, reviewable steps keep the project understandable for clients and contributors.
-                </p>
-              </div>
-            ))}
+        {/* Top Blueprint Telemetry Bar */}
+        <div class="blueprint-meta-bar" aria-hidden="true">
+          <div class="blueprint-meta-left">
+            <span class="blueprint-status-dot"></span>
+            <span class="blueprint-mono">STATUS: ONLINE · 6 SPECIALIZED SERVICES · PRODUCTION PIPELINE ACTIVE</span>
+          </div>
+          <div class="blueprint-meta-right">
+            <span class="blueprint-mono">STANDARDS: ZERO TECH DEBT · &lt;100ms TARGET · YOGYAKARTA (UTC+7)</span>
           </div>
         </div>
-        <div class="mt-10">
-          <Button href="/contact">Contact Us</Button>
+
+        <div class="band-row hero-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Capabilities
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Production Ready
+            </div>
+
+            <!-- Stats Pill -->
+            <div class="rating-badge">
+              <div class="rating-star-box">
+                <span class="star-icon">★</span>
+                <span class="rating-val">4.9</span>
+              </div>
+              <span class="rating-sub">50+ Shipped Systems</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">PORTFOLIO DISCIPLINE</span>
+              <span class="spec-value">6 Core Capabilities</span>
+              <span class="spec-detail">Full lifecycle: design, build, optimize & scale.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main hero-main">
+            <div class="hero-header-wrap">
+              <span class="hero-eyebrow">ENGINEERING & ARCHITECTURE · KAIRAV STUDIO</span>
+              <h1 class="hero-title">From Brand Flagships to Scalable Systems & Applied AI.</h1>
+              <p class="hero-desc">
+                We partner with forward-thinking teams to architect high-velocity websites, custom digital platforms, and automated AI workflows. Built with design taste and serious engineering — zero template slop, zero bloat, and sub-100ms page response times by default.
+              </p>
+            </div>
+
+            {/* Guarantees & Standards Strip */}
+            <div class="hero-standards-strip" aria-label="Engineering Standards">
+              <div class="standard-chip">
+                <span class="standard-chip__val">&lt; 100ms</span>
+                <span class="standard-chip__lbl">Target Page Load</span>
+              </div>
+              <div class="standard-chip">
+                <span class="standard-chip__val">100%</span>
+                <span class="standard-chip__lbl">Type-Safe TypeScript</span>
+              </div>
+              <div class="standard-chip">
+                <span class="standard-chip__val">SEO &amp; GEO</span>
+                <span class="standard-chip__lbl">AI Search Optimized</span>
+              </div>
+              <div class="standard-chip">
+                <span class="standard-chip__val">Senior</span>
+                <span class="standard-chip__lbl">Direct Engineer Access</span>
+              </div>
+            </div>
+
+            {/* Filter Chips Bar */}
+            <div class="filter-chips-bar" data-filter-bar role="tablist" aria-label="Filter services by category">
+              {filterCategories.map((cat, idx) => (
+                <button
+                  type="button"
+                  class={`filter-chip ${idx === 0 ? "is-active" : ""}`}
+                  data-filter={cat.id}
+                  role="tab"
+                  aria-selected={idx === 0 ? "true" : "false"}
+                >
+                  <span>{cat.label}</span>
+                  <span class="chip-count">{cat.count}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-      </Container>
+      </div>
     </section>
 
-    <CTASection />
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-dark" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 2. FLAGSHIP SERVICES SHOWCASE MATRIX (Light Architectural Grid)        */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="services-showcase-section" id="capabilities-matrix" aria-label="Six Core Capabilities">
+      <div class="services-container container-light">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row services-list-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Service Matrix
+            </div>
+
+            <div class="rail-sticky-info">
+              <h3 class="rail-info-title">Custom-Architected Solutions</h3>
+              <p class="rail-info-desc">
+                Every service is delivered with direct senior engineer involvement, transparent milestones, and zero proprietary lock-in.
+              </p>
+
+              <div class="rail-metric-box">
+                <span class="metric-big-num">100%</span>
+                <span class="metric-caption">Static-First Architecture &amp; Zero Bloat Plugins</span>
+              </div>
+
+              <div class="rail-action-wrap">
+                <a href="/contact" class="clonix-cta-button" id="services-rail-cta">
+                  <span class="clonix-cta-button__text">Start a Project</span>
+                  <span class="clonix-cta-button__box" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 8h10M9 4l4 4-4 4"></path>
+                    </svg>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </aside>
+
+          {/* Right Main Grid */}
+          <div class="band-main main-light services-main-grid">
+            <div class="services-header-wrap">
+              <h2 class="services-section-title">Six Specialized Engineering Disciplines</h2>
+              <p class="services-section-subtitle">
+                Explore our core capabilities — from high-velocity Astro frontends to resilient custom systems, practical AI integrations, and mobile platforms.
+              </p>
+            </div>
+
+            <!-- The 6 Architectural Service Cards -->
+            <div class="services-cards-grid" id="services-grid-container">
+              {services.map((service, idx) => {
+                const groupCategory = (service.category === "Performance & Systems" || service.category === "Systems & Intelligence" || service.category === "Connected Systems") 
+                  ? "Performance & Systems" 
+                  : service.category;
+
+                return (
+                  <article
+                    class="service-blueprint-card"
+                    data-service-card
+                    data-category={groupCategory}
+                    style={`--svc-accent: ${service.accent};`}
+                  >
+                    {/* Top Image Wrap with Grayscale Hover */}
+                    <div class="service-card__img-wrap">
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        class="service-card__img"
+                        loading="lazy"
+                        decoding="async"
+                        width="640"
+                        height="360"
+                      />
+                      <div class="service-card__img-overlay"></div>
+                      
+                      {/* Floating Icon Badge with inline SVG */}
+                      <div class="service-card__icon-float" aria-hidden="true">
+                        <Fragment set:html={service.icon} />
+                      </div>
+                    </div>
+
+                    {/* Card Content */}
+                    <div class="service-card__content">
+                      <div class="service-card__meta">
+                        <span class="service-card__index">0{idx + 1} / SERVICE</span>
+                        <span class="service-card__category-badge">{service.category}</span>
+                      </div>
+
+                      <h3 class="service-card__title">
+                        <a href={`/tools/${service.id}`} class="service-card__title-link">
+                          {service.title}
+                        </a>
+                      </h3>
+
+                      <p class="service-card__summary">{service.summary}</p>
+
+                      <div class="service-card__who">
+                        <span class="who-label">IDEAL FOR:</span>
+                        <p class="who-text">{service.detail}</p>
+                      </div>
+
+                      {/* Deliverables Checklist */}
+                      <div class="service-card__deliverables-wrap">
+                        <span class="deliverables-heading">KEY DELIVERABLES:</span>
+                        <ul class="deliverables-list">
+                          {service.deliverables.map((item) => (
+                            <li class="deliverable-item">
+                              <span class="deliverable-dot" style={`background: ${service.accent};`}></span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Tech Stack Chips */}
+                      <div class="service-card__stack-wrap">
+                        {service.techDirection.map((tech) => (
+                          <span class="tech-chip">{tech}</span>
+                        ))}
+                      </div>
+
+                      {/* Footer Actions */}
+                      <div class="service-card__footer">
+                        <a href={`/tools/${service.id}`} class="service-explore-link">
+                          <span>Explore Full Breakdown</span>
+                          <span class="link-arrow" aria-hidden="true">→</span>
+                        </a>
+
+                        <a href="/contact" class="service-inquire-btn" title={`Inquire about ${service.title}`}>
+                          <span>Book Scope</span>
+                          <span aria-hidden="true">→</span>
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-light" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 3. OUR 4-PILLAR METHODOLOGY (Light Architectural Band)                  */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="services-methodology-section" aria-label="Our Delivery Methodology">
+      <div class="services-container container-light">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row methodology-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> How We Build
+            </div>
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Engineering Standards
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="methodology-header">
+              <h2 class="methodology-section-title">Not Overly Salesy. Just Useful, Clear, and Built to Last.</h2>
+              <p class="methodology-section-desc">
+                We replace guesswork and heavy frameworks with pragmatic engineering, component-first design, and rigorous performance budgets.
+              </p>
+            </div>
+
+            <div class="methodology-cards-grid">
+              {methodologySteps.map((step) => (
+                <div class="methodology-card">
+                  <div class="methodology-card-head">
+                    <span class="methodology-number">{step.num}</span>
+                    <span class="methodology-tag">{step.tag}</span>
+                  </div>
+                  <h3 class="methodology-title">{step.title}</h3>
+                  <p class="methodology-desc">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-dark" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 4. TECHNOLOGY & PROTOCOLS MATRIX (Dark Obsidian Blueprint Canvas)      */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="services-tech-section" aria-label="Technology and Protocols">
+      <div class="services-container">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row tech-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Stack &amp; Protocols
+            </div>
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Vetted Technologies
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main">
+            <div class="tech-header-wrap">
+              <h2 class="tech-section-title">Modern, Resilient, and Strictly Vetted Technologies</h2>
+              <p class="tech-section-desc">
+                We select the right tool for the job — minimizing bundle sizes, eliminating fragile dependencies, and preventing proprietary vendor lock-in.
+              </p>
+            </div>
+
+            <div class="tech-cards-grid">
+              {techStacks.map((stack) => (
+                <div class="tech-card">
+                  <h3 class="tech-category-title">{stack.category}</h3>
+                  <p class="tech-category-desc">{stack.desc}</p>
+                  <div class="tech-pills-list">
+                    {stack.tags.map((tag) => (
+                      <span class="tech-tag-pill">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-light" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 5. SERVICES FAQ ACCORDION (Light Architectural Band)                   */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="services-faq-section" aria-label="Frequently Asked Questions About Services">
+      <div class="services-container container-light">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row faq-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Services FAQ
+            </div>
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Clear Answers
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="faq-header-wrap">
+              <h2 class="faq-section-title">Common Questions About Our Services</h2>
+              <p class="faq-section-desc">
+                Everything you need to know about scopes, deliverables, timelines, and post-launch support.
+              </p>
+            </div>
+
+            <div class="client-faq-accordion" data-faq-group>
+              {servicesFaqs.map((faq, idx) => (
+                <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
+                  <button
+                    type="button"
+                    class="faq-item-trigger"
+                    data-faq-trigger
+                    aria-expanded={idx === 0 ? "true" : "false"}
+                  >
+                    <div class="trigger-left">
+                      <span class="faq-index-number">0{idx + 1}</span>
+                      <h3 class="faq-question-text">{faq.q}</h3>
+                    </div>
+                    <span class="faq-toggle-icon" aria-hidden="true">{idx === 0 ? "×" : "+"}</span>
+                  </button>
+
+                  <div class="faq-item-body">
+                    <p class="faq-answer-text">{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
   </main>
 </BaseLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BASE CANVAS & ARCHITECTURAL GRID SYSTEM
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .services-page-main {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ── 1. Hero Section (Dark Canvas #07080b) ────────────────────────────────── */
+  .services-hero-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: clamp(5.5rem, 8vw, 7.5rem) 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .services-hero-section {
+      padding: clamp(6rem, 8vw, 8rem) 1.5rem 0 1.5rem;
+    }
+  }
+
+  .hero-watermark {
+    position: absolute;
+    top: -120px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    opacity: 0.04;
+    color: #f8f5ec;
+    pointer-events: none;
+    z-index: 0;
+    animation: slowSpin 140s linear infinite;
+  }
+
+  @keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .rotor-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Container Frame ──────────────────────────────────────────────────────── */
+  .services-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: rgba(7, 8, 11, 0.85);
+    z-index: 1;
+  }
+
+  .container-light {
+    border-left: 1px solid rgba(7, 20, 21, 0.1);
+    border-right: 1px solid rgba(7, 20, 21, 0.1);
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    background-color: rgba(243, 244, 239, 0.7);
+    color: #071415;
+  }
+
+  /* ── Crosshairs ───────────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.28);
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .container-light .grid-cross {
+    color: rgba(7, 20, 21, 0.35);
+  }
+
+  .cross--tl { top: -7px; left: -5px; }
+  .cross--tr { top: -7px; right: -5px; }
+  .cross--bl { bottom: -7px; left: -5px; }
+  .cross--br { bottom: -7px; right: -5px; }
+
+  /* ── Blueprint Telemetry Bar ──────────────────────────────────────────────── */
+  .blueprint-meta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .blueprint-meta-left,
+  .blueprint-meta-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .blueprint-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.8);
+    animation: pulseDot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .blueprint-mono {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+  }
+
+  /* ── Hairline Dividers ────────────────────────────────────────────────────── */
+  .hairline-divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.08);
+    z-index: 2;
+  }
+
+  .divider-dark {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .divider-light {
+    background-color: rgba(7, 20, 21, 0.1);
+  }
+
+  .divider-cross {
+    position: absolute;
+    top: -7px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.25);
+    user-select: none;
+  }
+
+  .divider-light .divider-cross {
+    color: rgba(7, 20, 21, 0.35);
+  }
+
+  .cross-left { left: -5px; }
+  .cross-mid {
+    left: 24%;
+    transform: translateX(-50%);
+    display: none;
+  }
+  .cross-right { right: -5px; }
+
+  @media (min-width: 900px) {
+    .cross-mid {
+      display: block;
+    }
+  }
+
+  /* ── Band Rows Architecture ───────────────────────────────────────────────── */
+  .band-row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .band-row {
+      grid-template-columns: 24% 76%;
+    }
+  }
+
+  .band-rail {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-rail {
+      padding: 3rem 2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: none;
+    }
+  }
+
+  .rail-light {
+    border-bottom-color: rgba(7, 20, 21, 0.1);
+  }
+
+  @media (min-width: 900px) {
+    .rail-light {
+      border-right-color: rgba(7, 20, 21, 0.1);
+    }
+  }
+
+  .rail-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: inherit;
+  }
+
+  .rail-slash {
+    color: #b6ff5c;
+    font-weight: 700;
+  }
+
+  .rail-light .rail-slash {
+    color: #4f7d18;
+  }
+
+  .rail-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 6px rgba(182, 255, 92, 0.6);
+  }
+
+  .rail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .rail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .rail-spec-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .spec-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .spec-value {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .spec-detail {
+    font-size: 0.76rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  /* ── Rating Badge ─────────────────────────────────────────────────────────── */
+  .rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: fit-content;
+  }
+
+  .rating-star-box {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: #b6ff5c;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .rating-sub {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
+  }
+
+  /* ── Main Column Layout ───────────────────────────────────────────────────── */
+  .band-main {
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-main {
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  .main-light {
+    background-color: #faf9f5;
+  }
+
+  /* ── Hero Content ─────────────────────────────────────────────────────────── */
+  .hero-header-wrap {
+    max-width: 58rem;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #b6ff5c;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2.3rem, 4.8vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #f8f5ec;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+    line-height: 1.65;
+    color: #94a3b8;
+    max-width: 48rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Standards Strip ──────────────────────────────────────────────────────── */
+  .hero-standards-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-standards-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .standard-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+  }
+
+  .standard-chip__val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #b6ff5c;
+  }
+
+  .standard-chip__lbl {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Filter Chips Bar ─────────────────────────────────────────────────────── */
+  .filter-chips-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.95rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: #94a3b8;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.74rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 180ms ease;
+  }
+
+  .filter-chip:hover {
+    color: #f8f5ec;
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .filter-chip.is-active {
+    background: #b6ff5c;
+    color: #080808;
+    border-color: #b6ff5c;
+  }
+
+  .chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.1rem 0.35rem;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 999px;
+    font-size: 0.65rem;
+  }
+
+  .filter-chip.is-active .chip-count {
+    background: rgba(0, 0, 0, 0.2);
+    color: #080808;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     2. SERVICES SHOWCASE MATRIX
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .services-showcase-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 2rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .services-showcase-section {
+      padding: 3rem 1.5rem;
+    }
+  }
+
+  .rail-sticky-info {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .rail-info-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #111113;
+    margin: 0;
+  }
+
+  .rail-info-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #52525b;
+    margin: 0;
+  }
+
+  .rail-metric-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.25rem;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 19, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(17, 17, 19, 0.03);
+  }
+
+  .metric-big-num {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #4f7d18;
+    line-height: 1;
+  }
+
+  .metric-caption {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #52525b;
+  }
+
+  .rail-action-wrap {
+    margin-top: 0.5rem;
+  }
+
+  /* ── Services Main Grid Header ── */
+  .services-header-wrap {
+    margin-bottom: 2.5rem;
+  }
+
+  .services-section-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: #111113;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .services-section-subtitle {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #52525b;
+    max-width: 44rem;
+  }
+
+  /* ── The 6 Service Cards Grid ── */
+  .services-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .services-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .services-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .service-blueprint-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 19, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(17, 17, 19, 0.03);
+    transition: all 260ms ease;
+  }
+
+  .service-blueprint-card:hover {
+    border-color: rgba(79, 125, 24, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(17, 17, 19, 0.08);
+  }
+
+  /* ── Image Wrap & Floating Icon ── */
+  .service-card__img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: #09090b;
+    border-bottom: 1px solid rgba(17, 17, 19, 0.08);
+  }
+
+  .service-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%) brightness(0.7);
+    transition: filter 400ms ease, transform 400ms ease;
+  }
+
+  .service-blueprint-card:hover .service-card__img {
+    filter: grayscale(0%) brightness(0.9);
+    transform: scale(1.04);
+  }
+
+  .service-card__img-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(17, 17, 19, 0.6) 0%, transparent 60%);
+  }
+
+  .service-card__icon-float {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: var(--svc-accent, #4f7d18);
+    color: #080808;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+    transition: transform 220ms ease;
+  }
+
+  .service-blueprint-card:hover .service-card__icon-float {
+    transform: translateY(-2px) scale(1.08);
+  }
+
+  /* ── Card Body Content ── */
+  .service-card__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1.75rem;
+  }
+
+  .service-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card__index {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #71717a;
+    letter-spacing: 0.08em;
+  }
+
+  .service-card__category-badge {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    background: rgba(17, 17, 19, 0.05);
+    border-radius: 4px;
+    color: #4f7d18;
+  }
+
+  .service-card__title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .service-card__title-link {
+    color: #111113;
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+
+  .service-card__title-link:hover {
+    color: #4f7d18;
+  }
+
+  .service-card__summary {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #52525b;
+    margin: 0 0 1rem 0;
+  }
+
+  .service-card__who {
+    padding: 0.75rem 1rem;
+    background: rgba(17, 17, 19, 0.02);
+    border-left: 2px solid var(--svc-accent, #4f7d18);
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .who-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #71717a;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .who-text {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #3f3f46;
+    margin: 0;
+  }
+
+  /* Deliverables */
+  .service-card__deliverables-wrap {
+    margin-bottom: 1.25rem;
+  }
+
+  .deliverables-heading {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #71717a;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .deliverables-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .deliverable-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #52525b;
+  }
+
+  .deliverable-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 0.45rem;
+    flex-shrink: 0;
+  }
+
+  /* Tech Stack */
+  .service-card__stack-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-chip {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(17, 17, 19, 0.04);
+    border: 1px solid rgba(17, 17, 19, 0.08);
+    border-radius: 3px;
+    color: #52525b;
+  }
+
+  /* Card Footer Actions */
+  .service-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(17, 17, 19, 0.08);
+    margin-top: auto;
+  }
+
+  .service-explore-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #111113;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .service-explore-link:hover {
+    color: #4f7d18;
+  }
+
+  .link-arrow {
+    transition: transform 160ms ease;
+  }
+
+  .service-explore-link:hover .link-arrow {
+    transform: translateX(3px);
+  }
+
+  .service-inquire-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.85rem;
+    background: #111113;
+    border-radius: 4px;
+    color: #f8f5ec;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 160ms ease;
+  }
+
+  .service-inquire-btn:hover {
+    background: #4f7d18;
+    color: #ffffff;
+  }
+
+  /* Clonix CTA Button */
+  .clonix-cta-button {
+    display: inline-flex;
+    align-items: center;
+    height: 3.25rem;
+    border-radius: 4px;
+    background-color: #b6ff5c;
+    color: #080808;
+    border: none;
+    padding: 0;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(182, 255, 92, 0.25);
+    transition: all 220ms ease;
+  }
+
+  .clonix-cta-button:hover {
+    background-color: #c4ff75;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(182, 255, 92, 0.4);
+  }
+
+  .clonix-cta-button__text {
+    padding: 0 1.5rem;
+  }
+
+  .clonix-cta-button__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 100%;
+    background-color: #a3f538;
+    border-left: 1px solid rgba(8, 8, 8, 0.12);
+    transition: background-color 180ms ease;
+  }
+
+  .clonix-cta-button:hover .clonix-cta-button__box {
+    background-color: #92e825;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     3. 4-PILLAR METHODOLOGY
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .services-methodology-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .services-methodology-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .methodology-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .methodology-section-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #111113;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .methodology-section-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #52525b;
+    max-width: 44rem;
+  }
+
+  .methodology-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .methodology-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .methodology-cards-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .methodology-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.5rem;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 19, 0.08);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(17, 17, 19, 0.02);
+    transition: all 200ms ease;
+  }
+
+  .methodology-card:hover {
+    border-color: rgba(79, 125, 24, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .methodology-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .methodology-number {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4f7d18;
+    line-height: 1;
+  }
+
+  .methodology-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    background: rgba(17, 17, 19, 0.04);
+    border-radius: 4px;
+    color: #52525b;
+  }
+
+  .methodology-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111113;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .methodology-desc {
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: #52525b;
+    margin: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     4. TECHNOLOGY & PROTOCOLS (Dark Obsidian Canvas)
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .services-tech-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .services-tech-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .tech-header-wrap {
+    margin-bottom: 2.5rem;
+  }
+
+  .tech-section-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #f8f5ec;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .tech-section-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    max-width: 44rem;
+  }
+
+  .tech-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .tech-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .tech-cards-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .tech-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    transition: all 200ms ease;
+  }
+
+  .tech-card:hover {
+    border-color: rgba(182, 255, 92, 0.3);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .tech-category-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #f8f5ec;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .tech-category-desc {
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: #94a3b8;
+    margin: 0 0 1.25rem 0;
+    flex-grow: 1;
+  }
+
+  .tech-pills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .tech-tag-pill {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    color: #b6ff5c;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     5. FAQ ACCORDION STYLES
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .services-faq-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .services-faq-section {
+      padding: 0 1.5rem 4rem 1.5rem;
+    }
+  }
+
+  .faq-header-wrap {
+    margin-bottom: 2rem;
+  }
+
+  .faq-section-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #111113;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-section-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #52525b;
+  }
+
+  .client-faq-accordion {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(17, 17, 19, 0.1);
+  }
+
+  .faq-item-row {
+    border-bottom: 1px solid rgba(17, 17, 19, 0.1);
+  }
+
+  .faq-item-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: color 180ms ease;
+  }
+
+  .faq-item-trigger:hover {
+    color: #4f7d18;
+  }
+
+  .trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .faq-index-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #4f7d18;
+  }
+
+  .faq-question-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: #111113;
+    margin: 0;
+    transition: color 180ms ease;
+  }
+
+  .faq-item-trigger:hover .faq-question-text {
+    color: #4f7d18;
+  }
+
+  .faq-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #71717a;
+    line-height: 1;
+    transition: transform 200ms ease, color 200ms ease;
+  }
+
+  .faq-item-body {
+    display: none;
+    padding: 0 0 1.5rem calc(0.8rem + 1.25rem);
+  }
+
+  .faq-item-row.is-expanded .faq-item-body {
+    display: block;
+  }
+
+  .faq-item-row.is-expanded .faq-toggle-icon {
+    color: #4f7d18;
+    transform: rotate(45deg);
+  }
+
+  .faq-answer-text {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #52525b;
+    margin: 0;
+    max-width: 52rem;
+  }
+</style>
+
+<script>
+  // Interactive Filter Tabs & FAQ Accordion Handler
+  const initServicesPage = () => {
+    // 1. Category Filtering
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>("[data-filter]");
+    const serviceCards = document.querySelectorAll<HTMLElement>("[data-service-card]");
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filterCategory = btn.getAttribute("data-filter") || "all";
+
+        filterButtons.forEach((b) => {
+          b.classList.remove("is-active");
+          b.setAttribute("aria-selected", "false");
+        });
+        btn.classList.add("is-active");
+        btn.setAttribute("aria-selected", "true");
+
+        serviceCards.forEach((card) => {
+          const cardCat = card.getAttribute("data-category") || "";
+          if (filterCategory === "all" || cardCat === filterCategory) {
+            card.style.display = "flex";
+            card.style.opacity = "1";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // 2. FAQ Accordion Handler
+    const faqRows = document.querySelectorAll(".faq-item-row");
+    faqRows.forEach((row) => {
+      const trigger = row.querySelector("[data-faq-trigger]");
+      trigger?.addEventListener("click", () => {
+        const isCurrentlyExpanded = row.classList.contains("is-expanded");
+        
+        faqRows.forEach((r) => {
+          r.classList.remove("is-expanded");
+          const t = r.querySelector("[data-faq-trigger]");
+          t?.setAttribute("aria-expanded", "false");
+          const icon = r.querySelector(".faq-toggle-icon");
+          if (icon) icon.textContent = "+";
+        });
+
+        if (!isCurrentlyExpanded) {
+          row.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          const icon = row.querySelector(".faq-toggle-icon");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+  };
+
+  // Support Astro ClientRouter page transitions
+  document.addEventListener("astro:page-load", initServicesPage);
+</script>

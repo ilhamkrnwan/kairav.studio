@@ -1,0 +1,1924 @@
+---
+/**
+ * src/pages/teams.astro
+ * Architectural Blueprint Teams Page for Kairav Studio.
+ * Designed to seamlessly match the Clonix aesthetic of index.astro, services.astro, and contact.astro:
+ * 1. Dark Blueprint Hero with telemetry bar, studio collective status, and engineering guarantees.
+ * 2. Light Canvas Core Roster Showcase Matrix with deep architectural member cards.
+ * 3. Extended Specialist Network Pods ("Core + On-Demand Specialists").
+ * 4. Dark Obsidian Studio Culture & Operating Axioms.
+ * 5. Prospective Client Team Collaboration FAQ Accordion.
+ * 6. Monumental Bottom CTA Banner leading to /contact.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contributors } from "../data/contributors";
+
+// Enhanced member metrics & highlights for the architectural cards
+const memberHighlights: Record<string, { badge: string; metrics: string[]; quote: string; location: string }> = {
+  ilhamkrnwan: {
+    badge: "SYSTEM ARCHITECT & LEAD",
+    metrics: ["50+ Systems Shipped", "Astro & Fullstack Lead", "8+ Years Engineering"],
+    quote: "Building resilient web systems where high visual craft meets zero-bloat static architecture.",
+    location: "Yogyakarta (UTC+7)",
+  },
+  "Reyyy-05": {
+    badge: "MOBILE & CLIENT SYSTEMS",
+    metrics: ["BioLearn & MasjidFlow", "React Native / Expo Lead", "Cross-Platform Core"],
+    quote: "Crafting fluid, offline-first mobile apps that feel tactile, responsive, and durable in the field.",
+    location: "Yogyakarta (UTC+7)",
+  },
+  fantzyyy: {
+    badge: "SECURITY & API HARDENING",
+    metrics: ["CTF Offensive Security", "Zero-Trust Backend", "API Hardening Lead"],
+    quote: "Hardening APIs, reviewing architecture for zero-day vulnerabilities, and scaling clean serverless logic.",
+    location: "Yogyakarta (UTC+7)",
+  },
+};
+
+// Extended specialist network capabilities
+const specialistPods = [
+  {
+    code: "POD-01",
+    discipline: "Brand & Technical Copywriting",
+    leadTime: "On-Demand per Sprint",
+    desc: "Positioning architecture, conversion-focused product storytelling, technical developer documentation, and microcopy that converts.",
+    skills: ["Product Positioning", "Tone of Voice", "Technical Writing", "Conversion UX"],
+  },
+  {
+    code: "POD-02",
+    discipline: "3D WebGL & Motion Physics",
+    leadTime: "On-Demand per Sprint",
+    desc: "Interactive Three.js canvas experiences, GLSL custom shaders, and GSAP layout physics that give digital platforms signature brand identities.",
+    skills: ["Three.js", "GLSL Shaders", "GSAP Physics", "Canvas Animation"],
+  },
+  {
+    code: "POD-03",
+    discipline: "Data Ops & Machine Intelligence",
+    leadTime: "On-Demand per Sprint",
+    desc: "Vector embeddings, prompt caching pipelines, fine-tuned retrieval systems, and BigQuery data transformations that automate core workflows.",
+    skills: ["Vector DBs", "Prompt Caching", "PostgreSQL / Supabase", "BigQuery SQL"],
+  },
+  {
+    code: "POD-04",
+    discipline: "Cloud Infrastructure & DevOps",
+    leadTime: "On-Demand per Sprint",
+    desc: "Cloudflare Workers edge setups, Docker container orchestration, automated GitHub Actions CI/CD pipelines, and zero-downtime database migrations.",
+    skills: ["Cloudflare Edge", "Docker / Podman", "GitHub Actions CI", "Zero-Downtime Deploy"],
+  },
+];
+
+// Operating Axioms & Culture
+const operatingAxioms = [
+  {
+    num: "01",
+    tag: "Autonomy",
+    title: "High Autonomy, Zero Bureaucracy",
+    desc: "We ship at exceptional velocity because every lead has direct architectural agency. No five-layer approval chains or political account hierarchies.",
+  },
+  {
+    num: "02",
+    tag: "Reality",
+    title: "Code Is The Ground Truth",
+    desc: "Figma files and slide decks are hypotheses. Responsive, accessible, sub-100ms code running in a browser is reality. We validate in production early.",
+  },
+  {
+    num: "03",
+    tag: "Integrity",
+    title: "Open Source Mindset",
+    desc: "We contribute to public repositories, publish reusable Astro utilities, and build systems with clean boundaries that any future developer can inspect.",
+  },
+  {
+    num: "04",
+    tag: "Velocity",
+    title: "Relentless Respect For Speed",
+    desc: "Speed is a core feature. We optimize Core Web Vitals to 100/100, eliminate unused runtime dependencies, and respect both user bandwidth and battery.",
+  },
+];
+
+// Team Collaboration FAQ
+const teamFaqs = [
+  {
+    q: "How do we interact with the team during an active project?",
+    a: "You communicate directly with the engineers building your system. We set up a shared Slack or Discord channel, provide weekly async video walkthroughs (Loom) with preview deployment links, and maintain transparent task boards in Linear or GitHub. No intermediary account managers.",
+  },
+  {
+    q: "Can Kairav Studio embed directly into our existing engineering squad?",
+    a: "Yes. We frequently operate as a specialized strike team — embedding alongside your internal tech leads for frontend migrations, design system rollouts, mobile app development, or security hardening sprints, opening PRs directly into your repositories.",
+  },
+  {
+    q: "What time zone does the team operate in?",
+    a: "Our core leads are based in Yogyakarta, Indonesia (UTC+7 / Western Indonesia Time). We offer deep working hours overlap with Singapore/APAC (UTC+8), Australia (AEST), EMEA morning hours, and async workflows structured for North American teams.",
+  },
+  {
+    q: "How are responsibilities divided across the core roster?",
+    a: "Ilham leads overall technical architecture, design systems, and web performance. Reyhan directs mobile applications, offline-first client data, and interactive frontend modules. Moriarty oversees backend APIs, security posture, zero-trust audits, and database schemas.",
+  },
+  {
+    q: "Can we talk with the technical leads before signing a contract?",
+    a: "Yes, absolutely. Discovery and scoping sessions are conducted directly by the lead engineers who will write the code — giving you honest feasibility assessments, realistic timelines, and clear architectural recommendations from day one.",
+  },
+];
+---
+
+<BaseLayout
+  title="Teams & Engineering Collective — Kairav Studio"
+  description="Meet the core team and engineering collective behind Kairav Studio — senior engineers building high-velocity web platforms, mobile systems, and secure APIs."
+>
+  <main class="teams-page-main">
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 1. HERO BAND (Dark Blueprint Architecture)                             */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="teams-hero-section" data-hero-section aria-label="Team Overview">
+      {/* Background Rotating Watermark */}
+      <div class="hero-watermark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
+          <path
+            d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.6142 50 100C50 72.6142 72.6142 50 100 50C72.6142 50 50 27.6142 50 0Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </div>
+
+      <div class="teams-container">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        {/* Top Blueprint Telemetry Bar */}
+        <div class="blueprint-meta-bar" aria-hidden="true">
+          <div class="blueprint-meta-left">
+            <span class="blueprint-status-dot"></span>
+            <span class="blueprint-mono">STATUS: ACTIVE · CORE ROSTER & SPECIALIST NETWORK · YOGYAKARTA (UTC+7)</span>
+          </div>
+          <div class="blueprint-meta-right">
+            <span class="blueprint-mono">LEAN SENIOR COLLECTIVE · ZERO ACCOUNT LAYERS · DIRECT COMMITS</span>
+          </div>
+        </div>
+
+        <div class="band-row hero-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Studio Collective
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              03 Core Leads Active
+            </div>
+
+            {/* Rating Pill */}
+            <div class="rating-badge">
+              <div class="rating-star-box">
+                <span class="star-icon">★</span>
+                <span class="rating-val">4.9</span>
+              </div>
+              <span class="rating-sub">50+ Shipped Systems</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">DELIVERY MODEL</span>
+              <span class="spec-value">Lead-Driven Pods</span>
+              <span class="spec-detail">Direct engineering accountability. No account-manager telephone games.</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">HEADQUARTERS</span>
+              <span class="spec-value">Yogyakarta, ID</span>
+              <span class="spec-detail">Western Indonesia Time (UTC+7) with global async alignment.</span>
+            </div>
+          </aside>
+
+          {/* Main Hero Stage */}
+          <div class="band-main">
+            <div class="hero-header-wrap">
+              <span class="hero-eyebrow">THE ARCHITECTS & BUILDERS</span>
+              <h1 class="hero-title">
+                Small Core Team. <span class="hero-highlight">Full-Stack Architectural Range.</span>
+              </h1>
+              <p class="hero-desc">
+                Kairav Studio is a design-led engineering collective based in Yogyakarta. We bridge high-craft visual aesthetics with hardened backend architecture, low-latency mobile apps, and resilient cloud systems.
+              </p>
+            </div>
+
+            {/* Guarantees & Operating Commitments Strip */}
+            <div class="hero-standards-strip">
+              <div class="standard-chip">
+                <span class="chip-val">100% Senior Craft</span>
+                <span class="chip-sub">Zero delegation to junior contractors.</span>
+              </div>
+              <div class="standard-chip">
+                <span class="chip-val">Direct Slack Sync</span>
+                <span class="chip-sub">Talk directly with the engineers building your code.</span>
+              </div>
+              <div class="standard-chip">
+                <span class="chip-val">Weekly Loom Demos</span>
+                <span class="chip-sub">Interactive video walkthroughs on private staging PRs.</span>
+              </div>
+              <div class="standard-chip">
+                <span class="chip-val">Open Source Proven</span>
+                <span class="chip-sub">Public repositories, transparent notes, vetted code.</span>
+              </div>
+            </div>
+
+            {/* Action buttons */}
+            <div class="hero-action-row">
+              <a href="#core-roster" class="clonix-cta-button">
+                <span class="clonix-cta-button__text">Meet the Roster</span>
+                <span class="clonix-cta-button__box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 3v10M4 9l4 4 4-4"/>
+                  </svg>
+                </span>
+              </a>
+
+              <a href="/contact" class="hero-outline-btn">
+                <span>Start a Project with Us</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 2. CORE ROSTER MATRIX (Light Canvas #f8f5ec)                           */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="roster-matrix-section" id="core-roster" aria-label="Core Team Roster">
+      <div class="teams-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Core Leads
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Direct Accountability
+            </div>
+
+            <div class="roster-meta-note">
+              <span class="meta-label">ROSTER VOLUME</span>
+              <span class="meta-val">{contributors.length} Core Partners</span>
+              <span class="meta-desc">Hands-on technical leadership across all studio engagements.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="matrix-header-wrap">
+              <span class="matrix-eyebrow">01 · THE BUILDERS</span>
+              <h2 class="matrix-title">The People Behind Every Shipped System.</h2>
+              <p class="matrix-desc">
+                No handoffs to junior contractors or outsourced teams. The developers you speak with in discovery are the ones writing your tests, optimizing your payloads, and deploying your code.
+              </p>
+            </div>
+
+            {/* Architectural Member Cards Grid */}
+            <div class="roster-cards-grid">
+              {contributors.map((member, index) => {
+                const extra = memberHighlights[member.handle || ""] || {
+                  badge: "CORE ENGINEER",
+                  metrics: ["Fullstack Engineer", "Production Lead"],
+                  quote: member.bio,
+                  location: "Yogyakarta (UTC+7)",
+                };
+
+                return (
+                  <article class="architectural-member-card" id={`member-${member.handle || index}`}>
+                    {/* Corner Crosshairs */}
+                    <span class="member-cross cross--tl" aria-hidden="true">+</span>
+                    <span class="member-cross cross--tr" aria-hidden="true">+</span>
+                    <span class="member-cross cross--bl" aria-hidden="true">+</span>
+                    <span class="member-cross cross--br" aria-hidden="true">+</span>
+
+                    {/* Card Header with Avatar & Identity */}
+                    <div class="member-header">
+                      <div class="member-avatar-frame">
+                        <img
+                          src={member.avatar}
+                          alt={member.name}
+                          class="member-avatar-img"
+                          width="84"
+                          height="84"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <span class="avatar-status-ping" title="Online / Active Studio Member"></span>
+                      </div>
+
+                      <div class="member-title-box">
+                        <div class="member-role-badge">
+                          <span class="role-badge-dot"></span>
+                          <span class="role-badge-text">{extra.badge}</span>
+                        </div>
+                        <h3 class="member-full-name">{member.name}</h3>
+                        {member.handle && (
+                          <a
+                            href={member.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="member-handle-link"
+                          >
+                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                            <span>@{member.handle}</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Member Quote / Philosophy */}
+                    <blockquote class="member-quote">
+                      "{extra.quote}"
+                    </blockquote>
+
+                    {/* Bio Detail */}
+                    <p class="member-bio-text">{member.bio}</p>
+
+                    {/* Specialized Discipline Badges */}
+                    {member.skills && member.skills.length > 0 && (
+                      <div class="member-skills-section">
+                        <span class="skills-section-label">SPECIALIZED PROTOCOLS & STACK:</span>
+                        <div class="member-skills-chips">
+                          {member.skills.map((skill) => (
+                            <span class="skill-blueprint-pill">{skill}</span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Architectural Highlights / Metrics */}
+                    <div class="member-metrics-strip">
+                      {extra.metrics.map((metric) => (
+                        <div class="metric-item">
+                          <span class="metric-bullet">›</span>
+                          <span class="metric-text">{metric}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Action Links Bar */}
+                    <div class="member-links-bar">
+                      <a
+                        href={member.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="member-btn-primary"
+                        aria-label={`View ${member.name} on GitHub`}
+                      >
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                          <path d="M9 18c-4.51 2-5-2-7-2"/>
+                        </svg>
+                        <span>GitHub Profile</span>
+                      </a>
+
+                      {member.portfolioUrl && (
+                        <a
+                          href={member.portfolioUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="member-btn-secondary"
+                          aria-label={`Visit ${member.name}'s portfolio`}
+                        >
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="12" x2="21" y2="3"></line>
+                          </svg>
+                          <span>Portfolio</span>
+                        </a>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            {/* Editorial Collaboration Note */}
+            <div class="team-editorial-banner">
+              <div class="editorial-left">
+                <span class="editorial-badge">// SQUAD ARCHITECTURE</span>
+                <h4 class="editorial-title">Agile Core, Senior On-Demand Scaling.</h4>
+                <p class="editorial-desc">
+                  We collaborate with an established network of vetted visual designers, motion specialists, and infrastructure engineers per project. Clients get direct senior leadership with zero agency overhead.
+                </p>
+              </div>
+              <div class="editorial-action">
+                <a href="/contact" class="editorial-btn">
+                  <span>Inquire About Team Fit</span>
+                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 3. EXTENDED SPECIALIST NETWORK PODS (Light Canvas #f8f5ec)            */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="specialists-section" aria-label="Specialist Network">
+      <div class="teams-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Specialist Squad
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              On-Demand Network
+            </div>
+
+            <div class="roster-meta-note">
+              <span class="meta-label">EXPANSION MODEL</span>
+              <span class="meta-val">4 Specialist Pods</span>
+              <span class="meta-desc">Deep domain capability activated when project complexity requires it.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="matrix-header-wrap">
+              <span class="matrix-eyebrow">02 · EXTENDED DOMAIN EXPERTISE</span>
+              <h2 class="matrix-title">Specialist Network Pods.</h2>
+              <p class="matrix-desc">
+                For complex engagements requiring bespoke motion design, deep LLM pipelines, or enterprise security penetration tests, we assemble vetted domain specialists who integrate directly into our workflow.
+              </p>
+            </div>
+
+            {/* 4 Pods Grid */}
+            <div class="specialist-pods-grid">
+              {specialistPods.map((pod) => (
+                <div class="specialist-pod-card">
+                  <div class="pod-top-bar">
+                    <span class="pod-code-badge">{pod.code}</span>
+                    <span class="pod-lead-time">{pod.leadTime}</span>
+                  </div>
+
+                  <h3 class="pod-discipline-title">{pod.discipline}</h3>
+                  <p class="pod-desc-text">{pod.desc}</p>
+
+                  <div class="pod-skills-chips">
+                    {pod.skills.map((skill) => (
+                      <span class="pod-chip">{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 4. STUDIO CULTURE & OPERATING AXIOMS (Dark Canvas #07080b)             */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="axioms-section" aria-label="Studio Culture and Axioms">
+      <div class="teams-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Engineering Culture
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              4 Core Axioms
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">CULTURE METRIC</span>
+              <span class="spec-value">Radical Clarity</span>
+              <span class="spec-detail">Honest engineering estimates, transparent commits, and zero corporate posturing.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main">
+            <div class="axioms-header-wrap">
+              <span class="axioms-eyebrow">03 · HOW WE WORK TOGETHER</span>
+              <h2 class="axioms-title">Our Operating Principles.</h2>
+              <p class="axioms-desc">
+                We believe the best software is built by small, highly disciplined teams that value craftsmanship over ceremony.
+              </p>
+            </div>
+
+            {/* 4 Axioms Grid */}
+            <div class="axioms-grid">
+              {operatingAxioms.map((axiom) => (
+                <div class="axiom-card">
+                  <div class="axiom-num-row">
+                    <span class="axiom-number">{axiom.num}</span>
+                    <span class="axiom-tag-pill">{axiom.tag}</span>
+                  </div>
+                  <h3 class="axiom-card-title">{axiom.title}</h3>
+                  <p class="axiom-card-desc">{axiom.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 5. TEAM COLLABORATION & CLIENT FAQ (Light Canvas #f8f5ec)              */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="team-faq-section" aria-label="Team Collaboration FAQ">
+      <div class="teams-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Collaboration FAQ
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Working With Us
+            </div>
+
+            <div class="roster-meta-note">
+              <span class="meta-label">ENGAGEMENT STYLE</span>
+              <span class="meta-val">Direct & Async-First</span>
+              <span class="meta-desc">Minimal meetings, maximum focus, and transparent milestones.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="faq-header-wrap">
+              <span class="faq-eyebrow">04 · TRANSPARENT ANSWERS</span>
+              <h2 class="faq-title">Frequently Asked Questions About Our Team</h2>
+              <p class="faq-desc">
+                Everything you need to know about team communication, project cadence, and embedding with our leads.
+              </p>
+            </div>
+
+            {/* Interactive FAQ Accordion */}
+            <div class="team-faq-accordion" data-faq-group>
+              {teamFaqs.map((faq, idx) => (
+                <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
+                  <button
+                    type="button"
+                    class="faq-item-trigger"
+                    data-faq-trigger
+                    aria-expanded={idx === 0 ? "true" : "false"}
+                  >
+                    <div class="trigger-left">
+                      <span class="faq-index-number">0{idx + 1}</span>
+                      <h3 class="faq-question-text">{faq.q}</h3>
+                    </div>
+                    <span class="faq-toggle-icon" aria-hidden="true">{idx === 0 ? "×" : "+"}</span>
+                  </button>
+
+                  <div class="faq-item-body">
+                    <p class="faq-answer-text">{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BASE CANVAS & ARCHITECTURAL BLUEPRINT GRID
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .teams-page-main {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ── 1. Hero Section (Dark Canvas #07080b) ────────────────────────────────── */
+  .teams-hero-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: clamp(5.5rem, 8vw, 7.5rem) 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .teams-hero-section {
+      padding: clamp(6rem, 8vw, 8rem) 1.5rem 0 1.5rem;
+    }
+  }
+
+  .hero-watermark {
+    position: absolute;
+    top: 50%;
+    right: -10%;
+    transform: translateY(-50%);
+    width: 60vw;
+    max-width: 800px;
+    height: 60vw;
+    max-height: 800px;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 0;
+    color: #ffffff;
+  }
+
+  .rotor-svg {
+    width: 100%;
+    height: 100%;
+    animation: slowSpin 140s linear infinite;
+  }
+
+  @keyframes slowSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .teams-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(7, 8, 11, 0.95);
+    z-index: 1;
+  }
+
+  /* ── Crosshairs (+) ───────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.15rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+    user-select: none;
+    z-index: 10;
+  }
+
+  .cross--tl {
+    top: -0.6rem;
+    left: -0.45rem;
+  }
+  .cross--tr {
+    top: -0.6rem;
+    right: -0.45rem;
+  }
+  .cross--bl {
+    bottom: -0.6rem;
+    left: -0.45rem;
+  }
+  .cross--br {
+    bottom: -0.6rem;
+    right: -0.45rem;
+  }
+
+  /* ── Blueprint Telemetry Bar ─────────────────────────────────────────────── */
+  .blueprint-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .blueprint-meta-left,
+  .blueprint-meta-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .blueprint-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 10px rgba(182, 255, 92, 0.7);
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes statusPulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
+  }
+
+  .blueprint-mono {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+  }
+
+  /* ── Band Row: Split Rail & Main Stage ───────────────────────────────────── */
+  .band-row {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .band-row {
+      flex-direction: row;
+    }
+  }
+
+  /* ── Left Rail Layout ─────────────────────────────────────────────────────── */
+  .band-rail {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: #07080b;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-rail {
+      width: 24%;
+      min-width: 260px;
+      border-bottom: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3rem 1.75rem;
+    }
+  }
+
+  .rail-light {
+    background: #f4efe4;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  @media (min-width: 900px) {
+    .rail-light {
+      border-right: 1px solid rgba(7, 20, 21, 0.08);
+    }
+  }
+
+  .rail-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #f8f5ec;
+    text-transform: uppercase;
+  }
+
+  .rail-tag--dark {
+    color: #111113;
+  }
+
+  .rail-slash {
+    color: #b6ff5c;
+    margin-right: 0.35rem;
+  }
+
+  .rail-tag--dark .rail-slash {
+    color: #4f7d18;
+  }
+
+  .rail-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.6);
+  }
+
+  .rail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .rail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .rail-spec-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .spec-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .spec-value {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .spec-detail {
+    font-size: 0.76rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .roster-meta-note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  .meta-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .meta-val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .meta-desc {
+    font-size: 0.76rem;
+    color: #475569;
+    line-height: 1.4;
+  }
+
+  /* ── Rating Badge ─────────────────────────────────────────────────────────── */
+  .rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: fit-content;
+  }
+
+  .rating-star-box {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: #b6ff5c;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .rating-sub {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
+  }
+
+  /* ── Main Column Layout ───────────────────────────────────────────────────── */
+  .band-main {
+    padding: 2rem 1.5rem;
+    flex: 1;
+  }
+
+  @media (min-width: 900px) {
+    .band-main {
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  .main-light {
+    background-color: #faf9f5;
+  }
+
+  /* ── Hero Content ─────────────────────────────────────────────────────────── */
+  .hero-header-wrap {
+    max-width: 58rem;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #b6ff5c;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2.3rem, 4.8vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #f8f5ec;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-highlight {
+    color: #b6ff5c;
+  }
+
+  .hero-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+    line-height: 1.65;
+    color: #94a3b8;
+    max-width: 48rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Standards Strip ──────────────────────────────────────────────────────── */
+  .hero-standards-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-standards-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .standard-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+  }
+
+  .chip-val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .chip-sub {
+    font-size: 0.72rem;
+    color: #64748b;
+    line-height: 1.35;
+  }
+
+  /* ── Hero Actions ─────────────────────────────────────────────────────────── */
+  .hero-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .hero-outline-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8f5ec;
+    padding: 0.85rem 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .hero-outline-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #b6ff5c;
+    color: #b6ff5c;
+  }
+
+  /* ── 2. Roster Matrix Section (Light Canvas) ──────────────────────────────── */
+  .roster-matrix-section {
+    position: relative;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .roster-matrix-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .roster-matrix-section .teams-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+  }
+
+  .roster-matrix-section .grid-cross {
+    color: rgba(7, 20, 21, 0.25);
+  }
+
+  .matrix-header-wrap {
+    max-width: 52rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .matrix-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #4f7d18;
+    margin-bottom: 0.85rem;
+  }
+
+  .matrix-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #111113;
+    margin-bottom: 1rem;
+  }
+
+  .matrix-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+
+  /* ── Architectural Member Cards Grid ─────────────────────────────────────── */
+  .roster-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .roster-cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .architectural-member-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.75rem;
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .architectural-member-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.06);
+    border-color: rgba(79, 125, 24, 0.4);
+  }
+
+  .member-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.18);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .architectural-member-card .cross--tl {
+    top: 0.4rem;
+    left: 0.5rem;
+  }
+  .architectural-member-card .cross--tr {
+    top: 0.4rem;
+    right: 0.5rem;
+  }
+  .architectural-member-card .cross--bl {
+    bottom: 0.4rem;
+    left: 0.5rem;
+  }
+  .architectural-member-card .cross--br {
+    bottom: 0.4rem;
+    right: 0.5rem;
+  }
+
+  /* Card Header */
+  .member-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .member-avatar-frame {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+  }
+
+  .member-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #e2e8f0;
+    border: 1px solid rgba(7, 20, 21, 0.12);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  .avatar-status-ping {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #22c55e;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+  }
+
+  .member-title-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .member-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #4f7d18;
+    background: rgba(79, 125, 24, 0.08);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .role-badge-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .member-full-name {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: #111113;
+    letter-spacing: -0.015em;
+  }
+
+  .member-handle-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .member-handle-link:hover {
+    color: #0f172a;
+    text-decoration: underline;
+  }
+
+  /* Member Quote */
+  .member-quote {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: #334155;
+    padding: 0.85rem 1rem;
+    background: #f8fafc;
+    border-left: 3px solid #b6ff5c;
+    border-radius: 0 6px 6px 0;
+    margin: 0 0 1.25rem 0;
+  }
+
+  .member-bio-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  /* Skills Section */
+  .member-skills-section {
+    margin-bottom: 1.25rem;
+  }
+
+  .skills-section-label {
+    display: block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+
+  .member-skills-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .skill-blueprint-pill {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: #1e293b;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+  }
+
+  /* Metrics Strip */
+  .member-metrics-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.85rem 0;
+    border-top: 1px dashed rgba(7, 20, 21, 0.1);
+    border-bottom: 1px dashed rgba(7, 20, 21, 0.1);
+    margin-bottom: 1.5rem;
+  }
+
+  .metric-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #475569;
+  }
+
+  .metric-bullet {
+    color: #4f7d18;
+    font-weight: 700;
+  }
+
+  /* Action Links Bar */
+  .member-links-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .member-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: #0f172a;
+    padding: 0.55rem 0.95rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .member-btn-primary:hover {
+    background: #1e293b;
+  }
+
+  .member-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #0f172a;
+    background: #e2e8f0;
+    padding: 0.55rem 0.95rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .member-btn-secondary:hover {
+    background: #cbd5e1;
+  }
+
+  /* Editorial Banner */
+  .team-editorial-banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 2rem 2.25rem;
+    background: #f1eee4;
+    border: 1px solid rgba(7, 20, 21, 0.12);
+    border-left: 4px solid #4f7d18;
+    border-radius: 6px;
+  }
+
+  @media (min-width: 800px) {
+    .team-editorial-banner {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .editorial-badge {
+    display: block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #4f7d18;
+    margin-bottom: 0.4rem;
+  }
+
+  .editorial-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111113;
+    margin-bottom: 0.5rem;
+  }
+
+  .editorial-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #475569;
+    max-width: 44rem;
+  }
+
+  .editorial-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #111113;
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.15);
+    padding: 0.75rem 1.25rem;
+    border-radius: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+
+  .editorial-btn:hover {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+  }
+
+  /* ── 3. Specialist Section (Light Canvas) ─────────────────────────────────── */
+  .specialists-section {
+    position: relative;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .specialists-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .specialists-section .teams-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  .specialists-section .grid-cross {
+    color: rgba(7, 20, 21, 0.25);
+  }
+
+  .specialist-pods-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .specialist-pods-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .specialist-pod-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem;
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    border-radius: 6px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .specialist-pod-card:hover {
+    border-color: rgba(79, 125, 24, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .pod-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+  }
+
+  .pod-code-badge {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #4f7d18;
+    background: rgba(79, 125, 24, 0.08);
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+  }
+
+  .pod-lead-time {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    color: #64748b;
+  }
+
+  .pod-discipline-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111113;
+    margin-bottom: 0.65rem;
+  }
+
+  .pod-desc-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: #475569;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+
+  .pod-skills-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .pod-chip {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    color: #334155;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  /* ── 4. Axioms Section (Dark Canvas) ──────────────────────────────────────── */
+  .axioms-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 2rem 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .axioms-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .axioms-header-wrap {
+    max-width: 52rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .axioms-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #b6ff5c;
+    margin-bottom: 0.85rem;
+  }
+
+  .axioms-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #f8f5ec;
+    margin-bottom: 1rem;
+  }
+
+  .axioms-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #94a3b8;
+  }
+
+  .axioms-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .axioms-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .axiom-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.75rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .axiom-card:hover {
+    border-color: rgba(182, 255, 92, 0.4);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .axiom-num-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .axiom-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #b6ff5c;
+  }
+
+  .axiom-tag-pill {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .axiom-card-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f8f5ec;
+    margin-bottom: 0.75rem;
+  }
+
+  .axiom-card-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #94a3b8;
+  }
+
+  /* ── 5. FAQ Section (Light Canvas) ────────────────────────────────────────── */
+  .team-faq-section {
+    position: relative;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 3rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .team-faq-section {
+      padding: 3rem 1.5rem 4rem 1.5rem;
+    }
+  }
+
+  .team-faq-section .teams-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  .team-faq-section .grid-cross {
+    color: rgba(7, 20, 21, 0.25);
+  }
+
+  .faq-header-wrap {
+    max-width: 52rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .faq-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #4f7d18;
+    margin-bottom: 0.85rem;
+  }
+
+  .faq-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #111113;
+    margin-bottom: 1rem;
+  }
+
+  .faq-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+
+  /* FAQ Accordion Item */
+  .team-faq-accordion {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+  }
+
+  .faq-item-row {
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background 0.2s ease;
+  }
+
+  .faq-item-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .faq-index-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4f7d18;
+  }
+
+  .faq-question-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .faq-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: #64748b;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-toggle-icon {
+    color: #111113;
+  }
+
+  .faq-item-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-item-body {
+    max-height: 300px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #475569;
+    padding-left: 2.75rem;
+    max-width: 48rem;
+  }
+
+  /* ── Clonix CTA Button (Consistent with site-wide token) ─────────────────── */
+  .clonix-cta-button {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    background-color: #b6ff5c;
+    color: #07080b;
+    border-radius: 4px;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    padding: 0.35rem 0.35rem 0.35rem 1.35rem;
+    box-shadow: 0 4px 20px rgba(182, 255, 92, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .clonix-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(182, 255, 92, 0.4);
+  }
+
+  .clonix-cta-button__text {
+    margin-right: 1rem;
+  }
+
+  .clonix-cta-button__box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-color: #07080b;
+    color: #b6ff5c;
+    border-radius: 3px;
+    transition: transform 0.2s ease;
+  }
+
+  .clonix-cta-button:hover .clonix-cta-button__box {
+    transform: translateX(2px);
+  }
+</style>
+
+<script>
+  function setupFaqAccordion() {
+    const group = document.querySelector("[data-faq-group]");
+    if (!group || group.hasAttribute("data-faq-initialized")) return;
+    group.setAttribute("data-faq-initialized", "true");
+
+    const items = group.querySelectorAll("[data-faq-item]");
+    items.forEach((item) => {
+      const trigger = item.querySelector("[data-faq-trigger]");
+      const icon = item.querySelector(".faq-toggle-icon");
+
+      trigger?.addEventListener("click", () => {
+        const isExpanded = item.classList.contains("is-expanded");
+
+        // Close all items in group
+        items.forEach((other) => {
+          other.classList.remove("is-expanded");
+          const otherTrigger = other.querySelector("[data-faq-trigger]");
+          const otherIcon = other.querySelector(".faq-toggle-icon");
+          if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
+          if (otherIcon) otherIcon.textContent = "+";
+        });
+
+        // Toggle clicked item if it was closed
+        if (!isExpanded) {
+          item.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", setupFaqAccordion);
+</script>

@@ -137,7 +137,7 @@ const clientFaqs = [
     {/* ═══════════════════════════════════════════════════════════════════════ */}
     {/* 1. HERO BAND (Dark Blueprint Architecture)                             */}
     {/* ═══════════════════════════════════════════════════════════════════════ */}
-    <section class="contact-hero-section" aria-label="Contact Overview">
+    <section class="contact-hero-section" data-hero-section aria-label="Contact Overview">
       {/* Background Rotating Watermark */}
       <div class="hero-watermark" aria-hidden="true">
         <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
@@ -771,13 +771,13 @@ const clientFaqs = [
     position: relative;
     background-color: #07080b;
     color: #f8f5ec;
-    padding: 2rem 1rem 0 1rem;
+    padding: clamp(5.5rem, 8vw, 7.5rem) 1rem 0 1rem;
     overflow: hidden;
   }
 
   @media (min-width: 640px) {
     .contact-hero-section {
-      padding: 3rem 1.5rem 0 1.5rem;
+      padding: clamp(6rem, 8vw, 8rem) 1.5rem 0 1.5rem;
     }
   }
 

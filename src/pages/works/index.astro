@@ -101,6 +101,30 @@ const projectList = [
 ];
 
 const featuredProject = projectList[0];
+
+// Prospective Client Works & Delivery FAQ
+const worksFaqs = [
+  {
+    q: "How long does a production build take from kickoff to deployment?",
+    a: "Most scoped web applications, brand platforms, and MVPs launch within 2 to 6 weeks. We operate in rapid, high-velocity weekly sprints with direct asynchronous progress demos and zero bureaucratic overhead.",
+  },
+  {
+    q: "Can Kairav Studio work under strict NDA or white-label arrangements?",
+    a: "Yes. Many of our enterprise and agency partnerships operate under strict non-disclosure agreements. We respect IP confidentiality completely, and unreleased systems are never published to our public portfolio without written authorization.",
+  },
+  {
+    q: "Who owns the codebase, design tokens, and infrastructure assets upon completion?",
+    a: "You retain 100% full intellectual property and repository ownership. We do not use proprietary vendor lock-in. Clean GitHub repositories, documentation, and automated deployment pipelines are handed over directly to your team.",
+  },
+  {
+    q: "Do you provide ongoing post-launch maintenance and performance retainers?",
+    a: "Yes. Following launch, we offer dedicated monthly engineering retainers covering Core Web Vitals monitoring, security updates, schema enhancements for AI search, and continuous feature expansion.",
+  },
+  {
+    q: "How do you coordinate with our internal engineering and product teams?",
+    a: "We integrate directly with your modern stack and workflows via GitHub PRs, Linear / Notion boards, and concise Loom video walkthroughs. We believe in high-transparency, async-first collaboration that moves faster than traditional agencies.",
+  },
+];
 ---
 
 <BaseLayout
@@ -111,7 +135,7 @@ const featuredProject = projectList[0];
     {/* ═══════════════════════════════════════════════════════════════════════ */}
     {/* 1. HERO BAND (Dark Obsidian Canvas)                                    */}
     {/* ═══════════════════════════════════════════════════════════════════════ */}
-    <section class="works-hero-section" aria-label="Works Overview">
+    <section class="works-hero-section" aria-label="Works Overview" data-hero-section>
       {/* Background Rotating Watermark */}
       <div class="hero-watermark" aria-hidden="true">
         <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
@@ -127,15 +151,48 @@ const featuredProject = projectList[0];
         <span class="grid-cross cross--tl" aria-hidden="true">+</span>
         <span class="grid-cross cross--tr" aria-hidden="true">+</span>
 
+        {/* Blueprint Telemetry Bar */}
+        <div class="blueprint-meta-bar" aria-label="Studio Production Telemetry">
+          <div class="blueprint-meta-left">
+            <span class="blueprint-status-dot" aria-hidden="true"></span>
+            <span class="blueprint-mono">STATUS: ONLINE · PRODUCTION ARCHIVE · 5 SHIPPED SYSTEMS</span>
+          </div>
+          <div class="blueprint-meta-right">
+            <span class="blueprint-mono">STANDARDS: ZERO RUNTIME WASTE · TYPE SAFE · YOGYAKARTA (UTC+7)</span>
+          </div>
+        </div>
+
         <div class="band-row hero-row">
           {/* Left Rail */}
           <aside class="band-rail">
             <div class="rail-tag">
-              <span class="rail-slash">//</span> Works
+              <span class="rail-slash">//</span> Works Archive
             </div>
+
             <div class="rail-live-badge">
               <span class="live-dot" aria-hidden="true"></span>
               Selected Portfolio
+            </div>
+
+            {/* Rating Pill */}
+            <div class="rating-badge">
+              <div class="rating-star-box">
+                <span class="star-icon">★</span>
+                <span class="rating-val">4.9</span>
+              </div>
+              <span class="rating-sub">50+ Shipped Systems</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">INDEX RANGE</span>
+              <span class="spec-value">2025–2026</span>
+              <span class="spec-detail">Selected systems spanning high-speed web apps, mobile apps, and research platforms.</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">CODE RIGOR</span>
+              <span class="spec-value">Full IP Ownership</span>
+              <span class="spec-detail">Zero proprietary lock-in. Clean GitHub repository handoff upon completion.</span>
             </div>
           </aside>
 
@@ -508,6 +565,70 @@ const featuredProject = projectList[0];
         <span class="grid-cross cross--br" aria-hidden="true">+</span>
       </div>
     </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 6. WORKS & CASE STUDIES FAQ ACCORDION (Light Canvas #f8f5ec)           */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="works-faq-section" aria-label="Works and Delivery FAQ">
+      <div class="works-container container-light">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Project FAQ
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Delivery Questions
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="faq-header-wrap">
+              <span class="faq-eyebrow">06 · CLARITY & COLLABORATION</span>
+              <h2 class="faq-title">Frequently Asked Questions About Our Work</h2>
+              <p class="faq-desc">
+                Everything you need to know about working with Kairav Studio on custom engineering builds and retainers.
+              </p>
+            </div>
+
+            {/* Interactive FAQ Accordion */}
+            <div class="works-faq-accordion" data-faq-group>
+              {worksFaqs.map((faq, idx) => (
+                <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
+                  <button
+                    type="button"
+                    class="faq-item-trigger"
+                    data-faq-trigger
+                    aria-expanded={idx === 0 ? "true" : "false"}
+                  >
+                    <div class="trigger-left">
+                      <span class="faq-index-number">0{idx + 1}</span>
+                      <h3 class="faq-question-text">{faq.q}</h3>
+                    </div>
+                    <span class="faq-toggle-icon" aria-hidden="true">{idx === 0 ? "×" : "+"}</span>
+                  </button>
+
+                  <div class="faq-item-body">
+                    <p class="faq-answer-text">{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
   </main>
 </BaseLayout>
 
@@ -524,14 +645,54 @@ const featuredProject = projectList[0];
     position: relative;
     background-color: #07080b;
     color: #f8f5ec;
-    padding: 2rem 1rem 0 1rem;
+    padding: clamp(5.5rem, 8vw, 7.5rem) 1rem 0 1rem;
     overflow: hidden;
   }
 
   @media (min-width: 640px) {
     .works-hero-section {
-      padding: 3rem 1.5rem 0 1.5rem;
+      padding: clamp(6rem, 8vw, 8rem) 1.5rem 0 1.5rem;
     }
+  }
+
+  /* ── Blueprint Telemetry Bar ─────────────────────────────────────────────── */
+  .blueprint-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .blueprint-meta-left,
+  .blueprint-meta-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .blueprint-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 10px rgba(182, 255, 92, 0.7);
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes statusPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  .blueprint-mono {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
   }
 
   .hero-watermark {
@@ -678,6 +839,14 @@ const featuredProject = projectList[0];
     }
   }
 
+  .rail-sticky {
+    position: sticky;
+    top: 6.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
   .rail-tag {
     display: inline-flex;
     align-items: center;
@@ -721,16 +890,115 @@ const featuredProject = projectList[0];
     box-shadow: 0 0 8px #b6ff5c;
   }
 
-  .vertical-badge {
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
+  /* ── Rating Badge ─────────────────────────────────────────────────────────── */
+  .rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: fit-content;
+  }
+
+  .rating-star-box {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: #b6ff5c;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .rating-sub {
     font-family: var(--font-mono, "JetBrains Mono", monospace);
     font-size: 0.68rem;
-    font-weight: 700;
-    color: #617072;
-    letter-spacing: 0.14em;
-    user-select: none;
-    margin-top: 1rem;
+    color: #94a3b8;
+  }
+
+  .rail-spec-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .spec-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .spec-value {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .spec-detail {
+    font-size: 0.76rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .rail-tag--dark { color: #111113; }
+  .rail-tag--dark .rail-slash { color: #4f7d18; }
+
+  .rail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .rail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .works-meta-note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  .meta-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .meta-val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .meta-desc {
+    font-size: 0.76rem;
+    color: #475569;
+    line-height: 1.4;
   }
 
   .band-main {
@@ -1430,6 +1698,128 @@ const featuredProject = projectList[0];
     color: #4a5658;
     margin: 0;
   }
+  /* ── 6. Works FAQ Section (Light Canvas) ─────────────────────────────────── */
+  .works-faq-section {
+    position: relative;
+    background-color: #f8f5ec;
+    color: #071415;
+    padding: 4rem 1rem 5rem 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .works-faq-section {
+      padding: 5rem 1.5rem 6.5rem 1.5rem;
+    }
+  }
+
+  .faq-header-wrap {
+    margin-bottom: 2.5rem;
+  }
+
+  .faq-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #4f7d18;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .faq-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #111113;
+    margin-bottom: 1rem;
+  }
+
+  .faq-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+
+  /* FAQ Accordion */
+  .works-faq-accordion {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+  }
+
+  .faq-item-row {
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background 0.2s ease;
+  }
+
+  .faq-item-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .faq-index-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4f7d18;
+  }
+
+  .faq-question-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .faq-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: #64748b;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-toggle-icon {
+    color: #111113;
+  }
+
+  .faq-item-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-item-body {
+    max-height: 300px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #475569;
+    padding-left: 2.75rem;
+    max-width: 48rem;
+  }
 </style>
 
 <script>
@@ -1440,7 +1830,6 @@ const featuredProject = projectList[0];
 
     const buttons = filterContainer.querySelectorAll<HTMLButtonElement>("[data-filter]");
     const cards = document.querySelectorAll<HTMLElement>("[data-card-category]");
-    const tableRows = document.querySelectorAll<HTMLElement>("[data-row-slug]");
 
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -1471,7 +1860,42 @@ const featuredProject = projectList[0];
     });
   };
 
-  document.addEventListener("DOMContentLoaded", setupWorksFilter);
-  document.addEventListener("astro:page-load", setupWorksFilter);
-  setupWorksFilter();
+  const setupWorksFaq = () => {
+    const group = document.querySelector("[data-faq-group]");
+    if (!group || group.hasAttribute("data-faq-initialized")) return;
+    group.setAttribute("data-faq-initialized", "true");
+
+    const items = group.querySelectorAll("[data-faq-item]");
+    items.forEach((item) => {
+      const trigger = item.querySelector("[data-faq-trigger]");
+      const icon = item.querySelector(".faq-toggle-icon");
+
+      trigger?.addEventListener("click", () => {
+        const isExpanded = item.classList.contains("is-expanded");
+
+        items.forEach((other) => {
+          other.classList.remove("is-expanded");
+          const otherTrigger = other.querySelector("[data-faq-trigger]");
+          const otherIcon = other.querySelector(".faq-toggle-icon");
+          if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
+          if (otherIcon) otherIcon.textContent = "+";
+        });
+
+        if (!isExpanded) {
+          item.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+  };
+
+  const initWorksPage = () => {
+    setupWorksFilter();
+    setupWorksFaq();
+  };
+
+  document.addEventListener("DOMContentLoaded", initWorksPage);
+  document.addEventListener("astro:page-load", initWorksPage);
+  initWorksPage();
 </script>

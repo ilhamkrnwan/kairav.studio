@@ -1,101 +1,1891 @@
 ---
+/**
+ * src/pages/about.astro
+ * Architectural Blueprint About Page for Kairav Studio.
+ * Designed to seamlessly match the Clonix aesthetic of index.astro, services.astro, teams.astro, and contact.astro:
+ * 1. Dark Blueprint Hero with telemetry bar, studio dossier status, and engineering pillars.
+ * 2. Light Canvas Studio Philosophy & 3 Operating Principles.
+ * 3. Dark Obsidian Founder & Leadership Spotlight (with direct link to /teams).
+ * 4. Light Canvas Studio Evolution & Milestone Timeline (2022 to 2026).
+ * 5. Dark Obsidian Comparison Matrix: Traditional Agency vs Kairav Collective.
+ * 6. Light Canvas Studio FAQ Accordion.
+ * 7. Monumental Bottom CTA Banner leading to /contact.
+ */
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Container from "../components/common/Container.astro";
-import SectionHeading from "../components/common/SectionHeading.astro";
-import TeamMemberCard from "../components/cards/TeamMemberCard.astro";
-import CTASection from "../components/sections/CTASection.astro";
-import DarkAccentSection from "../components/sections/DarkAccentSection.astro";
-import PageHero from "../components/sections/PageHero.astro";
-import Badge from "../components/common/Badge.astro";
 import { contributors } from "../data/contributors";
+
+// 3 Core Studio Operating Principles
+const studioValues = [
+  {
+    num: "01",
+    tag: "Simplicity",
+    title: "Clarity Before Complexity",
+    desc: "We reject premature abstractions, unnecessary dependencies, and framework theater. The simplest, most transparent architecture that solves the problem is always superior.",
+    points: [
+      "Zero unnecessary npm dependencies",
+      "Readable, self-documenting codebases",
+      "Predictable state without cognitive overhead",
+    ],
+  },
+  {
+    num: "02",
+    tag: "Latency",
+    title: "Performance as Brand Authority",
+    desc: "Speed is not just a technical metric; it is the visceral first impression of your company. Sub-100ms response times communicate precision, engineering respect, and credibility.",
+    points: [
+      "100/100 target Core Web Vitals",
+      "Sub-100ms server response & edge delivery",
+      "Minimal main-thread JavaScript execution",
+    ],
+  },
+  {
+    num: "03",
+    tag: "Openness",
+    title: "Open Source Spirit & Total IP Ownership",
+    desc: "We build in the open. Our engineering patterns are publicly inspectable, our utilities are shared, and clients retain 100% ownership of their repositories with zero proprietary vendor lock-in.",
+    points: [
+      "Public repositories & open source contributions",
+      "Clean handoff documentation for your team",
+      "Zero proprietary CMS or closed-source lock-in",
+    ],
+  },
+];
+
+// 4-Stage Studio Timeline
+const studioMilestones = [
+  {
+    year: "2022",
+    phase: "PHASE 01",
+    title: "The Inception & Lab Formation",
+    desc: "Founded in Yogyakarta as an independent engineering lab by senior developers who were tired of agency bureaucracy and sluggish, bloated websites.",
+    achievement: "First 10 bespoke web systems shipped.",
+  },
+  {
+    year: "2023",
+    phase: "PHASE 02",
+    title: "Fullstack Systems & Mobile Expansion",
+    desc: "Expanded capabilities into cross-platform mobile apps (React Native/Expo), real-time SQLite syncing, and hardened API architectures.",
+    achievement: "Shipped flagship BioLearn mobile platform.",
+  },
+  {
+    year: "2024",
+    phase: "PHASE 03",
+    title: "Open Source Initiatives & Community Impact",
+    desc: "Launched community-driven open source systems including MasjidFlow, scaling to thousands of active users with robust offline capabilities.",
+    achievement: "MasjidFlow active deployments in 20+ communities.",
+  },
+  {
+    year: "2025–2026",
+    phase: "PHASE 04",
+    title: "The Architectural Blueprint Era",
+    desc: "Pioneered the Clonix blueprint design system, sub-100ms static Astro pipelines, and Generative Engine Optimization (GEO) for global ambitious brands.",
+    achievement: "50+ Shipped Systems · 100% Senior Pod Model.",
+  },
+];
+
+// Agency vs Kairav Studio Comparison
+const agencyComparison = [
+  {
+    dimension: "Team Composition",
+    traditional: "Senior pitch team handsoff to junior contractors",
+    kairav: "100% Senior engineers writing every commit",
+  },
+  {
+    dimension: "Turnaround Time",
+    traditional: "3 to 6 months weighed down by bureaucratic reviews",
+    kairav: "2 to 4 weeks for brand systems; 4 to 8 for web apps",
+  },
+  {
+    dimension: "Technology Stack",
+    traditional: "Bloated WordPress, heavy Webflow, or brittle page-builders",
+    kairav: "Zero-bloat Astro, TypeScript, and modern edge runtimes",
+  },
+  {
+    dimension: "Client Communication",
+    traditional: "Indirect telephone games through junior account managers",
+    kairav: "Direct Slack channel and weekly async Loom walkthroughs",
+  },
+  {
+    dimension: "Code Ownership",
+    traditional: "Proprietary plugin ecosystems and host lock-in",
+    kairav: "100% Clean GitHub repo ownership with full documentation",
+  },
+];
+
+// About / Studio FAQ
+const aboutFaqs = [
+  {
+    q: "What makes Kairav Studio different from typical digital agencies?",
+    a: "We are an engineering-led collective, not an account-management agency. You work directly with senior architects who write and review your code. We don't mark up junior developer hours, and we don't build on fragile, sluggish page builders. Every project is built for longevity and performance.",
+  },
+  {
+    q: "Where is Kairav Studio located, and how do you work with remote clients?",
+    a: "Our core team is based in Yogyakarta, Indonesia (UTC+7 / Western Indonesia Time). We are built from the ground up for asynchronous remote collaboration — working seamlessly with clients across Asia-Pacific (Singapore, Australia, Japan), EMEA, and North America using Slack, Linear, GitHub, and Loom.",
+  },
+  {
+    q: "What does 'Open Source Spirit' mean for client work?",
+    a: "It means absolute transparency. We build with modern, open standards (Astro, TypeScript, Tailwind, Node.js) instead of proprietary black boxes. You own 100% of the repository, assets, and design tokens upon completion. Any developer on your team can easily read, modify, and deploy the code.",
+  },
+  {
+    q: "Do you offer post-launch support and long-term partnerships?",
+    a: "Yes. Every build includes a 30-day post-launch warranty period covering any bug fixes or adjustments. For ongoing feature development and performance monitoring, we offer flexible monthly engineering retainers.",
+  },
+  {
+    q: "How can I learn more about the engineers building the projects?",
+    a: "You can explore our dedicated Teams page, which showcases full profiles, technical specializations, GitHub repositories, and past project impact for each of our core leads.",
+  },
+];
 ---
 
 <BaseLayout
-  title="About - Kairav Studio"
-  description="Learn about Kairav Studio, our team, philosophy, and approach to modern web experiences and collaborative digital systems."
+  title="About Kairav Studio — Philosophy, Craft & Architecture"
+  description="Learn about Kairav Studio: our design-led engineering ethos, open-source mindset, 4-stage studio evolution, and commitment to sub-100ms web systems."
 >
-  <main>
-    <PageHero
-      eyebrow="About"
-      title="A studio for modern web experiences and collaborative digital systems."
-      description="Kairav Studio exists to help brands and projects build websites that feel considered, load quickly, and stay maintainable as the team grows."
-      image="/hero-works.png"
-      imageAlt="About Kairav Studio"
-    />
+  <main class="about-page-main">
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 1. HERO BAND (Dark Blueprint Architecture)                             */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="about-hero-section" data-hero-section aria-label="About Kairav Studio Overview">
+      {/* Background Rotating Watermark */}
+      <div class="hero-watermark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
+          <path
+            d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.6142 50 100C50 72.6142 72.6142 50 100 50C72.6142 50 50 27.6142 50 0Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </div>
 
-    <section class="section-spacing">
-      <Container>
-        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeading
-            eyebrow="Positioning"
-            title="Premium, practical, and open to collaboration."
-            description="We care about visual identity, interface clarity, performance, SEO/GEO structure, and the small engineering decisions that make a site easier to evolve."
-          />
-          <div class="grid gap-4">
-            {["Modern web craft", "Open-source mindset", "Clear delivery process"].map((item) => (
-              <div class="card-surface p-5">
-                <h2 class="font-heading text-xl font-semibold text-[var(--color-text)]">{item}</h2>
-                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
-                  We keep the work transparent, component-based, and structured enough for contributors and clients to understand.
-                </p>
+      <div class="about-container">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        {/* Top Blueprint Telemetry Bar */}
+        <div class="blueprint-meta-bar" aria-hidden="true">
+          <div class="blueprint-meta-left">
+            <span class="blueprint-status-dot"></span>
+            <span class="blueprint-mono">STATUS: ONLINE · EST. 2022 · HEADQUARTERED IN YOGYAKARTA, ID (UTC+7)</span>
+          </div>
+          <div class="blueprint-meta-right">
+            <span class="blueprint-mono">FOUNDED ON CRAFT · STATIC FIRST · ZERO COMPROMISE</span>
+          </div>
+        </div>
+
+        <div class="band-row hero-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Studio Dossier
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Design-Led Engineering
+            </div>
+
+            {/* Rating Pill */}
+            <div class="rating-badge">
+              <div class="rating-star-box">
+                <span class="star-icon">★</span>
+                <span class="rating-val">4.9</span>
               </div>
-            ))}
+              <span class="rating-sub">50+ Shipped Systems</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">STUDIO ETHOS</span>
+              <span class="spec-value">Substance Over Hype</span>
+              <span class="spec-detail">We reject disposable digital marketing fluff. We build durable, fast software.</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">HEADQUARTERS</span>
+              <span class="spec-value">Yogyakarta, ID</span>
+              <span class="spec-detail">Creative & engineering hub in Central Java, collaborating globally.</span>
+            </div>
+          </aside>
+
+          {/* Main Hero Stage */}
+          <div class="band-main">
+            <div class="hero-header-wrap">
+              <span class="hero-eyebrow">THE KAIRAV MANIFESTO</span>
+              <h1 class="hero-title">
+                Design-Led Craft. <span class="hero-highlight">Engineered for Permanence.</span>
+              </h1>
+              <p class="hero-desc">
+                Kairav Studio was founded to bridge the divide between high-end visual aesthetics and rock-solid technical execution. We build digital platforms that feel considered, load in milliseconds, and remain maintainable as organizations scale.
+              </p>
+            </div>
+
+            {/* Guarantees & Operating Commitments Strip */}
+            <div class="hero-standards-strip">
+              <div class="standard-chip">
+                <span class="chip-val">Static-First Core</span>
+                <span class="chip-sub">Zero-JS default hydration for instant page loads.</span>
+              </div>
+              <div class="standard-chip">
+                <span class="chip-val">Design System Rigor</span>
+                <span class="chip-sub">Coherent tokens spanning web, brand, and mobile.</span>
+              </div>
+              <div class="standard-chip">
+                <span class="chip-val">SEO & GEO Ready</span>
+                <span class="chip-sub">Structured for both Google search & AI engine retrieval.</span>
+              </div>
+              <div class="standard-chip">
+                <span class="chip-val">Direct Accountability</span>
+                <span class="chip-sub">Direct access to senior leads with zero account layers.</span>
+              </div>
+            </div>
+
+            {/* Action buttons */}
+            <div class="hero-action-row">
+              <a href="#philosophy" class="clonix-cta-button">
+                <span class="clonix-cta-button__text">Explore Our Philosophy</span>
+                <span class="clonix-cta-button__box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 3v10M4 9l4 4 4-4"/>
+                  </svg>
+                </span>
+              </a>
+
+              <a href="/works" class="hero-outline-btn">
+                <span>View Shipped Systems</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
-      </Container>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
     </section>
 
-    <DarkAccentSection>
-      <div class="max-w-2xl">
-        <Badge class="border-[var(--color-lime-soft)] bg-[var(--color-lime-soft)] text-[var(--color-lime-bright)]">Open Source Spirit</Badge>
-        <h2 class="mt-5 font-heading text-3xl font-semibold leading-tight text-white sm:text-4xl">
-          Built together, in the open.
-        </h2>
-        <p class="mt-4 text-base leading-7 text-[var(--color-dark-text-soft)]">
-          The studio should feel polished, but the process stays simple and honest. Work is shaped with contributors, transparent notes, and reusable patterns that anyone on the team can pick up.
-        </p>
-      </div>
-      <div class="mt-10 grid gap-5 md:grid-cols-3">
-        {["Clarity before complexity", "Performance as default", "Systems that invite contribution"].map((value) => (
-          <article class="card-surface p-6">
-            <h3 class="font-heading text-xl font-semibold text-white">{value}</h3>
-            <p class="mt-4 text-sm leading-6 text-[var(--color-dark-text-soft)]">
-              Practical decisions, clean structure, and useful notes help the work stay readable after launch.
-            </p>
-          </article>
-        ))}
-      </div>
-    </DarkAccentSection>
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 2. STUDIO PHILOSOPHY & VALUES (Light Canvas #f8f5ec)                   */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="philosophy-section" id="philosophy" aria-label="Studio Philosophy and Values">
+      <div class="about-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
 
-    {/* ── Team Section ── */}
-    <section class="section-spacing">
-      <Container>
-        <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p class="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)]">Core Team</p>
-            <h2 class="font-heading text-3xl font-semibold leading-tight text-[var(--color-text)] sm:text-4xl">
-              The people behind the systems.
-            </h2>
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Core Values
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Engineering Standards
+            </div>
+
+            <div class="about-meta-note">
+              <span class="meta-label">DISCIPLINE</span>
+              <span class="meta-val">03 Axioms</span>
+              <span class="meta-desc">Core convictions that guide our architecture and team decisions.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="matrix-header-wrap">
+              <span class="matrix-eyebrow">01 · OPERATING PRINCIPLES</span>
+              <h2 class="matrix-title">How We Think, Design, and Ship.</h2>
+              <p class="matrix-desc">
+                We believe the best digital work is born from restraint, deep technical grounding, and honest collaboration with our clients.
+              </p>
+            </div>
+
+            {/* 3 Values Grid */}
+            <div class="values-cards-grid">
+              {studioValues.map((val) => (
+                <article class="value-card">
+                  <div class="value-top-row">
+                    <span class="value-number">{val.num}</span>
+                    <span class="value-tag-pill">{val.tag}</span>
+                  </div>
+
+                  <h3 class="value-card-title">{val.title}</h3>
+                  <p class="value-card-desc">{val.desc}</p>
+
+                  <div class="value-points-list">
+                    {val.points.map((pt) => (
+                      <div class="value-point-item">
+                        <span class="point-bullet">›</span>
+                        <span class="point-text">{pt}</span>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
-          <span class="font-mono text-[0.68rem] text-[var(--color-text-subtle)]">
-            {contributors.length} core members
-          </span>
         </div>
 
-        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {contributors.map((member) => <TeamMemberCard member={member} />)}
-        </div>
-
-        {/* ── Editorial note ── */}
-        <div class="mt-12 border-l-2 border-[var(--color-primary)] bg-white/[0.01] p-6 rounded-r-md">
-          <p class="mb-2 font-mono text-[0.68rem] uppercase tracking-wider text-[var(--color-text-muted)]">Collaboration</p>
-          <p class="text-sm italic leading-6 text-[var(--color-text-soft)]">
-            We collaborate with designers, copywriters, and specialists per project. More profiles will be added as the studio grows.
-          </p>
-        </div>
-      </Container>
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
     </section>
 
-    <CTASection />
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 3. FOUNDER & LEADERSHIP DOSSIER (Dark Canvas #07080b)                  */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="founder-section" aria-label="Founder and Leadership">
+      <div class="about-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Leadership
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Founder Statement
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">LEADERSHIP ROLE</span>
+              <span class="spec-value">Inisiator & Lead</span>
+              <span class="spec-detail">Guiding technical delivery, architectural standards, and studio culture.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main">
+            <div class="founder-dossier-card">
+              <div class="founder-photo-frame">
+                <img
+                  src="https://github.com/ilhamkrnwan.png"
+                  alt="Ilham Kurniawan - Founder & Lead Engineer at Kairav Studio"
+                  class="founder-portrait"
+                  width="220"
+                  height="220"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="founder-status-dot" title="Active Lead"></span>
+              </div>
+
+              <div class="founder-content-block">
+                <div class="founder-role-tag">
+                  <span class="role-dot"></span>
+                  <span>STUDIO INISIATOR & SYSTEM ARCHITECT</span>
+                </div>
+
+                <h3 class="founder-full-name">Ilham Kurniawan</h3>
+                
+                <blockquote class="founder-statement">
+                  “We started Kairav Studio because we were tired of seeing great brands settle for forgettable, sluggish websites built on bloated page builders. Every build we take on is a commitment to senior craft, speed, and lasting architectural value.”
+                </blockquote>
+
+                <p class="founder-bio-text">
+                  Fullstack web and mobile developer who shapes product direction, visual systems, and technical delivery across the studio's projects. Specializing in zero-hydration static engines (Astro), modern edge deployments, and accessible design tokens.
+                </p>
+
+                <div class="founder-meta-links">
+                  <a href="https://github.com/ilhamkrnwan" target="_blank" rel="noopener noreferrer" class="founder-link">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                    <span>@ilhamkrnwan</span>
+                  </a>
+
+                  <a href="https://ilhamkrnwan.my.id" target="_blank" rel="noopener noreferrer" class="founder-link">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="12" x2="21" y2="3"></line>
+                    </svg>
+                    <span>Portfolio Site</span>
+                  </a>
+
+                  <a href="/teams" class="teams-page-btn">
+                    <span>Meet Entire Core Roster ({contributors.length} Leads)</span>
+                    <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 4. STUDIO EVOLUTION & TIMELINE (Light Canvas #f8f5ec)                  */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="timeline-section" aria-label="Studio Chronology and Milestones">
+      <div class="about-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Chronology
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              2022 to 2026
+            </div>
+
+            <div class="about-meta-note">
+              <span class="meta-label">MILESTONE VOLUME</span>
+              <span class="meta-val">4 Key Eras</span>
+              <span class="meta-desc">From independent research to full-lifecycle production delivery.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="matrix-header-wrap">
+              <span class="matrix-eyebrow">02 · STUDIO TRAJECTORY</span>
+              <h2 class="matrix-title">From Independent Lab to Production Studio.</h2>
+              <p class="matrix-desc">
+                Our growth has been organic, code-driven, and focused on shipping resilient systems rather than chasing marketing headlines.
+              </p>
+            </div>
+
+            {/* 4-Stage Timeline Matrix */}
+            <div class="milestones-matrix">
+              {studioMilestones.map((m) => (
+                <div class="milestone-card">
+                  <div class="milestone-head">
+                    <span class="milestone-year">{m.year}</span>
+                    <span class="milestone-phase-badge">{m.phase}</span>
+                  </div>
+
+                  <h3 class="milestone-title">{m.title}</h3>
+                  <p class="milestone-desc">{m.desc}</p>
+
+                  <div class="milestone-achievement-pill">
+                    <span class="achievement-icon">★</span>
+                    <span class="achievement-text">{m.achievement}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 5. COMPARISON MATRIX (Dark Obsidian Canvas #07080b)                    */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="comparison-section" aria-label="Why Choose Kairav Studio">
+      <div class="about-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Model Contrast
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              The Kairav Advantage
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">EFFICIENCY RATIO</span>
+              <span class="spec-value">3x Faster Delivery</span>
+              <span class="spec-detail">Zero layers of account managers means rapid feedback loops and pure senior execution.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main">
+            <div class="comparison-header-wrap">
+              <span class="comparison-eyebrow">03 · WHY AMBITIOUS TEAMS PARTNER WITH US</span>
+              <h2 class="comparison-title">The Bloated Agency vs The Kairav Collective.</h2>
+              <p class="comparison-desc">
+                We engineered our studio structure to remove the friction points that plague traditional creative agencies.
+              </p>
+            </div>
+
+            {/* Comparison Table Grid */}
+            <div class="comparison-grid">
+              <div class="comparison-grid-header">
+                <span class="col-head col-dim">DIMENSION</span>
+                <span class="col-head col-agency">TRADITIONAL AGENCY</span>
+                <span class="col-head col-kairav">KAIRAV STUDIO</span>
+              </div>
+
+              {agencyComparison.map((row) => (
+                <div class="comparison-row">
+                  <div class="cell-dimension">
+                    <span class="dim-tag">{row.dimension}</span>
+                  </div>
+                  <div class="cell-agency">
+                    <span class="sub-label">TRADITIONAL:</span>
+                    <p class="agency-text">{row.traditional}</p>
+                  </div>
+                  <div class="cell-kairav">
+                    <span class="sub-label sub-label--lime">KAIRAV:</span>
+                    <p class="kairav-text">{row.kairav}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 6. STUDIO DOSSIER FAQ ACCORDION (Light Canvas #f8f5ec)                 */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="about-faq-section" aria-label="Studio FAQ">
+      <div class="about-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Studio FAQ
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Answers & Clarifications
+            </div>
+
+            <div class="about-meta-note">
+              <span class="meta-label">ENGAGEMENT TRANSPARENCY</span>
+              <span class="meta-val">Full Openness</span>
+              <span class="meta-desc">Clear communication regarding contracts, intellectual property, and delivery.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="faq-header-wrap">
+              <span class="faq-eyebrow">04 · CLARITY & PROTOCOL</span>
+              <h2 class="faq-title">Frequently Asked Questions About The Studio</h2>
+              <p class="faq-desc">
+                Everything you need to know about our philosophy, intellectual property terms, and working together.
+              </p>
+            </div>
+
+            {/* Interactive FAQ Accordion */}
+            <div class="about-faq-accordion" data-faq-group>
+              {aboutFaqs.map((faq, idx) => (
+                <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
+                  <button
+                    type="button"
+                    class="faq-item-trigger"
+                    data-faq-trigger
+                    aria-expanded={idx === 0 ? "true" : "false"}
+                  >
+                    <div class="trigger-left">
+                      <span class="faq-index-number">0{idx + 1}</span>
+                      <h3 class="faq-question-text">{faq.q}</h3>
+                    </div>
+                    <span class="faq-toggle-icon" aria-hidden="true">{idx === 0 ? "×" : "+"}</span>
+                  </button>
+
+                  <div class="faq-item-body">
+                    <p class="faq-answer-text">{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
   </main>
 </BaseLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BASE CANVAS & ARCHITECTURAL BLUEPRINT GRID
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .about-page-main {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ── 1. Hero Section (Dark Canvas #07080b) ────────────────────────────────── */
+  .about-hero-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: clamp(5.5rem, 8vw, 7.5rem) 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .about-hero-section {
+      padding: clamp(6rem, 8vw, 8rem) 1.5rem 0 1.5rem;
+    }
+  }
+
+  .hero-watermark {
+    position: absolute;
+    top: 50%;
+    right: -10%;
+    transform: translateY(-50%);
+    width: 60vw;
+    max-width: 800px;
+    height: 60vw;
+    max-height: 800px;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 0;
+    color: #ffffff;
+  }
+
+  .rotor-svg {
+    width: 100%;
+    height: 100%;
+    animation: slowSpin 140s linear infinite;
+  }
+
+  @keyframes slowSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .about-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(7, 8, 11, 0.95);
+    z-index: 1;
+  }
+
+  /* ── Crosshairs (+) ───────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.15rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+    user-select: none;
+    z-index: 10;
+  }
+
+  .cross--tl {
+    top: -0.6rem;
+    left: -0.45rem;
+  }
+  .cross--tr {
+    top: -0.6rem;
+    right: -0.45rem;
+  }
+  .cross--bl {
+    bottom: -0.6rem;
+    left: -0.45rem;
+  }
+  .cross--br {
+    bottom: -0.6rem;
+    right: -0.45rem;
+  }
+
+  /* ── Blueprint Telemetry Bar ─────────────────────────────────────────────── */
+  .blueprint-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .blueprint-meta-left,
+  .blueprint-meta-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .blueprint-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 10px rgba(182, 255, 92, 0.7);
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes statusPulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
+  }
+
+  .blueprint-mono {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+  }
+
+  /* ── Band Row: Split Rail & Main Stage ───────────────────────────────────── */
+  .band-row {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .band-row {
+      flex-direction: row;
+    }
+  }
+
+  /* ── Left Rail Layout ─────────────────────────────────────────────────────── */
+  .band-rail {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: #07080b;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-rail {
+      width: 24%;
+      min-width: 260px;
+      border-bottom: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3rem 1.75rem;
+    }
+  }
+
+  .rail-light {
+    background: #f4efe4;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  @media (min-width: 900px) {
+    .rail-light {
+      border-right: 1px solid rgba(7, 20, 21, 0.08);
+    }
+  }
+
+  .rail-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #f8f5ec;
+    text-transform: uppercase;
+  }
+
+  .rail-tag--dark {
+    color: #111113;
+  }
+
+  .rail-slash {
+    color: #b6ff5c;
+    margin-right: 0.35rem;
+  }
+
+  .rail-tag--dark .rail-slash {
+    color: #4f7d18;
+  }
+
+  .rail-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.6);
+  }
+
+  .rail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .rail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .rail-spec-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .spec-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .spec-value {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .spec-detail {
+    font-size: 0.76rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .about-meta-note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  .meta-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .meta-val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .meta-desc {
+    font-size: 0.76rem;
+    color: #475569;
+    line-height: 1.4;
+  }
+
+  /* ── Rating Badge ─────────────────────────────────────────────────────────── */
+  .rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: fit-content;
+  }
+
+  .rating-star-box {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: #b6ff5c;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .rating-sub {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
+  }
+
+  /* ── Main Column Layout ───────────────────────────────────────────────────── */
+  .band-main {
+    padding: 2rem 1.5rem;
+    flex: 1;
+  }
+
+  @media (min-width: 900px) {
+    .band-main {
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  .main-light {
+    background-color: #faf9f5;
+  }
+
+  /* ── Hero Content ─────────────────────────────────────────────────────────── */
+  .hero-header-wrap {
+    max-width: 58rem;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #b6ff5c;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2.3rem, 4.8vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #f8f5ec;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-highlight {
+    color: #b6ff5c;
+  }
+
+  .hero-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+    line-height: 1.65;
+    color: #94a3b8;
+    max-width: 48rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Standards Strip ──────────────────────────────────────────────────────── */
+  .hero-standards-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-standards-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .standard-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+  }
+
+  .chip-val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .chip-sub {
+    font-size: 0.72rem;
+    color: #64748b;
+    line-height: 1.35;
+  }
+
+  /* ── Hero Actions ─────────────────────────────────────────────────────────── */
+  .hero-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .hero-outline-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8f5ec;
+    padding: 0.85rem 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .hero-outline-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #b6ff5c;
+    color: #b6ff5c;
+  }
+
+  /* ── 2. Philosophy Section (Light Canvas) ────────────────────────────────── */
+  .philosophy-section {
+    position: relative;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .philosophy-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .philosophy-section .about-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+  }
+
+  .philosophy-section .grid-cross {
+    color: rgba(7, 20, 21, 0.25);
+  }
+
+  .matrix-header-wrap {
+    max-width: 52rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .matrix-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #4f7d18;
+    margin-bottom: 0.85rem;
+  }
+
+  .matrix-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #111113;
+    margin-bottom: 1rem;
+  }
+
+  .matrix-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+
+  /* Values Grid */
+  .values-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 1024px) {
+    .values-cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .value-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.75rem;
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .value-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(79, 125, 24, 0.35);
+  }
+
+  .value-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .value-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #4f7d18;
+  }
+
+  .value-tag-pill {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .value-card-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: #111113;
+    margin-bottom: 0.75rem;
+  }
+
+  .value-card-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .value-points-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(7, 20, 21, 0.1);
+  }
+
+  .value-point-item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #334155;
+  }
+
+  .point-bullet {
+    color: #4f7d18;
+    font-weight: 700;
+  }
+
+  /* ── 3. Founder Section (Dark Canvas) ─────────────────────────────────────── */
+  .founder-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 2rem 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .founder-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .founder-dossier-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2.25rem 2rem;
+    border-radius: 8px;
+  }
+
+  @media (min-width: 900px) {
+    .founder-dossier-card {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 3rem;
+    }
+  }
+
+  .founder-photo-frame {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 900px) {
+    .founder-photo-frame {
+      width: 180px;
+      height: 180px;
+    }
+  }
+
+  .founder-portrait {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .founder-status-dot {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    border: 2px solid #07080b;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.8);
+  }
+
+  .founder-content-block {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .founder-role-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #b6ff5c;
+    background: rgba(182, 255, 92, 0.08);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 0.75rem;
+  }
+
+  .role-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+  }
+
+  .founder-full-name {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-weight: 700;
+    color: #f8f5ec;
+    margin-bottom: 1.25rem;
+  }
+
+  .founder-statement {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: #f1f5f9;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid #b6ff5c;
+    border-radius: 0 6px 6px 0;
+    margin: 0 0 1.25rem 0;
+  }
+
+  .founder-bio-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #94a3b8;
+    margin-bottom: 1.75rem;
+  }
+
+  .founder-meta-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .founder-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.75rem;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.45rem 0.85rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .founder-link:hover {
+    color: #b6ff5c;
+    border-color: #b6ff5c;
+    background: rgba(182, 255, 92, 0.05);
+  }
+
+  .teams-page-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #07080b;
+    background: #b6ff5c;
+    padding: 0.45rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .teams-page-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(182, 255, 92, 0.35);
+  }
+
+  /* ── 4. Timeline Section (Light Canvas) ──────────────────────────────────── */
+  .timeline-section {
+    position: relative;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .timeline-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .timeline-section .about-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  .timeline-section .grid-cross {
+    color: rgba(7, 20, 21, 0.25);
+  }
+
+  .milestones-matrix {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .milestones-matrix {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .milestone-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.85rem;
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    border-radius: 6px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .milestone-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(79, 125, 24, 0.35);
+  }
+
+  .milestone-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+  }
+
+  .milestone-year {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #111113;
+  }
+
+  .milestone-phase-badge {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #4f7d18;
+    background: rgba(79, 125, 24, 0.08);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .milestone-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111113;
+    margin-bottom: 0.65rem;
+  }
+
+  .milestone-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+
+  .milestone-achievement-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #0f172a;
+    background: #f1f5f9;
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+  }
+
+  .achievement-icon {
+    color: #4f7d18;
+  }
+
+  /* ── 5. Comparison Section (Dark Canvas) ─────────────────────────────────── */
+  .comparison-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 2rem 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .comparison-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .comparison-header-wrap {
+    max-width: 52rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .comparison-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #b6ff5c;
+    margin-bottom: 0.85rem;
+  }
+
+  .comparison-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #f8f5ec;
+    margin-bottom: 1rem;
+  }
+
+  .comparison-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #94a3b8;
+  }
+
+  /* Comparison Grid Table */
+  .comparison-grid {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .comparison-grid-header {
+    display: none;
+    grid-template-columns: 28% 36% 36%;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  @media (min-width: 768px) {
+    .comparison-grid-header {
+      display: grid;
+    }
+  }
+
+  .col-head {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .col-dim {
+    color: #64748b;
+  }
+
+  .col-agency {
+    color: #ef4444;
+  }
+
+  .col-kairav {
+    color: #b6ff5c;
+  }
+
+  .comparison-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .comparison-row:last-child {
+    border-bottom: none;
+  }
+
+  @media (min-width: 768px) {
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 28% 36% 36%;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+    }
+  }
+
+  .dim-tag {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .sub-label {
+    display: block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #ef4444;
+    margin-bottom: 0.2rem;
+  }
+
+  .sub-label--lime {
+    color: #b6ff5c;
+  }
+
+  @media (min-width: 768px) {
+    .sub-label {
+      display: none;
+    }
+  }
+
+  .agency-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: #64748b;
+    margin: 0;
+  }
+
+  .kairav-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #e2e8f0;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  /* ── 6. FAQ Section (Light Canvas) ────────────────────────────────────────── */
+  .about-faq-section {
+    position: relative;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 3rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .about-faq-section {
+      padding: 3rem 1.5rem 4rem 1.5rem;
+    }
+  }
+
+  .about-faq-section .about-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  .about-faq-section .grid-cross {
+    color: rgba(7, 20, 21, 0.25);
+  }
+
+  .faq-header-wrap {
+    max-width: 52rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .faq-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #4f7d18;
+    margin-bottom: 0.85rem;
+  }
+
+  .faq-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #111113;
+    margin-bottom: 1rem;
+  }
+
+  .faq-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+
+  /* FAQ Accordion */
+  .about-faq-accordion {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+  }
+
+  .faq-item-row {
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background 0.2s ease;
+  }
+
+  .faq-item-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .faq-index-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4f7d18;
+  }
+
+  .faq-question-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .faq-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: #64748b;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-toggle-icon {
+    color: #111113;
+  }
+
+  .faq-item-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-item-body {
+    max-height: 300px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #475569;
+    padding-left: 2.75rem;
+    max-width: 48rem;
+  }
+
+  /* ── Clonix CTA Button ───────────────────────────────────────────────────── */
+  .clonix-cta-button {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    background-color: #b6ff5c;
+    color: #07080b;
+    border-radius: 4px;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    padding: 0.35rem 0.35rem 0.35rem 1.35rem;
+    box-shadow: 0 4px 20px rgba(182, 255, 92, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .clonix-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(182, 255, 92, 0.4);
+  }
+
+  .clonix-cta-button__text {
+    margin-right: 1rem;
+  }
+
+  .clonix-cta-button__box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-color: #07080b;
+    color: #b6ff5c;
+    border-radius: 3px;
+    transition: transform 0.2s ease;
+  }
+
+  .clonix-cta-button:hover .clonix-cta-button__box {
+    transform: translateX(2px);
+  }
+</style>
+
+<script>
+  function setupAboutFaq() {
+    const group = document.querySelector("[data-faq-group]");
+    if (!group || group.hasAttribute("data-faq-initialized")) return;
+    group.setAttribute("data-faq-initialized", "true");
+
+    const items = group.querySelectorAll("[data-faq-item]");
+    items.forEach((item) => {
+      const trigger = item.querySelector("[data-faq-trigger]");
+      const icon = item.querySelector(".faq-toggle-icon");
+
+      trigger?.addEventListener("click", () => {
+        const isExpanded = item.classList.contains("is-expanded");
+
+        items.forEach((other) => {
+          other.classList.remove("is-expanded");
+          const otherTrigger = other.querySelector("[data-faq-trigger]");
+          const otherIcon = other.querySelector(".faq-toggle-icon");
+          if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
+          if (otherIcon) otherIcon.textContent = "+";
+        });
+
+        if (!isExpanded) {
+          item.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", setupAboutFaq);
+</script>

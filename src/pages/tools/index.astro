@@ -312,6 +312,28 @@ const toolsFaqs = [
                       <span class="tool-index-tag">0{index + 1}</span>
                     </div>
 
+                    {/* Interactive Visual Media Preview Frame */}
+                    <a href={`/tools/${service.id}`} class="tool-card-media" aria-label={`View ${service.title} specification`}>
+                      <img
+                        src={service.image}
+                        alt={`${service.title} visual specification preview`}
+                        class="tool-card-img"
+                        loading="lazy"
+                        width="640"
+                        height="360"
+                      />
+                      <div class="tool-card-img-overlay"></div>
+                      <div class="tool-card-chip">
+                        <span class="chip-pulse-dot" aria-hidden="true"></span>
+                        <span>{service.techDirection[0]} ENGINE</span>
+                      </div>
+                      <span class="tool-media-badge-zoom" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M6 2H2v4M10 14h4v-4M14 2L9 7M2 14l5-5"/>
+                        </svg>
+                      </span>
+                    </a>
+
                     {/* Title & Icon Header */}
                     <div class="tool-title-row">
                       <div class="tool-icon-frame" aria-hidden="true">
@@ -1180,6 +1202,93 @@ const toolsFaqs = [
     font-size: 0.72rem;
     font-weight: 700;
     color: #94a3b8;
+  }
+
+  /* Interactive Visual Media Frame */
+  .tool-card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background: #07080b;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    display: block;
+    text-decoration: none;
+  }
+
+  .tool-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.88) contrast(1.05);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  }
+
+  .architectural-tool-card:hover .tool-card-img {
+    transform: scale(1.06);
+    filter: saturate(1.15) contrast(1.05);
+  }
+
+  .tool-card-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 8, 11, 0) 40%, rgba(7, 8, 11, 0.65) 100%);
+    pointer-events: none;
+  }
+
+  .tool-card-chip {
+    position: absolute;
+    bottom: 0.65rem;
+    left: 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(7, 8, 11, 0.82);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    pointer-events: none;
+    letter-spacing: 0.04em;
+  }
+
+  .chip-pulse-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 6px rgba(182, 255, 92, 0.8);
+  }
+
+  .tool-media-badge-zoom {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.65rem;
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    background: rgba(7, 8, 11, 0.7);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f8f5ec;
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+  }
+
+  .architectural-tool-card:hover .tool-media-badge-zoom {
+    opacity: 1;
+    transform: scale(1);
   }
 
   .tool-title-row {

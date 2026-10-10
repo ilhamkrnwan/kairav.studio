@@ -59,6 +59,7 @@ const studioMilestones = [
     title: "The Inception & Lab Formation",
     desc: "Founded in Yogyakarta as an independent engineering lab by senior developers who were tired of agency bureaucracy and sluggish, bloated websites.",
     achievement: "First 10 bespoke web systems shipped.",
+    image: "https://framerusercontent.com/images/aHX2BnKMKr0LkJqGw1RcII9s5bQ.png?width=1376&height=768",
   },
   {
     year: "2023",
@@ -66,6 +67,7 @@ const studioMilestones = [
     title: "Fullstack Systems & Mobile Expansion",
     desc: "Expanded capabilities into cross-platform mobile apps (React Native/Expo), real-time SQLite syncing, and hardened API architectures.",
     achievement: "Shipped flagship BioLearn mobile platform.",
+    image: "https://framerusercontent.com/images/2PmXnNCt00qT9vzYVb3QaUnf4zw.png?width=1376&height=768",
   },
   {
     year: "2024",
@@ -73,6 +75,7 @@ const studioMilestones = [
     title: "Open Source Initiatives & Community Impact",
     desc: "Launched community-driven open source systems including MasjidFlow, scaling to thousands of active users with robust offline capabilities.",
     achievement: "MasjidFlow active deployments in 20+ communities.",
+    image: "https://framerusercontent.com/images/XjlU11jxUwW1F9YareI2KWN9h7U.png?width=1376&height=768",
   },
   {
     year: "2025–2026",
@@ -80,6 +83,7 @@ const studioMilestones = [
     title: "The Architectural Blueprint Era",
     desc: "Pioneered the Clonix blueprint design system, sub-100ms static Astro pipelines, and Generative Engine Optimization (GEO) for global ambitious brands.",
     achievement: "50+ Shipped Systems · 100% Senior Pod Model.",
+    image: "https://framerusercontent.com/images/9zKvRtHkgdsk6GrAEumhiKXosI.png?width=1376&height=768",
   },
 ];
 
@@ -256,6 +260,33 @@ const aboutFaqs = [
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </a>
+            </div>
+
+            {/* Architectural Studio Blueprint Media Frame */}
+            <div class="about-hero-media-frame">
+              <span class="frame-tag">STUDIO BLUEPRINT · ARCHITECTURAL CRAFT</span>
+              <span class="frame-cross cross--tl" aria-hidden="true">+</span>
+              <span class="frame-cross cross--tr" aria-hidden="true">+</span>
+              <span class="frame-cross cross--bl" aria-hidden="true">+</span>
+              <span class="frame-cross cross--br" aria-hidden="true">+</span>
+              <img
+                src="https://framerusercontent.com/images/1Kse6ZxZaIqYjLtJebeRYG2G8s.png?width=1376&height=768"
+                alt="Kairav Studio architectural interface craftsmanship"
+                class="about-hero-img"
+                loading="eager"
+                width="1376"
+                height="768"
+              />
+              <div class="frame-caption">
+                <div class="caption-left">
+                  <span class="caption-id">SPEC // ZERO BLOAT · STATIC CORE</span>
+                  <span class="caption-sep">·</span>
+                  <span class="caption-status">BUILT IN YOGYAKARTA</span>
+                </div>
+                <div class="caption-right">
+                  <span class="caption-tech">ASTRO 5 · TYPESCRIPT · EDGE RUNTIME</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -476,6 +507,20 @@ const aboutFaqs = [
                   <div class="milestone-head">
                     <span class="milestone-year">{m.year}</span>
                     <span class="milestone-phase-badge">{m.phase}</span>
+                  </div>
+
+                  <div class="milestone-media-frame">
+                    <img
+                      src={m.image}
+                      alt={m.title}
+                      class="milestone-media-img"
+                      loading="lazy"
+                      decoding="async"
+                      width="600"
+                      height="340"
+                    />
+                    <div class="milestone-media-overlay"></div>
+                    <span class="milestone-era-chip">{m.year} ARCHIVE</span>
                   </div>
 
                   <h3 class="milestone-title">{m.title}</h3>
@@ -1099,6 +1144,98 @@ const aboutFaqs = [
     color: #b6ff5c;
   }
 
+  /* ── Studio Blueprint Media Frame ─────────────────────────────────────────── */
+  .about-hero-media-frame {
+    position: relative;
+    margin-top: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #000000;
+    overflow: hidden;
+  }
+
+  .about-hero-media-frame .frame-tag {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #07080b;
+    background: #b6ff5c;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    z-index: 4;
+  }
+
+  .about-hero-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.9) contrast(1.05);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  }
+
+  .about-hero-media-frame:hover .about-hero-img {
+    transform: scale(1.03);
+    filter: saturate(1.1) contrast(1.05);
+  }
+
+  .about-hero-media-frame .frame-caption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    background: rgba(7, 8, 11, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
+  }
+
+  .about-hero-media-frame .caption-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .about-hero-media-frame .caption-id {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .about-hero-media-frame .caption-sep {
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  .about-hero-media-frame .caption-status {
+    color: #b6ff5c;
+  }
+
+  .about-hero-media-frame .caption-tech {
+    color: #64748b;
+  }
+
+  .about-hero-media-frame .frame-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.4);
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .about-hero-media-frame .cross--tl { top: -6px; left: -5px; }
+  .about-hero-media-frame .cross--tr { top: -6px; right: -5px; }
+  .about-hero-media-frame .cross--bl { bottom: -6px; left: -5px; }
+  .about-hero-media-frame .cross--br { bottom: -6px; right: -5px; }
+
   /* ── 2. Philosophy Section (Light Canvas) ────────────────────────────────── */
   .philosophy-section {
     position: relative;
@@ -1491,6 +1628,51 @@ const aboutFaqs = [
     background: rgba(79, 125, 24, 0.08);
     padding: 0.15rem 0.5rem;
     border-radius: 3px;
+  }
+
+  .milestone-media-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    background: #07080b;
+  }
+
+  .milestone-media-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .milestone-card:hover .milestone-media-img {
+    transform: scale(1.06);
+  }
+
+  .milestone-media-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(7, 20, 21, 0.4) 100%);
+    pointer-events: none;
+  }
+
+  .milestone-era-chip {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #f8f5ec;
+    background: rgba(7, 20, 21, 0.85);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.15rem 0.45rem;
+    border-radius: 2px;
   }
 
   .milestone-title {

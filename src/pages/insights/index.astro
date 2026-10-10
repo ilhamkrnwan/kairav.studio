@@ -11,6 +11,12 @@ const categories = [
 ];
 
 const featuredPost = blogPosts[0];
+
+const postImages: Record<string, string> = {
+  "why-fast-websites-still-matter": "https://framerusercontent.com/images/jQ4Hi4oiEduhRH7VSroCWQKfILc.png?width=1376&height=768",
+  "building-with-an-open-source-spirit": "https://framerusercontent.com/images/Yq4KEmqOVkZqrGpcssu03px94.png?width=1376&height=768",
+  "seo-and-geo-for-modern-brands": "https://framerusercontent.com/images/rPuHe16bujQppKTJnkgFk7DPJQ.png?width=1376&height=768",
+};
 ---
 
 <BaseLayout
@@ -186,6 +192,23 @@ const featuredPost = blogPosts[0];
                         <span class="card-reading">{post.readingTime}</span>
                       </div>
                     </div>
+
+                    {/* Interactive Editorial Cover Image */}
+                    <a href={`/insights/${post.slug}`} class="dispatch-cover-frame" aria-label={`Read ${post.title}`}>
+                      <img
+                        src={postImages[post.slug] || "https://framerusercontent.com/images/1Kse6ZxZaIqYjLtJebeRYG2G8s.png?width=1376&height=768"}
+                        alt={post.title}
+                        class="dispatch-cover-img"
+                        loading="lazy"
+                        width="680"
+                        height="380"
+                      />
+                      <div class="dispatch-cover-overlay"></div>
+                      <span class="dispatch-cover-pill">
+                        <span class="cover-pulse-dot" aria-hidden="true"></span>
+                        <span>{post.category}</span>
+                      </span>
+                    </a>
 
                     <h3 class="dispatch-card__title">
                       <a href={`/insights/${post.slug}`} class="card-title-link">
@@ -902,6 +925,67 @@ const featuredPost = blogPosts[0];
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  /* Interactive Editorial Cover Image */
+  .dispatch-cover-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #07080b;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    display: block;
+    text-decoration: none;
+  }
+
+  .dispatch-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.88) contrast(1.05);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  }
+
+  .dispatch-card:hover .dispatch-cover-img {
+    transform: scale(1.06);
+    filter: saturate(1.15) contrast(1.05);
+  }
+
+  .dispatch-cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 8, 11, 0) 40%, rgba(7, 8, 11, 0.65) 100%);
+    pointer-events: none;
+  }
+
+  .dispatch-cover-pill {
+    position: absolute;
+    bottom: 0.65rem;
+    left: 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(7, 8, 11, 0.82);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    pointer-events: none;
+    letter-spacing: 0.04em;
+  }
+
+  .cover-pulse-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 6px rgba(182, 255, 92, 0.8);
   }
 
   .card-category-badge {

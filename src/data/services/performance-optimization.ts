@@ -36,5 +36,5 @@ export const performanceOptimization: Service = {
   tags: ["Performance", "CWV", "Architecture"],
   icon: svgIcons.gauge,
   accent: "#06b6d4",
-  image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=640&h=360&fit=crop&q=80",
+  image: "https://framerusercontent.com/images/jQ4Hi4oiEduhRH7VSroCWQKfILc.png?width=1376&height=768",
 };

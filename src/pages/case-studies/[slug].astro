@@ -52,7 +52,7 @@ const projectMeta: Record<string, { image: string; timeline: string; metric: str
     categoryLabel: "Web & Portals",
   },
   "kairav-studio-landing-upgrade": {
-    image: "https://framerusercontent.com/images/2PmXnNCt00qT9vzYVb3QaUnf4zw.png?width=1376&height=768",
+    image: "https://framerusercontent.com/images/9zKvRtHkgdsk6GrAEumhiKXosI.png?width=1376&height=768",
     timeline: "2 Weeks",
     metric: "100/100 Lighthouse Performance",
     client: "Kairav Studio Internal",
@@ -61,7 +61,7 @@ const projectMeta: Record<string, { image: string; timeline: string; metric: str
 };
 
 const meta = projectMeta[project.slug] || {
-  image: "https://framerusercontent.com/images/2PmXnNCt00qT9vzYVb3QaUnf4zw.png?width=1376&height=768",
+  image: "https://framerusercontent.com/images/9zKvRtHkgdsk6GrAEumhiKXosI.png?width=1376&height=768",
   timeline: "3-4 Weeks",
   metric: "Production Verified",
   client: "Client Engagement",
@@ -71,6 +71,34 @@ const meta = projectMeta[project.slug] || {
 // Formatted case study ID
 const caseId = `CS-${String(index + 1).padStart(2, "0")}`;
 const projectAccent = project.accent || "#b6ff5c";
+
+const projectGallery: Record<string, { title: string; image: string; tag: string; metric: string }[]> = {
+  "kairav-studio-landing-upgrade": [
+    { title: "Dark Operating Board", image: "https://framerusercontent.com/images/9zKvRtHkgdsk6GrAEumhiKXosI.png?width=1376&height=768", tag: "UI TELEMETRY", metric: "60FPS SMOOTH" },
+    { title: "Motion & Parallax Rig", image: "https://framerusercontent.com/images/Yq4KEmqOVkZqrGpcssu03px94.png?width=1376&height=768", tag: "GSAP TIMELINE", metric: "ZERO JANK" },
+    { title: "Static Core Architecture", image: "https://framerusercontent.com/images/jQ4Hi4oiEduhRH7VSroCWQKfILc.png?width=1376&height=768", tag: "ASTRO STATIC", metric: "<100MS LOAD" },
+  ],
+  "biolearn": [
+    { title: "Interactive Mobile Quiz", image: "https://framerusercontent.com/images/2PmXnNCt00qT9vzYVb3QaUnf4zw.png?width=1376&height=768", tag: "MOBILE UI", metric: "40+ MODULES" },
+    { title: "Learning Curriculum State", image: "https://framerusercontent.com/images/iixq8RLOqwba1Oy62rZEh6kL4cI.png?width=1376&height=768", tag: "EXPO RUNTIME", metric: "ZUSTAND STORE" },
+    { title: "Performance & Offline Sync", image: "https://framerusercontent.com/images/DSzg39Hm4aY9wgyDlvQ3M0nJ4yw.png?width=1376&height=768", tag: "OFFLINE FIRST", metric: "FAST HYDRATION" },
+  ],
+  "masjidflow": [
+    { title: "Community Dashboard View", image: "https://framerusercontent.com/images/XjlU11jxUwW1F9YareI2KWN9h7U.png?width=1376&height=768", tag: "COMMUNITY APP", metric: "3-STAGE APPROVAL" },
+    { title: "Role-Based Access Control", image: "https://framerusercontent.com/images/1Kse6ZxZaIqYjLtJebeRYG2G8s.png?width=1376&height=768", tag: "AUTH PROTOCOL", metric: "SECURE JWT" },
+    { title: "Real-time Agenda Schedule", image: "https://framerusercontent.com/images/ebxeUkq1qqvXG04ito9B2T0yg6A.png?width=1376&height=768", tag: "AGENDA ENGINE", metric: "SYNCED CALENDAR" },
+  ],
+  "statprov": [
+    { title: "Statistical Analytics Portal", image: "https://framerusercontent.com/images/UFrKcEOmaSl26doqir6ihNDhig.png?width=1376&height=768", tag: "DATA DASHBOARD", metric: "10K+ RECORDS" },
+    { title: "Interactive Data Visualizer", image: "https://framerusercontent.com/images/dynhmneOOuqyizRngVjQ72c76w.png?width=1376&height=768", tag: "CHART ENGINE", metric: "CLIENT CACHED" },
+    { title: "Export Pipeline & Telemetry", image: "https://framerusercontent.com/images/jQ4Hi4oiEduhRH7VSroCWQKfILc.png?width=1376&height=768", tag: "API PIPELINE", metric: "SUB-50MS API" },
+  ],
+  "sistem-informasi-desa": [
+    { title: "Public Citizen Portal", image: "https://framerusercontent.com/images/eidAjOUfrcQoUHpfZzJkhQhq904.png?width=1376&height=768", tag: "PUBLIC PORTAL", metric: "ACCESSIBLE WCAG" },
+    { title: "Citizen Submission Engine", image: "https://framerusercontent.com/images/rPuHe16bujQppKTJnkgFk7DPJQ.png?width=1376&height=768", tag: "DATA INTAKE", metric: "AUDITED LOGS" },
+    { title: "Village Registry Management", image: "https://framerusercontent.com/images/1Kse6ZxZaIqYjLtJebeRYG2G8s.png?width=1376&height=768", tag: "ADMIN CONTROL", metric: "MODULAR CRUD" },
+  ],
+};
 ---
 
 <BaseLayout
@@ -368,25 +396,55 @@ const projectAccent = project.accent || "#b6ff5c";
               </p>
             </div>
 
-            {/* Feature System Modules Grid */}
-            <div class="features-modules-grid">
-              {project.features.map((feature, fIdx) => (
-                <div class="feature-module-card">
-                  <div class="module-head">
-                    <span class="module-num">0{fIdx + 1}</span>
-                    <span class="module-badge">SUBSYSTEM</span>
+              {/* Feature System Modules Grid */}
+              <div class="features-modules-grid">
+                {project.features.map((feature, fIdx) => (
+                  <div class="feature-module-card">
+                    <div class="module-head">
+                      <span class="module-num">0{fIdx + 1}</span>
+                      <span class="module-badge">SUBSYSTEM</span>
+                    </div>
+                    <h3 class="module-title">{feature}</h3>
+                    <p class="module-desc">
+                      Engineered to isolate operational concerns, reduce runtime errors, and provide predictable client interactions.
+                    </p>
+                    <div class="module-status">
+                      <span class="status-indicator" aria-hidden="true"></span>
+                      <span class="status-text">Integrated &amp; Verified</span>
+                    </div>
                   </div>
-                  <h3 class="module-title">{feature}</h3>
-                  <p class="module-desc">
-                    Engineered to isolate operational concerns, reduce runtime errors, and provide predictable client interactions.
-                  </p>
-                  <div class="module-status">
-                    <span class="status-indicator" aria-hidden="true"></span>
-                    <span class="status-text">Integrated &amp; Verified</span>
-                  </div>
+                ))}
+              </div>
+
+              {/* Visual Production Surface Gallery */}
+              <div class="system-gallery-strip">
+                <div class="gallery-head">
+                  <span class="gallery-eyebrow">// VERIFIED PRODUCTION SCREENS</span>
+                  <span class="gallery-meta">ACTIVE DEPLOYMENT INTERFACES</span>
                 </div>
-              ))}
-            </div>
+                <div class="system-gallery-grid">
+                  {(projectGallery[project.slug] || []).map((surf) => (
+                    <div class="gallery-surface-card">
+                      <div class="surface-img-frame">
+                        <span class="surface-tag">{surf.tag}</span>
+                        <img
+                          src={surf.image}
+                          alt={`${project.title} - ${surf.title}`}
+                          class="surface-img"
+                          loading="lazy"
+                          width="640"
+                          height="360"
+                        />
+                        <div class="surface-img-overlay"></div>
+                      </div>
+                      <div class="surface-meta-bar">
+                        <span class="surface-title">{surf.title}</span>
+                        <span class="surface-metric">{surf.metric}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
             {/* Production Arsenal Banner */}
             <div class="tech-arsenal-box">
@@ -1524,6 +1582,121 @@ const projectAccent = project.accent || "#b6ff5c";
     font-family: var(--font-mono, "JetBrains Mono", monospace);
     font-size: 0.68rem;
     color: #64748b;
+  }
+
+  /* ── Visual Production Surface Gallery ────────────────────────────────────── */
+  .system-gallery-strip {
+    margin: 2.5rem 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+  }
+
+  .gallery-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+  }
+
+  .gallery-eyebrow {
+    color: #b6ff5c;
+    font-weight: 700;
+  }
+
+  .gallery-meta {
+    color: #64748b;
+  }
+
+  .system-gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .system-gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .gallery-surface-card {
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .gallery-surface-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(182, 255, 92, 0.3);
+  }
+
+  .surface-img-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .surface-tag {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #07080b;
+    background: #b6ff5c;
+    padding: 0.15rem 0.45rem;
+    border-radius: 2px;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .surface-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.88);
+    transition: transform 0.4s ease, filter 0.3s ease;
+  }
+
+  .gallery-surface-card:hover .surface-img {
+    transform: scale(1.06);
+    filter: saturate(1.1);
+  }
+
+  .surface-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 8, 11, 0) 40%, rgba(7, 8, 11, 0.6) 100%);
+    pointer-events: none;
+  }
+
+  .surface-meta-bar {
+    padding: 0.75rem 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(7, 8, 11, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+  }
+
+  .surface-title {
+    color: #f8f5ec;
+    font-weight: 600;
+  }
+
+  .surface-metric {
+    color: #b6ff5c;
   }
 
   /* ── Production Arsenal Box ───────────────────────────────────────────────── */

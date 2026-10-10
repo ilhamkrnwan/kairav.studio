@@ -36,5 +36,5 @@ export const aiIntegration: Service = {
   tags: ["AI", "Automation", "API"],
   icon: svgIcons.sparkles,
   accent: "#f97316",
-  image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=640&h=360&fit=crop&q=80",
+  image: "https://framerusercontent.com/images/OhofBzXELxKg7ciuDOHXnL5uTQc.png?width=1376&height=768",
 };

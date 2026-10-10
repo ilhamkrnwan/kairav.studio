@@ -183,6 +183,33 @@ const faqSchema = {
                 <span>← Back to All Tools</span>
               </a>
             </div>
+
+            {/* Architectural Production Surface Frame */}
+            <div class="tool-spec-media-frame">
+              <span class="frame-tag">PRODUCTION SURFACE SPECIFICATION</span>
+              <span class="frame-cross cross--tl" aria-hidden="true">+</span>
+              <span class="frame-cross cross--tr" aria-hidden="true">+</span>
+              <span class="frame-cross cross--bl" aria-hidden="true">+</span>
+              <span class="frame-cross cross--br" aria-hidden="true">+</span>
+              <img
+                src={service.image}
+                alt={`${service.title} interface architecture`}
+                class="tool-spec-hero-img"
+                loading="eager"
+                width="1376"
+                height="768"
+              />
+              <div class="frame-caption">
+                <div class="caption-left">
+                  <span class="caption-id">{service.id.toUpperCase()} · CANVAS 1440×900</span>
+                  <span class="caption-sep">·</span>
+                  <span class="caption-status">0 CLS · 60FPS RUNTIME</span>
+                </div>
+                <div class="caption-right">
+                  <span class="caption-tech">{service.techDirection.join(" · ")}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1044,6 +1071,98 @@ const faqSchema = {
   }
 
   .hero-back-btn:hover { color: #f8f5ec; }
+
+  /* ── Production Surface Media Frame ───────────────────────────────────────── */
+  .tool-spec-media-frame {
+    position: relative;
+    margin-top: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #000000;
+    overflow: hidden;
+  }
+
+  .tool-spec-media-frame .frame-tag {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #07080b;
+    background: #b6ff5c;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    z-index: 4;
+  }
+
+  .tool-spec-hero-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.9) contrast(1.05);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  }
+
+  .tool-spec-media-frame:hover .tool-spec-hero-img {
+    transform: scale(1.03);
+    filter: saturate(1.1) contrast(1.05);
+  }
+
+  .tool-spec-media-frame .frame-caption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    background: rgba(7, 8, 11, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
+  }
+
+  .tool-spec-media-frame .caption-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tool-spec-media-frame .caption-id {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .tool-spec-media-frame .caption-sep {
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  .tool-spec-media-frame .caption-status {
+    color: #b6ff5c;
+  }
+
+  .tool-spec-media-frame .caption-tech {
+    color: #64748b;
+  }
+
+  .tool-spec-media-frame .frame-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.4);
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .tool-spec-media-frame .cross--tl { top: -6px; left: -5px; }
+  .tool-spec-media-frame .cross--tr { top: -6px; right: -5px; }
+  .tool-spec-media-frame .cross--bl { bottom: -6px; left: -5px; }
+  .tool-spec-media-frame .cross--br { bottom: -6px; right: -5px; }
 
   /* ── Hairline Dividers ────────────────────────────────────────────────────── */
   .hairline-divider {

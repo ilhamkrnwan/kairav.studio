@@ -36,5 +36,5 @@ export const seoGeo: Service = {
   tags: ["SEO", "GEO", "Schema"],
   icon: svgIcons.search,
   accent: "#2563eb",
-  image: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=640&h=360&fit=crop&q=80",
+  image: "https://framerusercontent.com/images/rPuHe16bujQppKTJnkgFk7DPJQ.png?width=1376&height=768",
 };

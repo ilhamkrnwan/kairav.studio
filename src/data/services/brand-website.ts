@@ -36,5 +36,5 @@ export const brandWebsite: Service = {
   tags: ["UI/UX", "Astro", "Brand"],
   icon: svgIcons.globe,
   accent: "#7c5cfc",
-  image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&h=360&fit=crop&q=80",
+  image: "https://framerusercontent.com/images/1Kse6ZxZaIqYjLtJebeRYG2G8s.png?width=1376&height=768",
 };

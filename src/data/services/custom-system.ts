@@ -36,5 +36,5 @@ export const customSystem: Service = {
   tags: ["Dashboard", "Systems", "API"],
   icon: svgIcons.server,
   accent: "#10b981",
-  image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=640&h=360&fit=crop&q=80",
+  image: "https://framerusercontent.com/images/dynhmneOOuqyizRngVjQ72c76w.png?width=1376&height=768",
 };

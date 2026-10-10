@@ -36,5 +36,5 @@ export const androidIot: Service = {
   tags: ["Android", "IoT", "API"],
   icon: svgIcons.cpu,
   accent: "#84cc16",
-  image: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=640&h=360&fit=crop&q=80",
+  image: "https://framerusercontent.com/images/ebxeUkq1qqvXG04ito9B2T0yg6A.png?width=1376&height=768",
 };

@@ -160,38 +160,35 @@ html.site-menu-open {
   display: inline-flex;
   min-width: 0;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.65rem;
   color: #111113;
+  text-decoration: none;
 }
 
 .site-logo__mark {
-  width: 2.35rem;
-  height: 2.35rem;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
-  filter: brightness(0);
 }
 
 .site-logo__text {
-  display: flex;
-  max-width: 7.5rem;
-  flex-direction: column;
+  display: inline-flex;
+  align-items: baseline;
   line-height: 1;
+  font-family: var(--font-heading, "Space Grotesk", sans-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .site-logo__name {
-  font-family: var(--font-brand);
-  font-size: 0.78rem;
+  color: inherit;
   font-weight: 700;
-  letter-spacing: 0.16em;
 }
 
 .site-logo__studio {
-  margin-top: 0.28rem;
-  font-family: var(--font-mono);
-  font-size: 0.42rem;
-  font-weight: 500;
-  letter-spacing: 0.38em;
-  color: var(--color-primary);
+  color: #b6ff5c;
+  font-weight: 700;
 }
 
 .site-actions {
@@ -619,28 +616,23 @@ html.site-menu-open {
   }
 
   .site-logo__mark {
-    width: 2.35rem;
-    height: 2.35rem;
+    width: 26px;
+    height: 26px;
   }
 
   .site-logo__text {
-    max-width: 7.5rem;
+    font-size: 1.15rem;
   }
 
   .site-logo__name {
-    font-size: 0.78rem;
-    letter-spacing: 0.16em;
+    font-size: inherit;
+    letter-spacing: -0.03em;
   }
 
   .site-logo__studio {
-    width: fit-content;
-    border-radius: 0.1rem;
-    background: var(--color-primary);
-    color: #fff;
-    font-size: 0.42rem;
-    letter-spacing: 0.24em;
-    line-height: 1;
-    padding: 0.12rem 0.18rem 0.12rem 0.28rem;
+    color: #b6ff5c;
+    font-size: inherit;
+    letter-spacing: -0.03em;
   }
 
   .site-actions {
@@ -696,15 +688,7 @@ html.site-menu-open {
 
 @media (max-width: 460px) {
   .site-logo__text {
-    max-width: 7.5rem;
-  }
-
-  .site-logo__name {
-    font-size: 0.78rem;
-  }
-
-  .site-logo__studio {
-    font-size: 0.42rem;
+    font-size: 1.05rem;
   }
 
   .home-hero__copy {
@@ -758,8 +742,8 @@ html.site-menu-open {
     z-index: 96;
     top: 2rem;
     left: clamp(1.25rem, 4vw, 4.75rem);
-    gap: 1rem;
-    color: var(--color-text);
+    gap: 0.65rem;
+    color: #f8f5ec;
     text-shadow: none;
     transition: color 250ms ease, opacity 250ms ease, transform 250ms ease;
   }
@@ -771,27 +755,27 @@ html.site-menu-open {
   }
 
   .site-logo__mark {
-    width: 3rem;
-    height: 3rem;
-    filter: brightness(0);
+    width: 30px;
+    height: 30px;
+    filter: none;
     transition: filter 250ms ease;
   }
 
   .site-logo__text {
     max-width: none;
+    font-size: 1.35rem;
   }
 
   .site-logo__name {
-    font-size: 0.95rem;
-    letter-spacing: 0.26em;
+    font-size: inherit;
+    letter-spacing: -0.03em;
     color: inherit;
   }
 
   .site-logo__studio {
-    margin-top: 0.32rem;
-    font-size: 0.58rem;
-    letter-spacing: 0.42em;
-    color: var(--color-primary);
+    font-size: inherit;
+    letter-spacing: -0.03em;
+    color: #b6ff5c;
     transition: color 250ms ease;
   }
 
@@ -1207,9 +1191,7 @@ html.site-menu-open {
   color: #f8f5ec;
 }
 
-.dark-section .site-logo__mark {
-  filter: brightness(0) invert(1);
-}
+
 
 .dark-section.dark-fx {
   background:

@@ -59,5 +59,22 @@ const canonicalUrl = new URL(canonicalPath, "https://kairav.studio").toString();
     <Footer />
     <FloatingActionDock />
     <Analytics />
+
+    {/* Master GSAP Performance Orchestrator (Active Across All Pages) */}
+    <script>
+      import { initSiteAnimations, destroySiteAnimations } from "../scripts/animations";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initSiteAnimations();
+      });
+
+      document.addEventListener("astro:page-load", () => {
+        initSiteAnimations();
+      });
+
+      document.addEventListener("astro:before-swap", () => {
+        destroySiteAnimations();
+      });
+    </script>
   </body>
 </html>

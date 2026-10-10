@@ -1553,6 +1553,18 @@ html.site-menu-open {
   height: 22px;
 }
 
+/* ── GSAP Performance Layer Promotion (gsap-performance skill) ─── */
+.about-hero-img,
+.teams-hero-img,
+.dispatch-hero-media img,
+.tool-spec-media-frame img,
+.system-screen-img,
+.rotor-svg,
+.clonix-cta-button,
+.hero-outline-btn {
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;

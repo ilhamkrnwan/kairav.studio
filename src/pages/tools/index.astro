@@ -1,60 +1,1815 @@
 ---
+/**
+ * src/pages/tools/index.astro
+ * Architectural Blueprint Tools & Capabilities Page for Kairav Studio.
+ * Designed to seamlessly match the Clonix aesthetic of index.astro, services.astro, teams.astro, and about.astro:
+ * 1. Dark Blueprint Hero with telemetry bar, toolkit dossier status, and engineering guarantees.
+ * 2. Light Canvas 6-Tool Architectural Showcase Matrix with interactive discipline filtering.
+ * 3. Dark Obsidian Interactive Fit Matrix ("Which Tool Fits Your Stage?").
+ * 4. Light Canvas 4-Stage Implementation & Delivery Protocol.
+ * 5. Prospective Client Tooling FAQ Accordion.
+ * 6. Monumental Bottom CTA Banner leading to /contact.
+ */
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Container from "../../components/common/Container.astro";
-import ServiceCard from "../../components/cards/ServiceCard.astro";
-import CTASection from "../../components/sections/CTASection.astro";
-import PageHero from "../../components/sections/PageHero.astro";
 import { services, serviceCategories } from "../../data/services";
 
-const categories = serviceCategories.map((category) => ({
-  name: category,
-  items: services.filter((service) => service.category === category),
-}));
+// Filter categories for the interactive discipline bar
+const filterCategories = [
+  { id: "all", label: "All Disciplines", count: services.length },
+  { id: "Web Experiences", label: "Web Experiences", count: services.filter(s => s.category === "Web Experiences").length },
+  { id: "Systems & Intelligence", label: "Systems & Intelligence", count: services.filter(s => s.category === "Systems & Intelligence").length },
+];
+
+// 3-Stage Growth & Stage Fit Matrix
+const fitStages = [
+  {
+    stage: "STAGE 01",
+    label: "Launch & Brand Authority",
+    audience: "Early-stage products, new studios, and ambitious brand relaunches",
+    tools: ["Brand Website", "SEO & GEO Architecture"],
+    desc: "Establish unmistakable visual gravity, flawless Core Web Vitals, and day-one indexation across Google and modern AI engines (ChatGPT, Perplexity, Claude).",
+    timeframe: "2–4 Weeks Delivery",
+    accent: "#b6ff5c",
+  },
+  {
+    stage: "STAGE 02",
+    label: "Velocity & System Scale",
+    audience: "Growing businesses facing frontend performance bottlenecks or scaling pains",
+    tools: ["Performance Optimization", "Custom Digital Systems"],
+    desc: "Slash page weight, decouple sluggish monolithic code, and build custom internal portals, SaaS dashboards, and automated client workflows.",
+    timeframe: "3–6 Weeks Delivery",
+    accent: "#38bdf8",
+  },
+  {
+    stage: "STAGE 03",
+    label: "Intelligence & Connected Ecosystems",
+    audience: "Teams looking to automate workflows or bridge hardware and mobile clients",
+    tools: ["AI Integration", "Android & IoT Connected Systems"],
+    desc: "Deploy cost-aware prompt caching pipelines, custom vector search, and cross-platform mobile clients with offline-first SQLite synchronization.",
+    timeframe: "4–8 Weeks Delivery",
+    accent: "#a855f7",
+  },
+];
+
+// 4-Stage Implementation Protocol
+const implementationSteps = [
+  {
+    num: "01",
+    tag: "Audit & Scoping",
+    title: "Constraint & Telemetry Mapping",
+    desc: "We analyze current payloads, database structures, search indexation health, and user pain points before writing a single line of production code.",
+  },
+  {
+    num: "02",
+    tag: "Architecture",
+    title: "Component & Protocol Design",
+    desc: "We design strictly-typed interfaces, reusable design system tokens, and edge API contracts that establish clean module boundaries.",
+  },
+  {
+    num: "03",
+    tag: "Engineering",
+    title: "High-Velocity Static-First Sprints",
+    desc: "We build with Astro, TypeScript, and edge runtime architectures, providing weekly Loom video demos and private staging branch deployments.",
+  },
+  {
+    num: "04",
+    tag: "Verification",
+    title: "Automated Testing & Full IP Handoff",
+    desc: "Every system undergoes Core Web Vitals audits, accessibility tests, and clean documentation handoffs. You own 100% of your GitHub repository.",
+  },
+];
+
+// Tools FAQ
+const toolsFaqs = [
+  {
+    q: "Can we combine multiple capabilities into a single engagement?",
+    a: "Yes. Most clients combine a Brand Website with SEO/GEO Architecture, or pair Performance Optimization with Custom Digital Systems. We tailor the scope to your exact product requirements without billing for unused capabilities.",
+  },
+  {
+    q: "How do individual /tools differ from full /services?",
+    a: "The /services page presents our broad business engagement models and retainers. This /tools section provides the deep architectural blueprint for each specific capability — detailing technical stacks, deliverables, problems solved, and measurable outcomes.",
+  },
+  {
+    q: "Can Kairav Studio refactor our existing codebase instead of building from scratch?",
+    a: "Absolutely. Our Performance Optimization and Custom Digital Systems capabilities frequently operate on legacy codebases — auditing bottlenecks, eliminating JavaScript bloat, and modernizing architectures without requiring a high-risk full rebuild.",
+  },
+  {
+    q: "What technical documentation do we receive upon project delivery?",
+    a: "You receive complete architectural documentation including component usage guides, design tokens, environment configurations, CI/CD deployment instructions, and full API endpoint documentation.",
+  },
+  {
+    q: "Who owns the code, assets, and design system after completion?",
+    a: "You retain 100% full intellectual property ownership. Repositories are hosted under your GitHub organization, assets are transferred in full, and there are zero proprietary lock-in licenses or ongoing platform fees.",
+  },
+];
 ---
 
 <BaseLayout
-  title="Tools & Capabilities - Kairav Studio"
-  description="The full toolkit behind every Kairav Studio build — brand websites, SEO/GEO, performance, custom systems, AI integration, and Android/IoT — each explained in depth."
+  title="Tools & Engineering Capabilities — Kairav Studio"
+  description="Explore the technical capabilities and engineering tools behind every Kairav Studio build: brand websites, SEO/GEO architecture, performance, custom systems, and AI."
   canonicalPath="/tools"
 >
-  <main>
-    <PageHero
-      eyebrow="Tools & Capabilities"
-      title="The full toolkit behind every Kairav build."
-      description="Each capability documented in depth: what it is, who it's for, what is included, the tech direction, and the outcome you can expect. Pick one to read the full breakdown."
-      image="/hero-works.png"
-      imageAlt="Kairav Studio Tools & Capabilities"
-    />
+  <main class="tools-page-main">
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 1. HERO BAND (Dark Blueprint Architecture)                             */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="tools-hero-section" data-hero-section aria-label="Tools and Capabilities Overview">
+      {/* Background Rotating Watermark */}
+      <div class="hero-watermark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
+          <path
+            d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.6142 50 100C50 72.6142 72.6142 50 100 50C72.6142 50 50 27.6142 50 0Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </div>
 
-    {
-      categories.map((category, index) => (
-        <section class={`section-spacing ${index % 2 === 1 ? "bg-[var(--color-background-soft)]" : ""}`}>
-          <Container>
-            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <p class="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-[var(--color-primary)]">
-                  {String(index + 1).padStart(2, "0")} — Capability band
-                </p>
-                <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)] sm:text-3xl">
-                  {category.name}
-                </h2>
+      <div class="tools-container">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        {/* Top Blueprint Telemetry Bar */}
+        <div class="blueprint-meta-bar" aria-hidden="true">
+          <div class="blueprint-meta-left">
+            <span class="blueprint-status-dot"></span>
+            <span class="blueprint-mono">STATUS: ONLINE · 6 SPECIALIZED CAPABILITY SUITES · PRODUCTION ARCHIVE</span>
+          </div>
+          <div class="blueprint-meta-right">
+            <span class="blueprint-mono">STANDARDS: ZERO RUNTIME WASTE · TYPE SAFE · YOGYAKARTA (UTC+7)</span>
+          </div>
+        </div>
+
+        <div class="band-row hero-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Toolkit Dossier
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Production Tooling
+            </div>
+
+            {/* Rating Pill */}
+            <div class="rating-badge">
+              <div class="rating-star-box">
+                <span class="star-icon">★</span>
+                <span class="rating-val">4.9</span>
               </div>
-              <span class="font-mono text-[0.68rem] text-[var(--color-text-subtle)]">
-                {category.items.length} {category.items.length === 1 ? "service" : "services"}
-              </span>
+              <span class="rating-sub">50+ Shipped Systems</span>
             </div>
-            <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {category.items.map((service) => <ServiceCard service={service} />)}
-            </div>
-          </Container>
-        </section>
-      ))
-    }
 
-    <CTASection
-      eyebrow="Not sure which one?"
-      title="Tell us the goal — we'll point you to the right capability."
-      description="Bring the problem or the rough idea. We will help shape the right path across these tools."
-    />
+            <div class="rail-spec-box">
+              <span class="spec-label">TOOLKIT RANGE</span>
+              <span class="spec-value">6 Disciplines</span>
+              <span class="spec-detail">Full architectural coverage from front-end design systems to edge runtimes.</span>
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">CODE RIGOR</span>
+              <span class="spec-value">TypeScript Core</span>
+              <span class="spec-detail">Strictly typed components, robust error handling, zero unvetted runtime dependencies.</span>
+            </div>
+          </aside>
+
+          {/* Main Hero Stage */}
+          <div class="band-main">
+            <div class="hero-header-wrap">
+              <span class="hero-eyebrow">ENGINEERING CAPABILITIES & TOOLING</span>
+              <h1 class="hero-title">
+                Bespoke Capabilities. <span class="hero-highlight">Engineered for High Output.</span>
+              </h1>
+              <p class="hero-desc">
+                The full engineering toolkit behind every Kairav Studio build. Each discipline is documented with deep architectural specifications, technical directions, deliverables, and measurable outcomes.
+              </p>
+            </div>
+
+            {/* Guarantees & Operating Commitments Strip */}
+            <div class="hero-standards-strip">
+              <div class="standard-chip">
+                <span class="chip-val">Design System Tokens</span>
+                <span class="chip-sub">Component-first token architecture that scales effortlessly.</span>
+              </div>
+              <div class="standard-chip">
+                <span class="chip-val">Sub-100ms Hydration</span>
+                <span class="chip-sub">Zero-JS default static delivery for instant interaction.</span>
+              </div>
+              <div class="standard-chip">
+                <span class="chip-val">SEO & GEO Schemas</span>
+                <span class="chip-sub">Structured JSON-LD optimized for Google and modern LLMs.</span>
+              </div>
+              <div class="standard-chip">
+                <span class="chip-val">Zero Vendor Lock-In</span>
+                <span class="chip-sub">100% clean GitHub repository ownership upon completion.</span>
+              </div>
+            </div>
+
+            {/* Action buttons */}
+            <div class="hero-action-row">
+              <a href="#toolkit-matrix" class="clonix-cta-button">
+                <span class="clonix-cta-button__text">Explore All 6 Tools</span>
+                <span class="clonix-cta-button__box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 3v10M4 9l4 4 4-4"/>
+                  </svg>
+                </span>
+              </a>
+
+              <a href="/services" class="hero-outline-btn">
+                <span>View Full Service Packages</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 2. ARCHITECTURAL TOOLKIT MATRIX (Light Canvas #f8f5ec)                 */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="toolkit-matrix-section" id="toolkit-matrix" aria-label="Tools and Capabilities Catalog">
+      <div class="tools-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Capabilities
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Interactive Catalog
+            </div>
+
+            <div class="tools-meta-note">
+              <span class="meta-label">CATALOG SCOPE</span>
+              <span class="meta-val">{services.length} Core Tools</span>
+              <span class="meta-desc">Click any capability for deep specifications, deliverables, and FAQ.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="matrix-header-wrap">
+              <span class="matrix-eyebrow">01 · DETAILED SPECIFICATION ARCHIVE</span>
+              <h2 class="matrix-title">Disciplines & Engineering Arsenal.</h2>
+              <p class="matrix-desc">
+                Select a capability below to explore technical directions, target problems, included deliverables, and verified business outcomes.
+              </p>
+            </div>
+
+            {/* Interactive Discipline Filter Chips */}
+            <div class="discipline-filters-row" role="tablist" aria-label="Filter capabilities by discipline">
+              {filterCategories.map((cat, idx) => (
+                <button
+                  type="button"
+                  class={`discipline-chip-btn ${idx === 0 ? "is-active" : ""}`}
+                  data-filter={cat.id}
+                  role="tab"
+                  aria-selected={idx === 0 ? "true" : "false"}
+                >
+                  <span class="chip-text">{cat.label}</span>
+                  <span class="chip-count">({cat.count})</span>
+                </button>
+              ))}
+            </div>
+
+            {/* 6 Architectural Tool Cards Grid */}
+            <div class="tools-cards-grid">
+              {services.map((service, index) => (
+                <article
+                  class="architectural-tool-card"
+                  data-tool-card
+                  data-category={service.category}
+                  id={`tool-${service.id}`}
+                >
+                    {/* Corner Crosshairs */}
+                    <span class="tool-cross cross--tl" aria-hidden="true">+</span>
+                    <span class="tool-cross cross--tr" aria-hidden="true">+</span>
+                    <span class="tool-cross cross--bl" aria-hidden="true">+</span>
+                    <span class="tool-cross cross--br" aria-hidden="true">+</span>
+
+                    {/* Card Top Meta */}
+                    <div class="tool-card-head">
+                      <div class="tool-category-badge">
+                        <span class="badge-dot"></span>
+                        <span class="badge-text">{service.category}</span>
+                      </div>
+                      <span class="tool-index-tag">0{index + 1}</span>
+                    </div>
+
+                    {/* Title & Icon Header */}
+                    <div class="tool-title-row">
+                      <div class="tool-icon-frame" aria-hidden="true">
+                        <Fragment set:html={service.icon} />
+                      </div>
+                      <h3 class="tool-title-text">{service.title}</h3>
+                    </div>
+
+                    {/* Summary & Who It's For */}
+                    <p class="tool-summary-text">{service.summary}</p>
+                    
+                    <div class="tool-audience-box">
+                      <span class="audience-label">TARGET AUDIENCE:</span>
+                      <p class="audience-text">{service.detail}</p>
+                    </div>
+
+                    {/* Deliverables Preview */}
+                    <div class="tool-deliverables-section">
+                      <span class="deliverables-label">PRIMARY DELIVERABLES:</span>
+                      <div class="deliverables-chips">
+                        {service.deliverables.slice(0, 4).map((item) => (
+                          <span class="deliverable-pill">{item}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tech Direction Tags */}
+                    <div class="tool-tech-strip">
+                      <span class="tech-label">CORE DIRECTION:</span>
+                      <div class="tech-pills">
+                        {service.techDirection.map((tech) => (
+                          <span class="tech-pill">{tech}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Measurable Outcome Banner */}
+                    <div class="tool-outcome-banner">
+                      <span class="outcome-icon">★</span>
+                      <span class="outcome-text">Outcome: {service.outcome}</span>
+                    </div>
+
+                    {/* Card Action Link to Detail Page */}
+                    <div class="tool-action-bar">
+                      <a href={`/tools/${service.id}`} class="tool-drilldown-link">
+                        <span>Read Full Specification</span>
+                        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                      </a>
+                    </div>
+                  </article>
+                ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 3. STAGE FIT MATRIX (Dark Obsidian Canvas #07080b)                     */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="fit-matrix-section" aria-label="Capability Fit by Stage">
+      <div class="tools-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Growth Fit
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              3 Strategic Stages
+            </div>
+
+            <div class="rail-spec-box">
+              <span class="spec-label">FIT STRATEGY</span>
+              <span class="spec-value">Scope Precision</span>
+              <span class="spec-detail">Right-sizing engineering capabilities to match your current company stage.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main">
+            <div class="fit-header-wrap">
+              <span class="fit-eyebrow">02 · STRATEGIC RECOMMENDATION</span>
+              <h2 class="fit-title">Which Tools Fit Your Current Stage?</h2>
+              <p class="fit-desc">
+                Don't over-engineer hypothetical requirements. Align your technical investments with your actual business stage.
+              </p>
+            </div>
+
+            {/* 3 Stage Cards */}
+            <div class="fit-stages-grid">
+              {fitStages.map((stage) => (
+                <div class="fit-stage-card">
+                  <div class="stage-top-bar">
+                    <span class="stage-phase-tag">{stage.stage}</span>
+                    <span class="stage-timeframe">{stage.timeframe}</span>
+                  </div>
+
+                  <h3 class="stage-title">{stage.label}</h3>
+                  <p class="stage-audience">{stage.audience}</p>
+                  <p class="stage-desc">{stage.desc}</p>
+
+                  <div class="stage-recommended-tools">
+                    <span class="rec-label">RECOMMENDED TOOLS:</span>
+                    <div class="rec-chips">
+                      {stage.tools.map((t) => (
+                        <span class="rec-chip">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 4. IMPLEMENTATION PROTOCOL (Light Canvas #f8f5ec)                      */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="implementation-section" aria-label="Implementation Protocol">
+      <div class="tools-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Delivery Protocol
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              4-Phase Flow
+            </div>
+
+            <div class="tools-meta-note">
+              <span class="meta-label">CADENCE</span>
+              <span class="meta-val">Async-First</span>
+              <span class="meta-desc">Continuous feedback via GitHub PRs, Loom demos, and Linear boards.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="matrix-header-wrap">
+              <span class="matrix-eyebrow">03 · HOW WE DELIVER EACH TOOL</span>
+              <h2 class="matrix-title">Our 4-Stage Implementation Architecture.</h2>
+              <p class="matrix-desc">
+                From initial constraint mapping to full production verification, every build follows a transparent engineering path.
+              </p>
+            </div>
+
+            {/* 4 Protocol Steps */}
+            <div class="protocol-steps-grid">
+              {implementationSteps.map((step) => (
+                <div class="protocol-step-card">
+                  <div class="step-head">
+                    <span class="step-num">{step.num}</span>
+                    <span class="step-tag">{step.tag}</span>
+                  </div>
+                  <h3 class="step-title">{step.title}</h3>
+                  <p class="step-desc">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 5. TOOLING FAQ ACCORDION (Light Canvas #f8f5ec)                        */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="tools-faq-section" aria-label="Tools FAQ">
+      <div class="tools-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Capability FAQ
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Frequently Asked
+            </div>
+
+            <div class="tools-meta-note">
+              <span class="meta-label">TECHNICAL CLARITY</span>
+              <span class="meta-val">Full Answers</span>
+              <span class="meta-desc">Details regarding tool combinations, migrations, and ownership.</span>
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="faq-header-wrap">
+              <span class="faq-eyebrow">04 · CLARITY & SPECIFICATIONS</span>
+              <h2 class="faq-title">Common Questions About Our Capabilities</h2>
+              <p class="faq-desc">
+                Everything you need to know about combining tools, stack choices, and codebase integration.
+              </p>
+            </div>
+
+            {/* Interactive FAQ Accordion */}
+            <div class="tools-faq-accordion" data-faq-group>
+              {toolsFaqs.map((faq, idx) => (
+                <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
+                  <button
+                    type="button"
+                    class="faq-item-trigger"
+                    data-faq-trigger
+                    aria-expanded={idx === 0 ? "true" : "false"}
+                  >
+                    <div class="trigger-left">
+                      <span class="faq-index-number">0{idx + 1}</span>
+                      <h3 class="faq-question-text">{faq.q}</h3>
+                    </div>
+                    <span class="faq-toggle-icon" aria-hidden="true">{idx === 0 ? "×" : "+"}</span>
+                  </button>
+
+                  <div class="faq-item-body">
+                    <p class="faq-answer-text">{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
   </main>
 </BaseLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BASE CANVAS & ARCHITECTURAL BLUEPRINT GRID
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .tools-page-main {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ── 1. Hero Section (Dark Canvas #07080b) ────────────────────────────────── */
+  .tools-hero-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: clamp(5.5rem, 8vw, 7.5rem) 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .tools-hero-section {
+      padding: clamp(6rem, 8vw, 8rem) 1.5rem 0 1.5rem;
+    }
+  }
+
+  .hero-watermark {
+    position: absolute;
+    top: 50%;
+    right: -10%;
+    transform: translateY(-50%);
+    width: 60vw;
+    max-width: 800px;
+    height: 60vw;
+    max-height: 800px;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 0;
+    color: #ffffff;
+  }
+
+  .rotor-svg {
+    width: 100%;
+    height: 100%;
+    animation: slowSpin 140s linear infinite;
+  }
+
+  @keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .tools-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(7, 8, 11, 0.95);
+    z-index: 1;
+  }
+
+  /* ── Crosshairs (+) ───────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.15rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+    user-select: none;
+    z-index: 10;
+  }
+
+  .cross--tl { top: -0.6rem; left: -0.45rem; }
+  .cross--tr { top: -0.6rem; right: -0.45rem; }
+  .cross--bl { bottom: -0.6rem; left: -0.45rem; }
+  .cross--br { bottom: -0.6rem; right: -0.45rem; }
+
+  /* ── Blueprint Telemetry Bar ─────────────────────────────────────────────── */
+  .blueprint-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .blueprint-meta-left,
+  .blueprint-meta-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .blueprint-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 10px rgba(182, 255, 92, 0.7);
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes statusPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  .blueprint-mono {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+  }
+
+  /* ── Band Row: Split Rail & Main Stage ───────────────────────────────────── */
+  .band-row {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .band-row {
+      flex-direction: row;
+    }
+  }
+
+  /* ── Left Rail Layout ─────────────────────────────────────────────────────── */
+  .band-rail {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: #07080b;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-rail {
+      width: 24%;
+      min-width: 260px;
+      border-bottom: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 3rem 1.75rem;
+    }
+  }
+
+  .rail-light {
+    background: #f4efe4;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  @media (min-width: 900px) {
+    .rail-light {
+      border-right: 1px solid rgba(7, 20, 21, 0.08);
+    }
+  }
+
+  .rail-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #f8f5ec;
+    text-transform: uppercase;
+  }
+
+  .rail-tag--dark { color: #111113; }
+  .rail-slash { color: #b6ff5c; margin-right: 0.35rem; }
+  .rail-tag--dark .rail-slash { color: #4f7d18; }
+
+  .rail-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.6);
+  }
+
+  .rail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .rail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .rail-spec-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .spec-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .spec-value {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .spec-detail {
+    font-size: 0.76rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .tools-meta-note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  .meta-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .meta-val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .meta-desc {
+    font-size: 0.76rem;
+    color: #475569;
+    line-height: 1.4;
+  }
+
+  /* ── Rating Badge ─────────────────────────────────────────────────────────── */
+  .rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: fit-content;
+  }
+
+  .rating-star-box {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: #b6ff5c;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .rating-sub {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
+  }
+
+  /* ── Main Column Layout ───────────────────────────────────────────────────── */
+  .band-main {
+    padding: 2rem 1.5rem;
+    flex: 1;
+  }
+
+  @media (min-width: 900px) {
+    .band-main {
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  .main-light { background-color: #faf9f5; }
+
+  /* ── Hero Content ─────────────────────────────────────────────────────────── */
+  .hero-header-wrap { max-width: 58rem; }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #b6ff5c;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2.3rem, 4.8vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #f8f5ec;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-highlight { color: #b6ff5c; }
+
+  .hero-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+    line-height: 1.65;
+    color: #94a3b8;
+    max-width: 48rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Standards Strip ──────────────────────────────────────────────────────── */
+  .hero-standards-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-standards-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .standard-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+  }
+
+  .chip-val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .chip-sub {
+    font-size: 0.72rem;
+    color: #64748b;
+    line-height: 1.35;
+  }
+
+  /* ── Hero Actions ─────────────────────────────────────────────────────────── */
+  .hero-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .hero-outline-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8f5ec;
+    padding: 0.85rem 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .hero-outline-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #b6ff5c;
+    color: #b6ff5c;
+  }
+
+  /* ── 2. Toolkit Matrix Section (Light Canvas) ────────────────────────────── */
+  .toolkit-matrix-section {
+    position: relative;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .toolkit-matrix-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .toolkit-matrix-section .tools-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+  }
+
+  .toolkit-matrix-section .grid-cross { color: rgba(7, 20, 21, 0.25); }
+
+  .matrix-header-wrap {
+    max-width: 52rem;
+    margin-bottom: 2rem;
+  }
+
+  .matrix-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #4f7d18;
+    margin-bottom: 0.85rem;
+  }
+
+  .matrix-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #111113;
+    margin-bottom: 1rem;
+  }
+
+  .matrix-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+
+  /* Discipline Filter Chips */
+  .discipline-filters-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  .discipline-chip-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+    background: #f1f5f9;
+    border: 1px solid rgba(7, 20, 21, 0.1);
+    padding: 0.45rem 0.85rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .discipline-chip-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+
+  .discipline-chip-btn.is-active {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+  }
+
+  .chip-count {
+    opacity: 0.65;
+    font-size: 0.68rem;
+  }
+
+  /* Tools Cards Grid */
+  .tools-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 900px) {
+    .tools-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .tools-cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .architectural-tool-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1.85rem;
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .architectural-tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.06);
+    border-color: rgba(79, 125, 24, 0.4);
+  }
+
+  .tool-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.18);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .architectural-tool-card .cross--tl { top: 0.4rem; left: 0.5rem; }
+  .architectural-tool-card .cross--tr { top: 0.4rem; right: 0.5rem; }
+  .architectural-tool-card .cross--bl { bottom: 0.4rem; left: 0.5rem; }
+  .architectural-tool-card .cross--br { bottom: 0.4rem; right: 0.5rem; }
+
+  .tool-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .tool-category-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #4f7d18;
+    background: rgba(79, 125, 24, 0.08);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .badge-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .tool-index-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #94a3b8;
+  }
+
+  .tool-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .tool-icon-frame {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    color: #0f172a;
+    flex-shrink: 0;
+  }
+
+  .tool-icon-frame :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tool-title-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: #111113;
+    line-height: 1.2;
+  }
+
+  .tool-summary-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 1.25rem;
+  }
+
+  .tool-audience-box {
+    padding: 0.75rem 0.95rem;
+    background: #f8fafc;
+    border-left: 3px solid #b6ff5c;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .audience-label {
+    display: block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 0.2rem;
+  }
+
+  .audience-text {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: #334155;
+    margin: 0;
+  }
+
+  .tool-deliverables-section {
+    margin-bottom: 1.15rem;
+  }
+
+  .deliverables-label,
+  .tech-label {
+    display: block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin-bottom: 0.45rem;
+  }
+
+  .deliverables-chips,
+  .tech-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .deliverable-pill {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    color: #1e293b;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+  }
+
+  .tool-tech-strip {
+    margin-bottom: 1.25rem;
+  }
+
+  .tech-pill {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #475569;
+    background: #f8fafc;
+    border: 1px dashed rgba(7, 20, 21, 0.12);
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+  }
+
+  .tool-outcome-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #0f172a;
+    background: #f1eee4;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    padding: 0.45rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1.25rem;
+    margin-top: auto;
+  }
+
+  .outcome-icon { color: #4f7d18; font-weight: 700; }
+
+  .tool-action-bar {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  .tool-drilldown-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #111113;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .tool-drilldown-link:hover {
+    color: #4f7d18;
+    transform: translateX(2px);
+  }
+
+  /* ── 3. Fit Matrix Section (Dark Canvas) ─────────────────────────────────── */
+  .fit-matrix-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 2rem 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .fit-matrix-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .fit-header-wrap {
+    max-width: 52rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .fit-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #b6ff5c;
+    margin-bottom: 0.85rem;
+  }
+
+  .fit-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #f8f5ec;
+    margin-bottom: 1rem;
+  }
+
+  .fit-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #94a3b8;
+  }
+
+  .fit-stages-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 1024px) {
+    .fit-stages-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .fit-stage-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.75rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .fit-stage-card:hover {
+    border-color: rgba(182, 255, 92, 0.4);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .stage-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .stage-phase-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #b6ff5c;
+    background: rgba(182, 255, 92, 0.08);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .stage-timeframe {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #64748b;
+  }
+
+  .stage-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f8f5ec;
+    margin-bottom: 0.5rem;
+  }
+
+  .stage-audience {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .stage-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .stage-recommended-tools {
+    margin-top: auto;
+  }
+
+  .rec-label {
+    display: block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin-bottom: 0.45rem;
+  }
+
+  .rec-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .rec-chip {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    color: #b6ff5c;
+    background: rgba(182, 255, 92, 0.05);
+    border: 1px solid rgba(182, 255, 92, 0.15);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  /* ── 4. Implementation Protocol (Light Canvas) ───────────────────────────── */
+  .implementation-section {
+    position: relative;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .implementation-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .implementation-section .tools-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  .implementation-section .grid-cross { color: rgba(7, 20, 21, 0.25); }
+
+  .protocol-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .protocol-steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .protocol-step-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.85rem;
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    border-radius: 6px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .protocol-step-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(79, 125, 24, 0.35);
+  }
+
+  .step-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+  }
+
+  .step-num {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #4f7d18;
+  }
+
+  .step-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .step-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111113;
+    margin-bottom: 0.65rem;
+  }
+
+  .step-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+
+  /* ── 5. FAQ Section (Light Canvas) ────────────────────────────────────────── */
+  .tools-faq-section {
+    position: relative;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 3rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .tools-faq-section {
+      padding: 3rem 1.5rem 4rem 1.5rem;
+    }
+  }
+
+  .tools-faq-section .tools-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  .tools-faq-section .grid-cross { color: rgba(7, 20, 21, 0.25); }
+
+  .faq-header-wrap {
+    max-width: 52rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .faq-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #4f7d18;
+    margin-bottom: 0.85rem;
+  }
+
+  .faq-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #111113;
+    margin-bottom: 1rem;
+  }
+
+  .faq-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+
+  /* FAQ Accordion */
+  .tools-faq-accordion {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+  }
+
+  .faq-item-row {
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background 0.2s ease;
+  }
+
+  .faq-item-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .faq-index-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4f7d18;
+  }
+
+  .faq-question-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .faq-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: #64748b;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-toggle-icon {
+    color: #111113;
+  }
+
+  .faq-item-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-item-body {
+    max-height: 300px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-answer-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #475569;
+    padding-left: 2.75rem;
+    max-width: 48rem;
+  }
+
+  /* ── Clonix CTA Button ───────────────────────────────────────────────────── */
+  .clonix-cta-button {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    background-color: #b6ff5c;
+    color: #07080b;
+    border-radius: 4px;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    padding: 0.35rem 0.35rem 0.35rem 1.35rem;
+    box-shadow: 0 4px 20px rgba(182, 255, 92, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .clonix-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(182, 255, 92, 0.4);
+  }
+
+  .clonix-cta-button__text {
+    margin-right: 1rem;
+  }
+
+  .clonix-cta-button__box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background-color: #07080b;
+    color: #b6ff5c;
+    border-radius: 3px;
+    transition: transform 0.2s ease;
+  }
+
+  .clonix-cta-button:hover .clonix-cta-button__box {
+    transform: translateX(2px);
+  }
+</style>
+
+<script>
+  function setupToolsPage() {
+    // 1. Discipline Filter Tabs
+    const filterContainer = document.querySelector(".discipline-filters-row");
+    if (filterContainer && !filterContainer.hasAttribute("data-filter-initialized")) {
+      filterContainer.setAttribute("data-filter-initialized", "true");
+      const filterButtons = filterContainer.querySelectorAll("[data-filter]");
+      const toolCards = document.querySelectorAll("[data-tool-card]");
+
+      filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const filterCategory = btn.getAttribute("data-filter") || "all";
+
+          filterButtons.forEach((b) => {
+            b.classList.remove("is-active");
+            b.setAttribute("aria-selected", "false");
+          });
+          btn.classList.add("is-active");
+          btn.setAttribute("aria-selected", "true");
+
+          toolCards.forEach((card) => {
+            const cardCat = card.getAttribute("data-category") || "";
+            if (filterCategory === "all" || cardCat === filterCategory) {
+              (card as HTMLElement).style.display = "flex";
+              (card as HTMLElement).style.opacity = "1";
+            } else {
+              (card as HTMLElement).style.display = "none";
+            }
+          });
+        });
+      });
+    }
+
+    // 2. FAQ Accordion Handler
+    const group = document.querySelector("[data-faq-group]");
+    if (!group || group.hasAttribute("data-faq-initialized")) return;
+    group.setAttribute("data-faq-initialized", "true");
+
+    const items = group.querySelectorAll("[data-faq-item]");
+    items.forEach((item) => {
+      const trigger = item.querySelector("[data-faq-trigger]");
+      const icon = item.querySelector(".faq-toggle-icon");
+
+      trigger?.addEventListener("click", () => {
+        const isExpanded = item.classList.contains("is-expanded");
+
+        items.forEach((other) => {
+          other.classList.remove("is-expanded");
+          const otherTrigger = other.querySelector("[data-faq-trigger]");
+          const otherIcon = other.querySelector(".faq-toggle-icon");
+          if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
+          if (otherIcon) otherIcon.textContent = "+";
+        });
+
+        if (!isExpanded) {
+          item.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", setupToolsPage);
+</script>

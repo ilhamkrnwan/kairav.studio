@@ -17,8 +17,7 @@ import { services } from "../data/services";
 const filterCategories = [
   { id: "all", label: "All Disciplines", count: services.length },
   { id: "Web Experiences", label: "Web Experiences", count: services.filter(s => s.category === "Web Experiences").length },
-  { id: "Search & Visibility", label: "Search & Visibility", count: services.filter(s => s.category === "Search & Visibility").length },
-  { id: "Performance & Systems", label: "Performance & Systems", count: services.filter(s => s.category === "Performance & Systems" || s.category === "Systems & Intelligence" || s.category === "Connected Systems").length },
+  { id: "Systems & Intelligence", label: "Systems & Intelligence", count: services.filter(s => s.category === "Systems & Intelligence").length },
 ];
 
 // 4-Pillar Engineering Methodology
@@ -269,18 +268,13 @@ const servicesFaqs = [
 
             <!-- The 6 Architectural Service Cards -->
             <div class="services-cards-grid" id="services-grid-container">
-              {services.map((service, idx) => {
-                const groupCategory = (service.category === "Performance & Systems" || service.category === "Systems & Intelligence" || service.category === "Connected Systems") 
-                  ? "Performance & Systems" 
-                  : service.category;
-
-                return (
-                  <article
-                    class="service-blueprint-card"
-                    data-service-card
-                    data-category={groupCategory}
-                    style={`--svc-accent: ${service.accent};`}
-                  >
+              {services.map((service, idx) => (
+                <article
+                  class="service-blueprint-card"
+                  data-service-card
+                  data-category={service.category}
+                  style={`--svc-accent: ${service.accent};`}
+                >
                     {/* Top Image Wrap with Grayscale Hover */}
                     <div class="service-card__img-wrap">
                       <img
@@ -354,8 +348,7 @@ const servicesFaqs = [
                       </div>
                     </div>
                   </article>
-                );
-              })}
+                ))}
             </div>
           </div>
         </div>
@@ -1765,55 +1758,63 @@ const servicesFaqs = [
   // Interactive Filter Tabs & FAQ Accordion Handler
   const initServicesPage = () => {
     // 1. Category Filtering
-    const filterButtons = document.querySelectorAll<HTMLButtonElement>("[data-filter]");
-    const serviceCards = document.querySelectorAll<HTMLElement>("[data-service-card]");
+    const filterContainer = document.querySelector(".services-filters-row");
+    if (filterContainer && !filterContainer.hasAttribute("data-filter-initialized")) {
+      filterContainer.setAttribute("data-filter-initialized", "true");
+      const filterButtons = filterContainer.querySelectorAll<HTMLButtonElement>("[data-filter]");
+      const serviceCards = document.querySelectorAll<HTMLElement>("[data-service-card]");
 
-    filterButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const filterCategory = btn.getAttribute("data-filter") || "all";
+      filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const filterCategory = btn.getAttribute("data-filter") || "all";
 
-        filterButtons.forEach((b) => {
-          b.classList.remove("is-active");
-          b.setAttribute("aria-selected", "false");
+          filterButtons.forEach((b) => {
+            b.classList.remove("is-active");
+            b.setAttribute("aria-selected", "false");
+          });
+          btn.classList.add("is-active");
+          btn.setAttribute("aria-selected", "true");
+
+          serviceCards.forEach((card) => {
+            const cardCat = card.getAttribute("data-category") || "";
+            if (filterCategory === "all" || cardCat === filterCategory) {
+              card.style.display = "flex";
+              card.style.opacity = "1";
+            } else {
+              card.style.display = "none";
+            }
+          });
         });
-        btn.classList.add("is-active");
-        btn.setAttribute("aria-selected", "true");
+      });
+    }
 
-        serviceCards.forEach((card) => {
-          const cardCat = card.getAttribute("data-category") || "";
-          if (filterCategory === "all" || cardCat === filterCategory) {
-            card.style.display = "flex";
-            card.style.opacity = "1";
-          } else {
-            card.style.display = "none";
+    // 2. FAQ Accordion Handler
+    const faqContainer = document.querySelector(".services-faq-accordion");
+    if (faqContainer && !faqContainer.hasAttribute("data-faq-initialized")) {
+      faqContainer.setAttribute("data-faq-initialized", "true");
+      const faqRows = faqContainer.querySelectorAll(".faq-item-row");
+      faqRows.forEach((row) => {
+        const trigger = row.querySelector("[data-faq-trigger]");
+        trigger?.addEventListener("click", () => {
+          const isCurrentlyExpanded = row.classList.contains("is-expanded");
+          
+          faqRows.forEach((r) => {
+            r.classList.remove("is-expanded");
+            const t = r.querySelector("[data-faq-trigger]");
+            t?.setAttribute("aria-expanded", "false");
+            const icon = r.querySelector(".faq-toggle-icon");
+            if (icon) icon.textContent = "+";
+          });
+
+          if (!isCurrentlyExpanded) {
+            row.classList.add("is-expanded");
+            trigger.setAttribute("aria-expanded", "true");
+            const icon = row.querySelector(".faq-toggle-icon");
+            if (icon) icon.textContent = "×";
           }
         });
       });
-    });
-
-    // 2. FAQ Accordion Handler
-    const faqRows = document.querySelectorAll(".faq-item-row");
-    faqRows.forEach((row) => {
-      const trigger = row.querySelector("[data-faq-trigger]");
-      trigger?.addEventListener("click", () => {
-        const isCurrentlyExpanded = row.classList.contains("is-expanded");
-        
-        faqRows.forEach((r) => {
-          r.classList.remove("is-expanded");
-          const t = r.querySelector("[data-faq-trigger]");
-          t?.setAttribute("aria-expanded", "false");
-          const icon = r.querySelector(".faq-toggle-icon");
-          if (icon) icon.textContent = "+";
-        });
-
-        if (!isCurrentlyExpanded) {
-          row.classList.add("is-expanded");
-          trigger.setAttribute("aria-expanded", "true");
-          const icon = row.querySelector(".faq-toggle-icon");
-          if (icon) icon.textContent = "×";
-        }
-      });
-    });
+    }
   };
 
   // Support Astro ClientRouter page transitions

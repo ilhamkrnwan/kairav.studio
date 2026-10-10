@@ -1,0 +1,778 @@
+---
+/**
+ * WhyChooseSection.astro (Section 2 - Clonix Approach Layout)
+ * Light architectural contrast section with hairline blueprint borders,
+ * left tag rail, social proof avatars, and interactive 3-card accordion.
+ */
+---
+
+<section class="why-choose-section" id="about" data-why-choose>
+  <div class="why-choose-container">
+    {/* Corner Crosshairs */}
+    <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+    <div class="why-choose-grid">
+      {/* ── Left Rail: Label & Tag ────────────────────────────────────────── */}
+      <aside class="why-choose-rail">
+        <div class="rail-sticky">
+          <div class="rail-tag">
+            <span class="rail-slash">//</span> Why choose Kairav?
+          </div>
+          <div class="rail-pill">
+            <span class="rail-dot" aria-hidden="true"></span>
+            Features & Strategy
+          </div>
+        </div>
+      </aside>
+
+      {/* ── Right Content: Header + Interactive Accordion ───────────────── */}
+      <div class="why-choose-content">
+        {/* ── Header Area ── */}
+        <div class="why-choose-header">
+          <h2 class="why-choose-title">
+            We combine bold creativity with strategy to drive actual results.
+          </h2>
+          <p class="why-choose-desc">
+            From brand identity to custom web architecture and AI automation, every decision we make is rooted in your business goals — not trends, not guesswork.
+          </p>
+
+          <div class="why-choose-action-row">
+            <div class="proof-stack">
+              <div class="avatar-group">
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&fit=crop&crop=faces&q=80"
+                  alt="Founder"
+                  class="avatar-img"
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=faces&q=80"
+                  alt="Tech Lead"
+                  class="avatar-img"
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=96&h=96&fit=crop&crop=faces&q=80"
+                  alt="Designer"
+                  class="avatar-img"
+                  width="36"
+                  height="36"
+                  loading="lazy"
+                />
+              </div>
+              <div class="proof-meta">
+                <div class="proof-stars" aria-label="Rated 4.9 stars out of 5">
+                  <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                  <span class="rating-num">4.9</span>
+                </div>
+                <span class="proof-label">Trusted by 50+ Modern Teams</span>
+              </div>
+            </div>
+
+            <a href="/services" class="why-choose-btn">
+              <span>Explore Solutions</span>
+              <span class="btn-arrow-box" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        {/* ── Mid Divider with Crosshairs ── */}
+        <div class="section-divider-line" aria-hidden="true">
+          <span class="divider-cross cross-left">+</span>
+          <span class="divider-cross cross-right">+</span>
+        </div>
+
+        {/* ── Interactive 3-Card Accordion ── */}
+        <div class="features-accordion" data-accordion-group>
+          {/* Item 01 */}
+          <div class="accordion-item is-expanded" data-accordion-item="1">
+            <button
+              type="button"
+              class="accordion-trigger"
+              data-accordion-trigger
+              aria-expanded="true"
+            >
+              <div class="trigger-left">
+                <span class="item-number">01</span>
+                <span class="item-title">Strategy-First Creative</span>
+              </div>
+              <span class="item-toggle-icon" aria-hidden="true">×</span>
+            </button>
+
+            <div class="accordion-body">
+              <p class="item-summary">
+                Every project begins with a clear strategy — so every design choice, campaign, and deliverable serves your goals.
+              </p>
+
+              <div class="item-expanded-grid">
+                <div class="item-sublist">
+                  <div class="sublist-item">
+                    <h4 class="sublist-title">Brand Positioning</h4>
+                    <p class="sublist-text">Define your market edge</p>
+                  </div>
+                  <div class="sublist-item">
+                    <h4 class="sublist-title">Campaign Planning</h4>
+                    <p class="sublist-text">Map goals to execution</p>
+                  </div>
+                  <div class="sublist-item">
+                    <h4 class="sublist-title">Audience Research</h4>
+                    <p class="sublist-text">Know who you're reaching</p>
+                  </div>
+
+                  <a href="/services" class="sublist-cta">
+                    <span>Explore More</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+
+                <div class="item-media-card">
+                  <img
+                    src="https://framerusercontent.com/images/Yq4KEmqOVkZqrGpcssu03px94.png?width=1376&height=768"
+                    alt="Strategy whiteboard planning meeting"
+                    class="item-media-img"
+                    width="688"
+                    height="384"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Item 02 */}
+          <div class="accordion-item" data-accordion-item="2">
+            <button
+              type="button"
+              class="accordion-trigger"
+              data-accordion-trigger
+              aria-expanded="false"
+            >
+              <div class="trigger-left">
+                <span class="item-number">02</span>
+                <span class="item-title">High-Impact Design</span>
+              </div>
+              <span class="item-toggle-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="accordion-body">
+              <p class="item-summary">
+                We design everything from websites to pitch decks — with a focus on clarity, conversion, and visual storytelling.
+              </p>
+
+              <div class="item-expanded-grid">
+                <div class="item-sublist">
+                  <div class="sublist-item">
+                    <h4 class="sublist-title">Web & UI Design</h4>
+                    <p class="sublist-text">Websites that convert and impress</p>
+                  </div>
+                  <div class="sublist-item">
+                    <h4 class="sublist-title">Brand Identity</h4>
+                    <p class="sublist-text">Visuals and systems that stick</p>
+                  </div>
+                  <div class="sublist-item">
+                    <h4 class="sublist-title">Design Systems</h4>
+                    <p class="sublist-text">Scalable components for long-term speed</p>
+                  </div>
+
+                  <a href="/services" class="sublist-cta">
+                    <span>Explore More</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+
+                <div class="item-media-card">
+                  <img
+                    src="https://framerusercontent.com/images/iixq8RLOqwba1Oy62rZEh6kL4cI.png?width=1376&height=768"
+                    alt="High impact web and interface design"
+                    class="item-media-img"
+                    width="688"
+                    height="384"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Item 03 */}
+          <div class="accordion-item" data-accordion-item="3">
+            <button
+              type="button"
+              class="accordion-trigger"
+              data-accordion-trigger
+              aria-expanded="false"
+            >
+              <div class="trigger-left">
+                <span class="item-number">03</span>
+                <span class="item-title">Performance Marketing & AI</span>
+              </div>
+              <span class="item-toggle-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="accordion-body">
+              <p class="item-summary">
+                We run data-driven campaigns across paid, organic, and AI search — turning digital budgets into predictable growth engines.
+              </p>
+
+              <div class="item-expanded-grid">
+                <div class="item-sublist">
+                  <div class="sublist-item">
+                    <h4 class="sublist-title">Paid Advertising</h4>
+                    <p class="sublist-text">Maximize every dollar on Meta & Google</p>
+                  </div>
+                  <div class="sublist-item">
+                    <h4 class="sublist-title">SEO & AI Discovery</h4>
+                    <p class="sublist-text">Rank and drive discovery across AI assistants</p>
+                  </div>
+                  <div class="sublist-item">
+                    <h4 class="sublist-title">Automated Workflows</h4>
+                    <p class="sublist-text">Integrate tools for hands-off operational scale</p>
+                  </div>
+
+                  <a href="/services" class="sublist-cta">
+                    <span>Explore More</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+
+                <div class="item-media-card">
+                  <img
+                    src="https://framerusercontent.com/images/DSzg39Hm4aY9wgyDlvQ3M0nJ4yw.png?width=1376&height=768"
+                    alt="Performance analytics and data growth dashboards"
+                    class="item-media-img"
+                    width="688"
+                    height="384"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom Crosshairs */}
+    <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--br" aria-hidden="true">+</span>
+  </div>
+</section>
+
+<style>
+  /* ── Canvas & Frame ───────────────────────────────────────────────────────── */
+  .why-choose-section {
+    position: relative;
+    background-color: #f3f4ef;
+    color: #071415;
+    padding: 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .why-choose-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .why-choose-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(7, 20, 21, 0.1);
+    border-right: 1px solid rgba(7, 20, 21, 0.1);
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    background-color: #f3f4ef;
+  }
+
+  /* ── Crosshairs ───────────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.35);
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .cross--tl { top: -7px; left: -5px; }
+  .cross--tr { top: -7px; right: -5px; }
+  .cross--bl { bottom: -7px; left: -5px; }
+  .cross--br { bottom: -7px; right: -5px; }
+
+  /* ── Grid Layout ──────────────────────────────────────────────────────────── */
+  .why-choose-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .why-choose-grid {
+      grid-template-columns: 20% 80%;
+    }
+  }
+
+  /* ── Left Rail ────────────────────────────────────────────────────────────── */
+  .why-choose-rail {
+    padding: 2.25rem 1.5rem;
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+  }
+
+  @media (min-width: 900px) {
+    .why-choose-rail {
+      padding: 3rem 2rem;
+      border-right: 1px solid rgba(7, 20, 21, 0.1);
+      border-bottom: none;
+    }
+  }
+
+  .rail-sticky {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rail-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #071415;
+  }
+
+  .rail-slash {
+    color: #4f7d18;
+    font-weight: 700;
+  }
+
+  .rail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    padding: 0.3rem 0.65rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #2b393b;
+    background-color: rgba(7, 20, 21, 0.05);
+    border: 1px solid rgba(7, 20, 21, 0.1);
+    border-radius: 9999px;
+  }
+
+  .rail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  /* ── Right Content ────────────────────────────────────────────────────────── */
+  .why-choose-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .why-choose-header {
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .why-choose-header {
+      padding: 3.5rem 3rem 2.5rem 3rem;
+    }
+  }
+
+  .why-choose-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: #071415;
+    margin: 0 0 1.25rem 0;
+  }
+
+  .why-choose-desc {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #4a5658;
+    max-width: 680px;
+    margin: 0 0 2.25rem 0;
+  }
+
+  /* Action row: social proof + CTA button */
+  .why-choose-action-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .why-choose-action-row {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .proof-stack {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .avatar-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .avatar-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #f3f4ef;
+    object-fit: cover;
+    margin-left: -10px;
+  }
+
+  .avatar-img:first-child {
+    margin-left: 0;
+  }
+
+  .proof-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .proof-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: #1a2a2b;
+    font-size: 0.85rem;
+  }
+
+  .proof-stars .star {
+    color: #4f7d18;
+  }
+
+  .rating-num {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-left: 0.25rem;
+  }
+
+  .proof-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #617072;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Clonix Dark Button */
+  .why-choose-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    background-color: #071415;
+    color: #f8f5ec;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.65rem 0.65rem 0.65rem 1.35rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+  }
+
+  .why-choose-btn:hover {
+    background-color: #12282a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(7, 20, 21, 0.15);
+  }
+
+  .btn-arrow-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .why-choose-btn:hover .btn-arrow-box {
+    background-color: #b6ff5c;
+    color: #07080b;
+    transform: translateX(2px);
+  }
+
+  /* ── Divider Line ─────────────────────────────────────────────────────────── */
+  .section-divider-line {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(7, 20, 21, 0.1);
+  }
+
+  .divider-cross {
+    position: absolute;
+    top: -7px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.35);
+    user-select: none;
+  }
+
+  .cross-left { left: 0; }
+  .cross-right { right: 0; }
+
+  /* ── Interactive Features Accordion ───────────────────────────────────────── */
+  .features-accordion {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background-color 0.2s ease;
+  }
+
+  .accordion-item:last-child {
+    border-bottom: none;
+  }
+
+  .accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
+    .accordion-trigger {
+      padding: 1.75rem 3rem;
+    }
+  }
+
+  .accordion-trigger:hover {
+    background-color: rgba(7, 20, 21, 0.02);
+  }
+
+  .trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .item-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #071415;
+    letter-spacing: -0.02em;
+    min-width: 2rem;
+  }
+
+  .item-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 700;
+    color: #071415;
+    letter-spacing: -0.02em;
+  }
+
+  .item-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #071415;
+    transition: transform 0.2s ease;
+    user-select: none;
+    line-height: 1;
+  }
+
+  /* Accordion Body */
+  .accordion-body {
+    display: none;
+    padding: 0 1.5rem 2.25rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .accordion-body {
+      padding: 0 3rem 3rem 3rem;
+    }
+  }
+
+  .accordion-item.is-expanded .accordion-body {
+    display: block;
+  }
+
+  .item-summary {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #4a5658;
+    max-width: 720px;
+    margin: 0 0 2rem 0;
+  }
+
+  @media (min-width: 768px) {
+    .item-summary {
+      margin-left: 3.5rem;
+    }
+  }
+
+  /* Expanded Grid: Sublist (left) + Image Card (right) */
+  .item-expanded-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .item-expanded-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      margin-left: 3.5rem;
+    }
+  }
+
+  .item-sublist {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .sublist-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(7, 20, 21, 0.07);
+  }
+
+  .sublist-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #071415;
+    margin: 0;
+  }
+
+  .sublist-text {
+    font-size: 0.88rem;
+    color: #556264;
+    margin: 0;
+  }
+
+  .sublist-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #071415;
+    text-decoration: none;
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+
+  .sublist-cta:hover {
+    gap: 0.75rem;
+    color: #4f7d18;
+  }
+
+  /* Media Card */
+  .item-media-card {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(7, 20, 21, 0.12);
+    box-shadow: 0 10px 30px rgba(7, 20, 21, 0.08);
+    background-color: #071415;
+  }
+
+  .item-media-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .item-media-card:hover .item-media-img {
+    transform: scale(1.02);
+  }
+</style>
+
+<script>
+  const setupWhyChooseAccordion = () => {
+    const container = document.querySelector("[data-why-choose]");
+    if (!container || container.hasAttribute("data-initialized")) return;
+    container.setAttribute("data-initialized", "true");
+
+    const items = container.querySelectorAll("[data-accordion-item]");
+
+    items.forEach((item) => {
+      const trigger = item.querySelector("[data-accordion-trigger]");
+      const icon = item.querySelector(".item-toggle-icon");
+
+      trigger?.addEventListener("click", (e) => {
+        e.preventDefault();
+        const isCurrentlyExpanded = item.classList.contains("is-expanded");
+
+        // Close all items
+        items.forEach((other) => {
+          other.classList.remove("is-expanded");
+          const otherTrigger = other.querySelector("[data-accordion-trigger]");
+          const otherIcon = other.querySelector(".item-toggle-icon");
+          otherTrigger?.setAttribute("aria-expanded", "false");
+          if (otherIcon) otherIcon.textContent = "+";
+        });
+
+        // If it was not open, open it
+        if (!isCurrentlyExpanded) {
+          item.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", setupWhyChooseAccordion);
+  document.addEventListener("astro:page-load", setupWhyChooseAccordion);
+  setupWhyChooseAccordion();
+</script>

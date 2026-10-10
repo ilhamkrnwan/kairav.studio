@@ -1,47 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Button from "../components/common/Button.astro";
-import Container from "../components/common/Container.astro";
-import SectionHeading from "../components/common/SectionHeading.astro";
-import ServiceCard from "../components/cards/ServiceCard.astro";
-import ProjectCard from "../components/cards/ProjectCard.astro";
-import CTASection from "../components/sections/CTASection.astro";
-import FeatureGridSection from "../components/sections/FeatureGridSection.astro";
 import Hero from "../components/sections/Hero.astro";
-import SystemsSection from "../components/sections/SystemsSection.astro";
-import { projects } from "../data/projects";
-import { services } from "../data/services";
-
-const servicePreview = services;
-const projectPreview = projects.slice(0, 3);
-
-const faqs = [
-  {
-    question: "What does Kairav Studio build?",
-    answer:
-      "Kairav Studio builds brand websites, SEO/GEO-ready content structures, custom dashboards, AI integrations, Android applications, IoT dashboards, and API-based systems.",
-  },
-  {
-    question: "Is Kairav Studio only for website projects?",
-    answer:
-      "No. Websites are the main entry point, but the studio can also support scalable digital systems for operations, automation, and product workflows.",
-  },
-  {
-    question: "What makes the website SEO/GEO-ready?",
-    answer:
-      "Clear page intent, structured headings, useful content blocks, internal links, metadata, sitemap support, and service definitions that are easy for search engines and AI assistants to understand.",
-  },
-  {
-    question: "What technology does Kairav Studio use?",
-    answer:
-      "The frontend stack includes Astro, Tailwind CSS, and TypeScript. For backend systems, we use Laravel, Node.js, Supabase, and PostgreSQL. Deployment targets include Vercel, VPS, Docker, and Cloudflare.",
-  },
-  {
-    question: "Who is Kairav Studio for?",
-    answer:
-      "Local brands, small and medium businesses, startups, agencies, restaurants, clinics, education businesses, and companies that need custom internal systems or a stronger digital presence.",
-  },
-];
+import WhyChooseSection from "../components/sections/WhyChooseSection.astro";
+import ServicesNumbersSection from "../components/sections/ServicesNumbersSection.astro";
+import AboutTimelineAwardsSection from "../components/sections/AboutTimelineAwardsSection.astro";
+import ProjectsShowcaseSection from "../components/sections/ProjectsShowcaseSection.astro";
+import TestimonialsCompaniesSection from "../components/sections/TestimonialsCompaniesSection.astro";
+import FaqAccordionSection from "../components/sections/FaqAccordionSection.astro";
 ---
 
 <BaseLayout
@@ -52,193 +17,23 @@ const faqs = [
     {/* ── 1. Hero ─────────────────────────────────────────────────────── */}
     <Hero />
 
-    {/* ── 1b. What we turn into systems ───────────────────────────── */}
-    <SystemsSection />
+    {/* ── 2. Why Choose Us / Strategy & Approach ──────────────────────── */}
+    <WhyChooseSection />
 
-    {/* ── 2. Value Statement (FeatureGridSection) ─────────────────────── */}
-    <FeatureGridSection />
+    {/* ── 3. Services & Our Numbers ───────────────────────────────────── */}
+    <ServicesNumbersSection />
 
-    {/* ── 3. Services ─────────────────────────────────────────────────── */}
-    <section class="section-spacing bg-[var(--color-background-soft)]">
-      <Container>
-        <div class="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-          <SectionHeading
-            eyebrow="Services"
-            title="Focused services for modern digital teams."
-            description="Concise, collaborative work across websites, systems, optimization, and automation."
-          />
-          <Button href="/services" variant="secondary">All Services</Button>
-        </div>
-        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {servicePreview.map((service) => <ServiceCard service={service} />)}
-        </div>
-      </Container>
-    </section>
+    {/* ── 4. About Us, Founder & Awards ───────────────────────────────── */}
+    <AboutTimelineAwardsSection />
 
-    {/* ── 4. Performance ──────────────────────────────────────────────── */}
-    <section class="section-spacing">
-      <Container>
-        <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <SectionHeading
-            eyebrow="Performance"
-            title="Performance is part of the user experience."
-            description="A polished website should also be lightweight, responsive, and structured to keep Core Web Vitals healthy."
-          />
-          <div class="grid gap-4 sm:grid-cols-2">
-            {[
-              { label: "Static-first pages", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>`, accent: "#38bdf8" },
-              { label: "Optimized assets", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>`, accent: "#8b5cf6" },
-              { label: "Clean component structure", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`, accent: "#b6ff5c" },
-              { label: "Reduced JavaScript", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`, accent: "#fbbf24" },
-            ].map((item) => (
-              <div class="icon-card card-surface p-5" style={`--icon-accent: ${item.accent};`}>
-                <div class="icon-card__badge" aria-hidden="true">
-                  <Fragment set:html={item.icon} />
-                </div>
-                <h3 class="mt-4 font-heading text-lg font-semibold text-[var(--color-text)]">{item.label}</h3>
-                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
-                  Practical choices that keep the site fast without sacrificing the brand experience.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Container>
-    </section>
+    {/* ── 5. Our Projects & Featured Showcase ─────────────────────────── */}
+    <ProjectsShowcaseSection />
 
-    {/* ── 5. SEO / GEO ────────────────────────────────────────────────── */}
-    <section class="section-spacing bg-[var(--color-background-soft)]">
-      <Container>
-        <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-          <div class="grid gap-4 sm:grid-cols-2">
-            {[
-              { label: "Technical SEO", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`, accent: "#38bdf8" },
-              { label: "AI-readable structure", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>`, accent: "#8b5cf6" },
-              { label: "Clear service definitions", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>`, accent: "#b6ff5c" },
-              { label: "Useful content blocks", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>`, accent: "#fbbf24" },
-            ].map((item) => (
-              <div class="icon-card card-surface p-5" style={`--icon-accent: ${item.accent};`}>
-                <div class="icon-card__badge" aria-hidden="true">
-                  <Fragment set:html={item.icon} />
-                </div>
-                <h3 class="mt-4 font-heading text-lg font-semibold text-[var(--color-text)]">{item.label}</h3>
-                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
-                  Content and page structure that help humans, search engines, and AI systems understand the business.
-                </p>
-              </div>
-            ))}
-          </div>
-          <SectionHeading
-            eyebrow="SEO / GEO"
-            title="Built for search engines and AI-powered discovery."
-            description="Kairav Studio treats SEO and GEO as a structure problem first: headings, metadata, internal links, entities, and concise content."
-          />
-        </div>
-      </Container>
-    </section>
+    {/* ── 6. Testimonials & Trusted Companies ─────────────────────────── */}
+    <TestimonialsCompaniesSection />
 
-    {/* ── 6. Selected Works ───────────────────────────────────────────── */}
-    <section class="section-spacing">
-      <Container>
-        <div class="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-          <SectionHeading
-            eyebrow="Work"
-            title="A mix of internal, client, experimental, and open-source work."
-            description="The portfolio starts small and grows as projects become ready to share."
-          />
-          <Button href="/works" variant="secondary">View Works</Button>
-        </div>
-        <div class="grid gap-5 md:grid-cols-3">
-          {projectPreview.map((project) => <ProjectCard project={project} />)}
-        </div>
-      </Container>
-    </section>
-
-    {/* ── 7. System Capability ─────────────────────────────────────────── */}
-    <section class="section-spacing bg-[var(--color-background-soft)]">
-      <Container>
-        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <SectionHeading
-            eyebrow="System Capability"
-            title="From high-performance websites to custom digital systems."
-            description="The studio can extend beyond landing pages into dashboards, API platforms, Android apps, IoT dashboards, payment integrations, and automation."
-          />
-          <div class="grid gap-4 sm:grid-cols-2">
-            {[
-              { label: "Admin dashboard", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>`, accent: "#38bdf8" },
-              { label: "Order and inventory system", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>`, accent: "#b6ff5c" },
-              { label: "AI-powered workflow", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>`, accent: "#8b5cf6" },
-              { label: "Android, IoT, and API", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>`, accent: "#fbbf24" },
-            ].map((item) => (
-              <div class="icon-card card-surface p-5" style={`--icon-accent: ${item.accent};`}>
-                <div class="icon-card__badge" aria-hidden="true">
-                  <Fragment set:html={item.icon} />
-                </div>
-                <h3 class="mt-4 font-heading text-lg font-semibold text-[var(--color-text)]">{item.label}</h3>
-                <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
-                  Built around real business needs, with interfaces that stay simple to use.
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Container>
-    </section>
-
-    {/* ── 8. Process ───────────────────────────────────────────────────── */}
-    <section class="section-spacing">
-      <Container>
-        <SectionHeading
-          eyebrow="Process"
-          title="A simple workflow that keeps projects moving."
-          description="Every project starts with clarity, then moves through design, build, review, and launch."
-          align="center"
-        />
-        <div class="mt-10 grid gap-5 md:grid-cols-4">
-          {[
-            { step: "Discover", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`, accent: "#38bdf8" },
-            { step: "Design", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`, accent: "#8b5cf6" },
-            { step: "Build", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`, accent: "#b6ff5c" },
-            { step: "Launch", icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`, accent: "#fbbf24" },
-          ].map((item, index) => (
-            <div class="icon-card card-surface p-5" style={`--icon-accent: ${item.accent};`}>
-              <div class="flex items-center gap-3">
-                <div class="icon-card__badge" aria-hidden="true">
-                  <Fragment set:html={item.icon} />
-                </div>
-                <p class="font-mono text-xs font-semibold text-[var(--color-primary)]">0{index + 1}</p>
-              </div>
-              <h3 class="mt-5 font-heading text-xl font-semibold text-[var(--color-text)]">{item.step}</h3>
-              <p class="mt-3 text-sm leading-6 text-[var(--color-text-soft)]">
-                A clear step with focused output, review notes, and next actions.
-              </p>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </section>
-
-    {/* ── 9. FAQ ───────────────────────────────────────────────────────── */}
-    <section class="section-spacing bg-[var(--color-background-soft)]">
-      <Container>
-        <SectionHeading
-          eyebrow="FAQ"
-          title="Clear answers before the first call."
-          description="Simple context for brands and teams considering a website or digital system project."
-          align="center"
-        />
-        <div class="mx-auto mt-10 grid max-w-4xl gap-4">
-          {faqs.map((faq) => (
-            <article class="card-surface p-6">
-              <h3 class="font-heading text-xl font-semibold text-[var(--color-text)]">{faq.question}</h3>
-              <p class="mt-3 text-sm leading-7 text-[var(--color-text-soft)]">{faq.answer}</p>
-            </article>
-          ))}
-        </div>
-      </Container>
-    </section>
-
-    {/* ── 10. CTA ──────────────────────────────────────────────────────── */}
-    <CTASection />
+    {/* ── 7. Category FAQ Accordion ───────────────────────────────────── */}
+    <FaqAccordionSection />
   </main>
 </BaseLayout>
+

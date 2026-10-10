@@ -1,0 +1,615 @@
+---
+/**
+ * FaqAccordionSection.astro (Section 7 - Clonix Category FAQ Accordion)
+ * Light architectural contrast section with hairline blueprint borders,
+ * left rail tags, category headers, and 2-column Q&A layouts.
+ */
+---
+
+<section class="faq-accordion-section" id="faq" data-faq-section>
+  {/* Ambient Pinwheel Watermark (Top-Right) */}
+  <div class="ambient-pinwheel pinwheel--tr" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" class="pinwheel-svg">
+      <g transform="translate(100, 100)" fill="rgba(255, 255, 255, 0.85)">
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(0)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(45)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(90)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(135)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(180)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(225)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(270)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(315)" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="faq-container">
+    {/* Corner Crosshairs */}
+    <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+    {/* ── ROW 1: Header Band ────────────────────────────────────────────── */}
+    <div class="band-row band-header">
+      <div class="band-rail">
+        <div class="rail-tag">
+          <span class="rail-slash">//</span> FAQs
+        </div>
+      </div>
+
+      <div class="band-main header-main-wrap">
+        <div class="header-copy">
+          <h2 class="faq-title">Got Questions? We've Got Answers.</h2>
+          <p class="faq-desc">
+            Everything you need to know before working with us — no jargon, no fine print.
+          </p>
+        </div>
+
+        <a href="/contact" class="dark-pill-btn">
+          <span>Book a Call</span>
+          <span class="btn-arrow-box" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    {/* Horizontal Hairline Divider with Crosshairs */}
+    <div class="hairline-divider" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ── ROW 2: Questions Answered & Categories Band ───────────────────── */}
+    <div class="band-row band-accordion">
+      <div class="band-rail">
+        <div class="rail-tag">
+          <span class="rail-slash">//</span> Questions Answered
+        </div>
+      </div>
+
+      <div class="band-main">
+        {/* Categories List */}
+        <div class="faq-categories-list" data-faq-group>
+          {/* Category 1: Services & Process (Expanded by default) */}
+          <div class="faq-category-item is-expanded" data-faq-cat="1">
+            <button
+              type="button"
+              class="faq-category-trigger"
+              data-faq-trigger
+              aria-expanded="true"
+            >
+              <div class="trigger-meta-grid">
+                <h3 class="cat-title">Services & Process</h3>
+                <p class="cat-subtitle">
+                  Understand how we work and what to expect when partnering with Kairav.
+                </p>
+              </div>
+              <span class="cat-toggle-icon" aria-hidden="true">×</span>
+            </button>
+
+            <div class="faq-category-body">
+              <div class="qa-pairs-list">
+                <div class="qa-item">
+                  <div class="qa-question">What type of services do you offer?</div>
+                  <div class="qa-answer">
+                    We specialize in branding, web design, and digital marketing — covering everything from strategy to launch.
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="qa-question">How long does a typical project take?</div>
+                  <div class="qa-answer">
+                    Most projects are completed within 3–6 weeks, depending on complexity and feedback speed.
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="qa-question">Can you work with existing brand assets?</div>
+                  <div class="qa-answer">
+                    Yes, we can build upon your current visuals or refresh them for a stronger, more consistent identity.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Category 2: Pricing & Payments */}
+          <div class="faq-category-item" data-faq-cat="2">
+            <button
+              type="button"
+              class="faq-category-trigger"
+              data-faq-trigger
+              aria-expanded="false"
+            >
+              <div class="trigger-meta-grid">
+                <h3 class="cat-title">Pricing & Payments</h3>
+                <p class="cat-subtitle">
+                  Learn about how we price our work and the payment options available.
+                </p>
+              </div>
+              <span class="cat-toggle-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="faq-category-body">
+              <div class="qa-pairs-list">
+                <div class="qa-item">
+                  <div class="qa-question">Do you offer monthly and project-based pricing?</div>
+                  <div class="qa-answer">
+                    Yes. We provide both flexible monthly retainers and fixed-price project options based on your goals.
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="qa-question">What payment methods do you accept?</div>
+                  <div class="qa-answer">
+                    We accept all major cards, bank transfers, and automated invoices for international and local clients.
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="qa-question">Can I upgrade or change my plan later?</div>
+                  <div class="qa-answer">
+                    Absolutely. You can switch, scale, or customize your plan anytime as your needs evolve.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Category 3: Support & Revisions */}
+          <div class="faq-category-item" data-faq-cat="3">
+            <button
+              type="button"
+              class="faq-category-trigger"
+              data-faq-trigger
+              aria-expanded="false"
+            >
+              <div class="trigger-meta-grid">
+                <h3 class="cat-title">Support & Revisions</h3>
+                <p class="cat-subtitle">
+                  Find answers about post-project support, updates, and collaboration.
+                </p>
+              </div>
+              <span class="cat-toggle-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="faq-category-body">
+              <div class="qa-pairs-list">
+                <div class="qa-item">
+                  <div class="qa-question">Do you offer support after project delivery?</div>
+                  <div class="qa-answer">
+                    Yes, we provide post-launch assistance and maintenance to ensure everything runs smoothly after your site or campaign goes live.
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="qa-question">How many revisions are included?</div>
+                  <div class="qa-answer">
+                    Each project includes up to three rounds of revisions to make sure you're fully satisfied with the final result.
+                  </div>
+                </div>
+
+                <div class="qa-item">
+                  <div class="qa-question">How do you handle communication during projects?</div>
+                  <div class="qa-answer">
+                    We stay connected through Slack, WhatsApp, or email, sharing regular progress reports and staging walkthroughs for full transparency.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom Crosshairs */}
+    <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--br" aria-hidden="true">+</span>
+  </div>
+</section>
+
+<style>
+  /* ── Canvas & Section Frame ───────────────────────────────────────────────── */
+  .faq-accordion-section {
+    position: relative;
+    background-color: #f3f4ef;
+    color: #071415;
+    padding: 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .faq-accordion-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  /* ── Ambient Floral Watermark ─────────────────────────────────────────────── */
+  .ambient-pinwheel {
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+    color: rgba(255, 255, 255, 0.75);
+    mix-blend-mode: normal;
+  }
+
+  .pinwheel--tr {
+    top: -140px;
+    right: -120px;
+    transform: rotate(15deg);
+  }
+
+  .pinwheel-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Main Container Box ───────────────────────────────────────────────────── */
+  .faq-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(7, 20, 21, 0.1);
+    border-right: 1px solid rgba(7, 20, 21, 0.1);
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    background-color: rgba(243, 244, 239, 0.7);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+  }
+
+  /* ── Crosshairs ───────────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.35);
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .cross--tl { top: -7px; left: -5px; }
+  .cross--tr { top: -7px; right: -5px; }
+  .cross--bl { bottom: -7px; left: -5px; }
+  .cross--br { bottom: -7px; right: -5px; }
+
+  /* ── Continuous Divider Line ──────────────────────────────────────────────── */
+  .hairline-divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(7, 20, 21, 0.1);
+    z-index: 2;
+  }
+
+  .divider-cross {
+    position: absolute;
+    top: -7px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.35);
+    user-select: none;
+  }
+
+  .cross-left { left: -5px; }
+  .cross-mid {
+    left: 20%;
+    transform: translateX(-50%);
+    display: none;
+  }
+  .cross-right { right: -5px; }
+
+  @media (min-width: 900px) {
+    .cross-mid {
+      display: block;
+    }
+  }
+
+  /* ── Band Rows Architecture ───────────────────────────────────────────────── */
+  .band-row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .band-row {
+      grid-template-columns: 20% 80%;
+    }
+  }
+
+  /* ── Left Rail Cell ───────────────────────────────────────────────────────── */
+  .band-rail {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  @media (min-width: 900px) {
+    .band-rail {
+      padding: 2.75rem 2rem;
+      border-right: 1px solid rgba(7, 20, 21, 0.1);
+      border-bottom: none;
+    }
+  }
+
+  .rail-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #071415;
+  }
+
+  .rail-slash {
+    color: #4f7d18;
+    font-weight: 700;
+  }
+
+  /* ── Main Column Content ──────────────────────────────────────────────────── */
+  .band-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header Band ──────────────────────────────────────────────────────────── */
+  .header-main-wrap {
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .header-main-wrap {
+      padding: 3.25rem 3rem 2.5rem 3rem;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .header-copy {
+    max-width: 620px;
+  }
+
+  .faq-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: #071415;
+    margin: 0 0 1rem 0;
+  }
+
+  .faq-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5658;
+    margin: 0;
+  }
+
+  .dark-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    background-color: #071415;
+    color: #f8f5ec;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.65rem 0.65rem 0.65rem 1.35rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .dark-pill-btn:hover {
+    background-color: #12282a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(7, 20, 21, 0.15);
+  }
+
+  .btn-arrow-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .dark-pill-btn:hover .btn-arrow-box {
+    background-color: #b6ff5c;
+    color: #07080b;
+    transform: translateX(2px);
+  }
+
+  /* ── Categories List ──────────────────────────────────────────────────────── */
+  .faq-categories-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq-category-item {
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background-color 0.2s ease;
+  }
+
+  .faq-category-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-category-trigger {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 30px;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
+    .faq-category-trigger {
+      padding: 2.75rem 3rem;
+    }
+  }
+
+  .faq-category-trigger:hover {
+    background-color: rgba(7, 20, 21, 0.025);
+  }
+
+  .trigger-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .trigger-meta-grid {
+      grid-template-columns: 1fr 1.25fr;
+      align-items: baseline;
+      gap: 2.5rem;
+    }
+  }
+
+  .cat-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.4rem, 2.3vw, 1.95rem);
+    font-weight: 700;
+    color: #617072;
+    letter-spacing: -0.025em;
+    margin: 0;
+    transition: color 0.2s ease;
+  }
+
+  .faq-category-item.is-expanded .cat-title {
+    color: #071415;
+  }
+
+  .faq-category-trigger:hover .cat-title {
+    color: #071415;
+  }
+
+  .cat-subtitle {
+    font-size: 0.95rem;
+    color: #556264;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .cat-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: #071415;
+    line-height: 1;
+    text-align: right;
+    user-select: none;
+  }
+
+  /* ── Category Body ────────────────────────────────────────────────────────── */
+  .faq-category-body {
+    display: none;
+    padding: 0 1.5rem 2.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .faq-category-body {
+      padding: 0 3rem 3rem 3rem;
+    }
+  }
+
+  .faq-category-item.is-expanded .faq-category-body {
+    display: block;
+  }
+
+  .qa-pairs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  .qa-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .qa-item {
+      grid-template-columns: 1fr 1.25fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+  }
+
+  .qa-question {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #071415;
+    line-height: 1.4;
+  }
+
+  .qa-answer {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #4a5658;
+  }
+</style>
+
+<script>
+  const setupFaqAccordion = () => {
+    const container = document.querySelector("[data-faq-group]");
+    if (!container || container.hasAttribute("data-initialized")) return;
+    container.setAttribute("data-initialized", "true");
+
+    const items = container.querySelectorAll("[data-faq-cat]");
+
+    items.forEach((item) => {
+      const trigger = item.querySelector("[data-faq-trigger]");
+      const icon = item.querySelector(".cat-toggle-icon");
+
+      trigger?.addEventListener("click", (e) => {
+        e.preventDefault();
+        const isCurrentlyExpanded = item.classList.contains("is-expanded");
+
+        items.forEach((other) => {
+          other.classList.remove("is-expanded");
+          const otherTrigger = other.querySelector("[data-faq-trigger]");
+          const otherIcon = other.querySelector(".cat-toggle-icon");
+          otherTrigger?.setAttribute("aria-expanded", "false");
+          if (otherIcon) otherIcon.textContent = "+";
+        });
+
+        if (!isCurrentlyExpanded) {
+          item.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", setupFaqAccordion);
+  document.addEventListener("astro:page-load", setupFaqAccordion);
+  setupFaqAccordion();
+</script>

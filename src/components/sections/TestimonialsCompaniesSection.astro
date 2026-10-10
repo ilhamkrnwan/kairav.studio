@@ -1,0 +1,909 @@
+---
+/**
+ * TestimonialsCompaniesSection.astro (Section 6 - Clonix Testimonials & Trusted Companies)
+ * Light architectural contrast section with hairline blueprint borders,
+ * left rail tags, featured review card, card carousel, and trusted companies 8-tile grid.
+ */
+---
+
+<section class="testimonials-companies-section" id="testimonials" data-testimonials-section>
+  {/* Ambient Pinwheel Watermark (Top-Left) */}
+  <div class="ambient-pinwheel pinwheel--tl" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" class="pinwheel-svg">
+      <g transform="translate(100, 100)" fill="rgba(255, 255, 255, 0.85)">
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(0)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(45)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(90)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(135)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(180)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(225)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(270)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(315)" />
+      </g>
+    </svg>
+  </div>
+
+  {/* Ambient Pinwheel Watermark (Bottom-Right) */}
+  <div class="ambient-pinwheel pinwheel--br" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" class="pinwheel-svg">
+      <g transform="translate(100, 100)" fill="rgba(255, 255, 255, 0.85)">
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(0)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(45)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" transform="rotate(90)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" fill="currentColor" transform="rotate(135)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" fill="currentColor" transform="rotate(180)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" fill="currentColor" transform="rotate(225)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" fill="currentColor" transform="rotate(270)" />
+        <path d="M0,0 C24,-45 70,-55 90,-35 C80,-12 45,0 0,0" fill="currentColor" transform="rotate(315)" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="testimonials-container">
+    {/* Corner Crosshairs */}
+    <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+    {/* ── ROW 1: Header Band ────────────────────────────────────────────── */}
+    <div class="band-row band-header">
+      <div class="band-rail">
+        <div class="rail-tag">
+          <span class="rail-slash">//</span> Testimonials
+        </div>
+      </div>
+
+      <div class="band-main header-main-wrap">
+        <div class="header-copy">
+          <h2 class="testimonials-title">Don't Take Our Word for It. Take Theirs.</h2>
+          <p class="testimonials-desc">
+            Our clients are our biggest advocates. Here's what they have to say about working with Kairav Studio.
+          </p>
+        </div>
+
+        <a href="/contact" class="dark-pill-btn">
+          <span>Contact Us</span>
+          <span class="btn-arrow-box" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    {/* Horizontal Hairline Divider with Crosshairs */}
+    <div class="hairline-divider" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ── ROW 2: Featured Review Band ───────────────────────────────────── */}
+    <div class="band-row band-featured">
+      <div class="band-rail rail-featured-badge">
+        <div class="vertical-tag-wrap" aria-hidden="true">
+          FEATURED REVIEW
+        </div>
+      </div>
+
+      <div class="band-main">
+        <div class="featured-review-card">
+          <div class="featured-review-content">
+            <div class="quote-mark" aria-hidden="true">“</div>
+            <blockquote class="featured-quote">
+              Kairav didn't just design a website — they built a platform that tells our story and converts visitors into believers.
+            </blockquote>
+
+            <div class="review-pagination">
+              <span class="pagination-index">01 / 03</span>
+              <div class="pagination-arrows">
+                <button type="button" class="arrow-btn" aria-label="Previous review">‹</button>
+                <button type="button" class="arrow-btn" aria-label="Next review">›</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="featured-author-frame">
+            <img
+              src="https://framerusercontent.com/images/NMDBJVrTVDFVPhOT0z5bCIRdk.png?width=2400&height=2400"
+              alt="Ethan Parker, BrightEdge Media"
+              class="featured-author-img"
+              width="240"
+              height="240"
+              loading="lazy"
+            />
+            <div class="featured-author-meta">
+              <span class="author-name">Ethan Parker</span>
+              <span class="author-company">BrightEdge Media</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Horizontal Hairline Divider with Crosshairs */}
+    <div class="hairline-divider" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ── ROW 3: Testimonials Cards Grid Band ───────────────────────────── */}
+    <div class="band-row band-cards">
+      <div class="band-rail rail-empty" aria-hidden="true">
+        {/* Architectural hairline grid placeholder */}
+      </div>
+
+      <div class="band-main cards-main-wrap">
+        <div class="testimonials-carousel-grid">
+          {/* Card 1: Video Review - Noah Carter */}
+          <div class="testimonial-card card-video">
+            <div class="video-thumb-frame">
+              <img
+                src="https://framerusercontent.com/images/5MChKuwrMnhjGbtXsrwrcWp8h8.png?width=2400&height=2400"
+                alt="Noah Carter, Elevate Creative"
+                class="video-thumb-img"
+                loading="lazy"
+              />
+              <div class="play-badge" aria-label="Play video review">
+                <span class="play-triangle" aria-hidden="true">▶</span>
+              </div>
+              <div class="card-caption-overlay">
+                <span class="card-author-title">Noah Carter</span>
+                <span class="card-author-sub">Elevate Creative</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Quote Review - Tyler Brooks */}
+          <div class="testimonial-card card-quote">
+            <div class="quote-card-header">
+              <img
+                src="https://framerusercontent.com/images/ycjy9zLBKK9pduWZeYakSre6Ig4.png?width=2400&height=2400"
+                alt="Tyler Brooks"
+                class="card-avatar"
+                width="36"
+                height="36"
+                loading="lazy"
+              />
+              <div class="card-meta">
+                <span class="card-author-title">Tyler Brooks</span>
+                <span class="card-author-sub">Launchify</span>
+              </div>
+            </div>
+
+            <div class="card-stars">★★★★★</div>
+            <p class="card-quote-text">
+              "Fast turnarounds, zero hand-holding, and creative output that consistently exceeded our expectations. Highly recommend."
+            </p>
+          </div>
+
+          {/* Card 3: Video Review - Logan Davis */}
+          <div class="testimonial-card card-video">
+            <div class="video-thumb-frame">
+              <img
+                src="https://framerusercontent.com/images/2aREOjBLZVwIVp8mjIq88WEeFG0.png?width=2400&height=2400"
+                alt="Logan Davis, Horizon Labs"
+                class="video-thumb-img"
+                loading="lazy"
+              />
+              <div class="play-badge" aria-label="Play video review">
+                <span class="play-triangle" aria-hidden="true">▶</span>
+              </div>
+              <div class="card-caption-overlay">
+                <span class="card-author-title">Logan Davis</span>
+                <span class="card-author-sub">Horizon Labs</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4: Quote Review - Alex Johnson */}
+          <div class="testimonial-card card-quote">
+            <div class="quote-card-header">
+              <img
+                src="https://framerusercontent.com/images/ma3SkKwbnJSYT5zrIsvpOL0R2g.png?width=2400&height=2400"
+                alt="Alex Johnson"
+                class="card-avatar"
+                width="36"
+                height="36"
+                loading="lazy"
+              />
+              <div class="card-meta">
+                <span class="card-author-title">Alex Johnson</span>
+                <span class="card-author-sub">PixelCore Studio</span>
+              </div>
+            </div>
+
+            <div class="card-stars">★★★★★</div>
+            <p class="card-quote-text">
+              "From day one, Kairav nailed our brand voice. The design quality and strategic thinking were on another level entirely."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Horizontal Hairline Divider with Crosshairs */}
+    <div class="hairline-divider" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ── ROW 4: Trusted Companies Band ─────────────────────────────────── */}
+    <div class="band-row band-companies">
+      <div class="band-rail">
+        <div class="rail-tag">
+          <span class="rail-slash">//</span> Trusted Companies
+        </div>
+      </div>
+
+      <div class="band-main">
+        <div class="companies-tiles-grid">
+          {[
+            { name: "Nexora", year: "2025", glyph: "◩" },
+            { name: "Lumix", year: "2025", glyph: "❡" },
+            { name: "Variq", year: "2024", glyph: "◉" },
+            { name: "Orbita", year: "2022", glyph: "❂" },
+            { name: "Zentro", year: "2025", glyph: "◈" },
+            { name: "Clario", year: "2024", glyph: "▲" },
+            { name: "Ravine", year: "2025", glyph: "◬" },
+            { name: "Selvia", year: "2025", glyph: "◑" },
+          ].map((item, index) => (
+            <div class="company-tile" style={`--tile-index: ${index};`}>
+              <div class="tile-top">
+                <span class="company-name">{item.name}</span>
+              </div>
+              <div class="tile-center">
+                <span class="company-glyph" aria-hidden="true">{item.glyph}</span>
+              </div>
+              <div class="tile-bottom">
+                <span class="company-year">{item.year}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom Crosshairs */}
+    <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--br" aria-hidden="true">+</span>
+  </div>
+</section>
+
+<style>
+  /* ── Canvas & Section Frame ───────────────────────────────────────────────── */
+  .testimonials-companies-section {
+    position: relative;
+    background-color: #f3f4ef;
+    color: #071415;
+    padding: 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .testimonials-companies-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  /* ── Ambient Floral Watermark ─────────────────────────────────────────────── */
+  .ambient-pinwheel {
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+    color: rgba(255, 255, 255, 0.75);
+    mix-blend-mode: normal;
+  }
+
+  .pinwheel--tl {
+    top: -120px;
+    left: -120px;
+  }
+
+  .pinwheel--br {
+    bottom: -160px;
+    right: -100px;
+    transform: rotate(25deg);
+  }
+
+  .pinwheel-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Main Container Box ───────────────────────────────────────────────────── */
+  .testimonials-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(7, 20, 21, 0.1);
+    border-right: 1px solid rgba(7, 20, 21, 0.1);
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    background-color: rgba(243, 244, 239, 0.7);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+  }
+
+  /* ── Crosshairs ───────────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.35);
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .cross--tl { top: -7px; left: -5px; }
+  .cross--tr { top: -7px; right: -5px; }
+  .cross--bl { bottom: -7px; left: -5px; }
+  .cross--br { bottom: -7px; right: -5px; }
+
+  /* ── Continuous Divider Line ──────────────────────────────────────────────── */
+  .hairline-divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(7, 20, 21, 0.1);
+    z-index: 2;
+  }
+
+  .divider-cross {
+    position: absolute;
+    top: -7px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.35);
+    user-select: none;
+  }
+
+  .cross-left { left: -5px; }
+  .cross-mid {
+    left: 20%;
+    transform: translateX(-50%);
+    display: none;
+  }
+  .cross-right { right: -5px; }
+
+  @media (min-width: 900px) {
+    .cross-mid {
+      display: block;
+    }
+  }
+
+  /* ── Band Rows Architecture ───────────────────────────────────────────────── */
+  .band-row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .band-row {
+      grid-template-columns: 20% 80%;
+    }
+  }
+
+  /* ── Left Rail Cell ───────────────────────────────────────────────────────── */
+  .band-rail {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  @media (min-width: 900px) {
+    .band-rail {
+      padding: 2.75rem 2rem;
+      border-right: 1px solid rgba(7, 20, 21, 0.1);
+      border-bottom: none;
+    }
+  }
+
+  .rail-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #071415;
+  }
+
+  .rail-slash {
+    color: #4f7d18;
+    font-weight: 700;
+  }
+
+  .rail-featured-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vertical-tag-wrap {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #617072;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  @media (min-width: 900px) {
+    .vertical-tag-wrap {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+    }
+  }
+
+  .rail-empty {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .rail-empty {
+      display: block;
+    }
+  }
+
+  /* ── Main Column Content ──────────────────────────────────────────────────── */
+  .band-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header Band ──────────────────────────────────────────────────────────── */
+  .header-main-wrap {
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .header-main-wrap {
+      padding: 3.25rem 3rem 2.5rem 3rem;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .header-copy {
+    max-width: 620px;
+  }
+
+  .testimonials-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: #071415;
+    margin: 0 0 1rem 0;
+  }
+
+  .testimonials-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5658;
+    margin: 0;
+  }
+
+  .dark-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    background-color: #071415;
+    color: #f8f5ec;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.65rem 0.65rem 0.65rem 1.35rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .dark-pill-btn:hover {
+    background-color: #12282a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(7, 20, 21, 0.15);
+  }
+
+  .btn-arrow-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .dark-pill-btn:hover .btn-arrow-box {
+    background-color: #b6ff5c;
+    color: #07080b;
+    transform: translateX(2px);
+  }
+
+  /* ── Featured Review Card ─────────────────────────────────────────────────── */
+  .featured-review-card {
+    padding: 2.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .featured-review-card {
+      padding: 3.5rem 3rem;
+      grid-template-columns: 1fr 240px;
+      gap: 3rem;
+    }
+  }
+
+  .featured-review-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .quote-mark {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 2.75rem;
+    line-height: 1;
+    color: #071415;
+    user-select: none;
+    margin-bottom: -1rem;
+    opacity: 0.9;
+  }
+
+  .featured-quote {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+    color: #071415;
+    margin: 0;
+  }
+
+  .review-pagination {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .pagination-index {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #617072;
+  }
+
+  .pagination-arrows {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .arrow-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    background-color: rgba(7, 20, 21, 0.06);
+    border: 1px solid rgba(7, 20, 21, 0.12);
+    color: #071415;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .arrow-btn:hover {
+    background-color: #071415;
+    color: #f8f5ec;
+  }
+
+  .featured-author-frame {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .featured-author-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #071415;
+    box-shadow: 0 8px 24px rgba(7, 20, 21, 0.12);
+  }
+
+  .featured-author-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .author-name {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #071415;
+  }
+
+  .author-company {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.75rem;
+    color: #617072;
+  }
+
+  /* ── 4-Cards Grid / Carousel Band ─────────────────────────────────────────── */
+  .testimonials-carousel-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .testimonials-carousel-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials-carousel-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .testimonial-card {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 640px) {
+    .testimonial-card:nth-child(odd) {
+      border-right: 1px solid rgba(7, 20, 21, 0.1);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonial-card {
+      border-right: 1px solid rgba(7, 20, 21, 0.1);
+      border-bottom: none;
+    }
+
+    .testimonial-card:last-child {
+      border-right: none;
+    }
+  }
+
+  /* Video Card */
+  .card-video {
+    padding: 1.5rem;
+  }
+
+  .video-thumb-frame {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background-color: #071415;
+  }
+
+  .video-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.88);
+    transition: transform 0.3s ease;
+  }
+
+  .card-video:hover .video-thumb-img {
+    transform: scale(1.03);
+  }
+
+  .play-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(7, 20, 21, 0.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f8f5ec;
+    font-size: 0.75rem;
+  }
+
+  .card-caption-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 1rem 0.85rem 1rem;
+    background: linear-gradient(to top, rgba(7, 20, 21, 0.95), transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .card-author-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #f8f5ec;
+  }
+
+  .card-author-sub {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    color: #94a3b8;
+  }
+
+  /* Quote Card */
+  .card-quote {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: rgba(7, 20, 21, 0.015);
+  }
+
+  .quote-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .card-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(7, 20, 21, 0.15);
+  }
+
+  .card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .card-quote .card-author-title {
+    color: #071415;
+  }
+
+  .card-quote .card-author-sub {
+    color: #617072;
+  }
+
+  .card-stars {
+    color: #e04f32;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+  }
+
+  .card-quote-text {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #4a5658;
+    margin: 0;
+  }
+
+  /* ── Trusted Companies 8-Tile Grid ────────────────────────────────────────── */
+  .companies-tiles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 640px) {
+    .companies-tiles-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .company-tile {
+    padding: 2.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 170px;
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    border-right: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background-color 0.2s ease;
+  }
+
+  .company-tile:nth-child(2n) {
+    border-right: none;
+  }
+
+  @media (min-width: 640px) {
+    .company-tile:nth-child(2n) {
+      border-right: 1px solid rgba(7, 20, 21, 0.1);
+    }
+    .company-tile:nth-child(4n) {
+      border-right: none;
+    }
+  }
+
+  .company-tile:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  @media (min-width: 640px) {
+    .company-tile:nth-last-child(-n + 4) {
+      border-bottom: none;
+    }
+  }
+
+  .company-tile:hover {
+    background-color: rgba(7, 20, 21, 0.03);
+  }
+
+  .tile-top {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .company-name {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #071415;
+  }
+
+  .tile-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .company-glyph {
+    font-size: 2.25rem;
+    color: #071415;
+    opacity: 0.85;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .company-tile:hover .company-glyph {
+    transform: scale(1.15);
+    color: #4f7d18;
+  }
+
+  .tile-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .company-year {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #8b9bb4;
+  }
+</style>

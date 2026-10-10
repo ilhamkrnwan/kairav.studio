@@ -1,0 +1,1037 @@
+---
+/**
+ * ServicesNumbersSection.astro (Section 3 - Clonix Services & Our Numbers)
+ * Dark obsidian architectural canvas with rotating geometric watermark,
+ * 5-row interactive services accordion, and 4-column metric showcase.
+ */
+---
+
+<section class="services-numbers-section" id="services" data-services-numbers>
+  <div class="section-container">
+    {/* Corner Crosshairs */}
+    <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* PART 1: SERVICES ACCORDION                                            */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <div class="services-block">
+      {/* ── Left Rail: Watermark, Tag & Reviews ── */}
+      <aside class="services-rail">
+        {/* Subtle Rotating Watermark in Left Rail */}
+        <div class="rotor-watermark-rail" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
+            <path
+              d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.6142 50 100C50 72.6142 72.6142 50 100 50C72.6142 50 50 27.6142 50 0Z"
+              fill="currentColor"
+            ></path>
+          </svg>
+        </div>
+
+        <div class="services-rail-inner">
+          <div class="rail-tag">
+            <span class="rail-slash">//</span> Services
+          </div>
+
+          <div class="rating-badge">
+            <div class="rating-star-box">
+              <span class="star-icon">★</span>
+              <span class="rating-val">4.9</span>
+            </div>
+            <span class="rating-sub">Based on 50+ Reviews</span>
+          </div>
+        </div>
+      </aside>
+
+      {/* ── Right Column: Header & 5 Services ── */}
+      <div class="services-main">
+        {/* Header Area */}
+        <div class="services-header">
+          <div class="header-copy">
+            <h2 class="services-title">What We Do Best, And Then Some.</h2>
+            <p class="services-desc">
+              Strategy, design, content, and custom systems — all under one roof, all built to perform.
+            </p>
+          </div>
+
+          <a href="/services" class="clonix-lime-btn">
+            <span>All Services</span>
+            <span class="btn-arrow-box" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        {/* Divider with Crosshairs */}
+        <div class="hairline-divider" aria-hidden="true">
+          <span class="divider-cross cross-left">+</span>
+          <span class="divider-cross cross-right">+</span>
+        </div>
+
+        {/* 5-Item Services Accordion */}
+        <div class="services-accordion" data-services-accordion>
+          {/* Service 01 */}
+          <div class="service-item is-expanded" data-service-item="1">
+            <button
+              type="button"
+              class="service-trigger"
+              data-service-trigger
+              aria-expanded="true"
+            >
+              <div class="service-trigger-left">
+                <span class="service-index-label">01 / Service</span>
+                <h3 class="service-title">Startup Branding</h3>
+              </div>
+              <div class="service-trigger-right">
+                <div class="service-tag-pills">
+                  <span class="service-tag">Branding</span>
+                  <span class="service-tag">Identity</span>
+                  <span class="service-tag">Positioning</span>
+                </div>
+                <span class="service-toggle-icon" aria-hidden="true">×</span>
+              </div>
+            </button>
+
+            <div class="service-body">
+              <div class="service-banner-frame">
+                <img
+                  src="https://framerusercontent.com/images/OhofBzXELxKg7ciuDOHXnL5uTQc.png?width=1376&height=768"
+                  alt="Startup branding moodboards and sketches"
+                  class="service-banner-img"
+                  width="1200"
+                  height="450"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="service-expanded-footer">
+                <p class="service-expanded-desc">
+                  We build brand identities from scratch — logo, voice, visuals, and strategy — so you launch with clarity and confidence.
+                </p>
+                <a href="/contact" class="service-cta-link">
+                  <span>Get Started</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Service 02 */}
+          <div class="service-item" data-service-item="2">
+            <button
+              type="button"
+              class="service-trigger"
+              data-service-trigger
+              aria-expanded="false"
+            >
+              <div class="service-trigger-left">
+                <span class="service-index-label">02 / Service</span>
+                <h3 class="service-title">Web Design & Architecture</h3>
+              </div>
+              <div class="service-trigger-right">
+                <div class="service-tag-pills">
+                  <span class="service-tag">UI/UX</span>
+                  <span class="service-tag">Development</span>
+                  <span class="service-tag">Conversion</span>
+                </div>
+                <span class="service-toggle-icon" aria-hidden="true">+</span>
+              </div>
+            </button>
+
+            <div class="service-body">
+              <div class="service-banner-frame">
+                <img
+                  src="https://framerusercontent.com/images/1Kse6ZxZaIqYjLtJebeRYG2G8s.png?width=1376&height=768"
+                  alt="Web design and development process"
+                  class="service-banner-img"
+                  width="1200"
+                  height="450"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="service-expanded-footer">
+                <p class="service-expanded-desc">
+                  We design and develop high-converting websites that look sharp, load fast, and turn visitors into paying customers.
+                </p>
+                <a href="/contact" class="service-cta-link">
+                  <span>Get Started</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Service 03 */}
+          <div class="service-item" data-service-item="3">
+            <button
+              type="button"
+              class="service-trigger"
+              data-service-trigger
+              aria-expanded="false"
+            >
+              <div class="service-trigger-left">
+                <span class="service-index-label">03 / Service</span>
+                <h3 class="service-title">Digital Marketing & SEO</h3>
+              </div>
+              <div class="service-trigger-right">
+                <div class="service-tag-pills">
+                  <span class="service-tag">SEO</span>
+                  <span class="service-tag">Paid Ads</span>
+                  <span class="service-tag">Social Media</span>
+                </div>
+                <span class="service-toggle-icon" aria-hidden="true">+</span>
+              </div>
+            </button>
+
+            <div class="service-body">
+              <div class="service-banner-frame">
+                <img
+                  src="https://framerusercontent.com/images/ebxeUkq1qqvXG04ito9B2T0yg6A.png?width=1376&height=768"
+                  alt="Digital marketing analytics and growth"
+                  class="service-banner-img"
+                  width="1200"
+                  height="450"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="service-expanded-footer">
+                <p class="service-expanded-desc">
+                  We run targeted campaigns across search, social, and paid channels that drive real traffic and measurable ROI.
+                </p>
+                <a href="/contact" class="service-cta-link">
+                  <span>Get Started</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Service 04 */}
+          <div class="service-item" data-service-item="4">
+            <button
+              type="button"
+              class="service-trigger"
+              data-service-trigger
+              aria-expanded="false"
+            >
+              <div class="service-trigger-left">
+                <span class="service-index-label">04 / Service</span>
+                <h3 class="service-title">Content Creation & Media</h3>
+              </div>
+              <div class="service-trigger-right">
+                <div class="service-tag-pills">
+                  <span class="service-tag">Copywriting</span>
+                  <span class="service-tag">Video</span>
+                  <span class="service-tag">Storytelling</span>
+                </div>
+                <span class="service-toggle-icon" aria-hidden="true">+</span>
+              </div>
+            </button>
+
+            <div class="service-body">
+              <div class="service-banner-frame">
+                <img
+                  src="https://framerusercontent.com/images/rPuHe16bujQppKTJnkgFk7DPJQ.png?width=1376&height=768"
+                  alt="Content production and storytelling"
+                  class="service-banner-img"
+                  width="1200"
+                  height="450"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="service-expanded-footer">
+                <p class="service-expanded-desc">
+                  We create scroll-stopping content — from brand films to social copy — that builds trust and keeps your audience engaged.
+                </p>
+                <a href="/contact" class="service-cta-link">
+                  <span>Get Started</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Service 05 */}
+          <div class="service-item" data-service-item="5">
+            <button
+              type="button"
+              class="service-trigger"
+              data-service-trigger
+              aria-expanded="false"
+            >
+              <div class="service-trigger-left">
+                <span class="service-index-label">05 / Service</span>
+                <h3 class="service-title">AI Automation & Workflows</h3>
+              </div>
+              <div class="service-trigger-right">
+                <div class="service-tag-pills">
+                  <span class="service-tag">Workflows</span>
+                  <span class="service-tag">AI Tools</span>
+                  <span class="service-tag">Efficiency</span>
+                </div>
+                <span class="service-toggle-icon" aria-hidden="true">+</span>
+              </div>
+            </button>
+
+            <div class="service-body">
+              <div class="service-banner-frame">
+                <img
+                  src="https://framerusercontent.com/images/dynhmneOOuqyizRngVjQ72c76w.png?width=1376&height=768"
+                  alt="AI automation and system integrations"
+                  class="service-banner-img"
+                  width="1200"
+                  height="450"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="service-expanded-footer">
+                <p class="service-expanded-desc">
+                  We integrate smart automation into your operational stack — email flows, lead scoring, and reporting — so you scale without overhead.
+                </p>
+                <a href="/contact" class="service-cta-link">
+                  <span>Get Started</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* PART 2: OUR NUMBERS                                                   */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <div class="numbers-block">
+      {/* ── Mid Horizontal Divider with Crosshairs ── */}
+      <div class="hairline-divider" aria-hidden="true">
+        <span class="divider-cross cross-left">+</span>
+        <span class="divider-cross cross-right">+</span>
+      </div>
+
+      <div class="numbers-grid">
+        {/* Left Rail */}
+        <aside class="numbers-rail">
+          <div class="rail-tag">
+            <span class="rail-slash">//</span> Our Numbers
+          </div>
+        </aside>
+
+        {/* Right Main Content */}
+        <div class="numbers-main">
+          <h2 class="numbers-headline">
+            We don't just make things look good. We build systems that drive growth, spark engagement, and turn audiences into customers.
+          </h2>
+
+          <div class="stats-row">
+            {/* Stat 1 */}
+            <div class="stat-col">
+              <div class="stat-metric">250<span class="stat-plus">+</span></div>
+              <p class="stat-label">
+                Projects shipped for brands that refuse to blend in.
+              </p>
+            </div>
+
+            {/* Stat 2 */}
+            <div class="stat-col">
+              <div class="stat-metric">98<span class="stat-plus">%</span></div>
+              <p class="stat-label">
+                Client retention rate — they come back because it works.
+              </p>
+            </div>
+
+            {/* Stat 3 */}
+            <div class="stat-col">
+              <div class="stat-metric">50k<span class="stat-plus">+</span></div>
+              <p class="stat-label">
+                Monthly visitors driven through high-impact creative work.
+              </p>
+            </div>
+
+            {/* Video Preview Card */}
+            <div class="stat-video-col">
+              <div class="stat-video-card">
+                <img
+                  src="https://framerusercontent.com/images/XkT3lysaxfB99sawPIX2Kr2yh4.png?width=2048&height=2048"
+                  alt="Team collaboration session"
+                  class="stat-video-thumb"
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                />
+                <div class="stat-play-btn" aria-label="Play showcase reel">
+                  <span class="play-arrow" aria-hidden="true">▶</span>
+                </div>
+              </div>
+              <p class="stat-video-caption">Watch how we scale up businesses.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom Crosshairs */}
+    <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--br" aria-hidden="true">+</span>
+  </div>
+</section>
+
+<style>
+  /* ── Canvas & Frame ───────────────────────────────────────────────────────── */
+  .services-numbers-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .services-numbers-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .section-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: #07080b;
+  }
+
+  /* ── Crosshairs ───────────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .cross--tl { top: -7px; left: -5px; }
+  .cross--tr { top: -7px; right: -5px; }
+  .cross--bl { bottom: -7px; left: -5px; }
+  .cross--br { bottom: -7px; right: -5px; }
+
+  /* ── Section Dividers ─────────────────────────────────────────────────────── */
+  .hairline-divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .divider-cross {
+    position: absolute;
+    top: -7px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.35);
+    user-select: none;
+  }
+
+  .cross-left { left: 0; }
+  .cross-right { right: 0; }
+
+  /* ═══════════════════════════════════════════════════════════════════════════ */
+  /* PART 1: SERVICES LAYOUT                                                    */
+  /* ═══════════════════════════════════════════════════════════════════════════ */
+  .services-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .services-block {
+      grid-template-columns: 20% 80%;
+    }
+  }
+
+  /* Left Rail */
+  .services-rail {
+    position: relative;
+    padding: 2.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  @media (min-width: 900px) {
+    .services-rail {
+      padding: 3rem 2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: none;
+    }
+  }
+
+  .rotor-watermark-rail {
+    position: absolute;
+    top: 5rem;
+    left: -4rem;
+    width: 220px;
+    height: 220px;
+    pointer-events: none;
+    opacity: 0.07;
+    color: #b6ff5c;
+    animation: slowSpin 36s linear infinite;
+  }
+
+  @keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .rotor-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .services-rail-inner {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .rail-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #f8f5ec;
+  }
+
+  .rail-slash {
+    color: #b6ff5c;
+    font-weight: 700;
+  }
+
+  .rating-badge {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .rating-star-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    align-self: flex-start;
+    padding: 0.25rem 0.55rem;
+    background-color: rgba(182, 255, 92, 0.1);
+    border: 1px solid rgba(182, 255, 92, 0.25);
+    border-radius: 4px;
+    color: #b6ff5c;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .star-icon {
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+
+  .rating-sub {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #8b9bb4;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Right Main Content */
+  .services-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .services-header {
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .services-header {
+      padding: 3.5rem 3rem 2.5rem 3rem;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .header-copy {
+    max-width: 680px;
+  }
+
+  .services-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: #f8f5ec;
+    margin: 0 0 1rem 0;
+  }
+
+  .services-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin: 0;
+  }
+
+  /* Clonix Lime Button */
+  .clonix-lime-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    background-color: #b6ff5c;
+    color: #07080b;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.65rem 0.65rem 0.65rem 1.35rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .clonix-lime-btn:hover {
+    background-color: #c7ff7d;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(182, 255, 92, 0.35);
+  }
+
+  .btn-arrow-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: #07080b;
+    color: #b6ff5c;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease;
+  }
+
+  .clonix-lime-btn:hover .btn-arrow-box {
+    transform: translateX(2px);
+  }
+
+  /* ── Services Accordion ───────────────────────────────────────────────────── */
+  .services-accordion {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color 0.2s ease;
+  }
+
+  .service-item:last-child {
+    border-bottom: none;
+  }
+
+  .service-trigger {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
+    .service-trigger {
+      padding: 1.75rem 3rem;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .service-trigger:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+
+  .service-trigger-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .service-index-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .service-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+    font-weight: 700;
+    color: #f8f5ec;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .service-trigger-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .service-tag-pills {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .service-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: #94a3b8;
+  }
+
+  .service-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #f8f5ec;
+    line-height: 1;
+    user-select: none;
+    min-width: 1.5rem;
+    text-align: right;
+  }
+
+  /* Service Body (Expanded state) */
+  .service-body {
+    display: none;
+    padding: 0 1.5rem 2.25rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .service-body {
+      padding: 0 3rem 3rem 3rem;
+    }
+  }
+
+  .service-item.is-expanded .service-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .service-banner-frame {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+    background-color: #0d1117;
+  }
+
+  .service-banner-img {
+    width: 100%;
+    height: auto;
+    max-height: 380px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .service-banner-frame:hover .service-banner-img {
+    transform: scale(1.015);
+  }
+
+  .service-expanded-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .service-expanded-footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .service-expanded-desc {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #94a3b8;
+    max-width: 700px;
+    margin: 0;
+  }
+
+  .service-cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #b6ff5c;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+
+  .service-cta-link:hover {
+    gap: 0.75rem;
+    color: #d4ff99;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════ */
+  /* PART 2: OUR NUMBERS LAYOUT                                                 */
+  /* ═══════════════════════════════════════════════════════════════════════════ */
+  .numbers-block {
+    position: relative;
+  }
+
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .numbers-grid {
+      grid-template-columns: 20% 80%;
+    }
+  }
+
+  .numbers-rail {
+    padding: 2.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  @media (min-width: 900px) {
+    .numbers-rail {
+      padding: 3rem 2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: none;
+    }
+  }
+
+  .numbers-main {
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .numbers-main {
+      padding: 3.5rem 3rem 4rem 3rem;
+    }
+  }
+
+  .numbers-headline {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    color: #f8f5ec;
+    max-width: 820px;
+    margin: 0;
+  }
+
+  /* 4-column Stats Row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 640px) {
+    .stats-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .stats-row {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.75rem;
+    }
+  }
+
+  .stat-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-right: 1rem;
+    border-right: none;
+  }
+
+  @media (min-width: 1024px) {
+    .stat-col {
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  .stat-metric {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2.5rem, 3.5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #f8f5ec;
+  }
+
+  .stat-plus {
+    color: #b6ff5c;
+  }
+
+  .stat-label {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #8b9bb4;
+    margin: 0;
+  }
+
+  /* Video Thumbnail Column */
+  .stat-video-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .stat-video-card {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    background-color: #0d1117;
+    aspect-ratio: 16 / 10;
+  }
+
+  .stat-video-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85);
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  .stat-video-card:hover .stat-video-thumb {
+    transform: scale(1.04);
+    filter: brightness(0.95);
+  }
+
+  .stat-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(7, 8, 11, 0.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f8f5ec;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+  }
+
+  .stat-video-card:hover .stat-play-btn {
+    background-color: #b6ff5c;
+    color: #07080b;
+    border-color: #b6ff5c;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .stat-video-caption {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.75rem;
+    color: #8b9bb4;
+    line-height: 1.4;
+    margin: 0;
+  }
+</style>
+
+<script>
+  const setupServicesAccordion = () => {
+    const container = document.querySelector("[data-services-accordion]");
+    if (!container || container.hasAttribute("data-initialized")) return;
+    container.setAttribute("data-initialized", "true");
+
+    const items = container.querySelectorAll("[data-service-item]");
+
+    items.forEach((item) => {
+      const trigger = item.querySelector("[data-service-trigger]");
+      const icon = item.querySelector(".service-toggle-icon");
+
+      trigger?.addEventListener("click", (e) => {
+        e.preventDefault();
+        const isCurrentlyExpanded = item.classList.contains("is-expanded");
+
+        // Close all items
+        items.forEach((other) => {
+          other.classList.remove("is-expanded");
+          const otherTrigger = other.querySelector("[data-service-trigger]");
+          const otherIcon = other.querySelector(".service-toggle-icon");
+          otherTrigger?.setAttribute("aria-expanded", "false");
+          if (otherIcon) otherIcon.textContent = "+";
+        });
+
+        // If it was not open, open it
+        if (!isCurrentlyExpanded) {
+          item.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", setupServicesAccordion);
+  document.addEventListener("astro:page-load", setupServicesAccordion);
+  setupServicesAccordion();
+</script>

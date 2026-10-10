@@ -127,6 +127,7 @@ const isActive = (href: string) => {
 <script>
   let scrollListener: (() => void) | null = null;
   let keydownListener: ((event: KeyboardEvent) => void) | null = null;
+  let heroObserver: IntersectionObserver | null = null;
 
   const initHeader = () => {
     const siteHeader = document.querySelector("[data-site-header]");
@@ -140,6 +141,27 @@ const isActive = (href: string) => {
       toggle?.setAttribute("aria-expanded", String(open));
       panel?.setAttribute("aria-hidden", String(!open));
     };
+
+    // Clean up previous hero observer
+    if (heroObserver) {
+      heroObserver.disconnect();
+      heroObserver = null;
+    }
+
+    // Adaptive contrast: detect whether user is over a dark hero section
+    const darkHeroEl = document.querySelector("[data-hero-section], [data-works-hero], .works-hero-section, .hero-blueprint, .page-hero");
+    if (darkHeroEl) {
+      heroObserver = new IntersectionObserver(([entry]) => {
+        siteHeader?.classList.toggle("is-dark-hero", entry.isIntersecting);
+      }, {
+        rootMargin: "-20px 0px -70% 0px",
+        threshold: 0
+      });
+      heroObserver.observe(darkHeroEl);
+    } else {
+      const isDarkPage = window.location.pathname.includes("/work");
+      siteHeader?.classList.toggle("is-dark-hero", isDarkPage);
+    }
 
     // Scroll listener cleanup and registration
     if (scrollListener) {

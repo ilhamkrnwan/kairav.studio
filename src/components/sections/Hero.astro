@@ -1,1003 +1,902 @@
 ---
-import { getLangFromUrl, useTranslations } from "../../i18n/ui";
+import { getLangFromUrl, useTranslations, localizePath } from "../../i18n/ui";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<section class="hero-section" data-hero-section>
-  <!-- Background Atmosphere — CSS-generated, no external images -->
+<section class="hero-blueprint" data-hero-section>
+  <!-- Background Atmosphere: ambient glows & architectural hairline column rails -->
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-bg-atmosphere"></div>
-    <div class="hero-bg-dotgrid"></div>
-    <div class="hero-bg-grain"></div>
     <div class="hero-bg-lines"></div>
-    <!-- Coordinate labels — editorial detail -->
-    <span class="hero-coord hero-coord--tl">LAT 7.82° S</span>
-    <span class="hero-coord hero-coord--tr">LON 110.37° E</span>
-    <span class="hero-coord hero-coord--bl">DESIGN SYSTEMS / PERFORMANCE / SCALE</span>
   </div>
 
-  <div class="hero-container">
-    <!-- Left Column: Content -->
-    <div class="hero-content">
-      <span class="hero-label">Design-Led Technology Studio</span>
+  <!-- Giant Ambient Watermark (Rotating Geometric Asterisk on Left) -->
+  <div class="hero-watermark" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="currentColor">
+      <path d="M100 15 C102 45, 115 58, 145 60 C115 62, 102 75, 100 105 C98 75, 85 62, 55 60 C85 58, 98 45, 100 15 Z" transform="rotate(0 100 100)" opacity="0.85" />
+      <path d="M100 15 C102 45, 115 58, 145 60 C115 62, 102 75, 100 105 C98 75, 85 62, 55 60 C85 58, 98 45, 100 15 Z" transform="rotate(45 100 100)" opacity="0.85" />
+      <path d="M100 15 C102 45, 115 58, 145 60 C115 62, 102 75, 100 105 C98 75, 85 62, 55 60 C85 58, 98 45, 100 15 Z" transform="rotate(90 100 100)" opacity="0.85" />
+      <path d="M100 15 C102 45, 115 58, 145 60 C115 62, 102 75, 100 105 C98 75, 85 62, 55 60 C85 58, 98 45, 100 15 Z" transform="rotate(135 100 100)" opacity="0.85" />
+    </svg>
+  </div>
 
-      <h1 class="hero-title">
-        <span class="hero-line">
-          <span class="hero-word">WE</span>
-          <span class="hero-word">CRAFT</span>
-        </span>
-        <span class="hero-line">
-          <span class="hero-word hero-word--accent">DIGITAL</span>
-          <span class="hero-word hero-word--accent">SYSTEMS</span>
-        </span>
-        <span class="hero-line">
-          <span class="hero-word">THAT</span>
-          <span class="hero-word">FEEL</span>
-          <span class="hero-word">ALIVE.</span>
-        </span>
-      </h1>
-
-      <p class="hero-subtitle">
-        Websites, interfaces, and performance systems for brands that need clarity, speed, and long-term digital growth.
-      </p>
-
-      <div class="hero-actions">
-        <a href="/contact" class="btn-cta">
-          <span>{t("Start a Project")}</span>
-          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-        <a href="/works" class="btn-secondary">
-          <span>View Systems</span>
-          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+  <div class="hero-wrapper">
+    <!-- Top System Eyebrow / Coordinate Rail -->
+    <div class="blueprint-meta-bar" data-blueprint-meta>
+      <div class="blueprint-meta-left">
+        <span class="blueprint-status-dot"></span>
+        <span class="blueprint-mono">KAIRAV ARCHITECTURAL GRID · SYSTEM MATRIX</span>
       </div>
-
-      <!-- Trust Strip -->
-      <div class="hero-trust">
-        <span class="hero-trust__item">ASTRO + GSAP</span>
-        <span class="hero-trust__dot" aria-hidden="true"></span>
-        <span class="hero-trust__item">SEO/GEO READY</span>
-        <span class="hero-trust__dot" aria-hidden="true"></span>
-        <span class="hero-trust__item">PERFORMANCE-FIRST</span>
-        <span class="hero-trust__dot" aria-hidden="true"></span>
-        <span class="hero-trust__item">DESIGN SYSTEMS</span>
+      <div class="blueprint-meta-right">
+        <span class="blueprint-mono">LAT 7.82° S · LON 110.37° E · ACTIVE</span>
       </div>
     </div>
 
-    <!-- Right Column: Studio Operating Board -->
-    <div class="hero-visual-wrapper">
-      <div class="hero-board" data-feature-card>
-        <!-- Board Header -->
-        <div class="board-header">
-          <div class="board-header__left">
-            <span class="board-status-dot"></span>
-            <span class="board-header__label">STUDIO OPERATING BOARD</span>
+    <!-- The Architectural Blueprint Grid Box -->
+    <div class="blueprint-grid-box" data-blueprint-box>
+      <!-- Top Rail Crosshairs (+) -->
+      <span class="cross cross--tl" aria-hidden="true">+</span>
+      <span class="cross cross--tc" aria-hidden="true">+</span>
+      <span class="cross cross--tr" aria-hidden="true">+</span>
+
+      <!-- ── UPPER ROW: 3-COLUMN CLONIX HERO MATRIX ────────────────────── -->
+      <div class="hero-upper-deck">
+        
+        <!-- COLUMN 1: Left Rail (// Meet Kairav) -->
+        <div class="hero-col hero-col--rail">
+          <div class="rail-tag">
+            <span class="rail-slashes" aria-hidden="true">//</span>
+            <span class="rail-label">Meet Kairav</span>
           </div>
-          <span class="board-header__status">LIVE SYSTEM</span>
         </div>
 
-        <!-- Performance Score — circular element -->
-        <div class="board-score-section">
-          <div class="board-score">
-            <svg class="board-score__ring" viewBox="0 0 80 80" aria-hidden="true">
-              <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3"/>
-              <circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-dasharray="213.6" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 40 40)" class="board-score__progress"/>
-            </svg>
-            <div class="board-score__value">
-              <span class="board-score__number">100</span>
+        <!-- COLUMN 2: Main Headline, Lead & Founder Proof -->
+        <div class="hero-col hero-col--main">
+          <!-- Main Monumental Heading -->
+          <h1 class="hero-headline">
+            We Build Digital Systems That Demand Attention.
+          </h1>
+
+          <!-- Lead Description -->
+          <p class="hero-description">
+            Kairav Studio is an engineering-first design studio that turns bold ideas into high-velocity brand websites, custom digital systems, and AI-ready architectures.
+          </p>
+
+          <!-- Primary Action Button (Clonix Style with Arrow Box) -->
+          <div class="hero-action-row">
+            <a href={localizePath("/services", lang)} class="clonix-cta-btn" id="hero-cta-btn">
+              <span class="clonix-cta-btn__text">{t("Services")}</span>
+              <span class="clonix-cta-btn__box" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+
+          <!-- Founder / Team Social Proof -->
+          <div class="hero-founders-row">
+            <div class="founders-avatars" aria-hidden="true">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&fit=crop&crop=face"
+                alt="Founder avatar 1"
+                class="founder-avatar"
+                width="36"
+                height="36"
+                loading="eager"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=face"
+                alt="Founder avatar 2"
+                class="founder-avatar"
+                width="36"
+                height="36"
+                loading="eager"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&fit=crop&crop=face"
+                alt="Founder avatar 3"
+                class="founder-avatar"
+                width="36"
+                height="36"
+                loading="eager"
+              />
+            </div>
+            <div class="founders-meta">
+              <span class="founders-label">Founded by</span>
+              <span class="founders-names"><strong>Ilham, Ryan,</strong> and <strong>Core Team</strong></span>
             </div>
           </div>
-          <div class="board-score__meta">
-            <span class="board-score__title">Performance</span>
-            <span class="board-score__sub">Core Web Vitals — Healthy</span>
+
+          <!-- Client / Trust Proof Row -->
+          <div class="hero-trust-bar">
+            <span class="trust-bar-label">Trusted by 50+ Modern Companies</span>
+            <div class="trust-logos-row" aria-label="Trusted client partners">
+              <span class="trust-logo-item">Logoipsum</span>
+              <span class="trust-logo-item">SystemX</span>
+              <span class="trust-logo-item">Nexus AI</span>
+              <span class="trust-logo-item">Avant</span>
+            </div>
           </div>
         </div>
 
-        <!-- Capability list -->
-        <div class="board-capabilities">
-          <div class="board-cap">
-            <span class="board-cap__indicator"></span>
-            <span class="board-cap__text">Design system</span>
-            <span class="board-cap__status">ACTIVE</span>
+        <!-- COLUMN 3: Right Showcase (Award Badge + Phone Mockup + Label) -->
+        <div class="hero-col hero-col--showcase">
+          <!-- Award Badge (Clonix Style) -->
+          <div class="laurel-award-badge" aria-label="Award Winner">
+            <div class="award-laurel-wrap">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" class="laurel-icon" aria-hidden="true">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+              <div class="award-text-col">
+                <span class="award-main">ULTRA PRESTIGIOUS</span>
+                <span class="award-stars">★★★★★</span>
+                <span class="award-sub">WINNER</span>
+              </div>
+            </div>
           </div>
-          <div class="board-cap">
-            <span class="board-cap__indicator"></span>
-            <span class="board-cap__text">Fast build</span>
-            <span class="board-cap__status">READY</span>
+
+          <!-- Featured Work Header -->
+          <div class="featured-work-header">
+            <span class="featured-icon" aria-hidden="true">⚡</span>
+            <span class="featured-label">Featured Work</span>
           </div>
-          <div class="board-cap">
-            <span class="board-cap__indicator"></span>
-            <span class="board-cap__text">SEO/GEO structure</span>
-            <span class="board-cap__status">ACTIVE</span>
-          </div>
-          <div class="board-cap">
-            <span class="board-cap__indicator"></span>
-            <span class="board-cap__text">Scalable frontend</span>
-            <span class="board-cap__status">READY</span>
+
+          <!-- Phone Mockup Container (Mustaka System) -->
+          <a href={localizePath("/works", lang)} class="hero-phone-mockup" aria-label="View Featured Work: Mustaka Automation Platform">
+            <div class="phone-mockup__bezel">
+              <div class="phone-mockup__speaker" aria-hidden="true"></div>
+              <div class="phone-mockup__screen">
+                <div class="phone-screen__header">
+                  <span class="phone-brand">Mustaka</span>
+                  <span class="phone-version">v2.6 Live</span>
+                </div>
+                <div class="phone-screen__body">
+                  <p class="phone-screen__tag">AI & BUSINESS OS</p>
+                  <h3 class="phone-screen__title">
+                    The future of intelligent automation: adaptive workflows, real-time inventory, and edge API.
+                  </h3>
+                  <div class="phone-screen__action">
+                    <span>Tap to explore</span>
+                    <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4"/>
+                    </svg>
+                  </div>
+                </div>
+                <!-- Interactive Phone Mockup Metrics -->
+                <div class="phone-screen__meta">
+                  <span>99.98% Sync</span>
+                  <span class="meta-divider" aria-hidden="true">·</span>
+                  <span>Sub-45ms API</span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Project Caption -->
+          <div class="showcase-caption">
+            <a href={localizePath("/works", lang)} class="showcase-caption-link">
+              Mustaka – AI Automation Platform Launch
+            </a>
           </div>
         </div>
 
-        <!-- Build Timeline — vertical rail -->
-        <div class="board-timeline">
-          <div class="board-timeline__rail" aria-hidden="true"></div>
-          <div class="board-timeline__step">
-            <span class="board-timeline__num">01</span>
-            <span class="board-timeline__label">Discover</span>
-          </div>
-          <div class="board-timeline__step">
-            <span class="board-timeline__num">02</span>
-            <span class="board-timeline__label">Design</span>
-          </div>
-          <div class="board-timeline__step board-timeline__step--active">
-            <span class="board-timeline__num">03</span>
-            <span class="board-timeline__label">Build</span>
-          </div>
-          <div class="board-timeline__step">
-            <span class="board-timeline__num">04</span>
-            <span class="board-timeline__label">Optimize</span>
-          </div>
-        </div>
+      </div>
 
-        <!-- Board Footer -->
-        <div class="board-footer">
-          <div class="board-footer__row">
-            <span>KAIRAV SYSTEMS // ACTIVE</span>
-          </div>
-          <div class="board-footer__row">
-            <span>ASTRO + GSAP // PERFORMANCE-FIRST</span>
-          </div>
+      <!-- ── LOWER ROW: MONUMENTAL HERO SHOWCASE VIDEO / MEDIA CARD ── -->
+      <div class="hero-media-deck">
+        <div class="hero-video-frame">
+          <!-- Glowing Lime Border Around the Video Frame -->
+          <div class="video-frame-border" aria-hidden="true"></div>
+
+          <!-- Video Thumbnail Image (Team Collaboration Session) -->
+          <img
+            src="https://framerusercontent.com/images/jQ4Hi4oiEduhRH7VSroCWQKfILc.png?width=1264&height=848"
+            alt="Kairav Studio engineering team collaborating on digital systems"
+            class="video-thumbnail-img"
+            width="1264"
+            height="848"
+            loading="eager"
+          />
+
+          <!-- Ambient Overlay Gradient -->
+          <div class="video-overlay-gradient" aria-hidden="true"></div>
+
+          <!-- Centered Play Button (Clonix Style) -->
+          <button
+            type="button"
+            class="hero-play-button"
+            id="hero-video-play-btn"
+            aria-label="Play studio collaboration video"
+          >
+            <span class="play-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </span>
+          </button>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
 <style>
   /* ═══════════════════════════════════════════════════════════════════
-     HERO SECTION — Premium Digital Atelier
+     HERO SECTION — CLONIX ARCHITECTURAL BLUEPRINT LAYOUT
+     Dark Obsidian (#07080b) + Neon Lime (#b6ff5c) + Hairline Borders
      ═══════════════════════════════════════════════════════════════════ */
 
-  .hero-section {
+  .hero-blueprint {
     position: relative;
-    width: 100%;
-    min-height: 100svh;
-    background: var(--color-background);
+    background-color: #07080b;
+    color: #f8f5ec;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--color-border);
+    padding-top: clamp(2.5rem, 5vw, 4.5rem);
+    padding-bottom: clamp(3rem, 6vw, 5.5rem);
+    isolation: isolate;
   }
 
-  /* ── Background Atmosphere ───────────────────────────────────────── */
-
+  /* Background Atmosphere */
   .hero-bg {
     position: absolute;
     inset: 0;
-    z-index: 0;
-    overflow: hidden;
     pointer-events: none;
+    z-index: 0;
   }
 
   .hero-bg-atmosphere {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 70% 50% at 20% 50%, rgba(124, 58, 237, 0.03), transparent 70%),
-      radial-gradient(ellipse 60% 60% at 75% 30%, rgba(79, 125, 24, 0.025), transparent 60%),
-      radial-gradient(ellipse 80% 40% at 50% 100%, rgba(2, 132, 199, 0.02), transparent 50%);
-  }
-
-  .hero-bg-dotgrid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(circle, rgba(17, 17, 19, 0.05) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image:
-      radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 80%);
-    -webkit-mask-image:
-      radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 80%);
-  }
-
-  .hero-bg-grain {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.05;
-    mix-blend-mode: soft-light;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
+      radial-gradient(ellipse 65% 50% at 20% 25%, rgba(79, 125, 24, 0.05), transparent 60%),
+      radial-gradient(ellipse 50% 60% at 85% 65%, rgba(182, 255, 92, 0.04), transparent 70%);
   }
 
   .hero-bg-lines {
     position: absolute;
     inset: 0;
-    pointer-events: none;
-    opacity: 0.04;
     background-image:
-      linear-gradient(90deg, rgba(17, 17, 19, 0.1) 1px, transparent 1px);
-    background-size: 300px 100%;
-    mask-image: linear-gradient(180deg, transparent 10%, black 40%, black 60%, transparent 90%);
-    -webkit-mask-image: linear-gradient(180deg, transparent 10%, black 40%, black 60%, transparent 90%);
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 30%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 30%, transparent 90%);
   }
 
-  /* Coordinate labels */
-  .hero-coord {
+  /* Rotating Geometric Watermark on Far Left (Clonix Style) */
+  .hero-watermark {
     position: absolute;
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    color: rgba(17, 17, 19, 0.25);
+    top: 5rem;
+    left: -8rem;
+    width: 32rem;
+    height: 32rem;
+    color: rgba(255, 255, 255, 0.035);
+    pointer-events: none;
     z-index: 1;
-    white-space: nowrap;
+    animation: rotateWatermark 80s linear infinite;
   }
 
-  .hero-coord--tl {
-    top: 6rem;
-    left: clamp(1.25rem, 4vw, 4.75rem);
+  @keyframes rotateWatermark {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
-  .hero-coord--tr {
-    top: 6rem;
-    right: clamp(6rem, 8vw, 9rem);
-  }
-
-  .hero-coord--bl {
-    bottom: 2rem;
-    left: clamp(1.25rem, 4vw, 4.75rem);
-  }
-
-  /* ── Container / Grid ────────────────────────────────────────────── */
-
-  .hero-container {
-    width: 100%;
-    max-width: 92rem;
-    margin: 0 auto;
-    padding: 7rem clamp(1.25rem, 4vw, 4.75rem) 4rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    align-items: center;
+  /* Wrapper */
+  .hero-wrapper {
     position: relative;
     z-index: 2;
-  }
-
-  /* ── Content (Left) ──────────────────────────────────────────────── */
-
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .hero-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--color-primary);
-    margin-bottom: 2rem;
-    position: relative;
-    padding-left: 1.6rem;
-  }
-
-  .hero-label::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 1rem;
-    height: 1px;
-    background: var(--color-primary);
-    transform: translateY(-50%);
-  }
-
-  /* ── Title ───────────────────────────────────────────────────────── */
-
-  .hero-title {
-    font-family: var(--font-heading);
-    font-size: clamp(2.4rem, 7vw, 5rem);
-    font-weight: 600;
-    line-height: 0.94;
-    letter-spacing: -0.025em;
-    text-transform: uppercase;
-    color: var(--color-text);
-    margin-bottom: 2rem;
-  }
-
-  .hero-line {
-    display: block;
-    overflow: hidden;
-    padding-bottom: 0.15em;
-  }
-
-  .hero-word {
-    display: inline-block;
-    will-change: transform, opacity;
-  }
-
-  .hero-word--accent {
-    color: var(--color-text-soft);
-  }
-
-  /* ── Subtitle ────────────────────────────────────────────────────── */
-
-  .hero-subtitle {
-    font-family: var(--font-body);
-    font-size: clamp(1rem, 1.8vw, 1.15rem);
-    line-height: 1.7;
-    color: var(--color-text-soft);
-    max-width: 34rem;
-    margin-bottom: 2.5rem;
-  }
-
-  /* ── CTA Buttons ─────────────────────────────────────────────────── */
-
-  .hero-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
     width: 100%;
-    margin-bottom: 2.5rem;
+    max-width: 88rem;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 3.5rem);
   }
 
-  .btn-cta,
-  .btn-secondary {
-    display: inline-flex;
-    min-height: 3.25rem;
-    align-items: center;
-    justify-content: center;
-    gap: 0.65rem;
-    border-radius: var(--radius-sm);
-    font-family: var(--font-brand);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0 2rem;
-    width: 100%;
-    transition:
-      background 250ms ease,
-      color 250ms ease,
-      border-color 250ms ease,
-      transform 220ms ease,
-      gap 220ms ease;
-  }
-
-  .btn-arrow {
-    width: 0.85rem;
-    height: 0.85rem;
-    transition: transform 250ms ease;
-    flex-shrink: 0;
-  }
-
-  .btn-cta {
-    background: var(--color-text);
-    color: var(--color-background);
-    border: 1px solid var(--color-text);
-  }
-
-  .btn-cta:hover {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: #ffffff;
-    transform: translateY(-2px);
-    gap: 0.9rem;
-  }
-
-  .btn-cta:hover .btn-arrow {
-    transform: translateX(3px);
-  }
-
-  .btn-secondary {
-    border: 1px solid var(--color-border);
-    color: var(--color-text);
-    background: transparent;
-  }
-
-  .btn-secondary:hover {
-    background: var(--color-surface-glass);
-    border-color: var(--color-border-strong);
-    transform: translateY(-2px);
-    gap: 0.9rem;
-  }
-
-  .btn-secondary:hover .btn-arrow {
-    transform: translateX(3px);
-  }
-
-  @media (min-width: 480px) {
-    .hero-actions {
-      flex-direction: row;
-      flex-wrap: wrap;
-      width: auto;
-    }
-
-    .btn-cta,
-    .btn-secondary {
-      width: auto;
-    }
-  }
-
-  /* ── Trust Strip ─────────────────────────────────────────────────── */
-
-  .hero-trust {
+  /* Meta Bar */
+  .blueprint-meta-bar {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .hero-trust__item {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-  }
-
-  .hero-trust__dot {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--color-border);
-    flex-shrink: 0;
-  }
-
-  /* ── ═══════════════════════════════════════════════════════════════════
-     STUDIO OPERATING BOARD (Right Visual)
-     ═══════════════════════════════════════════════════════════════════ ── */
-
-  .hero-visual-wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .hero-board {
-    width: 100%;
-    max-width: 26rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: 0;
-    overflow: hidden;
-    box-shadow:
-      var(--shadow-card),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    will-change: transform, opacity;
-    transition: border-color 280ms ease;
-  }
-
-  .hero-board:hover {
-    border-color: var(--color-border-strong);
-  }
-
-  /* Board Header */
-  .board-header {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0.85rem 1.25rem;
-    border-bottom: 1px solid var(--color-border);
+    align-items: center;
+    padding: 0.5rem 0.25rem 0.85rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: #71717a;
+    text-transform: uppercase;
   }
 
-  .board-header__left {
+  .blueprint-meta-left {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .board-status-dot {
+  .blueprint-status-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--color-primary);
-    box-shadow: 0 0 8px rgba(79, 125, 24, 0.4);
-    animation: boardPulse 3s ease-in-out infinite;
+    background: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.5);
+    animation: heroPulse 2.5s ease-in-out infinite;
   }
 
-  .board-header__label {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
+  @keyframes heroPulse {
+    0%, 100% { opacity: 0.7; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.1); }
   }
 
-  .board-header__status {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--color-primary);
-    text-transform: uppercase;
-    padding: 0.2rem 0.5rem;
-    border: 1px solid rgba(79, 125, 24, 0.15);
-    border-radius: var(--radius-full);
-    background: rgba(79, 125, 24, 0.06);
-  }
-
-  /* Board Score Section */
-  .board-score-section {
-    display: flex;
-    align-items: center;
-    gap: 1.1rem;
-    padding: 1.35rem 1.25rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .board-score {
+  /* Grid Box */
+  .blueprint-grid-box {
     position: relative;
-    width: 68px;
-    height: 68px;
-    flex-shrink: 0;
+    background: #090a0e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.55);
+    border-radius: 4px;
+    overflow: visible;
   }
 
-  .board-score__ring {
-    width: 100%;
-    height: 100%;
-  }
-
-  .board-score__progress {
-    transition: stroke-dashoffset 1.5s ease;
-  }
-
-  .board-score__value {
+  /* Crosshairs (+) */
+  .cross {
     position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    font-family: var(--font-mono, monospace);
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.35);
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
   }
 
-  .board-score__number {
-    font-family: var(--font-heading);
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--color-text);
-    letter-spacing: -0.02em;
+  .cross--tl { top: -7px; left: -7px; }
+  .cross--tr { top: -7px; right: -7px; }
+  .cross--tc { top: -7px; left: 16%; display: none; }
+
+  @media (min-width: 1024px) {
+    .cross--tc { display: block; }
   }
 
-  .board-score__meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  /* ── Upper Deck: 3-Column Layout ──────────────────────────────────── */
+  .hero-upper-deck {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .board-score__title {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-text);
+  @media (min-width: 900px) {
+    .hero-upper-deck {
+      grid-template-columns: 14% 56% 30%;
+    }
   }
 
-  .board-score__sub {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.04em;
-  }
-
-  /* Board Capabilities */
-  .board-capabilities {
-    padding: 0.75rem 1.25rem;
-    border-bottom: 1px solid var(--color-border);
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .board-cap {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.5rem 0;
-  }
-
-  .board-cap + .board-cap {
-    border-top: 1px solid var(--color-border);
-  }
-
-  .board-cap__indicator {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    flex-shrink: 0;
-    opacity: 0.7;
-  }
-
-  .board-cap__text {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    color: var(--color-text-soft);
-    flex: 1;
-  }
-
-  .board-cap__status {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-  }
-
-  /* Board Timeline */
-  .board-timeline {
+  .hero-col {
     position: relative;
-    padding: 1rem 1.25rem;
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--color-border);
+    padding: clamp(1.5rem, 3vw, 2.75rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .board-timeline__rail {
-    position: absolute;
-    top: 50%;
-    left: 1.25rem;
-    right: 1.25rem;
-    height: 1px;
-    background: var(--color-border);
-    transform: translateY(-50%);
+  @media (min-width: 900px) {
+    .hero-col {
+      border-bottom: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-col:last-child {
+      border-right: none;
+    }
   }
 
-  .board-timeline__step {
-    flex: 1;
+  /* Column 1: Left Rail */
+  .hero-col--rail {
+    background: #07080b;
+  }
+
+  .rail-tag {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .board-timeline__num {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    font-weight: 500;
-    color: var(--color-text-muted);
+    gap: 0.4rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
     letter-spacing: 0.08em;
-    width: 24px;
-    height: 24px;
+  }
+
+  .rail-slashes {
+    color: #b6ff5c;
+    font-weight: 700;
+  }
+
+  .rail-label {
+    color: #f8f5ec;
+  }
+
+  /* Column 2: Main Hero Content */
+  .hero-col--main {
+    background: #0a0b10;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .hero-headline {
+    font-family: var(--font-heading, "Inter", sans-serif);
+    font-size: clamp(2.35rem, 4.2vw, 3.85rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    color: #f8f5ec;
+    margin: 0 0 1.25rem 0;
+  }
+
+  .hero-description {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: clamp(0.95rem, 1.2vw, 1.12rem);
+    line-height: 1.55;
+    color: #a1a1aa;
+    margin: 0 0 2rem 0;
+    max-width: 38rem;
+  }
+
+  /* Clonix Style Action Button */
+  .hero-action-row {
+    margin-bottom: 2.25rem;
+  }
+
+  .clonix-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #b6ff5c;
+    color: #07080b;
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 3px 3px 3px 18px;
+    font-family: var(--font-heading, "Inter", sans-serif);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition:
+      transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 200ms ease,
+      box-shadow 200ms ease;
+    box-shadow: 0 8px 24px -6px rgba(182, 255, 92, 0.35);
+  }
+
+  .clonix-cta-btn:hover {
+    background-color: #c9ff7a;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -4px rgba(182, 255, 92, 0.45);
+  }
+
+  .clonix-cta-btn__text {
+    padding-right: 14px;
+  }
+
+  .clonix-cta-btn__box {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: #07080b;
+    color: #ffffff;
+    border-radius: 3px;
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .clonix-cta-btn:hover .clonix-cta-btn__box {
+    transform: translateX(2px);
+  }
+
+  /* Founder Proof Row */
+  .hero-founders-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.75rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .founders-avatars {
+    display: flex;
+    align-items: center;
+  }
+
+  .founder-avatar {
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    background: var(--color-background-soft);
-    border: 1px solid var(--color-border);
-    transition: all 300ms ease;
+    object-fit: cover;
+    border: 2px solid #0a0b10;
+    margin-left: -8px;
   }
 
-  .board-timeline__step--active .board-timeline__num {
-    color: var(--color-background);
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    box-shadow: 0 0 12px rgba(79, 125, 24, 0.25);
+  .founder-avatar:first-child {
+    margin-left: 0;
   }
 
-  .board-timeline__label {
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .board-timeline__step--active .board-timeline__label {
-    color: var(--color-primary);
-  }
-
-  /* Board Footer */
-  .board-footer {
-    padding: 0.7rem 1.25rem;
+  .founders-meta {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.8rem;
+    color: #a1a1aa;
   }
 
-  .board-footer__row {
-    font-family: var(--font-mono);
-    font-size: 0.52rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--color-text-muted);
+  .founders-label {
+    font-size: 0.72rem;
+    color: #71717a;
+    font-family: var(--font-mono, monospace);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .founders-names strong {
+    color: #f8f5ec;
+  }
+
+  /* Client Trust Bar */
+  .hero-trust-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .trust-bar-label {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.68rem;
+    color: #71717a;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
-  /* ── Floating Badges ─────────────────────────────────────────────── */
+  .trust-logos-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+  }
 
-  .hero-float {
-    position: absolute;
-    padding: 0.55rem 0.85rem;
-    background: rgba(13, 13, 15, 0.85);
+  .trust-logo-item {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #8e8e93;
+    transition: color 180ms ease;
+  }
+
+  .trust-logo-item:hover {
+    color: #f8f5ec;
+  }
+
+  /* Column 3: Right Showcase */
+  .hero-col--showcase {
+    background: #090a0e;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Laurel Award Badge (Clonix Style) */
+  .laurel-award-badge {
+    margin-bottom: 1.5rem;
+  }
+
+  .award-laurel-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.4rem 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-full);
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.55);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(8px);
-    z-index: 2;
+    border-radius: 4px;
+  }
+
+  .laurel-icon {
+    color: #b6ff5c;
+  }
+
+  .award-text-col {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .award-main {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #f8f5ec;
+  }
+
+  .award-stars {
+    color: #b6ff5c;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+  }
+
+  .award-sub {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.5rem;
+    color: #71717a;
+    letter-spacing: 0.08em;
+  }
+
+  /* Featured Work Label */
+  .featured-work-header {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
-    white-space: nowrap;
-    will-change: transform, opacity;
-    letter-spacing: 0.06em;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #b6ff5c;
   }
 
-  .dot-pulse {
-    width: 5px;
-    height: 5px;
+  .featured-icon {
+    font-size: 0.8rem;
+  }
+
+  /* Phone Mockup */
+  .hero-phone-mockup {
+    display: block;
+    width: 100%;
+    max-width: 17.5rem;
+    margin: 0 auto 1.25rem;
+    text-decoration: none;
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms ease;
+  }
+
+  .hero-phone-mockup:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  .phone-mockup__bezel {
+    position: relative;
+    background: #06070a;
+    border-radius: 24px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+      0 20px 40px -10px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .phone-mockup__speaker {
+    width: 44px;
+    height: 3.5px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    margin: 4px auto 8px;
+  }
+
+  .phone-mockup__screen {
+    background:
+      radial-gradient(circle at 80% 20%, rgba(79, 125, 24, 0.4), transparent 55%),
+      radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.3), transparent 60%),
+      #0e0f14;
+    border-radius: 16px;
+    padding: 1rem;
+    color: #f8f5ec;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 14.5rem;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .phone-screen__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .phone-brand {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+
+  .phone-version {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: #a1a1aa;
+    letter-spacing: 0.04em;
+  }
+
+  .phone-screen__tag {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: #a1a1aa;
+    margin-bottom: 0.35rem;
+  }
+
+  .phone-screen__title {
+    font-family: var(--font-heading, "Inter", sans-serif);
+    font-size: 0.88rem;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    margin: 0 0 0.85rem 0;
+  }
+
+  .phone-screen__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #b6ff5c;
+  }
+
+  .phone-screen__meta {
+    margin-top: 0.75rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.6rem;
+    color: #a1a1aa;
+  }
+
+  .meta-divider {
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  .showcase-caption {
+    margin-top: 0.5rem;
+  }
+
+  .showcase-caption-link {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: #d4d4d8;
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 180ms ease;
+  }
+
+  .showcase-caption-link:hover {
+    color: #b6ff5c;
+  }
+
+  /* ── LOWER ROW: MONUMENTAL SHOWCASE VIDEO CARD ────────────────────── */
+  .hero-media-deck {
+    padding: clamp(1.5rem, 3.5vw, 3.25rem);
+    background: #08090d;
+  }
+
+  .hero-video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 38rem;
+    border-radius: 4px;
+    overflow: hidden;
+    /* Signature Clonix Glowing Lime Border */
+    border: 2px solid #b6ff5c;
+    box-shadow:
+      0 0 30px rgba(182, 255, 92, 0.25),
+      0 20px 60px rgba(0, 0, 0, 0.7);
+  }
+
+  .video-thumbnail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hero-video-frame:hover .video-thumbnail-img {
+    transform: scale(1.02);
+  }
+
+  .video-overlay-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(7, 8, 11, 0.2) 0%,
+      rgba(7, 8, 11, 0.45) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Centered Interactive Play Button */
+  .hero-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    background: var(--color-primary);
-    box-shadow: 0 0 6px rgba(182, 255, 92, 0.35);
-    animation: boardPulse 3s ease-in-out infinite;
+    background: rgba(7, 8, 11, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #f8f5ec;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition:
+      transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+      background 200ms ease,
+      border-color 200ms ease,
+      box-shadow 240ms ease;
   }
 
-  .float-badge-1 {
-    top: 8%;
-    left: -6%;
+  .hero-play-button:hover {
+    transform: translate(-50%, -50%) scale(1.12);
+    background: rgba(182, 255, 92, 0.95);
+    color: #07080b;
+    border-color: #b6ff5c;
+    box-shadow: 0 0 30px rgba(182, 255, 92, 0.55);
   }
 
-  .float-badge-2 {
-    bottom: 14%;
-    left: -4%;
+  .play-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 3px; /* visual center for play triangle */
   }
 
-  .float-badge-3 {
-    bottom: 6%;
-    right: -3%;
-  }
-
-  @keyframes boardPulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════
-     RESPONSIVE — Desktop
-     ═══════════════════════════════════════════════════════════════════ */
-
-  @media (min-width: 1024px) {
-    .hero-container {
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 4rem;
-      padding-top: 9rem;
-      padding-bottom: 6rem;
-      align-items: center;
-    }
-
-    .hero-title {
-      font-size: clamp(3.2rem, 5.5vw, 5rem);
-      margin-bottom: 1.75rem;
-    }
-
-    .hero-actions {
-      flex-direction: row;
-      width: auto;
-    }
-
-    .btn-cta,
-    .btn-secondary {
-      width: auto;
-    }
-
-    .hero-board {
-      max-width: 24rem;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .hero-container {
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 6rem;
-      padding-top: 10rem;
-      padding-bottom: 7rem;
-    }
-
-    .hero-title {
-      font-size: clamp(4rem, 5.2vw, 5.25rem);
-    }
-
-    .hero-board {
-      max-width: 26rem;
-    }
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════
-     RESPONSIVE — Mobile refinements
-     ═══════════════════════════════════════════════════════════════════ */
-
-  @media (max-width: 1023px) {
-    .hero-coord--tr {
-      display: none;
-    }
-
-    .hero-coord--bl {
-      font-size: 0.5rem;
-    }
-
-    .hero-float {
-      display: none;
-    }
-
-    .hero-board {
-      max-width: 28rem;
-    }
-
-    .hero-trust {
-      gap: 0.4rem;
-    }
-
-    .hero-trust__item {
-      font-size: 0.55rem;
-    }
-  }
-
-  /* ── Reduced motion ──────────────────────────────────────────────── */
-
+  /* ── Reduced Motion ───────────────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
-    .board-status-dot,
-    .dot-pulse {
+    .hero-watermark {
       animation: none !important;
+    }
+    .blueprint-status-dot {
+      animation: none !important;
+    }
+    .clonix-cta-btn,
+    .hero-phone-mockup,
+    .hero-play-button,
+    .video-thumbnail-img {
+      transition: none !important;
+      transform: none !important;
     }
   }
 </style>
 
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
+<script is:inline>
+  const setupHeroVideo = () => {
+    const playBtn = document.getElementById("hero-video-play-btn");
+    if (!playBtn) return;
+    if (playBtn.dataset.listenerAttached) return;
+    playBtn.dataset.listenerAttached = "true";
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  let cleanupFn: (() => void) | null = null;
-
-  const initHeroAnimations = () => {
-    // 1. Clean up any existing instances
-    if (cleanupFn) {
-      cleanupFn();
-      cleanupFn = null;
-    }
-
-    const section = document.querySelector("[data-hero-section]");
-    if (!section) return;
-
-    // Check accessibility setting
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return;
-
-    // Use gsap.context for scoped tracking and leak-free cleanups
-    const ctx = gsap.context(() => {
-      // --- A. Entrance Timeline ---
-      const tl = gsap.timeline();
-
-      // Background atmosphere fade
-      tl.from(".hero-bg-atmosphere", {
-        opacity: 0,
-        duration: 2,
-        ease: "power2.out",
-      }, 0);
-
-      tl.from(".hero-bg-dotgrid", {
-        opacity: 0,
-        scale: 1.05,
-        duration: 2.2,
-        ease: "power2.out",
-      }, 0.2);
-
-      // Coordinate labels
-      tl.from(".hero-coord", {
-        opacity: 0,
-        y: 8,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: "power2.out",
-      }, 0.8);
-
-      // Eyebrow label
-      tl.from(".hero-label", {
-        y: 15,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power2.out",
-      }, 0.3);
-
-      // Title word stagger — cinematic reveal
-      tl.from(".hero-word", {
-        y: "110%",
-        rotate: 2.5,
-        skewY: 3,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.04,
-        ease: "power4.out",
-      }, 0.25);
-
-      // Subtitle
-      tl.from(".hero-subtitle", {
-        y: 18,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power2.out",
-      }, 0.6);
-
-      // CTA
-      tl.from(".hero-actions", {
-        y: 18,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power2.out",
-      }, 0.7);
-
-      // Trust strip items
-      tl.from(".hero-trust__item, .hero-trust__dot", {
-        opacity: 0,
-        y: 8,
-        stagger: 0.04,
-        duration: 0.5,
-        ease: "power2.out",
-      }, 0.85);
-
-      // Board panel — editorial slide in
-      tl.from(".hero-board", {
-        y: 40,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-      }, 0.5);
-
-      // --- B. ScrollTrigger Parallax ---
-
-      // Content fade and lift on scroll
-      gsap.to(".hero-content", {
-        yPercent: -12,
-        opacity: 0.15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      // Board panel parallax
-      gsap.to(".hero-visual-wrapper", {
-        yPercent: -6,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-
-    }, section);
-
-    cleanupFn = () => {
-      ctx.revert();
-    };
+    playBtn.addEventListener("click", () => {
+      // Smooth trigger for reel or contact discussion
+      window.location.href = "/works";
+    });
   };
 
-  // Run on initial load and View Transition swaps
-  document.addEventListener("astro:page-load", initHeroAnimations);
+  document.addEventListener("DOMContentLoaded", setupHeroVideo);
+  document.addEventListener("astro:page-load", setupHeroVideo);
 </script>

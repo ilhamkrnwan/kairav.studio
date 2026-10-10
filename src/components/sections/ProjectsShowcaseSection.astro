@@ -1,0 +1,777 @@
+---
+/**
+ * ProjectsShowcaseSection.astro (Section 5 - Clonix Our Projects & Table)
+ * Dark obsidian architectural canvas with rotating watermark,
+ * featured project showcase card, and interactive project index table.
+ */
+---
+
+<section class="projects-showcase-section" id="works" data-projects-showcase>
+  <div class="projects-container">
+    {/* Corner Crosshairs */}
+    <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+    <div class="projects-grid">
+      {/* ── Left Rail: Watermark & Tags ──────────────────────────────────── */}
+      <aside class="projects-rail">
+        <div class="rotor-watermark-rail" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
+            <path
+              d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.6142 50 100C50 72.6142 72.6142 50 100 50C72.6142 50 50 27.6142 50 0Z"
+              fill="currentColor"
+            ></path>
+          </svg>
+        </div>
+
+        <div class="rail-sticky">
+          <div class="rail-tag">
+            <span class="rail-slash">//</span> Our Projects
+          </div>
+          <div class="rail-tag rail-tag--secondary">
+            <span class="rail-slash">//</span> Featured Project
+          </div>
+        </div>
+      </aside>
+
+      {/* ── Right Main Column: Header, Featured Project, Table ──────────── */}
+      <div class="projects-main">
+        {/* ── Part A: Header ── */}
+        <div class="projects-header-block">
+          <div class="header-copy">
+            <h2 class="projects-title">Work That Speaks Louder Than Pitches.</h2>
+            <p class="projects-desc">
+              Real results for real brands. Here's what happens when bold ideas meet flawless execution.
+            </p>
+          </div>
+
+          <a href="/works" class="clonix-lime-btn">
+            <span>View All Work</span>
+            <span class="btn-arrow-box" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        {/* Divider with Crosshairs */}
+        <div class="hairline-divider" aria-hidden="true">
+          <span class="divider-cross cross-left">+</span>
+          <span class="divider-cross cross-right">+</span>
+        </div>
+
+        {/* ── Part B: Featured Project Showcase Card ── */}
+        <div class="featured-project-card">
+          <div class="featured-meta-header">
+            <div class="client-brand">
+              <div class="client-logo-circle" aria-hidden="true">K</div>
+              <span class="client-name">Mustaka</span>
+            </div>
+
+            <h3 class="featured-project-title">
+              Mustaka – AI Automation Platform Launch
+            </h3>
+
+            <div class="featured-specs-grid">
+              <div class="spec-col">
+                <span class="spec-label">SERVICES</span>
+                <span class="spec-val">AI Automation · Digital Marketing · Web Design</span>
+              </div>
+              <div class="spec-col">
+                <span class="spec-label">SCOPE</span>
+                <span class="spec-val">Product Positioning · Workflow Automation · Launch</span>
+              </div>
+              <div class="spec-col">
+                <span class="spec-label">TIMELINE</span>
+                <span class="spec-val">4 Weeks</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Media Frame */}
+          <div class="featured-media-frame">
+            <div class="media-nav-arrows">
+              <button type="button" class="nav-arrow-btn" aria-label="Previous slide">←</button>
+              <button type="button" class="nav-arrow-btn" aria-label="Next slide">→</button>
+            </div>
+
+            <img
+              src="https://framerusercontent.com/images/9zKvRtHkgdsk6GrAEumhiKXosI.png?width=1376&height=768"
+              alt="Mustaka mobile app launch in hand preview"
+              class="featured-hero-img"
+              width="1300"
+              height="600"
+              loading="lazy"
+            />
+
+            <div class="featured-caption-overlay">
+              <p class="featured-caption-text">
+                We positioned Mustaka as the go-to AI automation tool with a sharp brand narrative, a high-converting website, and a launch campaign that drove 2,000+ signups in week one.
+              </p>
+              <a href="/works" class="featured-case-link">
+                <span>View Case Study</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Divider with Crosshairs */}
+        <div class="hairline-divider" aria-hidden="true">
+          <span class="divider-cross cross-left">+</span>
+          <span class="divider-cross cross-right">+</span>
+        </div>
+
+        {/* ── Part C: Interactive Projects Table ── */}
+        <div class="projects-table-block" data-projects-table>
+          <div class="table-header-row" aria-hidden="true">
+            <span class="th-company">COMPANY</span>
+            <span class="th-service">SERVICE</span>
+            <span class="th-year">YEAR</span>
+            <span class="th-timeline">TIMELINE</span>
+          </div>
+
+          <div class="table-rows-list">
+            {/* Row 1: Clario / Biolearn */}
+            <div class="project-table-row" data-table-row="1">
+              <div class="row-content">
+                <span class="td-company">Biolearn</span>
+                <span class="td-service">Web Application</span>
+                <span class="td-year">2025</span>
+                <span class="td-timeline">6 Weeks</span>
+              </div>
+              <div class="row-preview-banner">
+                <img
+                  src="https://framerusercontent.com/images/2PmXnNCt00qT9vzYVb3QaUnf4zw.png?width=1376&height=768"
+                  alt="Biolearn project banner"
+                  class="row-banner-img"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            {/* Row 2: Lumix / MasjidFlow */}
+            <div class="project-table-row" data-table-row="2">
+              <div class="row-content">
+                <span class="td-company">MasjidFlow</span>
+                <span class="td-service">Brand Architecture</span>
+                <span class="td-year">2025</span>
+                <span class="td-timeline">3 Weeks</span>
+              </div>
+              <div class="row-preview-banner">
+                <img
+                  src="https://framerusercontent.com/images/XjlU11jxUwW1F9YareI2KWN9h7U.png?width=1376&height=768"
+                  alt="MasjidFlow project banner"
+                  class="row-banner-img"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            {/* Row 3: Nexora / StatProv (Active preview by default as shown in reference) */}
+            <div class="project-table-row is-active" data-table-row="3">
+              <div class="row-content">
+                <span class="td-company">StatProv</span>
+                <span class="td-service">Web Design & Systems</span>
+                <span class="td-year">2025</span>
+                <span class="td-timeline">4 Weeks</span>
+              </div>
+              <div class="row-preview-banner">
+                <img
+                  src="https://framerusercontent.com/images/UFrKcEOmaSl26doqir6ihNDhig.png?width=1376&height=768"
+                  alt="StatProv project banner"
+                  class="row-banner-img"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            {/* Row 4: Veloura / Desa Digital */}
+            <div class="project-table-row" data-table-row="4">
+              <div class="row-content">
+                <span class="td-company">Desa Digital</span>
+                <span class="td-service">System Platform</span>
+                <span class="td-year">2025</span>
+                <span class="td-timeline">6 Weeks</span>
+              </div>
+              <div class="row-preview-banner">
+                <img
+                  src="https://framerusercontent.com/images/eidAjOUfrcQoUHpfZzJkhQhq904.png?width=1376&height=768"
+                  alt="Desa Digital project banner"
+                  class="row-banner-img"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom Crosshairs */}
+    <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--br" aria-hidden="true">+</span>
+  </div>
+</section>
+
+<style>
+  /* ── Canvas & Frame ───────────────────────────────────────────────────────── */
+  .projects-showcase-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .projects-showcase-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .projects-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: #07080b;
+  }
+
+  /* ── Crosshairs ───────────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .cross--tl { top: -7px; left: -5px; }
+  .cross--tr { top: -7px; right: -5px; }
+  .cross--bl { bottom: -7px; left: -5px; }
+  .cross--br { bottom: -7px; right: -5px; }
+
+  /* ── Section Dividers ─────────────────────────────────────────────────────── */
+  .hairline-divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .divider-cross {
+    position: absolute;
+    top: -7px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.35);
+    user-select: none;
+  }
+
+  .cross-left { left: 0; }
+  .cross-right { right: 0; }
+
+  /* ── Grid Layout ──────────────────────────────────────────────────────────── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .projects-grid {
+      grid-template-columns: 20% 80%;
+    }
+  }
+
+  /* Left Rail */
+  .projects-rail {
+    position: relative;
+    padding: 2.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  @media (min-width: 900px) {
+    .projects-rail {
+      padding: 3rem 2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: none;
+    }
+  }
+
+  .rotor-watermark-rail {
+    position: absolute;
+    top: 5rem;
+    left: -4rem;
+    width: 220px;
+    height: 220px;
+    pointer-events: none;
+    opacity: 0.07;
+    color: #b6ff5c;
+    animation: slowSpin 36s linear infinite;
+  }
+
+  @keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .rotor-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .rail-sticky {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .rail-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #f8f5ec;
+  }
+
+  .rail-slash {
+    color: #b6ff5c;
+    font-weight: 700;
+  }
+
+  /* Right Main Column */
+  .projects-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  .projects-header-block {
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .projects-header-block {
+      padding: 3.5rem 3rem 2.5rem 3rem;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .header-copy {
+    max-width: 680px;
+  }
+
+  .projects-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: #f8f5ec;
+    margin: 0 0 1rem 0;
+  }
+
+  .projects-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin: 0;
+  }
+
+  /* Clonix Lime Button */
+  .clonix-lime-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    background-color: #b6ff5c;
+    color: #07080b;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.65rem 0.65rem 0.65rem 1.35rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .clonix-lime-btn:hover {
+    background-color: #c7ff7d;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(182, 255, 92, 0.35);
+  }
+
+  .btn-arrow-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: #07080b;
+    color: #b6ff5c;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease;
+  }
+
+  .clonix-lime-btn:hover .btn-arrow-box {
+    transform: translateX(2px);
+  }
+
+  /* ── Featured Project Showcase ────────────────────────────────────────────── */
+  .featured-project-card {
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .featured-project-card {
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  .featured-meta-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .client-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .client-logo-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #f8f5ec;
+    color: #07080b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+
+  .client-name {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #f8f5ec;
+  }
+
+  .featured-project-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: #f8f5ec;
+    margin: 0;
+  }
+
+  .featured-specs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  @media (min-width: 640px) {
+    .featured-specs-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .spec-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .spec-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .spec-val {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    line-height: 1.4;
+  }
+
+  /* Featured Media Frame */
+  .featured-media-frame {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+    background-color: #0b0f14;
+  }
+
+  .media-nav-arrows {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+
+  .nav-arrow-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: rgba(7, 8, 11, 0.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #f8f5ec;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .nav-arrow-btn:hover {
+    background-color: #b6ff5c;
+    color: #07080b;
+    border-color: #b6ff5c;
+  }
+
+  .featured-hero-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 8;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .featured-media-frame:hover .featured-hero-img {
+    transform: scale(1.015);
+  }
+
+  .featured-caption-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(to top, rgba(7, 8, 11, 0.95) 0%, rgba(7, 8, 11, 0.7) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .featured-caption-overlay {
+      padding: 2.5rem 2.5rem;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .featured-caption-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+    max-width: 650px;
+    margin: 0;
+  }
+
+  .featured-case-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #b6ff5c;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+
+  .featured-case-link:hover {
+    gap: 0.75rem;
+    color: #d4ff99;
+  }
+
+  /* ── Interactive Projects Table ───────────────────────────────────────────── */
+  .projects-table-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .table-header-row {
+    display: none;
+    padding: 1.25rem 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  @media (min-width: 768px) {
+    .table-header-row {
+      display: grid;
+      grid-template-columns: 2fr 2fr 1fr 1fr;
+    }
+  }
+
+  .table-rows-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-table-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .project-table-row:last-child {
+    border-bottom: none;
+  }
+
+  .project-table-row:hover,
+  .project-table-row.is-active {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+
+  .row-content {
+    padding: 1.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .row-content {
+      padding: 1.75rem 3rem;
+      grid-template-columns: 2fr 2fr 1fr 1fr;
+      gap: 1rem;
+    }
+  }
+
+  .td-company {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f8f5ec;
+    transition: color 0.2s ease;
+  }
+
+  .project-table-row:hover .td-company,
+  .project-table-row.is-active .td-company {
+    color: #b6ff5c;
+  }
+
+  .td-service {
+    font-size: 0.92rem;
+    color: #94a3b8;
+  }
+
+  .td-year {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    color: #cbd5e1;
+  }
+
+  .td-timeline {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    color: #94a3b8;
+  }
+
+  /* Reveal Banner */
+  .row-preview-banner {
+    display: none;
+    padding: 0 1.5rem 1.75rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .row-preview-banner {
+      padding: 0 3rem 2rem 3rem;
+    }
+  }
+
+  .project-table-row.is-active .row-preview-banner {
+    display: block;
+  }
+
+  .row-banner-img {
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    display: block;
+  }
+</style>
+
+<script>
+  const setupProjectsTable = () => {
+    const container = document.querySelector("[data-projects-table]");
+    if (!container || container.hasAttribute("data-initialized")) return;
+    container.setAttribute("data-initialized", "true");
+
+    const rows = container.querySelectorAll("[data-table-row]");
+
+    rows.forEach((row) => {
+      row.addEventListener("click", () => {
+        const isCurrentlyActive = row.classList.contains("is-active");
+
+        rows.forEach((other) => other.classList.remove("is-active"));
+
+        if (!isCurrentlyActive) {
+          row.classList.add("is-active");
+        }
+      });
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", setupProjectsTable);
+  document.addEventListener("astro:page-load", setupProjectsTable);
+  setupProjectsTable();
+</script>

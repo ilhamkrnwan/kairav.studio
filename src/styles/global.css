@@ -130,9 +130,7 @@ textarea {
   border-radius: 4px;
 }
 
-html.site-menu-open,
-html.site-menu-open body {
-  height: 100%;
+html.site-menu-open {
   overflow: hidden;
 }
 
@@ -362,6 +360,7 @@ html.site-menu-open body {
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
+  overscroll-behavior: contain;
   border-top: 1px solid rgba(8, 8, 8, 0.12);
   background: #f8f5ec;
   color: #111113;
@@ -762,12 +761,14 @@ html.site-menu-open body {
     gap: 1rem;
     color: var(--color-text);
     text-shadow: none;
+    transition: color 250ms ease;
   }
 
   .site-logo__mark {
     width: 3rem;
     height: 3rem;
     filter: brightness(0);
+    transition: filter 250ms ease;
   }
 
   .site-logo__text {
@@ -777,13 +778,30 @@ html.site-menu-open body {
   .site-logo__name {
     font-size: 0.95rem;
     letter-spacing: 0.26em;
+    color: inherit;
   }
 
   .site-logo__studio {
     margin-top: 0.32rem;
     font-size: 0.58rem;
     letter-spacing: 0.42em;
+    color: var(--color-primary);
+    transition: color 250ms ease;
   }
+
+  /* Adaptive contrast: dark hero mode */
+  .site-header.is-dark-hero .site-logo {
+    color: #f8f5ec;
+  }
+
+  .site-header.is-dark-hero .site-logo__mark {
+    filter: none;
+  }
+
+  .site-header.is-dark-hero .site-logo__studio {
+    color: #b6ff5c;
+  }
+
 
   .site-actions {
     position: static;

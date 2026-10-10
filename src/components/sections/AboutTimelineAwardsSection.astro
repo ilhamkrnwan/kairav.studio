@@ -1,0 +1,829 @@
+---
+/**
+ * AboutTimelineAwardsSection.astro (Section 4 - Clonix About, Founder, Timeline, Awards)
+ * Light architectural contrast section with hairline blueprint borders,
+ * left tag rail, founder quote, milestone timeline, and interactive awards table.
+ */
+---
+
+<section class="about-timeline-section" id="story" data-about-section>
+  <div class="about-container">
+    {/* Corner Crosshairs */}
+    <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+    <div class="about-grid">
+      {/* ── Left Rail: Tags & Watermark ───────────────────────────────────── */}
+      <aside class="about-rail">
+        <div class="rail-sticky">
+          <div class="rail-tag">
+            <span class="rail-slash">//</span> About Us
+          </div>
+          <div class="rail-tag rail-tag--secondary">
+            <span class="rail-slash">//</span> Founder's Words
+          </div>
+        </div>
+      </aside>
+
+      {/* ── Right Content: Header, Founder, Timeline, Awards ────────────── */}
+      <div class="about-main">
+        {/* ── Part A: About Header ── */}
+        <div class="about-header-block">
+          <div class="header-copy">
+            <h2 class="about-title">Built Different. On Purpose.</h2>
+            <p class="about-desc">
+              Kairav Studio exists because average creative work is everywhere — and we're not interested in average.
+            </p>
+          </div>
+
+          <a href="/works" class="dark-pill-btn">
+            <span>Explore Our Projects</span>
+            <span class="btn-arrow-box" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        {/* Divider with Crosshairs */}
+        <div class="hairline-divider" aria-hidden="true">
+          <span class="divider-cross cross-left">+</span>
+          <span class="divider-cross cross-right">+</span>
+        </div>
+
+        {/* ── Part B: Founder's Words Card ── */}
+        <div class="founder-card">
+          <div class="founder-photo-frame">
+            <img
+              src="https://framerusercontent.com/images/PNmPyGhempuWhqDR4gzaE5M6gvA.jpeg?width=896&height=960"
+              alt="Founder of Kairav Studio"
+              class="founder-photo"
+              width="360"
+              height="380"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="founder-quote-block">
+            <div class="quote-mark" aria-hidden="true">“</div>
+            <blockquote class="quote-text">
+              We started Kairav Studio because we were tired of seeing great brands settle for forgettable work. Every project we take on is a chance to prove that bold creative, sharp strategy, and relentless execution can change the trajectory of a business.
+            </blockquote>
+
+            <div class="founder-meta">
+              <span class="founder-name">Ilham Kurniawan</span>
+              <span class="founder-role">Founder @Kairav Studio</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Divider with Crosshairs */}
+        <div class="hairline-divider" aria-hidden="true">
+          <span class="divider-cross cross-left">+</span>
+          <span class="divider-cross cross-right">+</span>
+        </div>
+
+        {/* ── Part C: Timeline / Milestones Grid ── */}
+        <div class="timeline-grid">
+          {/* Milestone 1 */}
+          <div class="timeline-cell cell-left">
+            <span class="timeline-year"><span class="rail-slash">//</span> 2022</span>
+            <h3 class="timeline-title">The Spark</h3>
+            <p class="timeline-desc">
+              Three creatives with agency burnout decided to build something better — a studio that actually delivers.
+            </p>
+          </div>
+
+          {/* Milestone 2 */}
+          <div class="timeline-cell cell-right">
+            <span class="timeline-year"><span class="rail-slash">//</span> 2023</span>
+            <h3 class="timeline-title">Full Throttle</h3>
+            <p class="timeline-desc">
+              We scaled from branding-only to a full-service creative, web architecture, and marketing powerhouse. No fluff, all execution.
+            </p>
+          </div>
+
+          {/* Milestone 3 */}
+          <div class="timeline-cell cell-left">
+            <span class="timeline-year"><span class="rail-slash">//</span> 2024</span>
+            <h3 class="timeline-title">Global & Local Reach</h3>
+            <p class="timeline-desc">
+              Clients across 12 countries. New frameworks for performance marketing, automation, and cross-channel campaigns.
+            </p>
+          </div>
+
+          {/* Milestone 4 */}
+          <div class="timeline-cell cell-right">
+            <span class="timeline-year"><span class="rail-slash">//</span> 2025</span>
+            <h3 class="timeline-title">Raising the Bar</h3>
+            <p class="timeline-desc">
+              250+ projects shipped. Industry recognition stacking up. And we're just getting started.
+            </p>
+          </div>
+        </div>
+
+        {/* Divider with Crosshairs */}
+        <div class="hairline-divider" aria-hidden="true">
+          <span class="divider-cross cross-left">+</span>
+          <span class="divider-cross cross-right">+</span>
+        </div>
+
+        {/* ── Part D: Recognition / Awards Table & Accordion ── */}
+        <div class="awards-block" data-awards-group>
+          <div class="awards-header">
+            <h2 class="awards-title">Why Brands Call Us the #1 Creative Agency?</h2>
+            <p class="awards-subtitle">
+              Our work has been recognized by the industry's toughest critics.
+            </p>
+          </div>
+
+          <div class="awards-table-header" aria-hidden="true">
+            <span class="th-col col-no">No</span>
+            <span class="th-col col-award">Recognition</span>
+            <span class="th-col col-year">Year</span>
+          </div>
+
+          <div class="awards-list">
+            {/* Award 01 */}
+            <div class="award-item is-expanded" data-award-item="1">
+              <button
+                type="button"
+                class="award-trigger"
+                data-award-trigger
+                aria-expanded="true"
+              >
+                <span class="award-no"><span class="rail-slash">//</span> 01</span>
+                <span class="award-name">Best Creative Agency</span>
+                <span class="award-year">2022</span>
+                <span class="award-toggle" aria-hidden="true">×</span>
+              </button>
+
+              <div class="award-body">
+                <p class="award-desc">
+                  Recognized for bold, strategy-driven creative work that helped brands break through saturated markets.
+                </p>
+                <div class="award-media-frame">
+                  <img
+                    src="https://framerusercontent.com/images/aHX2BnKMKr0LkJqGw1RcII9s5bQ.png?width=2176&height=1536"
+                    alt="Creative agency team award recognition"
+                    class="award-img"
+                    width="1000"
+                    height="450"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Award 02 */}
+            <div class="award-item" data-award-item="2">
+              <button
+                type="button"
+                class="award-trigger"
+                data-award-trigger
+                aria-expanded="false"
+              >
+                <span class="award-no"><span class="rail-slash">//</span> 02</span>
+                <span class="award-name">Excellence in Brand Design</span>
+                <span class="award-year">2023</span>
+                <span class="award-toggle" aria-hidden="true">+</span>
+              </button>
+
+              <div class="award-body">
+                <p class="award-desc">
+                  Awarded for crafting memorable identities that gave startups the visual edge to compete with industry leaders.
+                </p>
+                <div class="award-media-frame">
+                  <img
+                    src="https://framerusercontent.com/images/ZfFx6nRRG7sZTHZZQrQxpOEOX4.png?width=2400&height=1600"
+                    alt="Excellence in brand design showcase"
+                    class="award-img"
+                    width="1000"
+                    height="450"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Award 03 */}
+            <div class="award-item" data-award-item="3">
+              <button
+                type="button"
+                class="award-trigger"
+                data-award-trigger
+                aria-expanded="false"
+              >
+                <span class="award-no"><span class="rail-slash">//</span> 03</span>
+                <span class="award-name">Marketing Innovation Award</span>
+                <span class="award-year">2024</span>
+                <span class="award-toggle" aria-hidden="true">+</span>
+              </button>
+
+              <div class="award-body">
+                <p class="award-desc">
+                  Honored for building performance-driven campaigns that turned ad spend into consistent, scalable revenue.
+                </p>
+                <div class="award-media-frame">
+                  <img
+                    src="https://framerusercontent.com/images/GyK3AtNLekgEHkSpVancgMTzlHA.png?width=2400&height=1600"
+                    alt="Marketing innovation and analytics"
+                    class="award-img"
+                    width="1000"
+                    height="450"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Award 04 */}
+            <div class="award-item" data-award-item="4">
+              <button
+                type="button"
+                class="award-trigger"
+                data-award-trigger
+                aria-expanded="false"
+              >
+                <span class="award-no"><span class="rail-slash">//</span> 04</span>
+                <span class="award-name">Outstanding Digital Experience</span>
+                <span class="award-year">2025</span>
+                <span class="award-toggle" aria-hidden="true">+</span>
+              </button>
+
+              <div class="award-body">
+                <p class="award-desc">
+                  Celebrated for delivering end-to-end digital experiences — from strategy to launch — that set new benchmarks.
+                </p>
+                <div class="award-media-frame">
+                  <img
+                    src="https://framerusercontent.com/images/aNMoikae0tri8qOXqhOTMYSdpLY.png?width=2400&height=1600"
+                    alt="Outstanding digital experiences"
+                    class="award-img"
+                    width="1000"
+                    height="450"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom Crosshairs */}
+    <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+    <span class="grid-cross cross--br" aria-hidden="true">+</span>
+  </div>
+</section>
+
+<style>
+  /* ── Canvas & Frame ───────────────────────────────────────────────────────── */
+  .about-timeline-section {
+    position: relative;
+    background-color: #f3f4ef;
+    color: #071415;
+    padding: 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .about-timeline-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .about-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(7, 20, 21, 0.1);
+    border-right: 1px solid rgba(7, 20, 21, 0.1);
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    background-color: #f3f4ef;
+  }
+
+  /* ── Crosshairs ───────────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.35);
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .cross--tl { top: -7px; left: -5px; }
+  .cross--tr { top: -7px; right: -5px; }
+  .cross--bl { bottom: -7px; left: -5px; }
+  .cross--br { bottom: -7px; right: -5px; }
+
+  /* ── Divider Line ─────────────────────────────────────────────────────────── */
+  .hairline-divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(7, 20, 21, 0.1);
+  }
+
+  .divider-cross {
+    position: absolute;
+    top: -7px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(7, 20, 21, 0.35);
+    user-select: none;
+  }
+
+  .cross-left { left: 0; }
+  .cross-right { right: 0; }
+
+  /* ── Grid Layout ──────────────────────────────────────────────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 20% 80%;
+    }
+  }
+
+  /* ── Left Rail ────────────────────────────────────────────────────────────── */
+  .about-rail {
+    padding: 2.25rem 1.5rem;
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+  }
+
+  @media (min-width: 900px) {
+    .about-rail {
+      padding: 3rem 2rem;
+      border-right: 1px solid rgba(7, 20, 21, 0.1);
+      border-bottom: none;
+    }
+  }
+
+  .rail-sticky {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .rail-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #071415;
+  }
+
+  .rail-slash {
+    color: #4f7d18;
+    font-weight: 700;
+  }
+
+  /* ── Main Content ─────────────────────────────────────────────────────────── */
+  .about-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Part A: Header */
+  .about-header-block {
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .about-header-block {
+      padding: 3.5rem 3rem 2.5rem 3rem;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .header-copy {
+    max-width: 620px;
+  }
+
+  .about-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: #071415;
+    margin: 0 0 1rem 0;
+  }
+
+  .about-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5658;
+    margin: 0;
+  }
+
+  .dark-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    background-color: #071415;
+    color: #f8f5ec;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.65rem 0.65rem 0.65rem 1.35rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .dark-pill-btn:hover {
+    background-color: #12282a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(7, 20, 21, 0.15);
+  }
+
+  .btn-arrow-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .dark-pill-btn:hover .btn-arrow-box {
+    background-color: #b6ff5c;
+    color: #07080b;
+    transform: translateX(2px);
+  }
+
+  /* Part B: Founder's Words */
+  .founder-card {
+    padding: 2.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .founder-card {
+      padding: 3.5rem 3rem;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .founder-photo-frame {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #071415;
+    aspect-ratio: 1 / 1;
+    max-width: 200px;
+    border: 1px solid rgba(7, 20, 21, 0.15);
+    box-shadow: 0 8px 24px rgba(7, 20, 21, 0.08);
+  }
+
+  .founder-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .founder-quote-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .quote-mark {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 3rem;
+    line-height: 1;
+    color: #4f7d18;
+    user-select: none;
+    margin-bottom: -1rem;
+  }
+
+  .quote-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+    color: #071415;
+    margin: 0;
+  }
+
+  .founder-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-top: 0.5rem;
+  }
+
+  .founder-name {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #071415;
+  }
+
+  .founder-role {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    color: #617072;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Part C: Timeline Grid */
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .timeline-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .timeline-cell {
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .timeline-cell {
+      padding: 3rem;
+    }
+
+    .timeline-cell.cell-left {
+      border-right: 1px solid rgba(7, 20, 21, 0.1);
+    }
+
+    .timeline-cell:nth-child(3),
+    .timeline-cell:nth-child(4) {
+      border-bottom: none;
+    }
+  }
+
+  .timeline-year {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #071415;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #071415;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .timeline-desc {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #4a5658;
+    margin: 0;
+  }
+
+  /* Part D: Recognition / Awards */
+  .awards-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .awards-header {
+    padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .awards-header {
+      padding: 3.5rem 3rem 2rem 3rem;
+    }
+  }
+
+  .awards-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: #071415;
+    margin: 0 0 0.85rem 0;
+  }
+
+  .awards-subtitle {
+    font-size: 0.95rem;
+    color: #556264;
+    margin: 0;
+  }
+
+  .awards-table-header {
+    display: none;
+    padding: 0.85rem 3rem;
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    background-color: rgba(7, 20, 21, 0.02);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #617072;
+  }
+
+  @media (min-width: 768px) {
+    .awards-table-header {
+      display: grid;
+      grid-template-columns: 80px 1fr 100px 30px;
+    }
+  }
+
+  /* Awards Accordion */
+  .awards-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .award-item {
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background-color 0.2s ease;
+  }
+
+  .award-item:last-child {
+    border-bottom: none;
+  }
+
+  .award-trigger {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 60px 1fr auto 30px;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
+    .award-trigger {
+      padding: 1.5rem 3rem;
+      grid-template-columns: 80px 1fr 100px 30px;
+    }
+  }
+
+  .award-trigger:hover {
+    background-color: rgba(7, 20, 21, 0.02);
+  }
+
+  .award-no {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #071415;
+  }
+
+  .award-name {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1rem, 1.8vw, 1.25rem);
+    font-weight: 700;
+    color: #071415;
+    letter-spacing: -0.01em;
+  }
+
+  .award-year {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    color: #617072;
+  }
+
+  .award-toggle {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #071415;
+    line-height: 1;
+    text-align: right;
+  }
+
+  /* Award Body (Expanded state) */
+  .award-body {
+    display: none;
+    padding: 0 1.5rem 2rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .award-body {
+      padding: 0 3rem 2.5rem 3rem;
+      margin-left: 80px;
+    }
+  }
+
+  .award-item.is-expanded .award-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .award-desc {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #4a5658;
+    max-width: 650px;
+    margin: 0;
+  }
+
+  .award-media-frame {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(7, 20, 21, 0.12);
+    box-shadow: 0 10px 30px rgba(7, 20, 21, 0.08);
+    background-color: #071415;
+    max-width: 720px;
+  }
+
+  .award-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .award-media-frame:hover .award-img {
+    transform: scale(1.02);
+  }
+</style>
+
+<script>
+  const setupAwardsAccordion = () => {
+    const container = document.querySelector("[data-awards-group]");
+    if (!container || container.hasAttribute("data-initialized")) return;
+    container.setAttribute("data-initialized", "true");
+
+    const items = container.querySelectorAll("[data-award-item]");
+
+    items.forEach((item) => {
+      const trigger = item.querySelector("[data-award-trigger]");
+      const toggle = item.querySelector(".award-toggle");
+
+      trigger?.addEventListener("click", (e) => {
+        e.preventDefault();
+        const isCurrentlyExpanded = item.classList.contains("is-expanded");
+
+        items.forEach((other) => {
+          other.classList.remove("is-expanded");
+          const otherTrigger = other.querySelector("[data-award-trigger]");
+          const otherToggle = other.querySelector(".award-toggle");
+          otherTrigger?.setAttribute("aria-expanded", "false");
+          if (otherToggle) otherToggle.textContent = "+";
+        });
+
+        if (!isCurrentlyExpanded) {
+          item.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          if (toggle) toggle.textContent = "×";
+        }
+      });
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", setupAwardsAccordion);
+  document.addEventListener("astro:page-load", setupAwardsAccordion);
+  setupAwardsAccordion();
+</script>

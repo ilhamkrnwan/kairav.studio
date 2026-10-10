@@ -15,7 +15,12 @@ import Container from "../common/Container.astro";
       </p>
     </div>
 
-    <div class="systems-grid">
+    <div class="systems-grid-wrapper">
+      <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+      <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+      <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+      <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      <div class="systems-grid">
       <article class="systems-card" data-systems-card>
         <div class="systems-card__index">01</div>
         <h3 class="systems-card__title">Branding</h3>
@@ -94,6 +99,7 @@ import Container from "../common/Container.astro";
         </div>
       </article>
     </div>
+  </div>
   </Container>
 </section>
 
@@ -165,13 +171,37 @@ import Container from "../common/Container.astro";
 
   /* ── Card Grid ───────────────────────────────────────────────────── */
 
+  .systems-grid-wrapper {
+    position: relative;
+  }
+
+  .systems-grid-wrapper .grid-cross {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(17, 17, 19, 0.45);
+    user-select: none;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .systems-grid-wrapper .cross--tl { top: -7px; left: -7px; }
+  .systems-grid-wrapper .cross--tr { top: -7px; right: -7px; }
+  .systems-grid-wrapper .cross--bl { bottom: -7px; left: -7px; }
+  .systems-grid-wrapper .cross--br { bottom: -7px; right: -7px; }
+
   .systems-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1px;
     background: var(--color-border);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: 4px;
     overflow: hidden;
   }
 

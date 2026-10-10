@@ -1,58 +1,2312 @@
 ---
+/**
+ * src/pages/contact.astro
+ * Architectural Blueprint Contact & Project Intake Page for Kairav Studio.
+ * Designed to seamlessly match the Clonix aesthetic of index.astro and works/index.astro:
+ * 1. Dark Blueprint Hero with live status, telemetry bar, and studio clock.
+ * 2. Light Canvas Interactive Project Matrix & Inquiry Form (Services, Timeline, Budget).
+ * 3. 4 Studio Direct Communication Channels & Telemetry Grid.
+ * 4. 4-Stage Client Intake Protocol ("What Happens Next").
+ * 5. Prospective Client FAQ Accordion.
+ */
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Button from "../components/common/Button.astro";
-import Container from "../components/common/Container.astro";
-import PageHero from "../components/sections/PageHero.astro";
+
+// Available services for interactive intake matrix
+const serviceOptions = [
+  { id: "web-astro", label: "High-Velocity Web / Astro", icon: "⚡" },
+  { id: "web-app", label: "Custom Web App / SaaS", icon: "🛠️" },
+  { id: "ai-workflows", label: "AI Automation & Workflows", icon: "🤖" },
+  { id: "seo-geo", label: "SEO & GEO Architecture", icon: "📈" },
+  { id: "design-systems", label: "Design System & Branding", icon: "🎨" },
+  { id: "iot-connected", label: "IoT & Connected Systems", icon: "🔌" },
+];
+
+// Timeline options
+const timelineOptions = [
+  { id: "urgent", label: "Urgent (< 3 Weeks)" },
+  { id: "standard", label: "Standard (1–2 Months)" },
+  { id: "strategic", label: "Strategic (2–4 Months)" },
+  { id: "retainer", label: "Ongoing Studio Retainer" },
+];
+
+// Budget options
+const budgetOptions = [
+  { id: "tier-1", label: "< $2,500 (~Rp 15M–35M)" },
+  { id: "tier-2", label: "$2,500–$7,500 (~Rp 35M–100M)" },
+  { id: "tier-3", label: "$7,500–$15,000+ (~Rp 100M+)" },
+  { id: "flexible", label: "Let's Discuss Scope First" },
+];
+
+// Direct contact channels
+const contactChannels = [
+  {
+    title: "Direct Mail & RFPs",
+    detail: "hello@kairav.studio",
+    href: "mailto:hello@kairav.studio",
+    note: "For detailed briefs, RFPs, pitch decks, and technical specs.",
+    action: "Copy Email",
+    isCopy: true,
+  },
+  {
+    title: "Direct WhatsApp Line",
+    detail: "+62 822 4190 7338",
+    href: "https://wa.me/6282241907338?text=Hello%20Kairav%20Studio%2C%20I%20would%20like%20to%20discuss%20a%20new%20project.",
+    note: "Fast messaging for initial alignments, quick questions, and fit check.",
+    action: "Open WhatsApp",
+    isCopy: false,
+    external: true,
+  },
+  {
+    title: "Studio Engineering Lab",
+    detail: "17 Mataram St, Yogyakarta, ID",
+    href: "https://maps.google.com/?q=Mataram+St+Yogyakarta",
+    note: "Base headquarters. In-person sprint sessions by prior appointment.",
+    action: "View Map",
+    isCopy: false,
+    external: true,
+  },
+  {
+    title: "Code Integrity & OSS",
+    detail: "github.com/ilhamkrnwan",
+    href: "https://github.com/ilhamkrnwan/kairav.studio",
+    note: "Public repositories, open source utilities, and architecture blueprints.",
+    action: "Explore GitHub",
+    isCopy: false,
+    external: true,
+  },
+];
+
+// Intake Protocol Steps
+const protocolSteps = [
+  {
+    num: "01",
+    tag: "< 24 Hours",
+    title: "Triage & Feasibility Review",
+    desc: "Our engineering leads review your brief, assess architectural feasibility, check our delivery pipeline, and confirm availability.",
+  },
+  {
+    num: "02",
+    tag: "20 Mins",
+    title: "Focused Alignment Call",
+    desc: "A direct conversation with engineers — no sales fluff. We discuss goals, performance bottlenecks, tech stacks, and team workflows.",
+  },
+  {
+    num: "03",
+    tag: "Fixed Scope",
+    title: "Architectural Blueprint & Proposal",
+    desc: "You receive a structured proposal outlining exact deliverables, milestones, fixed pricing, and an architectural recommendation.",
+  },
+  {
+    num: "04",
+    tag: "Sprint Zero",
+    title: "Kickoff & Production Sprints",
+    desc: "Shared GitHub repos, automated staging preview links, and asynchronous weekly video demos keep progress completely transparent.",
+  },
+];
+
+// Prospective Client FAQs
+const clientFaqs = [
+  {
+    q: "How fast will I hear back after submitting an inquiry?",
+    a: "We review every incoming inquiry within 24 hours (usually within 2–4 hours during Indonesia business hours, UTC+7). You will receive a direct reply from our engineering leads with initial thoughts and next steps.",
+  },
+  {
+    q: "Do you work on fixed-price projects or monthly retainers?",
+    a: "We offer both! For defined builds like new websites, MVPs, and migrations, we provide transparent fixed-price milestones so there are no billing surprises. For evolving products, we offer dedicated monthly engineering retainers.",
+  },
+  {
+    q: "Can you redesign or optimize an existing codebase, or do you only build from scratch?",
+    a: "We frequently audit, optimize, and refactor existing applications. Whether you need a Core Web Vitals speed audit, an Astro frontend migration, or AI integration into an existing stack, we can step in and deliver.",
+  },
+  {
+    q: "Do you work with international clients outside Indonesia?",
+    a: "Yes. Over 70% of our workflow is async-first. We collaborate smoothly with founders and teams across North America, Europe, Singapore, and Australia using GitHub, Figma, Linear, and Loom.",
+  },
+  {
+    q: "What do I need to prepare before our first conversation?",
+    a: "Just a clear problem statement or business goal! You do not need finished wireframes or a 20-page document. If you have links to references, current metrics, or rough notes, that is more than enough to get started.",
+  },
+];
 ---
 
 <BaseLayout
-  title="Contact - Kairav Studio"
-  description="Contact Kairav Studio for website, web app, SEO/GEO, AI automation, and maintenance projects."
+  title="Contact & Project Intake — Kairav Studio"
+  description="Start your project with Kairav Studio. Direct intake for high-velocity websites, custom web applications, SEO/GEO architecture, and AI automation. We respond within 24 hours."
 >
-  <main>
-    <PageHero
-      eyebrow="Contact"
-      title="Start with the goal, the problem, or the rough idea."
-      description="Tell us what you are building, what needs to improve, or what kind of digital system your team needs next."
-      image="/hero-works.png"
-      imageAlt="Contact Kairav Studio"
-    />
+  <main class="contact-page-main">
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 1. HERO BAND (Dark Blueprint Architecture)                             */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="contact-hero-section" aria-label="Contact Overview">
+      {/* Background Rotating Watermark */}
+      <div class="hero-watermark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none" class="rotor-svg">
+          <path
+            d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.6142 50 100C50 72.6142 72.6142 50 100 50C72.6142 50 50 27.6142 50 0Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </div>
 
-    <section class="section-spacing">
-      <Container>
-        <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <aside class="card-surface p-6">
-            <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">Contact Info</h2>
-            <div class="mt-6 grid gap-4">
-              <a class="link-accent" href="mailto:hello@kairav.studio">hello@kairav.studio</a>
-              <a class="link-accent" href="https://wa.me/6280000000000">WhatsApp</a>
-              <a class="link-accent" href="https://github.com/kairavstudio">GitHub</a>
-              <a class="link-accent" href="https://linkedin.com">LinkedIn</a>
+      <div class="contact-container">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        {/* Top Blueprint Telemetry Bar */}
+        <div class="blueprint-meta-bar" aria-hidden="true">
+          <div class="blueprint-meta-left">
+            <span class="blueprint-status-dot"></span>
+            <span class="blueprint-mono">STATUS: ONLINE · SLOTS OPEN FOR Q2–Q3 · RESPONSE &lt; 24H</span>
+          </div>
+          <div class="blueprint-meta-right">
+            <span class="blueprint-mono">LOC: 07°47'S · 110°22'E · YOGYAKARTA, ID (UTC+7)</span>
+          </div>
+        </div>
+
+        <div class="band-row hero-row">
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Direct Line
             </div>
-            <div class="mt-8">
-              <Button href="mailto:hello@kairav.studio">Email Us</Button>
+            
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Accepting Inquiries
+            </div>
+
+            <!-- Studio Time Indicator -->
+            <div class="studio-clock-card" id="studio-clock-widget">
+              <span class="clock-label">STUDIO TIME (UTC+7)</span>
+              <span class="clock-time" id="studio-live-clock">--:--:-- WIB</span>
+              <span class="clock-status">YOGYAKARTA LAB ACTIVE</span>
+            </div>
+
+            <!-- Rating Trust Signal -->
+            <div class="rating-badge">
+              <div class="rating-star-box">
+                <span class="star-icon">★</span>
+                <span class="rating-val">4.9</span>
+              </div>
+              <span class="rating-sub">50+ Shipped Systems</span>
             </div>
           </aside>
 
-          <form class="card-surface grid gap-5 p-6" action="mailto:hello@kairav.studio" method="post" enctype="text/plain">
-            <div>
-              <label class="mb-2 block text-sm font-semibold text-[var(--color-text)]" for="name">Name</label>
-              <input id="name" name="name" class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)]" />
+          {/* Right Main Column */}
+          <div class="band-main hero-main">
+            <div class="hero-header-wrap">
+              <span class="hero-eyebrow">PROJECT INTAKE · ARCHITECTURAL BLUEPRINT</span>
+              <h1 class="hero-title">Start with the Goal, the Problem, or the Bold Idea.</h1>
+              <p class="hero-desc">
+                We partner with ambitious founders, brands, and engineering teams to turn complex ideas into high-velocity websites, custom web applications, and AI-enabled systems. Tell us what needs to be built — we respond within 24 hours with honest engineering advice and next steps.
+              </p>
             </div>
-            <div>
-              <label class="mb-2 block text-sm font-semibold text-[var(--color-text)]" for="email">Email</label>
-              <input id="email" name="email" type="email" class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)]" />
+
+            {/* Quick Action Badges Strip */}
+            <div class="quick-channels-strip" aria-label="Quick Communication Options">
+              <div class="quick-channel-card">
+                <div class="quick-card-left">
+                  <span class="quick-card-label">DIRECT EMAIL</span>
+                  <a href="mailto:hello@kairav.studio" class="quick-card-value">hello@kairav.studio</a>
+                </div>
+                <button
+                  type="button"
+                  class="quick-copy-button"
+                  id="hero-copy-email-btn"
+                  data-clipboard="hello@kairav.studio"
+                  aria-label="Copy email address"
+                >
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+
+              <div class="quick-channel-card">
+                <div class="quick-card-left">
+                  <span class="quick-card-label">INSTANT CHAT</span>
+                  <a
+                    href="https://wa.me/6282241907338?text=Hello%20Kairav%20Studio%2C%20I%20would%20like%20to%20discuss%20a%20new%20project."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="quick-card-value"
+                  >
+                    +62 822 4190 7338
+                  </a>
+                </div>
+                <a
+                  href="https://wa.me/6282241907338?text=Hello%20Kairav%20Studio%2C%20I%20would%20like%20to%20discuss%20a%20new%20project."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="quick-action-link"
+                  aria-label="Open WhatsApp chat"
+                >
+                  <span>Chat</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+
+              <div class="quick-channel-badge">
+                <span class="badge-icon">⚡</span>
+                <span class="badge-text">&lt; 2.4h Avg Reply</span>
+              </div>
+
+              <div class="quick-channel-badge">
+                <span class="badge-icon">🔒</span>
+                <span class="badge-text">Mutual NDA Default</span>
+              </div>
             </div>
-            <div>
-              <label class="mb-2 block text-sm font-semibold text-[var(--color-text)]" for="message">Project Notes</label>
-              <textarea id="message" name="message" rows="6" class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-3 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)]"></textarea>
-            </div>
-            <div>
-              <Button>Send Message</Button>
-            </div>
-          </form>
+          </div>
         </div>
-      </Container>
+      </div>
+    </section>
+
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-dark" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 2. INTERACTIVE INQUIRY MATRIX (Light Architectural Grid)               */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="contact-intake-section" id="inquiry-form-section" aria-label="Project Scope and Inquiry Form">
+      <div class="contact-container container-light">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row form-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Scope Matrix
+            </div>
+
+            <div class="rail-sticky-info">
+              <h3 class="rail-info-title">Configurable Intake</h3>
+              <p class="rail-info-desc">
+                Select your required project disciplines and timeline. This helps us assign the right senior engineer and prepare an accurate estimate before our first call.
+              </p>
+
+              <div class="rail-proof-box">
+                <div class="proof-avatars" aria-hidden="true">
+                  <img
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&fit=crop&crop=face"
+                    alt="Team 1"
+                    class="avatar-circle"
+                    width="32"
+                    height="32"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop&crop=face"
+                    alt="Team 2"
+                    class="avatar-circle"
+                    width="32"
+                    height="32"
+                    loading="lazy"
+                  />
+                  <img
+                    src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=96&h=96&fit=crop&crop=face"
+                    alt="Team 3"
+                    class="avatar-circle"
+                    width="32"
+                    height="32"
+                    loading="lazy"
+                  />
+                </div>
+                <span class="proof-text">Direct collaboration with senior designers & architects.</span>
+              </div>
+
+              <div class="rail-guarantee-note">
+                <span class="guarantee-check">✓</span>
+                <span>Zero sales pressure. Straightforward technical assessment.</span>
+              </div>
+            </div>
+          </aside>
+
+          {/* Right Main Form Container */}
+          <div class="band-main main-light form-main">
+            <div class="form-header-wrap">
+              <h2 class="form-section-title">Configure Your Project Blueprint</h2>
+              <p class="form-section-subtitle">
+                Select what you need below, or simply drop in your brief. We will analyze your requirements and follow up promptly.
+              </p>
+            </div>
+
+            {/* Submission Status Alert (Client-side feedback) */}
+            <div class="form-alert-banner" id="form-feedback-alert" role="alert" style="display: none;">
+              <span class="alert-icon">✓</span>
+              <div class="alert-content">
+                <h4 class="alert-heading">Inquiry Received</h4>
+                <p class="alert-text">
+                  Thank you! Your project notes have been queued. Our engineering lead will follow up at your email address within 24 hours.
+                </p>
+              </div>
+            </div>
+
+            <!-- Form Element -->
+            <form
+              class="intake-form"
+              id="kairav-project-form"
+              action="mailto:hello@kairav.studio"
+              method="post"
+              enctype="text/plain"
+            >
+              {/* ── STEP 1: Service Disciplines ── */}
+              <div class="form-group-block">
+                <div class="group-label-row">
+                  <span class="step-num">01</span>
+                  <label class="group-title">What capabilities do you require?</label>
+                  <span class="group-hint">Select all that apply</span>
+                </div>
+
+                <div class="chips-selector-grid" role="group" aria-label="Service capabilities">
+                  {serviceOptions.map((s) => (
+                    <button
+                      type="button"
+                      class="service-chip-btn"
+                      data-service-id={s.id}
+                      data-service-label={s.label}
+                      aria-pressed="false"
+                    >
+                      <span class="chip-icon" aria-hidden="true">{s.icon}</span>
+                      <span class="chip-text">{s.label}</span>
+                      <span class="chip-indicator" aria-hidden="true">+</span>
+                    </button>
+                  ))}
+                </div>
+                <input type="hidden" name="selected_services" id="hidden-services-input" value="" />
+              </div>
+
+              {/* ── STEP 2: Desired Timeline ── */}
+              <div class="form-group-block">
+                <div class="group-label-row">
+                  <span class="step-num">02</span>
+                  <label class="group-title">Target Launch Timeline</label>
+                  <span class="group-hint">Choose one</span>
+                </div>
+
+                <div class="pills-selector-grid" role="radiogroup" aria-label="Target timeline">
+                  {timelineOptions.map((t, idx) => (
+                    <button
+                      type="button"
+                      class={`timeline-pill-btn ${idx === 1 ? "is-selected" : ""}`}
+                      data-timeline-id={t.id}
+                      data-timeline-label={t.label}
+                      role="radio"
+                      aria-checked={idx === 1 ? "true" : "false"}
+                    >
+                      <span class="pill-dot" aria-hidden="true"></span>
+                      <span class="pill-text">{t.label}</span>
+                    </button>
+                  ))}
+                </div>
+                <input type="hidden" name="selected_timeline" id="hidden-timeline-input" value="Standard (1–2 Months)" />
+              </div>
+
+              {/* ── STEP 3: Estimated Investment ── */}
+              <div class="form-group-block">
+                <div class="group-label-row">
+                  <span class="step-num">03</span>
+                  <label class="group-title">Estimated Budget Allocation</label>
+                  <span class="group-hint">Helps calibrate scope</span>
+                </div>
+
+                <div class="pills-selector-grid" role="radiogroup" aria-label="Budget allocation">
+                  {budgetOptions.map((b, idx) => (
+                    <button
+                      type="button"
+                      class={`budget-pill-btn ${idx === 1 ? "is-selected" : ""}`}
+                      data-budget-id={b.id}
+                      data-budget-label={b.label}
+                      role="radio"
+                      aria-checked={idx === 1 ? "true" : "false"}
+                    >
+                      <span class="pill-dot" aria-hidden="true"></span>
+                      <span class="pill-text">{b.label}</span>
+                    </button>
+                  ))}
+                </div>
+                <input type="hidden" name="selected_budget" id="hidden-budget-input" value="$2,500–$7,500 (~Rp 35M–100M)" />
+              </div>
+
+              {/* ── STEP 4: Personal / Project Details ── */}
+              <div class="form-group-block">
+                <div class="group-label-row">
+                  <span class="step-num">04</span>
+                  <label class="group-title">Your Details & Project Brief</label>
+                </div>
+
+                <div class="input-fields-grid">
+                  <div class="field-item">
+                    <label class="field-label" for="contact-name">
+                      Your Name <span class="required-star">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="contact-name"
+                      name="name"
+                      required
+                      placeholder="e.g. Alex Henderson"
+                      class="custom-text-input"
+                    />
+                  </div>
+
+                  <div class="field-item">
+                    <label class="field-label" for="contact-email">
+                      Work Email <span class="required-star">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="contact-email"
+                      name="email"
+                      required
+                      placeholder="alex@company.com"
+                      class="custom-text-input"
+                    />
+                  </div>
+
+                  <div class="field-item">
+                    <label class="field-label" for="contact-phone">
+                      WhatsApp / Phone <span class="optional-tag">(Optional, for fast sync)</span>
+                    </label>
+                    <input
+                      type="tel"
+                      id="contact-phone"
+                      name="phone"
+                      placeholder="+62 812 3456 7890"
+                      class="custom-text-input"
+                    />
+                  </div>
+
+                  <div class="field-item">
+                    <label class="field-label" for="contact-company">
+                      Company / Organization / Existing URL <span class="optional-tag">(Optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="contact-company"
+                      name="company"
+                      placeholder="e.g. Acme Corp or acme.com"
+                      class="custom-text-input"
+                    />
+                  </div>
+                </div>
+
+                <div class="field-item full-width-field">
+                  <label class="field-label" for="contact-notes">
+                    Tell us about the project, the primary challenge, or the rough idea <span class="required-star">*</span>
+                  </label>
+                  <textarea
+                    id="contact-notes"
+                    name="message"
+                    rows="5"
+                    required
+                    placeholder="Briefly describe what you are looking to build or optimize. Mention key goals, current performance bottlenecks, or specific references if you have them."
+                    class="custom-textarea"
+                  ></textarea>
+                </div>
+              </div>
+
+              {/* Form Submission Actions */}
+              <div class="form-actions-bar">
+                <button type="submit" class="clonix-cta-button" id="submit-intake-btn">
+                  <span class="clonix-cta-button__text">Send Project Inquiry</span>
+                  <span class="clonix-cta-button__box" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 8h10M9 4l4 4-4 4"></path>
+                    </svg>
+                  </span>
+                </button>
+
+                <!-- Alternative WhatsApp Direct Action -->
+                <button
+                  type="button"
+                  class="whatsapp-compose-button"
+                  id="whatsapp-dispatch-btn"
+                  title="Generate a prefilled WhatsApp message with this brief"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.78 14.04c-.24.68-1.39 1.3-1.92 1.38-.5.08-1.14.11-3.69-.93-3.07-1.25-5.06-4.38-5.21-4.58-.15-.2-1.24-1.65-1.24-3.15 0-1.5 1.15-2.24 1.56-2.55.41-.31.9-.39 1.2-.39.3 0 .61.01.87.02.28.01.65-.11 1.01.77.38.92 1.29 3.15 1.41 3.38.11.23.19.5.04.8-.15.3-.23.49-.45.75-.23.26-.48.58-.69.78-.23.23-.47.48-.2.94.27.46 1.21 1.99 2.59 3.22 1.78 1.58 3.27 2.07 3.74 2.3.46.23.74.19 1.01-.12.27-.31 1.16-1.35 1.47-1.81.31-.46.61-.39 1.03-.23.41.15 2.65 1.25 3.1 1.48.46.23.77.34.88.53.11.2.11 1.13-.13 1.81z"/>
+                  </svg>
+                  <span>Compose via WhatsApp</span>
+                </button>
+
+                <div class="form-privacy-note">
+                  <span class="lock-icon">🔒</span>
+                  <span>Direct to founder & engineering lead. Strictly confidential.</span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-light" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 3. FOUR DIRECT CHANNELS & TELEMETRY (Light Architectural Band)         */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="contact-channels-section" aria-label="Direct Communication Channels">
+      <div class="contact-container container-light">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row channels-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Direct Channels
+            </div>
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Fast Access Lines
+            </div>
+          </aside>
+
+          {/* Right Main Grid */}
+          <div class="band-main main-light">
+            <div class="channels-grid">
+              {contactChannels.map((ch, idx) => (
+                <div class="channel-card">
+                  <div class="channel-card-top">
+                    <span class="channel-index">0{idx + 1} / CHANNEL</span>
+                    <h3 class="channel-title">{ch.title}</h3>
+                  </div>
+
+                  <p class="channel-detail">
+                    {ch.href.startsWith("mailto:") ? (
+                      <a href={ch.href} class="channel-link">{ch.detail}</a>
+                    ) : (
+                      <a href={ch.href} target={ch.external ? "_blank" : "_self"} rel={ch.external ? "noopener noreferrer" : ""} class="channel-link">
+                        {ch.detail}
+                      </a>
+                    )}
+                  </p>
+
+                  <p class="channel-note">{ch.note}</p>
+
+                  <div class="channel-action-row">
+                    {ch.isCopy ? (
+                      <button
+                        type="button"
+                        class="channel-copy-btn"
+                        data-clipboard={ch.detail}
+                      >
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                        </svg>
+                        <span>{ch.action}</span>
+                      </button>
+                    ) : (
+                      <a
+                        href={ch.href}
+                        target={ch.external ? "_blank" : "_self"}
+                        rel={ch.external ? "noopener noreferrer" : ""}
+                        class="channel-action-btn"
+                      >
+                        <span>{ch.action}</span>
+                        <span aria-hidden="true">→</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-light" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 4. INTAKE PROTOCOL: WHAT HAPPENS NEXT (Light Architectural Band)       */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="contact-protocol-section" aria-label="Our 4-Stage Intake Protocol">
+      <div class="contact-container container-light">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row protocol-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Our Protocol
+            </div>
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Intake Roadmap
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="protocol-header">
+              <h2 class="protocol-section-title">What Happens After You Reach Out?</h2>
+              <p class="protocol-section-desc">
+                We respect your time. Here is our straightforward 4-stage onboarding protocol from first contact to production delivery.
+              </p>
+            </div>
+
+            <div class="protocol-steps-grid">
+              {protocolSteps.map((step) => (
+                <div class="protocol-card">
+                  <div class="protocol-card-head">
+                    <span class="protocol-number">{step.num}</span>
+                    <span class="protocol-tag">{step.tag}</span>
+                  </div>
+                  <h3 class="protocol-title">{step.title}</h3>
+                  <p class="protocol-desc">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-light" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 5. PROSPECTIVE CLIENT FAQS (Light Architectural Accordion)             */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="contact-faq-section" aria-label="Frequently Asked Questions for Inquiries">
+      <div class="contact-container container-light">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row faq-row">
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Inquiries FAQ
+            </div>
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Clear Answers
+            </div>
+          </aside>
+
+          {/* Right Main Column */}
+          <div class="band-main main-light">
+            <div class="faq-header-wrap">
+              <h2 class="faq-section-title">Common Questions Before Reaching Out</h2>
+              <p class="faq-section-desc">
+                Everything you need to know about our availability, pricing models, and how we collaborate.
+              </p>
+            </div>
+
+            <div class="client-faq-accordion" data-faq-group>
+              {clientFaqs.map((faq, idx) => (
+                <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
+                  <button
+                    type="button"
+                    class="faq-item-trigger"
+                    data-faq-trigger
+                    aria-expanded={idx === 0 ? "true" : "false"}
+                  >
+                    <div class="trigger-left">
+                      <span class="faq-index-number">0{idx + 1}</span>
+                      <h3 class="faq-question-text">{faq.q}</h3>
+                    </div>
+                    <span class="faq-toggle-icon" aria-hidden="true">{idx === 0 ? "×" : "+"}</span>
+                  </button>
+
+                  <div class="faq-item-body">
+                    <p class="faq-answer-text">{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
     </section>
   </main>
 </BaseLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BASE CANVAS & ARCHITECTURAL GRID SYSTEM
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .contact-page-main {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ── 1. Hero Section (Dark Canvas #07080b) ────────────────────────────────── */
+  .contact-hero-section {
+    position: relative;
+    background-color: #07080b;
+    color: #f8f5ec;
+    padding: 2rem 1rem 0 1rem;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .contact-hero-section {
+      padding: 3rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .hero-watermark {
+    position: absolute;
+    top: -120px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    opacity: 0.04;
+    color: #f8f5ec;
+    pointer-events: none;
+    z-index: 0;
+    animation: slowSpin 140s linear infinite;
+  }
+
+  @keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .rotor-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Container Frame ──────────────────────────────────────────────────────── */
+  .contact-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: rgba(7, 8, 11, 0.85);
+    z-index: 1;
+  }
+
+  .container-light {
+    border-left: 1px solid rgba(7, 20, 21, 0.1);
+    border-right: 1px solid rgba(7, 20, 21, 0.1);
+    border-top: 1px solid rgba(7, 20, 21, 0.1);
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    background-color: rgba(243, 244, 239, 0.7);
+    color: #071415;
+  }
+
+  /* ── Crosshairs ───────────────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.28);
+    pointer-events: none;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .container-light .grid-cross {
+    color: rgba(7, 20, 21, 0.35);
+  }
+
+  .cross--tl { top: -7px; left: -5px; }
+  .cross--tr { top: -7px; right: -5px; }
+  .cross--bl { bottom: -7px; left: -5px; }
+  .cross--br { bottom: -7px; right: -5px; }
+
+  /* ── Blueprint Telemetry Bar ──────────────────────────────────────────────── */
+  .blueprint-meta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .blueprint-meta-left,
+  .blueprint-meta-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .blueprint-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.8);
+    animation: pulseDot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .blueprint-mono {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+  }
+
+  /* ── Hairline Dividers ────────────────────────────────────────────────────── */
+  .hairline-divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.08);
+    z-index: 2;
+  }
+
+  .divider-dark {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .divider-light {
+    background-color: rgba(7, 20, 21, 0.1);
+  }
+
+  .divider-cross {
+    position: absolute;
+    top: -7px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.25);
+    user-select: none;
+  }
+
+  .divider-light .divider-cross {
+    color: rgba(7, 20, 21, 0.35);
+  }
+
+  .cross-left { left: -5px; }
+  .cross-mid {
+    left: 24%;
+    transform: translateX(-50%);
+    display: none;
+  }
+  .cross-right { right: -5px; }
+
+  @media (min-width: 900px) {
+    .cross-mid {
+      display: block;
+    }
+  }
+
+  /* ── Band Rows Architecture ───────────────────────────────────────────────── */
+  .band-row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .band-row {
+      grid-template-columns: 24% 76%;
+    }
+  }
+
+  .band-rail {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-rail {
+      padding: 3rem 2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: none;
+    }
+  }
+
+  .rail-light {
+    border-bottom-color: rgba(7, 20, 21, 0.1);
+  }
+
+  @media (min-width: 900px) {
+    .rail-light {
+      border-right-color: rgba(7, 20, 21, 0.1);
+    }
+  }
+
+  .rail-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: inherit;
+  }
+
+  .rail-slash {
+    color: #b6ff5c;
+    font-weight: 700;
+  }
+
+  .rail-light .rail-slash {
+    color: #4f7d18;
+  }
+
+  .rail-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 6px rgba(182, 255, 92, 0.6);
+  }
+
+  .rail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .rail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  /* ── Studio Live Clock Card ───────────────────────────────────────────────── */
+  .studio-clock-card {
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .clock-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: #64748b;
+  }
+
+  .clock-time {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #b6ff5c;
+    letter-spacing: 0.04em;
+  }
+
+  .clock-status {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #94a3b8;
+  }
+
+  /* ── Rating Badge ─────────────────────────────────────────────────────────── */
+  .rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: fit-content;
+  }
+
+  .rating-star-box {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: #b6ff5c;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .rating-sub {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
+  }
+
+  /* ── Main Column Layout ───────────────────────────────────────────────────── */
+  .band-main {
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-main {
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  .main-light {
+    background-color: #faf9f5;
+  }
+
+  /* ── Hero Content ─────────────────────────────────────────────────────────── */
+  .hero-header-wrap {
+    max-width: 58rem;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #b6ff5c;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2.3rem, 4.8vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #f8f5ec;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-desc {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+    line-height: 1.65;
+    color: #94a3b8;
+    max-width: 48rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Quick Channels Strip ─────────────────────────────────────────────────── */
+  .quick-channels-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .quick-channel-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: all 180ms ease;
+  }
+
+  .quick-channel-card:hover {
+    border-color: rgba(182, 255, 92, 0.4);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .quick-card-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .quick-card-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: #64748b;
+  }
+
+  .quick-card-value {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8f5ec;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .quick-card-value:hover {
+    color: #b6ff5c;
+  }
+
+  .quick-copy-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.6rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 4px;
+    color: #f8f5ec;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 160ms ease;
+  }
+
+  .quick-copy-button:hover {
+    background: #b6ff5c;
+    color: #080808;
+    border-color: #b6ff5c;
+  }
+
+  .quick-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.6rem;
+    background: rgba(182, 255, 92, 0.12);
+    border: 1px solid rgba(182, 255, 92, 0.3);
+    border-radius: 4px;
+    color: #b6ff5c;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 160ms ease;
+  }
+
+  .quick-action-link:hover {
+    background: #b6ff5c;
+    color: #080808;
+  }
+
+  .quick-channel-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #94a3b8;
+  }
+
+  .badge-icon {
+    font-size: 0.85rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     2. INTAKE MATRIX & FORM STYLES
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .contact-intake-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 2rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .contact-intake-section {
+      padding: 3rem 1.5rem;
+    }
+  }
+
+  .rail-sticky-info {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .rail-info-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #111113;
+    margin: 0;
+  }
+
+  .rail-info-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #52525b;
+    margin: 0;
+  }
+
+  .rail-proof-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 19, 0.08);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(17, 17, 19, 0.03);
+  }
+
+  .proof-avatars {
+    display: flex;
+    align-items: center;
+  }
+
+  .avatar-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    object-fit: cover;
+    margin-left: -6px;
+  }
+
+  .avatar-circle:first-child {
+    margin-left: 0;
+  }
+
+  .proof-text {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #3f3f46;
+  }
+
+  .rail-guarantee-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #52525b;
+  }
+
+  .guarantee-check {
+    color: #4f7d18;
+    font-weight: 700;
+  }
+
+  /* ── Form Main Header ── */
+  .form-header-wrap {
+    margin-bottom: 2.5rem;
+  }
+
+  .form-section-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: #111113;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .form-section-subtitle {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #52525b;
+    max-width: 44rem;
+  }
+
+  /* ── Alert Banner ── */
+  .form-alert-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    color: #166534;
+  }
+
+  .alert-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #16a34a;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .alert-heading {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .alert-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #15803d;
+  }
+
+  /* ── Form Structure ── */
+  .intake-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.75rem;
+  }
+
+  .form-group-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-bottom: 2.25rem;
+    border-bottom: 1px solid rgba(17, 17, 19, 0.08);
+  }
+
+  .form-group-block:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .group-label-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .step-num {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    background: #111113;
+    color: #f8f5ec;
+    border-radius: 4px;
+  }
+
+  .group-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #111113;
+  }
+
+  .group-hint {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #71717a;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Interactive Chips Selector (Step 1) ── */
+  .chips-selector-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 600px) {
+    .chips-selector-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .chips-selector-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .service-chip-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.95rem 1.15rem;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 19, 0.12);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 180ms ease;
+    user-select: none;
+  }
+
+  .service-chip-btn:hover {
+    border-color: #4f7d18;
+    background: #fdfdfc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(17, 17, 19, 0.04);
+  }
+
+  .service-chip-btn.is-active {
+    border-color: #4f7d18;
+    background: #f4f8eb;
+    box-shadow: 0 0 0 1px #4f7d18;
+  }
+
+  .chip-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .chip-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #111113;
+    flex-grow: 1;
+  }
+
+  .chip-indicator {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1rem;
+    color: #71717a;
+    transition: transform 180ms ease, color 180ms ease;
+  }
+
+  .service-chip-btn.is-active .chip-indicator {
+    color: #4f7d18;
+    font-weight: 700;
+    transform: rotate(45deg);
+  }
+
+  /* ── Interactive Pills Selector (Step 2 & 3) ── */
+  .pills-selector-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  @media (min-width: 600px) {
+    .pills-selector-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pills-selector-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .timeline-pill-btn,
+  .budget-pill-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.85rem 1rem;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 19, 0.12);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 180ms ease;
+    text-align: left;
+  }
+
+  .timeline-pill-btn:hover,
+  .budget-pill-btn:hover {
+    border-color: #4f7d18;
+    background: #fdfdfc;
+  }
+
+  .timeline-pill-btn.is-selected,
+  .budget-pill-btn.is-selected {
+    border-color: #4f7d18;
+    background: #f4f8eb;
+    box-shadow: 0 0 0 1px #4f7d18;
+  }
+
+  .pill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #71717a;
+    background: transparent;
+    transition: all 160ms ease;
+    flex-shrink: 0;
+  }
+
+  .timeline-pill-btn.is-selected .pill-dot,
+  .budget-pill-btn.is-selected .pill-dot {
+    border-color: #4f7d18;
+    background: #4f7d18;
+    box-shadow: 0 0 6px rgba(79, 125, 24, 0.4);
+  }
+
+  .pill-text {
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: #111113;
+  }
+
+  /* ── Form Inputs (Step 4) ── */
+  .input-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 600px) {
+    .input-fields-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .field-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .full-width-field {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+  }
+
+  .field-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #111113;
+    letter-spacing: 0.02em;
+  }
+
+  .required-star {
+    color: #e11d48;
+    font-weight: 700;
+  }
+
+  .optional-tag {
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: #71717a;
+  }
+
+  .custom-text-input,
+  .custom-textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(17, 17, 19, 0.16);
+    border-radius: 6px;
+    background: #ffffff;
+    color: #111113;
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    outline: none;
+    transition: all 180ms ease;
+  }
+
+  .custom-text-input:focus,
+  .custom-textarea:focus {
+    border-color: #4f7d18;
+    box-shadow: 0 0 0 3px rgba(79, 125, 24, 0.12);
+  }
+
+  .custom-text-input::placeholder,
+  .custom-textarea::placeholder {
+    color: #a1a1aa;
+    font-size: 0.88rem;
+  }
+
+  .custom-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  /* ── Form Actions Bar ── */
+  .form-actions-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    padding-top: 1rem;
+  }
+
+  /* Clonix CTA Button */
+  .clonix-cta-button {
+    display: inline-flex;
+    align-items: center;
+    height: 3.25rem;
+    border-radius: 4px;
+    background-color: #b6ff5c;
+    color: #080808;
+    border: none;
+    padding: 0;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(182, 255, 92, 0.25);
+    transition: all 220ms ease;
+  }
+
+  .clonix-cta-button:hover {
+    background-color: #c4ff75;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(182, 255, 92, 0.4);
+  }
+
+  .clonix-cta-button__text {
+    padding: 0 1.5rem;
+  }
+
+  .clonix-cta-button__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 100%;
+    background-color: #a3f538;
+    border-left: 1px solid rgba(8, 8, 8, 0.12);
+    transition: background-color 180ms ease;
+  }
+
+  .clonix-cta-button:hover .clonix-cta-button__box {
+    background-color: #92e825;
+  }
+
+  .whatsapp-compose-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    height: 3.25rem;
+    padding: 0 1.35rem;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 19, 0.16);
+    border-radius: 4px;
+    color: #111113;
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 180ms ease;
+  }
+
+  .whatsapp-compose-button:hover {
+    border-color: #25d366;
+    color: #25d366;
+    background: #f0fdf4;
+    transform: translateY(-1px);
+  }
+
+  .form-privacy-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #71717a;
+    margin-left: auto;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     3. FOUR DIRECT CHANNELS
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .contact-channels-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .contact-channels-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .channels-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .channels-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .channels-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .channel-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.5rem;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 19, 0.08);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(17, 17, 19, 0.02);
+    transition: all 200ms ease;
+  }
+
+  .channel-card:hover {
+    border-color: rgba(79, 125, 24, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(17, 17, 19, 0.06);
+  }
+
+  .channel-card-top {
+    margin-bottom: 0.75rem;
+  }
+
+  .channel-index {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    color: #71717a;
+    letter-spacing: 0.08em;
+  }
+
+  .channel-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111113;
+    margin: 0.25rem 0 0 0;
+  }
+
+  .channel-detail {
+    margin: 0 0 0.75rem 0;
+  }
+
+  .channel-link {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4f7d18;
+    text-decoration: none;
+    word-break: break-all;
+    transition: color 160ms ease;
+  }
+
+  .channel-link:hover {
+    color: #3a5e12;
+    text-decoration: underline;
+  }
+
+  .channel-note {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #52525b;
+    margin: 0 0 1.5rem 0;
+    flex-grow: 1;
+  }
+
+  .channel-action-row {
+    margin-top: auto;
+  }
+
+  .channel-copy-btn,
+  .channel-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    background: rgba(17, 17, 19, 0.04);
+    border: 1px solid rgba(17, 17, 19, 0.1);
+    border-radius: 4px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #111113;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 160ms ease;
+  }
+
+  .channel-copy-btn:hover,
+  .channel-action-btn:hover {
+    background: #111113;
+    color: #f8f5ec;
+    border-color: #111113;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     4. INTAKE PROTOCOL
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .contact-protocol-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .contact-protocol-section {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .protocol-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .protocol-section-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #111113;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .protocol-section-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #52525b;
+    max-width: 44rem;
+  }
+
+  .protocol-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .protocol-steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .protocol-steps-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .protocol-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.5rem;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 19, 0.08);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(17, 17, 19, 0.02);
+    transition: all 200ms ease;
+  }
+
+  .protocol-card:hover {
+    border-color: rgba(79, 125, 24, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .protocol-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .protocol-number {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4f7d18;
+    line-height: 1;
+  }
+
+  .protocol-tag {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    background: rgba(17, 17, 19, 0.04);
+    border-radius: 4px;
+    color: #52525b;
+  }
+
+  .protocol-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111113;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .protocol-desc {
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: #52525b;
+    margin: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     5. FAQ ACCORDION STYLES
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .contact-faq-section {
+    position: relative;
+    background-color: #f8f5ec;
+    padding: 0 1rem 3rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .contact-faq-section {
+      padding: 0 1.5rem 4rem 1.5rem;
+    }
+  }
+
+  .faq-header-wrap {
+    margin-bottom: 2rem;
+  }
+
+  .faq-section-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    font-weight: 600;
+    color: #111113;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-section-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #52525b;
+  }
+
+  .client-faq-accordion {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(17, 17, 19, 0.1);
+  }
+
+  .faq-item-row {
+    border-bottom: 1px solid rgba(17, 17, 19, 0.1);
+  }
+
+  .faq-item-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: color 180ms ease;
+  }
+
+  .faq-item-trigger:hover {
+    color: #4f7d18;
+  }
+
+  .trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .faq-index-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #4f7d18;
+  }
+
+  .faq-question-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: #111113;
+    margin: 0;
+    transition: color 180ms ease;
+  }
+
+  .faq-item-trigger:hover .faq-question-text {
+    color: #4f7d18;
+  }
+
+  .faq-toggle-icon {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #71717a;
+    line-height: 1;
+    transition: transform 200ms ease, color 200ms ease;
+  }
+
+  .faq-item-body {
+    display: none;
+    padding: 0 0 1.5rem calc(0.8rem + 1.25rem);
+  }
+
+  .faq-item-row.is-expanded .faq-item-body {
+    display: block;
+  }
+
+  .faq-item-row.is-expanded .faq-toggle-icon {
+    color: #4f7d18;
+    transform: rotate(45deg);
+  }
+
+  .faq-answer-text {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #52525b;
+    margin: 0;
+    max-width: 52rem;
+  }
+</style>
+
+<script>
+  // Dynamic Studio Clock & Interactive Form Logic
+  const initContactPage = () => {
+    // 1. Live Studio Clock (Yogyakarta WIB = UTC+7)
+    const clockEl = document.getElementById("studio-live-clock");
+    const updateClock = () => {
+      if (!clockEl) return;
+      try {
+        const now = new Date();
+        const options: Intl.DateTimeFormatOptions = {
+          timeZone: "Asia/Jakarta",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        };
+        const formatter = new Intl.DateTimeFormat("en-GB", options);
+        clockEl.textContent = `${formatter.format(now)} WIB`;
+      } catch (e) {
+        // Fallback
+        const now = new Date();
+        clockEl.textContent = `${now.toLocaleTimeString()} WIB`;
+      }
+    };
+    updateClock();
+    const clockInterval = setInterval(updateClock, 1000);
+
+    // 2. Clipboard Copy Buttons
+    const copyButtons = document.querySelectorAll("[data-clipboard]");
+    copyButtons.forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const textToCopy = btn.getAttribute("data-clipboard");
+        if (!textToCopy) return;
+
+        try {
+          await navigator.clipboard.writeText(textToCopy);
+          const originalText = btn.innerHTML;
+          btn.innerHTML = `<span style="color:#b6ff5c; font-weight:700;">✓ Copied!</span>`;
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+          }, 2000);
+        } catch (err) {
+          console.error("Clipboard copy failed", err);
+        }
+      });
+    });
+
+    // 3. Interactive Service Chips Selection (Multi-select)
+    const serviceChips = document.querySelectorAll(".service-chip-btn");
+    const hiddenServicesInput = document.getElementById("hidden-services-input") as HTMLInputElement | null;
+    const selectedServicesSet = new Set<string>();
+
+    serviceChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const label = chip.getAttribute("data-service-label") || "";
+        const isCurrentActive = chip.classList.contains("is-active");
+
+        if (isCurrentActive) {
+          chip.classList.remove("is-active");
+          chip.setAttribute("aria-pressed", "false");
+          selectedServicesSet.delete(label);
+        } else {
+          chip.classList.add("is-active");
+          chip.setAttribute("aria-pressed", "true");
+          selectedServicesSet.add(label);
+        }
+
+        if (hiddenServicesInput) {
+          hiddenServicesInput.value = Array.from(selectedServicesSet).join(", ");
+        }
+      });
+    });
+
+    // 4. Interactive Timeline Pills (Single-select)
+    const timelinePills = document.querySelectorAll(".timeline-pill-btn");
+    const hiddenTimelineInput = document.getElementById("hidden-timeline-input") as HTMLInputElement | null;
+
+    timelinePills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        timelinePills.forEach((p) => {
+          p.classList.remove("is-selected");
+          p.setAttribute("aria-checked", "false");
+        });
+        pill.classList.add("is-selected");
+        pill.setAttribute("aria-checked", "true");
+
+        const label = pill.getAttribute("data-timeline-label") || "";
+        if (hiddenTimelineInput) {
+          hiddenTimelineInput.value = label;
+        }
+      });
+    });
+
+    // 5. Interactive Budget Pills (Single-select)
+    const budgetPills = document.querySelectorAll(".budget-pill-btn");
+    const hiddenBudgetInput = document.getElementById("hidden-budget-input") as HTMLInputElement | null;
+
+    budgetPills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        budgetPills.forEach((p) => {
+          p.classList.remove("is-selected");
+          p.setAttribute("aria-checked", "false");
+        });
+        pill.classList.add("is-selected");
+        pill.setAttribute("aria-checked", "true");
+
+        const label = pill.getAttribute("data-budget-label") || "";
+        if (hiddenBudgetInput) {
+          hiddenBudgetInput.value = label;
+        }
+      });
+    });
+
+    // 6. WhatsApp Compose Generator
+    const whatsappBtn = document.getElementById("whatsapp-dispatch-btn");
+    whatsappBtn?.addEventListener("click", () => {
+      const nameInput = document.getElementById("contact-name") as HTMLInputElement | null;
+      const emailInput = document.getElementById("contact-email") as HTMLInputElement | null;
+      const notesInput = document.getElementById("contact-notes") as HTMLTextAreaElement | null;
+      const companyInput = document.getElementById("contact-company") as HTMLInputElement | null;
+
+      const services = Array.from(selectedServicesSet).join(", ") || "General Inquiry";
+      const timeline = hiddenTimelineInput?.value || "Standard";
+      const budget = hiddenBudgetInput?.value || "Discuss Scope";
+      const name = nameInput?.value || "Prospective Client";
+      const email = emailInput?.value || "-";
+      const company = companyInput?.value ? ` (${companyInput.value})` : "";
+      const notes = notesInput?.value || "Looking forward to discussing our project.";
+
+      const messageText = `Hi Kairav Studio!
+
+*Project Inquiry:*
+- *Name:* ${name}${company}
+- *Email:* ${email}
+- *Disciplines:* ${services}
+- *Timeline:* ${timeline}
+- *Budget Range:* ${budget}
+
+*Brief / Notes:*
+${notes}`;
+
+      const waUrl = `https://wa.me/6282241907338?text=${encodeURIComponent(messageText)}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+    });
+
+    // 7. Form Submission Handler & Feedback
+    const form = document.getElementById("kairav-project-form") as HTMLFormElement | null;
+    const alertBanner = document.getElementById("form-feedback-alert");
+
+    form?.addEventListener("submit", () => {
+      // Let mailto fire or preventDefault if we prefer direct confirmation
+      if (alertBanner) {
+        alertBanner.style.display = "flex";
+        alertBanner.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+
+    // 8. FAQ Accordion Handler
+    const faqRows = document.querySelectorAll(".faq-item-row");
+    faqRows.forEach((row) => {
+      const trigger = row.querySelector("[data-faq-trigger]");
+      trigger?.addEventListener("click", () => {
+        const isCurrentlyExpanded = row.classList.contains("is-expanded");
+        
+        // Optional accordion behavior: collapse others
+        faqRows.forEach((r) => {
+          r.classList.remove("is-expanded");
+          const t = r.querySelector("[data-faq-trigger]");
+          t?.setAttribute("aria-expanded", "false");
+          const icon = r.querySelector(".faq-toggle-icon");
+          if (icon) icon.textContent = "+";
+        });
+
+        if (!isCurrentlyExpanded) {
+          row.classList.add("is-expanded");
+          trigger.setAttribute("aria-expanded", "true");
+          const icon = row.querySelector(".faq-toggle-icon");
+          if (icon) icon.textContent = "×";
+        }
+      });
+    });
+
+    // Cleanup interval on page unload (for ClientRouter)
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        clearInterval(clockInterval);
+      },
+      { once: true }
+    );
+  };
+
+  // Support Astro ClientRouter page transitions
+  document.addEventListener("astro:page-load", initContactPage);
+</script>

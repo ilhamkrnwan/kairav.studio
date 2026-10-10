@@ -1,61 +1,1195 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Badge from "../../components/common/Badge.astro";
-import Button from "../../components/common/Button.astro";
-import Container from "../../components/common/Container.astro";
-import CTASection from "../../components/sections/CTASection.astro";
 import { blogPosts } from "../../data/blog";
 import type { BlogPost } from "../../data/blog";
 
 export function getStaticPaths() {
-  return blogPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  return blogPosts.map((post) => {
+    const related = blogPosts.filter((p) => p.slug !== post.slug);
+    return {
+      params: { slug: post.slug },
+      props: { post, related },
+    };
+  });
 }
 
 interface Props {
   post: BlogPost;
+  related: BlogPost[];
 }
 
-const { post } = Astro.props;
+const { post, related } = Astro.props;
 ---
 
-<BaseLayout title={`${post.title} - Kairav Studio`} description={post.description} canonicalPath={`/insights/${post.slug}`}>
-  <main>
-    <article>
-      <section class="border-b border-[var(--color-border)] py-20 sm:py-24">
-        <Container>
-          <div class="max-w-3xl">
-            <Badge>{post.category}</Badge>
-            <h1 class="mt-6 font-heading text-4xl font-semibold leading-tight text-[var(--color-text)] sm:text-5xl">
+<BaseLayout
+  title={`${post.title} — Engineering Insight · Kairav Studio`}
+  description={post.description}
+  canonicalPath={`/insights/${post.slug}`}
+>
+  <main class="insight-single-page">
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 1. DARK BLUEPRINT HERO (#07080b)                                       */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="insight-hero-section" data-hero-section aria-label="Dispatch Header">
+      <div class="insight-container">
+        
+        {/* Top Telemetry Header Bar */}
+        <div class="insight-telemetry-bar">
+          <div class="telemetry-left">
+            <span class="telemetry-dot" aria-hidden="true"></span>
+            <span class="telemetry-text">STATUS: PUBLISHED DISPATCH</span>
+            <span class="telemetry-sep">·</span>
+            <span class="telemetry-text">ID: {post.slug.toUpperCase()}</span>
+            <span class="telemetry-sep">·</span>
+            <span class="telemetry-text">{post.date}</span>
+          </div>
+          <div class="telemetry-right">
+            <span class="telemetry-text">DISCIPLINE: {post.category.toUpperCase()}</span>
+            <span class="telemetry-sep">·</span>
+            <span class="telemetry-text">{post.readingTime.toUpperCase()}</span>
+          </div>
+          <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+          <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+        </div>
+
+        {/* 24% / 76% Asymmetric Blueprint Band */}
+        <div class="band-row">
+          
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Dispatch Dossier
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              Published Paper
+            </div>
+
+            <div class="dossier-card">
+              <span class="dossier-label">TOPIC CATEGORY</span>
+              <span class="dossier-val font-accent">{post.category}</span>
+              <span class="dossier-desc">Studio Architecture &amp; Methodology</span>
+            </div>
+
+            <div class="dossier-card">
+              <span class="dossier-label">ESTIMATED READING</span>
+              <span class="dossier-val">{post.readingTime}</span>
+              <span class="dossier-desc">Published on {post.date}</span>
+            </div>
+
+            <div class="dossier-card">
+              <span class="dossier-label">AUTHORSHIP</span>
+              <span class="dossier-val">Kairav Engineering</span>
+              <span class="dossier-desc">Collective craft · Yogyakarta (UTC+7)</span>
+            </div>
+          </aside>
+
+          {/* Right Main Stage */}
+          <div class="band-main">
+            
+            <div class="insight-meta-top">
+              <nav class="insight-breadcrumbs" aria-label="Breadcrumbs">
+                <a href="/insights">Insights</a>
+                <span class="crumb-sep">/</span>
+                <span class="crumb-cat">{post.category}</span>
+                <span class="crumb-sep">/</span>
+                <span class="crumb-current">{post.slug}</span>
+              </nav>
+
+              <span class="insight-badge-pill">
+                <span class="badge-dot" aria-hidden="true"></span>
+                {post.category.toUpperCase()}
+              </span>
+            </div>
+
+            <h1 class="insight-hero-title">
               {post.title}
             </h1>
-            <p class="mt-6 text-base leading-8 text-[var(--color-text-soft)] sm:text-lg">{post.description}</p>
-            <p class="mt-6 font-mono text-xs text-[var(--color-text-subtle)]">
-              {post.date} / {post.readingTime}
-            </p>
-          </div>
-        </Container>
-      </section>
 
-      <section class="section-spacing">
-        <Container class="max-w-3xl">
-          <div class="grid gap-10">
-            {post.sections.map((section) => (
-              <section>
-                <h2 class="font-heading text-2xl font-semibold text-[var(--color-text)]">{section.heading}</h2>
-                <p class="mt-4 text-base leading-8 text-[var(--color-text-soft)]">{section.body}</p>
-              </section>
-            ))}
+            <p class="insight-hero-summary">
+              {post.description}
+            </p>
+
+            <div class="insight-pills-strip">
+              <span class="insight-pill"># {post.category}</span>
+              <span class="insight-pill"># {post.date.split("-")[0]}</span>
+              <span class="insight-pill"># Engineering</span>
+              <span class="insight-pill"># KairavStudio</span>
+            </div>
+
+            {/* Action Row */}
+            <div class="insight-action-row">
+              <a href="/insights" class="hero-back-link">
+                <span aria-hidden="true">←</span>
+                <span>Back to All Dispatches</span>
+              </a>
+
+              <a href="/contact" class="clonix-cta-button">
+                <span class="clonix-cta-button__text">Discuss With Engineering Lead</span>
+                <span class="clonix-cta-button__box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                  </svg>
+                </span>
+              </a>
+            </div>
+
           </div>
-          <div class="mt-12">
-            <Button href="/insights" variant="secondary">Back to Insights</Button>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-dark" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 2. ARTICLE BODY READER SECTION (Light Canvas #f8f5ec)                   */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <article class="reader-section" aria-label="Dispatch Content">
+      <div class="insight-container container-light">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          
+          {/* Left Rail */}
+          <aside class="band-rail rail-light">
+            <div class="rail-tag rail-tag--dark">
+              <span class="rail-slash">//</span> Reading
+            </div>
+
+            <div class="rail-pill">
+              <span class="rail-dot" aria-hidden="true"></span>
+              Full Dispatch
+            </div>
+          </aside>
+
+          {/* Right Main Stage */}
+          <div class="band-main main-light">
+            <div class="section-header-wrap">
+              <span class="section-eyebrow">01 · ARCHITECTURAL OBSERVATIONS</span>
+              <h2 class="section-title">Analysis &amp; Pragmatic Findings.</h2>
+              <p class="section-desc">
+                Field findings drawn from direct production metrics, build pipelines, and real user experience audits.
+              </p>
+            </div>
+
+            {/* Sections Flow */}
+            <div class="article-sections-flow">
+              {post.sections.map((sec, sIdx) => (
+                <div class="article-section-card">
+                  <div class="sec-card-head">
+                    <span class="sec-step-num">SECTION 0{sIdx + 1}</span>
+                    <span class="sec-status-dot"></span>
+                  </div>
+                  
+                  <h3 class="sec-card-title">{sec.heading}</h3>
+                  
+                  <div class="sec-card-body">
+                    <p>{sec.body}</p>
+                  </div>
+                </div>
+              ))}
+
+              {/* Concluding Takeaway Card */}
+              <div class="takeaway-box">
+                <span class="takeaway-tag">★ SUMMARY MANDATE</span>
+                <h4 class="takeaway-title">The Engineering Takeaway</h4>
+                <p class="takeaway-text">
+                  Choose simplicity and speed every single time. Digital systems should be built to serve human intentions effortlessly without excessive runtime tax.
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom Navigation */}
+            <div class="article-nav-bottom">
+              <a href="/insights" class="nav-back-btn">
+                <span aria-hidden="true">←</span>
+                <span>Return to All Insights</span>
+              </a>
+
+              <a href="/contact" class="nav-inquire-btn">
+                <span>Start a Project</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
           </div>
-        </Container>
-      </section>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
     </article>
 
-    <CTASection />
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-light" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 3. RELATED DISPATCHES (Dark Obsidian #07080b)                           */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="related-insights-section" aria-label="Related Dispatches">
+      <div class="insight-container">
+        {/* Top Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+
+        <div class="band-row">
+          
+          {/* Left Rail */}
+          <aside class="band-rail">
+            <div class="rail-tag">
+              <span class="rail-slash">//</span> Archive
+            </div>
+
+            <div class="rail-live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              More Dispatches
+            </div>
+          </aside>
+
+          {/* Right Main Stage */}
+          <div class="band-main">
+            <div class="section-header-wrap">
+              <div class="header-split-row">
+                <div>
+                  <span class="section-eyebrow">02 · CONTINUED READING</span>
+                  <h2 class="section-title text-light">Related Engineering Notes.</h2>
+                </div>
+                <a href="/insights" class="catalog-link">
+                  <span>View All Dispatches</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Related Cards Grid */}
+            <div class="related-insights-grid">
+              {related.map((relPost) => (
+                <a href={`/insights/${relPost.slug}`} class="related-insight-card">
+                  <div class="related-meta-top">
+                    <span class="related-category">{relPost.category}</span>
+                    <span class="related-arrow" aria-hidden="true">→</span>
+                  </div>
+                  <h3 class="related-title">{relPost.title}</h3>
+                  <p class="related-desc">{relPost.description}</p>
+                  <div class="related-meta-bottom">
+                    <span>{relPost.date}</span>
+                    <span>·</span>
+                    <span>{relPost.readingTime}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+          </div>
+        </div>
+
+        {/* Bottom Corner Crosshairs */}
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+      </div>
+    </section>
+
+    {/* Hairline Divider with Crosshairs */}
+    <div class="hairline-divider divider-dark" aria-hidden="true">
+      <span class="divider-cross cross-left">+</span>
+      <span class="divider-cross cross-mid">+</span>
+      <span class="divider-cross cross-right">+</span>
+    </div>
+
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    {/* 4. MONUMENTAL BOTTOM CTA BANNER (Dark Obsidian #07080b)                */}
+    {/* ═══════════════════════════════════════════════════════════════════════ */}
+    <section class="insight-cta-section" aria-label="Get in Touch">
+      <div class="insight-container">
+        {/* Corner Crosshairs */}
+        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
+        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
+        <span class="grid-cross cross--br" aria-hidden="true">+</span>
+
+        <div class="cta-inner-box">
+          <span class="cta-eyebrow">WANT TO ENGINEER HIGH-SPEED SYSTEMS?</span>
+          <h2 class="cta-title">
+            Let's Collaborate on Your <span class="cta-highlight">Next Release.</span>
+          </h2>
+          <p class="cta-desc">
+            We partner with teams that prioritize high-craft aesthetics, speed, and architectural longevity. Direct senior engineer involvement on every engagement.
+          </p>
+
+          <div class="cta-button-cluster">
+            <a href="/contact" class="cta-primary-btn">
+              <span>Initiate Project Intake</span>
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <a
+              href="https://wa.me/6285155455953?text=Halo%20Kairav%20Studio,%20saya%20tertarik%20dengan%20layanan%20engineering%20anda"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cta-outline-btn"
+            >
+              <span>Direct WhatsApp</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 </BaseLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════ */
+  /* SCOPED CLONIX ARCHITECTURAL BLUEPRINT DESIGN SYSTEM                         */
+  /* ═══════════════════════════════════════════════════════════════════════════ */
+
+  .insight-single-page {
+    background-color: #07080b;
+    color: #f8f5ec;
+    font-family: var(--font-body, system-ui, sans-serif);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ── Layout Containers & Clonix Hairlines ─────────────────────────────────── */
+  .insight-container {
+    max-width: 1360px;
+    margin: 0 auto;
+    position: relative;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .container-light {
+    background-color: #f8f5ec;
+    color: #111113;
+    border-left-color: rgba(7, 20, 21, 0.08);
+    border-right-color: rgba(7, 20, 21, 0.08);
+  }
+
+  /* ── Corner Crosshairs (+) ────────────────────────────────────────────────── */
+  .grid-cross {
+    position: absolute;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.25);
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .container-light .grid-cross {
+    color: rgba(7, 20, 21, 0.35);
+  }
+
+  .cross--tl { top: -6px; left: -5px; }
+  .cross--tr { top: -6px; right: -5px; }
+  .cross--bl { bottom: -6px; left: -5px; }
+  .cross--br { bottom: -6px; right: -5px; }
+
+  /* ── Hairline Dividers ────────────────────────────────────────────────────── */
+  .hairline-divider {
+    position: relative;
+    max-width: 1360px;
+    margin: 0 auto;
+    height: 1px;
+    z-index: 2;
+  }
+
+  .divider-dark {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .divider-light {
+    background-color: rgba(7, 20, 21, 0.08);
+  }
+
+  .divider-cross {
+    position: absolute;
+    top: -6px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.25);
+    user-select: none;
+  }
+
+  .divider-light .divider-cross {
+    color: rgba(7, 20, 21, 0.35);
+  }
+
+  .cross-left { left: -5px; }
+  .cross-mid {
+    left: 24%;
+    transform: translateX(-50%);
+    display: none;
+  }
+  .cross-right { right: -5px; }
+
+  @media (min-width: 900px) {
+    .cross-mid {
+      display: block;
+    }
+  }
+
+  /* ── Band Row: 24% Left Rail / 76% Main Stage ─────────────────────────────── */
+  .band-row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .band-row {
+      grid-template-columns: 24% 76%;
+    }
+  }
+
+  .band-rail {
+    padding: 2.5rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-rail {
+      padding: 3rem 2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: none;
+    }
+  }
+
+  .rail-light {
+    border-bottom-color: rgba(7, 20, 21, 0.08);
+  }
+
+  @media (min-width: 900px) {
+    .rail-light {
+      border-right-color: rgba(7, 20, 21, 0.08);
+    }
+  }
+
+  .band-main {
+    padding: 2.5rem 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .band-main {
+      padding: 3rem 3rem 4rem 3rem;
+    }
+  }
+
+  /* ── Rail Components ──────────────────────────────────────────────────────── */
+  .rail-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: inherit;
+  }
+
+  .rail-slash {
+    color: #b6ff5c;
+    font-weight: 700;
+  }
+
+  .rail-light .rail-slash {
+    color: #4f7d18;
+  }
+
+  .rail-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.6);
+  }
+
+  .rail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #64748b;
+    background: rgba(7, 20, 21, 0.03);
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .rail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .dossier-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .dossier-label {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+
+  .dossier-val {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8f5ec;
+  }
+
+  .font-accent {
+    color: #b6ff5c;
+  }
+
+  .dossier-desc {
+    font-size: 0.74rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  /* ── 1. Hero Section ──────────────────────────────────────────────────────── */
+  .insight-hero-section {
+    padding: clamp(5.5rem, 8vw, 7.5rem) 1rem 0 1rem;
+    background-color: #07080b;
+  }
+
+  @media (min-width: 900px) {
+    .insight-hero-section {
+      padding: clamp(6rem, 8vw, 8rem) 1.5rem 0 1.5rem;
+    }
+  }
+
+  .insight-telemetry-bar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #94a3b8;
+  }
+
+  .telemetry-left,
+  .telemetry-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .telemetry-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+    box-shadow: 0 0 8px rgba(182, 255, 92, 0.6);
+  }
+
+  .telemetry-sep {
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  .insight-meta-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .insight-breadcrumbs {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  .insight-breadcrumbs a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .insight-breadcrumbs a:hover {
+    color: #b6ff5c;
+  }
+
+  .crumb-sep {
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  .crumb-cat {
+    color: #94a3b8;
+  }
+
+  .crumb-current {
+    color: #f8f5ec;
+    font-weight: 600;
+  }
+
+  .insight-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #b6ff5c;
+    background: rgba(182, 255, 92, 0.06);
+    border: 1px solid rgba(182, 255, 92, 0.2);
+    padding: 0.25rem 0.55rem;
+    border-radius: 3px;
+  }
+
+  .badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #b6ff5c;
+  }
+
+  .insight-hero-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2.2rem, 4.8vw, 4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+  }
+
+  .insight-hero-summary {
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    color: #cbd5e1;
+    line-height: 1.6;
+    max-width: 820px;
+    margin-bottom: 1.75rem;
+  }
+
+  .insight-pills-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .insight-pill {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.3rem 0.65rem;
+    border-radius: 4px;
+  }
+
+  /* ── Action Buttons ──────────────────────────────────────────────────────── */
+  .insight-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .hero-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .hero-back-link:hover {
+    color: #f8f5ec;
+  }
+
+  .clonix-cta-button {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    background: #b6ff5c;
+    color: #07080b;
+    border-radius: 4px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+
+  .clonix-cta-button:hover {
+    background: #c7ff7d;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(182, 255, 92, 0.25);
+  }
+
+  .clonix-cta-button__text {
+    padding: 0 1.25rem;
+  }
+
+  .clonix-cta-button__box {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(7, 8, 11, 0.12);
+    border-left: 1px solid rgba(7, 8, 11, 0.12);
+  }
+
+  /* ── Section Headers ──────────────────────────────────────────────────────── */
+  .section-header-wrap {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-eyebrow {
+    display: block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    color: #4f7d18;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .related-insights-section .section-eyebrow {
+    color: #b6ff5c;
+  }
+
+  .section-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #111113;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .text-light {
+    color: #ffffff;
+  }
+
+  .section-desc {
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.6;
+    max-width: 680px;
+  }
+
+  /* ── 2. Article Reader Section ────────────────────────────────────────────── */
+  .reader-section {
+    background-color: #f8f5ec;
+    color: #111113;
+  }
+
+  .article-sections-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .article-section-card {
+    background: #ffffff;
+    border: 1px solid rgba(7, 20, 21, 0.08);
+    border-radius: 8px;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  }
+
+  .sec-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .sec-step-num {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #4f7d18;
+    letter-spacing: 0.08em;
+  }
+
+  .sec-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #4f7d18;
+  }
+
+  .sec-card-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #111113;
+    margin-bottom: 1.25rem;
+  }
+
+  .sec-card-body {
+    font-size: 1.05rem;
+    color: #334155;
+    line-height: 1.8;
+  }
+
+  .takeaway-box {
+    background: #ffffff;
+    border: 1px solid rgba(79, 125, 24, 0.25);
+    border-left: 4px solid #4f7d18;
+    border-radius: 6px;
+    padding: 1.75rem 2rem;
+    box-shadow: 0 4px 20px rgba(79, 125, 24, 0.04);
+  }
+
+  .takeaway-tag {
+    display: block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #3f6612;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+
+  .takeaway-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111113;
+    margin-bottom: 0.5rem;
+  }
+
+  .takeaway-text {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.65;
+  }
+
+  .article-nav-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(7, 20, 21, 0.08);
+  }
+
+  .nav-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .nav-back-btn:hover {
+    color: #111113;
+  }
+
+  .nav-inquire-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #4f7d18;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+
+  .nav-inquire-btn:hover {
+    transform: translateX(3px);
+  }
+
+  /* ── 3. Related Insights ──────────────────────────────────────────────────── */
+  .related-insights-section {
+    background-color: #07080b;
+    color: #f8f5ec;
+  }
+
+  .header-split-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+
+  .catalog-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem;
+    color: #b6ff5c;
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    background: rgba(182, 255, 92, 0.06);
+    border: 1px solid rgba(182, 255, 92, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .catalog-link:hover {
+    background: rgba(182, 255, 92, 0.12);
+    transform: translateX(3px);
+  }
+
+  .related-insights-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 680px) {
+    .related-insights-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .related-insight-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: all 0.25s ease;
+  }
+
+  .related-insight-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(182, 255, 92, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .related-meta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .related-category {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    color: #64748b;
+    letter-spacing: 0.06em;
+  }
+
+  .related-arrow {
+    color: #94a3b8;
+    transition: transform 0.2s ease;
+  }
+
+  .related-insight-card:hover .related-arrow {
+    color: #b6ff5c;
+    transform: translateX(3px);
+  }
+
+  .related-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+  }
+
+  .related-desc {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    flex-grow: 1;
+  }
+
+  .related-meta-bottom {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem;
+    color: #64748b;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* ── 4. Bottom Monumental CTA Banner ──────────────────────────────────────── */
+  .insight-cta-section {
+    padding: 4rem 1rem 6rem 1rem;
+    background-color: #07080b;
+  }
+
+  @media (min-width: 900px) {
+    .insight-cta-section {
+      padding: 6rem 1.5rem 8rem 1.5rem;
+    }
+  }
+
+  .cta-inner-box {
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, rgba(182, 255, 92, 0.08) 0%, rgba(7, 8, 11, 0) 70%), #07080b;
+  }
+
+  .cta-eyebrow {
+    display: block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.75rem;
+    color: #b6ff5c;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .cta-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(2rem, 4.5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    max-width: 820px;
+    margin: 0 auto 1.25rem auto;
+  }
+
+  .cta-highlight {
+    color: #b6ff5c;
+  }
+
+  .cta-desc {
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: #94a3b8;
+    max-width: 620px;
+    margin: 0 auto 2.5rem auto;
+    line-height: 1.65;
+  }
+
+  .cta-button-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cta-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.75rem;
+    border-radius: 4px;
+    background: #b6ff5c;
+    color: #07080b;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.84rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .cta-primary-btn:hover {
+    background: #c7ff7d;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(182, 255, 92, 0.3);
+  }
+
+  .cta-outline-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.75rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #f8f5ec;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.84rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .cta-outline-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+</style>

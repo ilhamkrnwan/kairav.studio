@@ -228,6 +228,7 @@ html.site-menu-open {
   transform: translateY(-2px);
 }
 
+.site-dock-toggle,
 .site-icon-link:first-of-type {
   order: 1;
   position: fixed;
@@ -236,12 +237,25 @@ html.site-menu-open {
   transform: translateY(-50%);
 }
 
+.site-email-link,
 .site-icon-link:nth-of-type(2) {
   order: 2;
   position: fixed;
   top: calc(var(--site-topbar-height) / 2);
   right: 3.25rem;
   transform: translateY(-50%);
+}
+
+.dock-toggle-svg {
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-dock-toggle.is-active .dock-toggle-svg {
+  transform: rotate(45deg);
+}
+
+.site-dock-toggle.is-active {
+  color: #b6ff5c;
 }
 
 .site-icon-link svg {
@@ -808,6 +822,8 @@ html.site-menu-open {
     transform: none;
   }
 
+  .site-actions .site-dock-toggle,
+  .site-actions .site-email-link,
   .site-actions .site-icon-link,
   .site-actions .site-icon-link:first-of-type,
   .site-actions .site-icon-link:nth-of-type(2) {
@@ -837,6 +853,7 @@ html.site-menu-open {
     height: 2px;
   }
 
+  .site-actions .site-dock-toggle,
   .site-actions .site-icon-link:first-of-type {
     order: 4;
     grid-row: 4;
@@ -844,6 +861,7 @@ html.site-menu-open {
     align-self: center;
   }
 
+  .site-actions .site-email-link,
   .site-actions .site-icon-link:nth-of-type(2) {
     order: 5;
     grid-row: 5;
@@ -1621,6 +1639,41 @@ html.site-menu-open {
 .clonix-cta-button:hover .clonix-cta-button__box,
 .case-study-cta-btn:hover .case-study-cta-btn__box {
   transform: translateX(2px);
+}
+
+/* ── Floating Action Dock: Desktop hidden until +, Mobile always visible ── */
+@media (min-width: 768px) {
+  .floating-dock {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateX(18px) scale(0.96) !important;
+    transition:
+      opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 220ms ease !important;
+  }
+
+  .floating-dock.is-open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(0) scale(1) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .floating-dock {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: none !important;
+    transform: none !important;
+  }
+
+  .floating-dock .dock-pill {
+    pointer-events: auto !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

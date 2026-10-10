@@ -154,10 +154,10 @@ const worksFaqs = [
         {/* Blueprint Telemetry Bar */}
         <div class="blueprint-meta-bar" aria-label="Studio Production Telemetry">
           <div class="blueprint-meta-left">
-            <span class="blueprint-mono">STATUS: ONLINE · PRODUCTION ARCHIVE · 5 SHIPPED SYSTEMS</span>
+            <span class="blueprint-mono">PRODUCTION ARCHIVE</span>
           </div>
           <div class="blueprint-meta-right">
-            <span class="blueprint-mono">STANDARDS: ZERO RUNTIME WASTE · TYPE SAFE · YOGYAKARTA (UTC+7)</span>
+            <span class="blueprint-mono">YOGYAKARTA, ID</span>
           </div>
         </div>
 
@@ -282,9 +282,6 @@ const worksFaqs = [
           <aside class="band-rail rail-light">
             <div class="rail-tag">
               Featured Project
-            </div>
-            <div class="vertical-badge" aria-hidden="true">
-              CASE STUDY HIGHLIGHT
             </div>
           </aside>
 
@@ -584,7 +581,13 @@ const worksFaqs = [
             </div>
 
             <div class="rail-pill">
-              Delivery Questions
+              Answers & Clarifications
+            </div>
+
+            <div class="works-meta-note">
+              <span class="meta-label">ENGAGEMENT TRANSPARENCY</span>
+              <span class="meta-val">Full Openness</span>
+              <span class="meta-desc">Clear communication regarding contracts, intellectual property, and delivery.</span>
             </div>
           </aside>
 
@@ -612,11 +615,13 @@ const worksFaqs = [
                       <span class="faq-index-number">0{idx + 1}</span>
                       <h3 class="faq-question-text">{faq.q}</h3>
                     </div>
-                    <span class="faq-toggle-icon" aria-hidden="true">{idx === 0 ? "×" : "+"}</span>
+                    <span class="faq-toggle-icon" aria-hidden="true">+</span>
                   </button>
 
                   <div class="faq-item-body">
-                    <p class="faq-answer-text">{faq.a}</p>
+                    <div class="faq-item-content">
+                      <p class="faq-answer-text">{faq.a}</p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -1722,19 +1727,43 @@ const worksFaqs = [
   /* ── 6. Works FAQ Section (Light Canvas) ─────────────────────────────────── */
   .works-faq-section {
     position: relative;
-    background-color: #f8f5ec;
-    color: #071415;
-    padding: 4rem 1rem 5rem 1rem;
-    overflow: hidden;
+    background-color: #f4efe4;
+    color: #111113;
+    padding: 2rem 1rem 3rem 1rem;
   }
 
   @media (min-width: 640px) {
     .works-faq-section {
-      padding: 5rem 1.5rem 6.5rem 1.5rem;
+      padding: 3rem 1.5rem 4rem 1.5rem;
+    }
+  }
+
+  .works-faq-section .works-container {
+    background: #faf9f5;
+    border-color: rgba(7, 20, 21, 0.08);
+  }
+
+  .works-faq-section .grid-cross {
+    color: rgba(7, 20, 21, 0.25);
+  }
+
+  .works-faq-section .band-rail {
+    background: #f4efe4;
+  }
+
+  .works-faq-section .band-main {
+    background-color: #faf9f5;
+    padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .works-faq-section .band-main {
+      padding: 3.5rem 3rem;
     }
   }
 
   .faq-header-wrap {
+    max-width: 52rem;
     margin-bottom: 2.5rem;
   }
 
@@ -1742,18 +1771,18 @@ const worksFaqs = [
     display: inline-block;
     font-family: var(--font-mono, "JetBrains Mono", monospace);
     font-size: 0.72rem;
-    font-weight: 700;
+    font-weight: 600;
+    letter-spacing: 0.14em;
     color: #4f7d18;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.85rem;
   }
 
   .faq-title {
     font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     color: #111113;
     margin-bottom: 1rem;
   }
@@ -1769,77 +1798,133 @@ const worksFaqs = [
   .works-faq-accordion {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid rgba(7, 20, 21, 0.1);
+    border-top: 1px solid rgba(17, 17, 19, 0.1);
   }
 
   .faq-item-row {
-    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    border-bottom: 1px solid rgba(17, 17, 19, 0.1);
     transition: background 0.2s ease;
   }
 
   .faq-item-trigger {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1.5rem 0;
+    display: grid;
+    grid-template-columns: 2.25rem 1fr 24px;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 1.35rem 0;
     background: transparent;
     border: none;
     text-align: left;
     cursor: pointer;
+    transition: color 180ms ease;
   }
 
   .trigger-left {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
+    display: contents;
   }
 
   .faq-index-number {
     font-family: var(--font-mono, "JetBrains Mono", monospace);
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #4f7d18;
+    font-variant-numeric: tabular-nums;
   }
 
   .faq-question-text {
     font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: 1.15rem;
+    font-size: 1.08rem;
     font-weight: 600;
     color: #111113;
+    line-height: 1.4;
+    margin: 0;
+    transition: color 180ms ease;
+  }
+
+  .faq-item-trigger:hover .faq-question-text {
+    color: #4f7d18;
   }
 
   .faq-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
     font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 1.4rem;
+    font-size: 1.35rem;
+    font-weight: 400;
     line-height: 1;
-    color: #64748b;
-    transition: transform 0.2s ease, color 0.2s ease;
+    color: #71717a;
+    justify-self: end;
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease;
+    transform-origin: center;
+    user-select: none;
   }
 
   .faq-item-row.is-expanded .faq-toggle-icon {
-    color: #111113;
+    color: #4f7d18;
+    transform: rotate(45deg);
   }
 
   .faq-item-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 280ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .faq-item-row.is-expanded .faq-item-body {
-    max-height: 300px;
-    padding-bottom: 1.5rem;
+    grid-template-rows: 1fr;
+  }
+
+  .faq-item-content {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr 24px;
+    gap: 0.75rem;
+    overflow: hidden;
+    min-height: 0;
   }
 
   .faq-answer-text {
+    grid-column: 2;
     font-family: var(--font-body, "Inter", sans-serif);
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: #475569;
-    padding-left: 2.75rem;
-    max-width: 48rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #52525b;
+    padding-bottom: 1.5rem;
+    max-width: 52rem;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 260ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-item-row.is-expanded .faq-answer-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 640px) {
+    .faq-item-trigger {
+      grid-template-columns: 1.75rem 1fr 20px;
+      gap: 0.5rem;
+      padding: 1.15rem 0;
+    }
+
+    .faq-item-content {
+      grid-template-columns: 1.75rem 1fr 20px;
+      gap: 0.5rem;
+    }
+
+    .faq-question-text {
+      font-size: 1rem;
+    }
+
+    .faq-answer-text {
+      font-size: 0.88rem;
+      padding-bottom: 1.25rem;
+    }
   }
 </style>
 
@@ -1889,24 +1974,11 @@ const worksFaqs = [
     const items = group.querySelectorAll("[data-faq-item]");
     items.forEach((item) => {
       const trigger = item.querySelector("[data-faq-trigger]");
-      const icon = item.querySelector(".faq-toggle-icon");
 
       trigger?.addEventListener("click", () => {
         const isExpanded = item.classList.contains("is-expanded");
-
-        items.forEach((other) => {
-          other.classList.remove("is-expanded");
-          const otherTrigger = other.querySelector("[data-faq-trigger]");
-          const otherIcon = other.querySelector(".faq-toggle-icon");
-          if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
-          if (otherIcon) otherIcon.textContent = "+";
-        });
-
-        if (!isExpanded) {
-          item.classList.add("is-expanded");
-          trigger.setAttribute("aria-expanded", "true");
-          if (icon) icon.textContent = "×";
-        }
+        item.classList.toggle("is-expanded", !isExpanded);
+        trigger.setAttribute("aria-expanded", String(!isExpanded));
       });
     });
   };

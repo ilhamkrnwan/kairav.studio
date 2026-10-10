@@ -39,14 +39,21 @@ const isActive = (href: string) => {
         <span class="site-menu-toggle__line"></span>
         <span class="site-rail-tooltip">{t("Menu")}</span>
       </button>
-      <a class="site-icon-link" href={localizePath("/services", lang)} aria-label={t("Services")}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <button 
+        class="site-icon-link site-dock-toggle" 
+        type="button" 
+        aria-label={t("Start a Project")} 
+        aria-expanded="false" 
+        aria-controls="floating-action-dock" 
+        data-dock-toggle
+      >
+        <svg class="dock-toggle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
-        <span class="site-rail-tooltip">{t("Services")}</span>
-      </a>
-      <a class="site-icon-link" href="mailto:hello@kairav.studio" aria-label={t("Email Kairav Studio")}>
+        <span class="site-rail-tooltip">{t("Start a Project")}</span>
+      </button>
+      <a class="site-icon-link site-email-link" href="mailto:hello@kairav.studio" aria-label={t("Email Kairav Studio")}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect width="20" height="16" x="2" y="4" rx="2"></rect>
           <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>

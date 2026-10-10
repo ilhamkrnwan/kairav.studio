@@ -156,10 +156,10 @@ const clientFaqs = [
         {/* Top Blueprint Telemetry Bar */}
         <div class="blueprint-meta-bar" aria-hidden="true">
           <div class="blueprint-meta-left">
-            <span class="blueprint-mono">STATUS: ONLINE · SLOTS OPEN FOR Q2–Q3 · RESPONSE &lt; 24H</span>
+            <span class="blueprint-mono">START YOUR PROJECT</span>
           </div>
           <div class="blueprint-meta-right">
-            <span class="blueprint-mono">LOC: 07°47'S · 110°22'E · YOGYAKARTA, ID (UTC+7)</span>
+            <span class="blueprint-mono">YOGYAKARTA, ID</span>
           </div>
         </div>
 
@@ -731,11 +731,13 @@ const clientFaqs = [
                       <span class="faq-index-number">0{idx + 1}</span>
                       <h3 class="faq-question-text">{faq.q}</h3>
                     </div>
-                    <span class="faq-toggle-icon" aria-hidden="true">{idx === 0 ? "×" : "+"}</span>
+                    <span class="faq-toggle-icon" aria-hidden="true">+</span>
                   </button>
 
                   <div class="faq-item-body">
-                    <p class="faq-answer-text">{faq.a}</p>
+                    <div class="faq-item-content">
+                      <p class="faq-answer-text">{faq.a}</p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -2036,10 +2038,10 @@ const clientFaqs = [
 
   .faq-item-trigger {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: 2.25rem 1fr 24px;
+    align-items: baseline;
+    gap: 0.75rem;
     padding: 1.35rem 0;
     background: transparent;
     border: none;
@@ -2048,21 +2050,16 @@ const clientFaqs = [
     transition: color 180ms ease;
   }
 
-  .faq-item-trigger:hover {
-    color: #4f7d18;
-  }
-
   .trigger-left {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
+    display: contents;
   }
 
   .faq-index-number {
     font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: #4f7d18;
+    font-variant-numeric: tabular-nums;
   }
 
   .faq-question-text {
@@ -2071,6 +2068,7 @@ const clientFaqs = [
     font-weight: 600;
     color: #111113;
     margin: 0;
+    line-height: 1.4;
     transition: color 180ms ease;
   }
 
@@ -2079,21 +2077,20 @@ const clientFaqs = [
   }
 
   .faq-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
     font-family: var(--font-mono, "JetBrains Mono", monospace);
     font-size: 1.35rem;
     font-weight: 400;
     color: #71717a;
     line-height: 1;
-    transition: transform 200ms ease, color 200ms ease;
-  }
-
-  .faq-item-body {
-    display: none;
-    padding: 0 0 1.5rem calc(0.8rem + 1.25rem);
-  }
-
-  .faq-item-row.is-expanded .faq-item-body {
-    display: block;
+    justify-self: end;
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease;
+    transform-origin: center;
+    user-select: none;
   }
 
   .faq-item-row.is-expanded .faq-toggle-icon {
@@ -2101,12 +2098,53 @@ const clientFaqs = [
     transform: rotate(45deg);
   }
 
+  .faq-item-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-item-row.is-expanded .faq-item-body {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-item-content {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr 24px;
+    gap: 0.75rem;
+    overflow: hidden;
+    min-height: 0;
+  }
+
   .faq-answer-text {
+    grid-column: 2;
     font-size: 0.92rem;
     line-height: 1.7;
     color: #52525b;
     margin: 0;
+    padding-bottom: 1.5rem;
     max-width: 52rem;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 260ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-item-row.is-expanded .faq-answer-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 640px) {
+    .faq-item-trigger {
+      grid-template-columns: 1.75rem 1fr 20px;
+      gap: 0.5rem;
+      padding: 1.15rem 0;
+    }
+
+    .faq-item-content {
+      grid-template-columns: 1.75rem 1fr 20px;
+      gap: 0.5rem;
+    }
   }
 </style>
 
@@ -2268,29 +2306,19 @@ ${notes}`;
     });
 
     // 8. FAQ Accordion Handler
-    const faqRows = document.querySelectorAll(".faq-item-row");
-    faqRows.forEach((row) => {
-      const trigger = row.querySelector("[data-faq-trigger]");
-      trigger?.addEventListener("click", () => {
-        const isCurrentlyExpanded = row.classList.contains("is-expanded");
-        
-        // Optional accordion behavior: collapse others
-        faqRows.forEach((r) => {
-          r.classList.remove("is-expanded");
-          const t = r.querySelector("[data-faq-trigger]");
-          t?.setAttribute("aria-expanded", "false");
-          const icon = r.querySelector(".faq-toggle-icon");
-          if (icon) icon.textContent = "+";
+    const faqContainer = document.querySelector("[data-faq-group]");
+    if (faqContainer && !faqContainer.hasAttribute("data-faq-initialized")) {
+      faqContainer.setAttribute("data-faq-initialized", "true");
+      const faqRows = faqContainer.querySelectorAll(".faq-item-row");
+      faqRows.forEach((row) => {
+        const trigger = row.querySelector("[data-faq-trigger]");
+        trigger?.addEventListener("click", () => {
+          const isCurrentlyExpanded = row.classList.contains("is-expanded");
+          row.classList.toggle("is-expanded", !isCurrentlyExpanded);
+          trigger.setAttribute("aria-expanded", String(!isCurrentlyExpanded));
         });
-
-        if (!isCurrentlyExpanded) {
-          row.classList.add("is-expanded");
-          trigger.setAttribute("aria-expanded", "true");
-          const icon = row.querySelector(".faq-toggle-icon");
-          if (icon) icon.textContent = "×";
-        }
       });
-    });
+    }
 
     // Cleanup interval on page unload (for ClientRouter)
     document.addEventListener(
@@ -2303,5 +2331,7 @@ ${notes}`;
   };
 
   // Support Astro ClientRouter page transitions
+  document.addEventListener("DOMContentLoaded", initContactPage);
   document.addEventListener("astro:page-load", initContactPage);
+  initContactPage();
 </script>

@@ -83,29 +83,31 @@
                   Understand how we work and what to expect when partnering with Kairav.
                 </p>
               </div>
-              <span class="cat-toggle-icon" aria-hidden="true">×</span>
+              <span class="cat-toggle-icon" aria-hidden="true">+</span>
             </button>
 
             <div class="faq-category-body">
-              <div class="qa-pairs-list">
-                <div class="qa-item">
-                  <div class="qa-question">What type of services do you offer?</div>
-                  <div class="qa-answer">
-                    We specialize in branding, web design, and digital marketing — covering everything from strategy to launch.
+              <div class="faq-category-content">
+                <div class="qa-pairs-list">
+                  <div class="qa-item">
+                    <div class="qa-question">What type of services do you offer?</div>
+                    <div class="qa-answer">
+                      We specialize in branding, web design, and digital marketing — covering everything from strategy to launch.
+                    </div>
                   </div>
-                </div>
 
-                <div class="qa-item">
-                  <div class="qa-question">How long does a typical project take?</div>
-                  <div class="qa-answer">
-                    Most projects are completed within 3–6 weeks, depending on complexity and feedback speed.
+                  <div class="qa-item">
+                    <div class="qa-question">How long does a typical project take?</div>
+                    <div class="qa-answer">
+                      Most projects are completed within 3–6 weeks, depending on complexity and feedback speed.
+                    </div>
                   </div>
-                </div>
 
-                <div class="qa-item">
-                  <div class="qa-question">Can you work with existing brand assets?</div>
-                  <div class="qa-answer">
-                    Yes, we can build upon your current visuals or refresh them for a stronger, more consistent identity.
+                  <div class="qa-item">
+                    <div class="qa-question">Can you work with existing brand assets?</div>
+                    <div class="qa-answer">
+                      Yes, we can build upon your current visuals or refresh them for a stronger, more consistent identity.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -130,25 +132,27 @@
             </button>
 
             <div class="faq-category-body">
-              <div class="qa-pairs-list">
-                <div class="qa-item">
-                  <div class="qa-question">Do you offer monthly and project-based pricing?</div>
-                  <div class="qa-answer">
-                    Yes. We provide both flexible monthly retainers and fixed-price project options based on your goals.
+              <div class="faq-category-content">
+                <div class="qa-pairs-list">
+                  <div class="qa-item">
+                    <div class="qa-question">Do you offer monthly and project-based pricing?</div>
+                    <div class="qa-answer">
+                      Yes. We provide both flexible monthly retainers and fixed-price project options based on your goals.
+                    </div>
                   </div>
-                </div>
 
-                <div class="qa-item">
-                  <div class="qa-question">What payment methods do you accept?</div>
-                  <div class="qa-answer">
-                    We accept all major cards, bank transfers, and automated invoices for international and local clients.
+                  <div class="qa-item">
+                    <div class="qa-question">What payment methods do you accept?</div>
+                    <div class="qa-answer">
+                      We accept all major cards, bank transfers, and automated invoices for international and local clients.
+                    </div>
                   </div>
-                </div>
 
-                <div class="qa-item">
-                  <div class="qa-question">Can I upgrade or change my plan later?</div>
-                  <div class="qa-answer">
-                    Absolutely. You can switch, scale, or customize your plan anytime as your needs evolve.
+                  <div class="qa-item">
+                    <div class="qa-question">Can I upgrade or change my plan later?</div>
+                    <div class="qa-answer">
+                      Absolutely. You can switch, scale, or customize your plan anytime as your needs evolve.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -173,25 +177,27 @@
             </button>
 
             <div class="faq-category-body">
-              <div class="qa-pairs-list">
-                <div class="qa-item">
-                  <div class="qa-question">Do you offer support after project delivery?</div>
-                  <div class="qa-answer">
-                    Yes, we provide post-launch assistance and maintenance to ensure everything runs smoothly after your site or campaign goes live.
+              <div class="faq-category-content">
+                <div class="qa-pairs-list">
+                  <div class="qa-item">
+                    <div class="qa-question">Do you offer support after project delivery?</div>
+                    <div class="qa-answer">
+                      Yes, we provide post-launch assistance and maintenance to ensure everything runs smoothly after your site or campaign goes live.
+                    </div>
                   </div>
-                </div>
 
-                <div class="qa-item">
-                  <div class="qa-question">How many revisions are included?</div>
-                  <div class="qa-answer">
-                    Each project includes up to three rounds of revisions to make sure you're fully satisfied with the final result.
+                  <div class="qa-item">
+                    <div class="qa-question">How many revisions are included?</div>
+                    <div class="qa-answer">
+                      Each project includes up to three rounds of revisions to make sure you're fully satisfied with the final result.
+                    </div>
                   </div>
-                </div>
 
-                <div class="qa-item">
-                  <div class="qa-question">How do you handle communication during projects?</div>
-                  <div class="qa-answer">
-                    We stay connected through Slack, WhatsApp, or email, sharing regular progress reports and staging walkthroughs for full transparency.
+                  <div class="qa-item">
+                    <div class="qa-question">How do you handle communication during projects?</div>
+                    <div class="qa-answer">
+                      We stay connected through Slack, WhatsApp, or email, sharing regular progress reports and staging walkthroughs for full transparency.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -336,6 +342,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .band-accordion .band-rail {
+      align-items: flex-start;
+      padding-top: 3.25rem;
     }
   }
 
@@ -521,65 +532,61 @@
   }
 
   .cat-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
     font-family: var(--font-mono, "JetBrains Mono", monospace);
     font-size: 1.6rem;
     font-weight: 300;
     color: #071415;
     line-height: 1;
-    text-align: right;
     user-select: none;
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease;
+    transform-origin: center;
+  }
+
+  .faq-category-item.is-expanded .cat-toggle-icon {
+    transform: rotate(45deg);
   }
 
   /* ── Category Body ────────────────────────────────────────────────────────── */
   .faq-category-body {
-    display: none;
-    padding: 0 1.5rem 2.5rem 1.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .faq-category-body {
-      padding: 0 3rem 3rem 3rem;
-    }
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 280ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .faq-category-item.is-expanded .faq-category-body {
-    display: block;
+    grid-template-rows: 1fr;
+  }
+
+  .faq-category-content {
+    overflow: hidden;
+    min-height: 0;
   }
 
   .qa-pairs-list {
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
-    padding-top: 1.5rem;
+    padding: 1.5rem 1.5rem 2.5rem 1.5rem;
     border-top: 1px solid rgba(7, 20, 21, 0.08);
-  }
-
-  .qa-item {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 260ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   @media (min-width: 768px) {
-    .qa-item {
-      grid-template-columns: 1fr 1.25fr;
-      gap: 2.5rem;
-      align-items: start;
+    .qa-pairs-list {
+      padding: 1.5rem 3rem 3rem 3rem;
     }
   }
 
-  .qa-question {
-    font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #071415;
-    line-height: 1.4;
-  }
-
-  .qa-answer {
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: #4a5658;
+  .faq-category-item.is-expanded .qa-pairs-list {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
 
@@ -593,25 +600,12 @@
 
     items.forEach((item) => {
       const trigger = item.querySelector("[data-faq-trigger]");
-      const icon = item.querySelector(".cat-toggle-icon");
 
       trigger?.addEventListener("click", (e) => {
         e.preventDefault();
         const isCurrentlyExpanded = item.classList.contains("is-expanded");
-
-        items.forEach((other) => {
-          other.classList.remove("is-expanded");
-          const otherTrigger = other.querySelector("[data-faq-trigger]");
-          const otherIcon = other.querySelector(".cat-toggle-icon");
-          otherTrigger?.setAttribute("aria-expanded", "false");
-          if (otherIcon) otherIcon.textContent = "+";
-        });
-
-        if (!isCurrentlyExpanded) {
-          item.classList.add("is-expanded");
-          trigger.setAttribute("aria-expanded", "true");
-          if (icon) icon.textContent = "×";
-        }
+        item.classList.toggle("is-expanded", !isCurrentlyExpanded);
+        trigger.setAttribute("aria-expanded", String(!isCurrentlyExpanded));
       });
     });
   };

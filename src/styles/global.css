@@ -1559,9 +1559,18 @@ html.site-menu-open {
 .dispatch-hero-media img,
 .tool-spec-media-frame img,
 .system-screen-img,
+.video-thumbnail-img,
+.featured-hero-img,
+.stat-video-thumb,
 .rotor-svg,
+.hero-phone-mockup,
 .clonix-cta-button,
-.hero-outline-btn {
+.clonix-cta-btn,
+.clonix-lime-btn,
+.why-choose-btn,
+.dark-pill-btn,
+.hero-outline-btn,
+.hero-play-button {
   will-change: transform;
 }
 

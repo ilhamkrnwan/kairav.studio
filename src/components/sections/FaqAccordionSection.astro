@@ -1,12 +1,112 @@
 ---
 /**
- * FaqAccordionSection.astro (Section 7 - Clonix Category FAQ Accordion)
+ * FaqAccordionSection.astro (Clonix Architectural FAQ Accordion)
  * Light architectural contrast section with hairline blueprint borders,
- * left rail tags, category headers, and 2-column Q&A layouts.
+ * left rail tags, category/item headers, ambient pinwheel watermark,
+ * and responsive Q&A layouts.
  */
+
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
+export interface FaqCategory {
+  title: string;
+  subtitle?: string;
+  items: FaqItem[];
+}
+
+interface Props {
+  id?: string;
+  tag?: string;
+  questionsTag?: string;
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  showCta?: boolean;
+  categories?: FaqCategory[];
+  items?: FaqItem[];
+}
+
+const defaultCategories: FaqCategory[] = [
+  {
+    title: "Services & Process",
+    subtitle: "Understand how we work and what to expect when partnering with Kairav.",
+    items: [
+      {
+        q: "What type of services do you offer?",
+        a: "We specialize in branding, web design, and digital marketing — covering everything from strategy to launch.",
+      },
+      {
+        q: "How long does a typical project take?",
+        a: "Most projects are completed within 3–6 weeks, depending on complexity and feedback speed.",
+      },
+      {
+        q: "Can you work with existing brand assets?",
+        a: "Yes, we can build upon your current visuals or refresh them for a stronger, more consistent identity.",
+      },
+    ],
+  },
+  {
+    title: "Pricing & Payments",
+    subtitle: "Learn about how we price our work and the payment options available.",
+    items: [
+      {
+        q: "Do you offer monthly and project-based pricing?",
+        a: "Yes. We provide both flexible monthly retainers and fixed-price project options based on your goals.",
+      },
+      {
+        q: "What payment methods do you accept?",
+        a: "We accept all major cards, bank transfers, and automated invoices for international and local clients.",
+      },
+      {
+        q: "Can I upgrade or change my plan later?",
+        a: "Absolutely. You can switch, scale, or customize your plan anytime as your needs evolve.",
+      },
+    ],
+  },
+  {
+    title: "Support & Revisions",
+    subtitle: "Find answers about post-project support, updates, and collaboration.",
+    items: [
+      {
+        q: "Do you offer support after project delivery?",
+        a: "Yes, we provide post-launch assistance and maintenance to ensure everything runs smoothly after your site or campaign goes live.",
+      },
+      {
+        q: "How many revisions are included?",
+        a: "Each project includes up to three rounds of revisions to make sure you're fully satisfied with the final result.",
+      },
+      {
+        q: "How do you handle communication during projects?",
+        a: "We stay connected through Slack, WhatsApp, or email, sharing regular progress reports and staging walkthroughs for full transparency.",
+      },
+    ],
+  },
+];
+
+const {
+  id = "faq",
+  tag = "FAQs",
+  questionsTag = "Questions Answered",
+  eyebrow,
+  title = "Got Questions? We've Got Answers.",
+  description = "Everything you need to know before working with us — no jargon, no fine print.",
+  ctaText = "Book a Call",
+  ctaHref = "/contact",
+  showCta = true,
+  categories,
+  items,
+} = Astro.props;
+
+// Determine whether to use categories (passed or default when no flat items provided)
+const activeCategories = !items && (categories || defaultCategories);
 ---
 
-<section class="faq-accordion-section" id="faq" data-faq-section>
+<section class="faq-accordion-section" id={id} data-faq-section>
   {/* Ambient Pinwheel Watermark (Top-Right) */}
   <div class="ambient-pinwheel pinwheel--tr" aria-hidden="true">
     <svg viewBox="0 0 200 200" fill="none" class="pinwheel-svg">
@@ -32,22 +132,23 @@
     <div class="band-row band-header">
       <div class="band-rail">
         <div class="rail-tag">
-          FAQs
+          {tag}
         </div>
       </div>
 
       <div class="band-main header-main-wrap">
         <div class="header-copy">
-          <h2 class="faq-title">Got Questions? We've Got Answers.</h2>
-          <p class="faq-desc">
-            Everything you need to know before working with us — no jargon, no fine print.
-          </p>
+          {eyebrow && <span class="faq-eyebrow">{eyebrow}</span>}
+          <h2 class="faq-title">{title}</h2>
+          {description && <p class="faq-desc">{description}</p>}
         </div>
 
-        <a href="/contact" class="dark-pill-btn">
-          <span>Book a Call</span>
-          <span class="btn-arrow-box" aria-hidden="true">→</span>
-        </a>
+        {showCta && (
+          <a href={ctaHref} class="dark-pill-btn">
+            <span>{ctaText}</span>
+            <span class="btn-arrow-box" aria-hidden="true">→</span>
+          </a>
+        )}
       </div>
     </div>
 
@@ -58,152 +159,77 @@
       <span class="divider-cross cross-right">+</span>
     </div>
 
-    {/* ── ROW 2: Questions Answered & Categories Band ───────────────────── */}
+    {/* ── ROW 2: Questions & Accordion Band ─────────────────────────────── */}
     <div class="band-row band-accordion">
       <div class="band-rail">
         <div class="rail-tag">
-          Questions Answered
+          {questionsTag}
         </div>
       </div>
 
       <div class="band-main">
-        {/* Categories List */}
-        <div class="faq-categories-list" data-faq-group>
-          {/* Category 1: Services & Process (Expanded by default) */}
-          <div class="faq-category-item is-expanded" data-faq-cat="1">
-            <button
-              type="button"
-              class="faq-category-trigger"
-              data-faq-trigger
-              aria-expanded="true"
-            >
-              <div class="trigger-meta-grid">
-                <h3 class="cat-title">Services & Process</h3>
-                <p class="cat-subtitle">
-                  Understand how we work and what to expect when partnering with Kairav.
-                </p>
-              </div>
-              <span class="cat-toggle-icon" aria-hidden="true">+</span>
-            </button>
-
-            <div class="faq-category-body">
-              <div class="faq-category-content">
-                <div class="qa-pairs-list">
-                  <div class="qa-item">
-                    <div class="qa-question">What type of services do you offer?</div>
-                    <div class="qa-answer">
-                      We specialize in branding, web design, and digital marketing — covering everything from strategy to launch.
-                    </div>
+        {/* Categories List (Index Categorized FAQ) */}
+        {activeCategories && (
+          <div class="faq-categories-list" data-faq-group>
+            {activeCategories.map((cat, catIdx) => (
+              <div class={`faq-category-item ${catIdx === 0 ? "is-expanded" : ""}`} data-faq-cat={catIdx + 1} data-faq-item>
+                <button
+                  type="button"
+                  class="faq-category-trigger"
+                  data-faq-trigger
+                  aria-expanded={catIdx === 0 ? "true" : "false"}
+                >
+                  <div class="trigger-meta-grid">
+                    <h3 class="cat-title">{cat.title}</h3>
+                    {cat.subtitle && <p class="cat-subtitle">{cat.subtitle}</p>}
                   </div>
+                  <span class="cat-toggle-icon" aria-hidden="true">+</span>
+                </button>
 
-                  <div class="qa-item">
-                    <div class="qa-question">How long does a typical project take?</div>
-                    <div class="qa-answer">
-                      Most projects are completed within 3–6 weeks, depending on complexity and feedback speed.
-                    </div>
-                  </div>
-
-                  <div class="qa-item">
-                    <div class="qa-question">Can you work with existing brand assets?</div>
-                    <div class="qa-answer">
-                      Yes, we can build upon your current visuals or refresh them for a stronger, more consistent identity.
+                <div class="faq-category-body">
+                  <div class="faq-category-content">
+                    <div class="qa-pairs-list">
+                      {cat.items.map((item) => (
+                        <div class="qa-item">
+                          <div class="qa-question">{item.q}</div>
+                          <div class="qa-answer">{item.a}</div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
+        )}
 
-          {/* Category 2: Pricing & Payments */}
-          <div class="faq-category-item" data-faq-cat="2">
-            <button
-              type="button"
-              class="faq-category-trigger"
-              data-faq-trigger
-              aria-expanded="false"
-            >
-              <div class="trigger-meta-grid">
-                <h3 class="cat-title">Pricing & Payments</h3>
-                <p class="cat-subtitle">
-                  Learn about how we price our work and the payment options available.
-                </p>
-              </div>
-              <span class="cat-toggle-icon" aria-hidden="true">+</span>
-            </button>
-
-            <div class="faq-category-body">
-              <div class="faq-category-content">
-                <div class="qa-pairs-list">
-                  <div class="qa-item">
-                    <div class="qa-question">Do you offer monthly and project-based pricing?</div>
-                    <div class="qa-answer">
-                      Yes. We provide both flexible monthly retainers and fixed-price project options based on your goals.
-                    </div>
+        {/* Flat Q&A Items List (Subpages Q&A Accordion) */}
+        {items && (
+          <div class="faq-items-list" data-faq-group>
+            {items.map((item, idx) => (
+              <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
+                <button
+                  type="button"
+                  class="faq-item-trigger"
+                  data-faq-trigger
+                  aria-expanded={idx === 0 ? "true" : "false"}
+                >
+                  <div class="trigger-left">
+                    <span class="faq-index-number">0{idx + 1}</span>
+                    <h3 class="faq-question-text">{item.q}</h3>
                   </div>
+                  <span class="faq-toggle-icon" aria-hidden="true">+</span>
+                </button>
 
-                  <div class="qa-item">
-                    <div class="qa-question">What payment methods do you accept?</div>
-                    <div class="qa-answer">
-                      We accept all major cards, bank transfers, and automated invoices for international and local clients.
-                    </div>
-                  </div>
-
-                  <div class="qa-item">
-                    <div class="qa-question">Can I upgrade or change my plan later?</div>
-                    <div class="qa-answer">
-                      Absolutely. You can switch, scale, or customize your plan anytime as your needs evolve.
-                    </div>
+                <div class="faq-item-body">
+                  <div class="faq-item-content">
+                    <p class="faq-answer-text">{item.a}</p>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-
-          {/* Category 3: Support & Revisions */}
-          <div class="faq-category-item" data-faq-cat="3">
-            <button
-              type="button"
-              class="faq-category-trigger"
-              data-faq-trigger
-              aria-expanded="false"
-            >
-              <div class="trigger-meta-grid">
-                <h3 class="cat-title">Support & Revisions</h3>
-                <p class="cat-subtitle">
-                  Find answers about post-project support, updates, and collaboration.
-                </p>
-              </div>
-              <span class="cat-toggle-icon" aria-hidden="true">+</span>
-            </button>
-
-            <div class="faq-category-body">
-              <div class="faq-category-content">
-                <div class="qa-pairs-list">
-                  <div class="qa-item">
-                    <div class="qa-question">Do you offer support after project delivery?</div>
-                    <div class="qa-answer">
-                      Yes, we provide post-launch assistance and maintenance to ensure everything runs smoothly after your site or campaign goes live.
-                    </div>
-                  </div>
-
-                  <div class="qa-item">
-                    <div class="qa-question">How many revisions are included?</div>
-                    <div class="qa-answer">
-                      Each project includes up to three rounds of revisions to make sure you're fully satisfied with the final result.
-                    </div>
-                  </div>
-
-                  <div class="qa-item">
-                    <div class="qa-question">How do you handle communication during projects?</div>
-                    <div class="qa-answer">
-                      We stay connected through Slack, WhatsApp, or email, sharing regular progress reports and staging walkthroughs for full transparency.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
 
@@ -390,7 +416,18 @@
   }
 
   .header-copy {
-    max-width: 620px;
+    max-width: 680px;
+  }
+
+  .faq-eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #4f7d18;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
   }
 
   .faq-title {
@@ -588,24 +625,203 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  .qa-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .qa-item {
+      grid-template-columns: 1fr 1.25fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+  }
+
+  .qa-question {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #071415;
+    line-height: 1.4;
+  }
+
+  .qa-answer {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #4a5658;
+  }
+
+  /* ── Flat Items List (Subpages) ───────────────────────────────────────────── */
+  .faq-items-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq-item-row {
+    border-bottom: 1px solid rgba(7, 20, 21, 0.1);
+    transition: background-color 0.2s ease;
+  }
+
+  .faq-item-row:last-child {
+    border-bottom: none;
+  }
+
+  .faq-item-trigger {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2.25rem 1fr 28px;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 2rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
+    .faq-item-trigger {
+      padding: 2.5rem 3rem;
+      gap: 1.75rem;
+    }
+  }
+
+  .faq-item-trigger:hover {
+    background-color: rgba(7, 20, 21, 0.025);
+  }
+
+  .trigger-left {
+    display: contents;
+  }
+
+  .faq-index-number {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #617072;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.2s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-index-number,
+  .faq-item-trigger:hover .faq-index-number {
+    color: #071415;
+  }
+
+  .faq-question-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: clamp(1.18rem, 1.9vw, 1.5rem);
+    font-weight: 700;
+    color: #617072;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+    margin: 0;
+    transition: color 0.2s ease;
+  }
+
+  .faq-item-row.is-expanded .faq-question-text,
+  .faq-item-trigger:hover .faq-question-text {
+    color: #071415;
+  }
+
+  .faq-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: #071415;
+    line-height: 1;
+    user-select: none;
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease;
+    transform-origin: center;
+    justify-self: end;
+  }
+
+  .faq-item-row.is-expanded .faq-toggle-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-item-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-item-row.is-expanded .faq-item-body {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-item-content {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .faq-answer-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #4a5658;
+    margin: 0;
+    padding: 0 1.5rem 2rem calc(1.5rem + 2.25rem + 1.25rem);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 260ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (min-width: 768px) {
+    .faq-answer-text {
+      padding: 0 3rem 2.75rem calc(3rem + 2.25rem + 1.75rem);
+      max-width: 58rem;
+    }
+  }
+
+  .faq-item-row.is-expanded .faq-answer-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 640px) {
+    .faq-item-trigger {
+      grid-template-columns: 1.75rem 1fr 24px;
+      gap: 0.75rem;
+      padding: 1.5rem 1.25rem;
+    }
+
+    .faq-answer-text {
+      padding: 0 1.25rem 1.5rem calc(1.25rem + 1.75rem + 0.75rem);
+      font-size: 0.9rem;
+    }
+  }
 </style>
 
 <script>
   const setupFaqAccordion = () => {
-    const container = document.querySelector("[data-faq-group]");
-    if (!container || container.hasAttribute("data-initialized")) return;
-    container.setAttribute("data-initialized", "true");
+    const sections = document.querySelectorAll<HTMLElement>("[data-faq-section]");
+    sections.forEach((section) => {
+      if (section.hasAttribute("data-faq-initialized")) return;
+      section.setAttribute("data-faq-initialized", "true");
 
-    const items = container.querySelectorAll("[data-faq-cat]");
+      const groups = section.querySelectorAll("[data-faq-group]");
+      groups.forEach((group) => {
+        const items = group.querySelectorAll("[data-faq-item], [data-faq-cat]");
 
-    items.forEach((item) => {
-      const trigger = item.querySelector("[data-faq-trigger]");
+        items.forEach((item) => {
+          const trigger = item.querySelector("[data-faq-trigger]");
 
-      trigger?.addEventListener("click", (e) => {
-        e.preventDefault();
-        const isCurrentlyExpanded = item.classList.contains("is-expanded");
-        item.classList.toggle("is-expanded", !isCurrentlyExpanded);
-        trigger.setAttribute("aria-expanded", String(!isCurrentlyExpanded));
+          trigger?.addEventListener("click", (e) => {
+            e.preventDefault();
+            const isCurrentlyExpanded = item.classList.contains("is-expanded");
+            item.classList.toggle("is-expanded", !isCurrentlyExpanded);
+            trigger.setAttribute("aria-expanded", String(!isCurrentlyExpanded));
+          });
+        });
       });
     });
   };

@@ -11,6 +11,7 @@
  * 6. Monumental Bottom CTA Banner leading to /contact.
  */
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import FaqAccordionSection from "../../components/sections/FaqAccordionSection.astro";
 import { services, serviceCategories } from "../../data/services";
 
 // Filter categories for the interactive discipline bar
@@ -522,75 +523,17 @@ const toolsFaqs = [
     </section>
 
     {/* ═══════════════════════════════════════════════════════════════════════ */}
-    {/* 5. TOOLING FAQ ACCORDION (Light Canvas #f8f5ec)                        */}
+    {/* 5. TOOLING FAQ ACCORDION (Light Canvas)                                 */}
     {/* ═══════════════════════════════════════════════════════════════════════ */}
-    <section class="tools-faq-section" aria-label="Tools FAQ">
-      <div class="tools-container">
-        {/* Top Corner Crosshairs */}
-        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
-        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
-
-        <div class="band-row">
-          {/* Left Rail */}
-          <aside class="band-rail rail-light">
-            <div class="rail-tag rail-tag--dark">
-              Capability FAQ
-            </div>
-
-            <div class="rail-pill">
-              Frequently Asked
-            </div>
-
-            <div class="tools-meta-note">
-              <span class="meta-label">TECHNICAL CLARITY</span>
-              <span class="meta-val">Full Answers</span>
-              <span class="meta-desc">Details regarding tool combinations, migrations, and ownership.</span>
-            </div>
-          </aside>
-
-          {/* Right Main Column */}
-          <div class="band-main main-light">
-            <div class="faq-header-wrap">
-              <span class="faq-eyebrow">04 · CLARITY & SPECIFICATIONS</span>
-              <h2 class="faq-title">Common Questions About Our Capabilities</h2>
-              <p class="faq-desc">
-                Everything you need to know about combining tools, stack choices, and codebase integration.
-              </p>
-            </div>
-
-            {/* Interactive FAQ Accordion */}
-            <div class="tools-faq-accordion" data-faq-group>
-              {toolsFaqs.map((faq, idx) => (
-                <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
-                  <button
-                    type="button"
-                    class="faq-item-trigger"
-                    data-faq-trigger
-                    aria-expanded={idx === 0 ? "true" : "false"}
-                  >
-                    <div class="trigger-left">
-                      <span class="faq-index-number">0{idx + 1}</span>
-                      <h3 class="faq-question-text">{faq.q}</h3>
-                    </div>
-                    <span class="faq-toggle-icon" aria-hidden="true">+</span>
-                  </button>
-
-                  <div class="faq-item-body">
-                    <div class="faq-item-content">
-                      <p class="faq-answer-text">{faq.a}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Corner Crosshairs */}
-        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
-        <span class="grid-cross cross--br" aria-hidden="true">+</span>
-      </div>
-    </section>
+    <FaqAccordionSection
+      tag="Capability FAQ"
+      eyebrow="04 · CLARITY & SPECIFICATIONS"
+      title="Common Questions About Our Capabilities"
+      description="Everything you need to know about combining tools, stack choices, and codebase integration."
+      ctaText="Book a Call"
+      ctaHref="/contact"
+      items={toolsFaqs}
+    />
   </main>
 </BaseLayout>
 
@@ -1678,191 +1621,7 @@ const toolsFaqs = [
     margin: 0;
   }
 
-  /* ── 5. FAQ Section (Light Canvas) ────────────────────────────────────────── */
-  .tools-faq-section {
-    position: relative;
-    background-color: #f4efe4;
-    color: #111113;
-    padding: 2rem 1rem 3rem 1rem;
-  }
 
-  @media (min-width: 640px) {
-    .tools-faq-section {
-      padding: 3rem 1.5rem 4rem 1.5rem;
-    }
-  }
-
-  .tools-faq-section .tools-container {
-    background: #faf9f5;
-    border-color: rgba(7, 20, 21, 0.08);
-  }
-
-  .tools-faq-section .grid-cross { color: rgba(7, 20, 21, 0.25); }
-
-  .faq-header-wrap {
-    max-width: 52rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .faq-eyebrow {
-    display: inline-block;
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    color: #4f7d18;
-    margin-bottom: 0.85rem;
-  }
-
-  .faq-title {
-    font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: #111113;
-    margin-bottom: 1rem;
-  }
-
-  .faq-desc {
-    font-family: var(--font-body, "Inter", sans-serif);
-    font-size: 1.02rem;
-    line-height: 1.6;
-    color: #475569;
-  }
-
-  /* FAQ Accordion */
-  .tools-faq-accordion {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid rgba(17, 17, 19, 0.1);
-  }
-
-  .faq-item-row {
-    border-bottom: 1px solid rgba(17, 17, 19, 0.1);
-    transition: background 0.2s ease;
-  }
-
-  .faq-item-trigger {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 2.25rem 1fr 24px;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 1.35rem 0;
-    background: transparent;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    transition: color 180ms ease;
-  }
-
-  .trigger-left {
-    display: contents;
-  }
-
-  .faq-index-number {
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #4f7d18;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .faq-question-text {
-    font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: 1.08rem;
-    font-weight: 600;
-    color: #111113;
-    line-height: 1.4;
-    margin: 0;
-    transition: color 180ms ease;
-  }
-
-  .faq-item-trigger:hover .faq-question-text {
-    color: #4f7d18;
-  }
-
-  .faq-toggle-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 1.35rem;
-    font-weight: 400;
-    line-height: 1;
-    color: #71717a;
-    justify-self: end;
-    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease;
-    transform-origin: center;
-    user-select: none;
-  }
-
-  .faq-item-row.is-expanded .faq-toggle-icon {
-    color: #4f7d18;
-    transform: rotate(45deg);
-  }
-
-  .faq-item-body {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 280ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .faq-item-row.is-expanded .faq-item-body {
-    grid-template-rows: 1fr;
-  }
-
-  .faq-item-content {
-    display: grid;
-    grid-template-columns: 2.25rem 1fr 24px;
-    gap: 0.75rem;
-    overflow: hidden;
-    min-height: 0;
-  }
-
-  .faq-answer-text {
-    grid-column: 2;
-    font-family: var(--font-body, "Inter", sans-serif);
-    font-size: 0.92rem;
-    line-height: 1.7;
-    color: #52525b;
-    padding-bottom: 1.5rem;
-    max-width: 52rem;
-    margin: 0;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity 260ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .faq-item-row.is-expanded .faq-answer-text {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 640px) {
-    .faq-item-trigger {
-      grid-template-columns: 1.75rem 1fr 20px;
-      gap: 0.5rem;
-      padding: 1.15rem 0;
-    }
-
-    .faq-item-content {
-      grid-template-columns: 1.75rem 1fr 20px;
-      gap: 0.5rem;
-    }
-
-    .faq-question-text {
-      font-size: 1rem;
-    }
-
-    .faq-answer-text {
-      font-size: 0.88rem;
-      padding-bottom: 1.25rem;
-    }
-  }
 
   /* ── Clonix CTA Button ───────────────────────────────────────────────────── */
   .clonix-cta-button {
@@ -1940,23 +1699,6 @@ const toolsFaqs = [
               (card as HTMLElement).style.display = "none";
             }
           });
-        });
-      });
-    }
-
-    // 2. FAQ Accordion Handler
-    const group = document.querySelector("[data-faq-group]");
-    if (group && !group.hasAttribute("data-faq-initialized")) {
-      group.setAttribute("data-faq-initialized", "true");
-
-      const items = group.querySelectorAll("[data-faq-item]");
-      items.forEach((item) => {
-        const trigger = item.querySelector("[data-faq-trigger]");
-
-        trigger?.addEventListener("click", () => {
-          const isExpanded = item.classList.contains("is-expanded");
-          item.classList.toggle("is-expanded", !isExpanded);
-          trigger.setAttribute("aria-expanded", String(!isExpanded));
         });
       });
     }

@@ -10,6 +10,7 @@
  * 5. Prospective Client FAQ Accordion.
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
+import FaqAccordionSection from "../components/sections/FaqAccordionSection.astro";
 
 // Available services for interactive intake matrix
 const serviceOptions = [
@@ -692,64 +693,15 @@ const clientFaqs = [
     {/* ═══════════════════════════════════════════════════════════════════════ */}
     {/* 5. PROSPECTIVE CLIENT FAQS (Light Architectural Accordion)             */}
     {/* ═══════════════════════════════════════════════════════════════════════ */}
-    <section class="contact-faq-section" aria-label="Frequently Asked Questions for Inquiries">
-      <div class="contact-container container-light">
-        {/* Corner Crosshairs */}
-        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
-        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
-
-        <div class="band-row faq-row">
-          {/* Left Rail */}
-          <aside class="band-rail rail-light">
-            <div class="rail-tag">
-              Inquiries FAQ
-            </div>
-            <div class="rail-pill">
-              Clear Answers
-            </div>
-          </aside>
-
-          {/* Right Main Column */}
-          <div class="band-main main-light">
-            <div class="faq-header-wrap">
-              <h2 class="faq-section-title">Common Questions Before Reaching Out</h2>
-              <p class="faq-section-desc">
-                Everything you need to know about our availability, pricing models, and how we collaborate.
-              </p>
-            </div>
-
-            <div class="client-faq-accordion" data-faq-group>
-              {clientFaqs.map((faq, idx) => (
-                <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
-                  <button
-                    type="button"
-                    class="faq-item-trigger"
-                    data-faq-trigger
-                    aria-expanded={idx === 0 ? "true" : "false"}
-                  >
-                    <div class="trigger-left">
-                      <span class="faq-index-number">0{idx + 1}</span>
-                      <h3 class="faq-question-text">{faq.q}</h3>
-                    </div>
-                    <span class="faq-toggle-icon" aria-hidden="true">+</span>
-                  </button>
-
-                  <div class="faq-item-body">
-                    <div class="faq-item-content">
-                      <p class="faq-answer-text">{faq.a}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Corner Crosshairs */}
-        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
-        <span class="grid-cross cross--br" aria-hidden="true">+</span>
-      </div>
-    </section>
+    <FaqAccordionSection
+      tag="Inquiries FAQ"
+      eyebrow="05 · DIRECT CLARITY"
+      title="Common Questions Before Reaching Out"
+      description="Everything you need to know about our availability, pricing models, and how we collaborate."
+      ctaText="Start Inquiry"
+      ctaHref="#inquiry-form"
+      items={clientFaqs}
+    />
   </main>
 </BaseLayout>
 
@@ -1992,160 +1944,7 @@ const clientFaqs = [
     margin: 0;
   }
 
-  /* ═══════════════════════════════════════════════════════════════════════════
-     5. FAQ ACCORDION STYLES
-     ═══════════════════════════════════════════════════════════════════════════ */
-  .contact-faq-section {
-    position: relative;
-    background-color: #f8f5ec;
-    padding: 0 1rem 3rem 1rem;
-  }
 
-  @media (min-width: 640px) {
-    .contact-faq-section {
-      padding: 0 1.5rem 4rem 1.5rem;
-    }
-  }
-
-  .faq-header-wrap {
-    margin-bottom: 2rem;
-  }
-
-  .faq-section-title {
-    font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: clamp(1.75rem, 3vw, 2.4rem);
-    font-weight: 600;
-    color: #111113;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-  }
-
-  .faq-section-desc {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #52525b;
-  }
-
-  .client-faq-accordion {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid rgba(17, 17, 19, 0.1);
-  }
-
-  .faq-item-row {
-    border-bottom: 1px solid rgba(17, 17, 19, 0.1);
-  }
-
-  .faq-item-trigger {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 2.25rem 1fr 24px;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 1.35rem 0;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    transition: color 180ms ease;
-  }
-
-  .trigger-left {
-    display: contents;
-  }
-
-  .faq-index-number {
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #4f7d18;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .faq-question-text {
-    font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: 1.08rem;
-    font-weight: 600;
-    color: #111113;
-    margin: 0;
-    line-height: 1.4;
-    transition: color 180ms ease;
-  }
-
-  .faq-item-trigger:hover .faq-question-text {
-    color: #4f7d18;
-  }
-
-  .faq-toggle-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 1.35rem;
-    font-weight: 400;
-    color: #71717a;
-    line-height: 1;
-    justify-self: end;
-    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease;
-    transform-origin: center;
-    user-select: none;
-  }
-
-  .faq-item-row.is-expanded .faq-toggle-icon {
-    color: #4f7d18;
-    transform: rotate(45deg);
-  }
-
-  .faq-item-body {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 280ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .faq-item-row.is-expanded .faq-item-body {
-    grid-template-rows: 1fr;
-  }
-
-  .faq-item-content {
-    display: grid;
-    grid-template-columns: 2.25rem 1fr 24px;
-    gap: 0.75rem;
-    overflow: hidden;
-    min-height: 0;
-  }
-
-  .faq-answer-text {
-    grid-column: 2;
-    font-size: 0.92rem;
-    line-height: 1.7;
-    color: #52525b;
-    margin: 0;
-    padding-bottom: 1.5rem;
-    max-width: 52rem;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity 260ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .faq-item-row.is-expanded .faq-answer-text {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 640px) {
-    .faq-item-trigger {
-      grid-template-columns: 1.75rem 1fr 20px;
-      gap: 0.5rem;
-      padding: 1.15rem 0;
-    }
-
-    .faq-item-content {
-      grid-template-columns: 1.75rem 1fr 20px;
-      gap: 0.5rem;
-    }
-  }
 </style>
 
 <script>
@@ -2304,21 +2103,6 @@ ${notes}`;
         alertBanner.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     });
-
-    // 8. FAQ Accordion Handler
-    const faqContainer = document.querySelector("[data-faq-group]");
-    if (faqContainer && !faqContainer.hasAttribute("data-faq-initialized")) {
-      faqContainer.setAttribute("data-faq-initialized", "true");
-      const faqRows = faqContainer.querySelectorAll(".faq-item-row");
-      faqRows.forEach((row) => {
-        const trigger = row.querySelector("[data-faq-trigger]");
-        trigger?.addEventListener("click", () => {
-          const isCurrentlyExpanded = row.classList.contains("is-expanded");
-          row.classList.toggle("is-expanded", !isCurrentlyExpanded);
-          trigger.setAttribute("aria-expanded", String(!isCurrentlyExpanded));
-        });
-      });
-    }
 
     // Cleanup interval on page unload (for ClientRouter)
     document.addEventListener(

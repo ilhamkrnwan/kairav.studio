@@ -10,6 +10,7 @@
  * 5. Architectural Quality & Delivery Guarantees strip.
  */
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import FaqAccordionSection from "../../components/sections/FaqAccordionSection.astro";
 import { projects } from "../../data/projects";
 
 // Enhanced project metadata with visual banners and impact metrics
@@ -565,75 +566,17 @@ const worksFaqs = [
     </section>
 
     {/* ═══════════════════════════════════════════════════════════════════════ */}
-    {/* 6. WORKS & CASE STUDIES FAQ ACCORDION (Light Canvas #f8f5ec)           */}
+    {/* 6. WORKS & CASE STUDIES FAQ ACCORDION (Light Canvas)                   */}
     {/* ═══════════════════════════════════════════════════════════════════════ */}
-    <section class="works-faq-section" aria-label="Works and Delivery FAQ">
-      <div class="works-container container-light">
-        {/* Top Corner Crosshairs */}
-        <span class="grid-cross cross--tl" aria-hidden="true">+</span>
-        <span class="grid-cross cross--tr" aria-hidden="true">+</span>
-
-        <div class="band-row">
-          {/* Left Rail */}
-          <aside class="band-rail rail-light">
-            <div class="rail-tag rail-tag--dark">
-              Project FAQ
-            </div>
-
-            <div class="rail-pill">
-              Answers & Clarifications
-            </div>
-
-            <div class="works-meta-note">
-              <span class="meta-label">ENGAGEMENT TRANSPARENCY</span>
-              <span class="meta-val">Full Openness</span>
-              <span class="meta-desc">Clear communication regarding contracts, intellectual property, and delivery.</span>
-            </div>
-          </aside>
-
-          {/* Right Main Column */}
-          <div class="band-main main-light">
-            <div class="faq-header-wrap">
-              <span class="faq-eyebrow">06 · CLARITY & COLLABORATION</span>
-              <h2 class="faq-title">Frequently Asked Questions About Our Work</h2>
-              <p class="faq-desc">
-                Everything you need to know about working with Kairav Studio on custom engineering builds and retainers.
-              </p>
-            </div>
-
-            {/* Interactive FAQ Accordion */}
-            <div class="works-faq-accordion" data-faq-group>
-              {worksFaqs.map((faq, idx) => (
-                <div class={`faq-item-row ${idx === 0 ? "is-expanded" : ""}`} data-faq-item={idx}>
-                  <button
-                    type="button"
-                    class="faq-item-trigger"
-                    data-faq-trigger
-                    aria-expanded={idx === 0 ? "true" : "false"}
-                  >
-                    <div class="trigger-left">
-                      <span class="faq-index-number">0{idx + 1}</span>
-                      <h3 class="faq-question-text">{faq.q}</h3>
-                    </div>
-                    <span class="faq-toggle-icon" aria-hidden="true">+</span>
-                  </button>
-
-                  <div class="faq-item-body">
-                    <div class="faq-item-content">
-                      <p class="faq-answer-text">{faq.a}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Corner Crosshairs */}
-        <span class="grid-cross cross--bl" aria-hidden="true">+</span>
-        <span class="grid-cross cross--br" aria-hidden="true">+</span>
-      </div>
-    </section>
+    <FaqAccordionSection
+      tag="Project FAQ"
+      eyebrow="06 · CLARITY & COLLABORATION"
+      title="Frequently Asked Questions About Our Work"
+      description="Everything you need to know about working with Kairav Studio on custom engineering builds and retainers."
+      ctaText="Book a Call"
+      ctaHref="/contact"
+      items={worksFaqs}
+    />
   </main>
 </BaseLayout>
 
@@ -1724,208 +1667,6 @@ const worksFaqs = [
     color: #4a5658;
     margin: 0;
   }
-  /* ── 6. Works FAQ Section (Light Canvas) ─────────────────────────────────── */
-  .works-faq-section {
-    position: relative;
-    background-color: #f4efe4;
-    color: #111113;
-    padding: 2rem 1rem 3rem 1rem;
-  }
-
-  @media (min-width: 640px) {
-    .works-faq-section {
-      padding: 3rem 1.5rem 4rem 1.5rem;
-    }
-  }
-
-  .works-faq-section .works-container {
-    background: #faf9f5;
-    border-color: rgba(7, 20, 21, 0.08);
-  }
-
-  .works-faq-section .grid-cross {
-    color: rgba(7, 20, 21, 0.25);
-  }
-
-  .works-faq-section .band-rail {
-    background: #f4efe4;
-  }
-
-  .works-faq-section .band-main {
-    background-color: #faf9f5;
-    padding: 2rem 1.5rem;
-  }
-
-  @media (min-width: 900px) {
-    .works-faq-section .band-main {
-      padding: 3.5rem 3rem;
-    }
-  }
-
-  .faq-header-wrap {
-    max-width: 52rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .faq-eyebrow {
-    display: inline-block;
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    color: #4f7d18;
-    margin-bottom: 0.85rem;
-  }
-
-  .faq-title {
-    font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: #111113;
-    margin-bottom: 1rem;
-  }
-
-  .faq-desc {
-    font-family: var(--font-body, "Inter", sans-serif);
-    font-size: 1.02rem;
-    line-height: 1.6;
-    color: #475569;
-  }
-
-  /* FAQ Accordion */
-  .works-faq-accordion {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid rgba(17, 17, 19, 0.1);
-  }
-
-  .faq-item-row {
-    border-bottom: 1px solid rgba(17, 17, 19, 0.1);
-    transition: background 0.2s ease;
-  }
-
-  .faq-item-trigger {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 2.25rem 1fr 24px;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 1.35rem 0;
-    background: transparent;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    transition: color 180ms ease;
-  }
-
-  .trigger-left {
-    display: contents;
-  }
-
-  .faq-index-number {
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #4f7d18;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .faq-question-text {
-    font-family: var(--font-heading, "Space Grotesk", sans-serif);
-    font-size: 1.08rem;
-    font-weight: 600;
-    color: #111113;
-    line-height: 1.4;
-    margin: 0;
-    transition: color 180ms ease;
-  }
-
-  .faq-item-trigger:hover .faq-question-text {
-    color: #4f7d18;
-  }
-
-  .faq-toggle-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
-    font-size: 1.35rem;
-    font-weight: 400;
-    line-height: 1;
-    color: #71717a;
-    justify-self: end;
-    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease;
-    transform-origin: center;
-    user-select: none;
-  }
-
-  .faq-item-row.is-expanded .faq-toggle-icon {
-    color: #4f7d18;
-    transform: rotate(45deg);
-  }
-
-  .faq-item-body {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 280ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .faq-item-row.is-expanded .faq-item-body {
-    grid-template-rows: 1fr;
-  }
-
-  .faq-item-content {
-    display: grid;
-    grid-template-columns: 2.25rem 1fr 24px;
-    gap: 0.75rem;
-    overflow: hidden;
-    min-height: 0;
-  }
-
-  .faq-answer-text {
-    grid-column: 2;
-    font-family: var(--font-body, "Inter", sans-serif);
-    font-size: 0.92rem;
-    line-height: 1.7;
-    color: #52525b;
-    padding-bottom: 1.5rem;
-    max-width: 52rem;
-    margin: 0;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: opacity 260ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .faq-item-row.is-expanded .faq-answer-text {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 640px) {
-    .faq-item-trigger {
-      grid-template-columns: 1.75rem 1fr 20px;
-      gap: 0.5rem;
-      padding: 1.15rem 0;
-    }
-
-    .faq-item-content {
-      grid-template-columns: 1.75rem 1fr 20px;
-      gap: 0.5rem;
-    }
-
-    .faq-question-text {
-      font-size: 1rem;
-    }
-
-    .faq-answer-text {
-      font-size: 0.88rem;
-      padding-bottom: 1.25rem;
-    }
-  }
 </style>
 
 <script>
@@ -1966,26 +1707,8 @@ const worksFaqs = [
     });
   };
 
-  const setupWorksFaq = () => {
-    const group = document.querySelector("[data-faq-group]");
-    if (!group || group.hasAttribute("data-faq-initialized")) return;
-    group.setAttribute("data-faq-initialized", "true");
-
-    const items = group.querySelectorAll("[data-faq-item]");
-    items.forEach((item) => {
-      const trigger = item.querySelector("[data-faq-trigger]");
-
-      trigger?.addEventListener("click", () => {
-        const isExpanded = item.classList.contains("is-expanded");
-        item.classList.toggle("is-expanded", !isExpanded);
-        trigger.setAttribute("aria-expanded", String(!isExpanded));
-      });
-    });
-  };
-
   const initWorksPage = () => {
     setupWorksFilter();
-    setupWorksFaq();
   };
 
   document.addEventListener("DOMContentLoaded", initWorksPage);
